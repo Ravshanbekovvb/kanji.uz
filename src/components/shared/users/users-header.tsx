@@ -17,7 +17,7 @@ import {
 	SelectValue,
 } from '@/components/ui/select'
 import { FormEvent, useState } from 'react'
-import { Loader } from '../loader/loader'
+import { Loader } from '../loader'
 export const UsersHeader: React.FC = () => {
 	const [isLoading, setIsloading] = useState<boolean>(false)
 	const createUserFn = (e: FormEvent<HTMLFormElement>) => {
@@ -30,11 +30,11 @@ export const UsersHeader: React.FC = () => {
 		} catch (error) {}
 	}
 	return (
-		<div className='flex h-[35px] justify-between'>
+		<div className='flex justify-between'>
 			<h2 className='mb-4 text-4xl font-semibold'>Users</h2>
 			<Dialog>
 				<DialogTrigger asChild>
-					<Button>Create User</Button>
+					<Button className='cursor-pointer'>Create User</Button>
 				</DialogTrigger>
 				<DialogContent>
 					<DialogHeader>
@@ -89,7 +89,7 @@ export const UsersHeader: React.FC = () => {
 							</div>
 						</div>
 
-						<div className='flex justify-end pt-4'>
+						<div className='flex justify-start pt-4'>
 							{isLoading ? <Loader variant='default' /> : <Button type='submit'>Create</Button>}
 						</div>
 					</form>

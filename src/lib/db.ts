@@ -8,15 +8,9 @@ export const navbarMenus: NavbarMenuType[] = [
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Docs',
+		title: 'My Words',
 		link: '/my-docs',
 	},
-
-	// {
-	// 	icon: 'textFromImage',
-	// 	title: 'Text from image',
-	// 	link: '/text-from-image',
-	// },
 	{
 		icon: 'settings',
 		title: 'Settings',
