@@ -35,7 +35,7 @@ model Token {
   user   User   @relation("user_tokens", fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique @map("user_id")
 
-  @@map("token")
+  @@map("tokens")
 }
 
 model Word {
