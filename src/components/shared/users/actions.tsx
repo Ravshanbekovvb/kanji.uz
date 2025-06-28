@@ -7,48 +7,51 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useDeleteUser } from '@/hooks/useUsers'
-import { Edit, EllipsisVertical, Eye, Trash2 } from 'lucide-react'
-import Link from 'next/link'
+import { User } from '@/lib'
+import { Edit, EllipsisVertical, Trash2 } from 'lucide-react'
 import { DeleteDialog } from '../delete-dialog'
+import { EditUserDialog } from './edit-user-dialog'
 
 interface Props {
-	email: string
+	row: User
 }
 
-export const Actions: React.FC<Props> = ({ email }) => {
+export const Actions: React.FC<Props> = ({ row }) => {
 	const { mutate: deleteUser, isPending } = useDeleteUser()
+	console.log(row)
 
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
-				<Button variant='ghost' className='h-8 w-8 p-0'>
-					<span className='sr-only'>Open menu</span>
+				<Button variant='ghost' className='hover:bg-gray-100'>
 					<EllipsisVertical className='h-4 w-4' />
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end'>
-				<DropdownMenuItem className='cursor-pointer w-full'>
-					<Link href='users' className='flex items-center gap-2 text-black'>
-						<Eye color='black' />
-						VIEW
-					</Link>
-				</DropdownMenuItem>
-				<DropdownMenuItem asChild>
-					<Link href='' className='flex items-center gap-2 text-black'>
-						<Edit color='black' />
-						EDIT
-					</Link>
-				</DropdownMenuItem>
+				<EditUserDialog
+					currentData={row}
+					trigger={
+						<DropdownMenuItem
+							className='cursor-pointer flex items-center gap-2'
+							onSelect={e => e.preventDefault()}
+						>
+							<Edit color='black' />
+							EDIT
+						</DropdownMenuItem>
+					}
+				></EditUserDialog>
+
 				<DeleteDialog
 					isPending={isPending}
 					deleteItemFn={deleteUser}
-					itemId={email}
+					itemId={row.email}
 					dialogTrigger={
-						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()} asChild>
-							<div className='flex items-center gap-2 text-red-500'>
-								<Trash2 color='red' />
-								DELETE
-							</div>
+						<DropdownMenuItem
+							className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
+							onSelect={e => e.preventDefault()}
+						>
+							<Trash2 color='red' />
+							DELETE
 						</DropdownMenuItem>
 					}
 				/>

@@ -1,4 +1,6 @@
+import { CreateUserRequestType, CreateUserWithRepeatPasswordRequestType } from '@/types/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { toast } from 'sonner'
 
 export function useUsers(isEnabled: boolean) {
 	const { isPending, error, data } = useQuery({
@@ -26,33 +28,61 @@ export function useDeleteUser() {
 	})
 }
 
-interface CreateUserInput {
-	email: string
-	name: string
-	password: string
-}
-
 export function useCreateUser() {
 	const queryClient = useQueryClient()
 
 	return useMutation({
 		mutationKey: ['users', 'create'],
-		mutationFn: async (data: CreateUserInput) => {
-			const res = await fetch(`/api/users/create`, {
+		mutationFn: async (data: CreateUserWithRepeatPasswordRequestType) => {
+			const res = await fetch(`/api/auth/register`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify(data),
 			})
-			if (!res.ok) throw new Error('Failed to create user')
-			return res.json()
+			const responseData = await res.json()
+
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
+
+			return responseData
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['Users'] })
 		},
-		onError: error => {
-			console.error('User creation failed:', error)
+		onError: (error: any) => {
+			toast.error(error.message)
+		},
+	})
+}
+export function useEditUser(email: string) {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['users', 'edit'],
+		mutationFn: async (data: CreateUserRequestType) => {
+			const res = await fetch(`/api/users/update/${email}`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+			const responseData = await res.json()
+
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
+
+			return responseData
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['Users'] })
+		},
+		onError: (error: any) => {
+			toast.error(error.message)
 		},
 	})
 }
