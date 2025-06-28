@@ -138,13 +138,19 @@ exports.Prisma.TokenScalarFieldEnum = {
   userId: 'userId'
 };
 
+exports.Prisma.LessonScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId'
+};
+
 exports.Prisma.WordScalarFieldEnum = {
   id: 'id',
   kanji: 'kanji',
   translation: 'translation',
   transcription: 'transcription',
   example: 'example',
-  jlptLevel: 'jlptLevel'
+  jlptLevel: 'jlptLevel',
+  lessonId: 'lessonId'
 };
 
 exports.Prisma.SortOrder = {
@@ -178,6 +184,7 @@ exports.UserLang = exports.$Enums.UserLang = {
 exports.Prisma.ModelName = {
   User: 'User',
   Token: 'Token',
+  Lesson: 'Lesson',
   Word: 'Word'
 };
 
