@@ -16,21 +16,36 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import { useCreateUser } from '@/hooks/useUsers'
 import { FormEvent, useState } from 'react'
 import { Loader } from '../loader'
 export const UsersHeader: React.FC = () => {
 	const [isLoading, setIsloading] = useState<boolean>(false)
+	const { isPending, isSuccess, mutate: createUser } = useCreateUser()
 	const createUserFn = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		setIsloading(true)
-		setTimeout(() => {
-			setIsloading(false)
-		}, 2000)
+
+		const formData = new FormData(e.currentTarget)
+
+		const data = {
+			email: String(formData.get('email')),
+			name: String(formData.get('name')),
+			password: String(formData.get('password')),
+		}
+
+		console.log(data)
+
 		try {
-		} catch (error) {}
+			createUser(data)
+		} catch (error) {
+			console.error(error)
+		} finally {
+			setIsloading(false)
+		}
 	}
 	return (
-		<div className='flex justify-between'>
+		<div className='flex justify-between items-center'>
 			<h2 className='mb-4 text-4xl font-semibold'>Users</h2>
 			<Dialog>
 				<DialogTrigger asChild>
@@ -47,23 +62,23 @@ export const UsersHeader: React.FC = () => {
 						<div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-4'>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Name</label>
-								<Input placeholder='Enter name' />
+								<Input placeholder='Enter name' name='name' required />
 							</div>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Email</label>
-								<Input placeholder='Enter email' type='email' />
+								<Input placeholder='Enter email' type='email' name='email' required />
 							</div>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Password</label>
-								<Input placeholder='Enter password' type='password' />
+								<Input placeholder='Enter password' type='password' name='password' required />
 							</div>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Repeat Password</label>
-								<Input placeholder='Repeat password' type='password' />
+								<Input placeholder='Repeat password' type='password' name='reapetpassword' />
 							</div>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Gender</label>
-								<Select>
+								<Select name='gender'>
 									<SelectTrigger className='w-full'>
 										<SelectValue placeholder='Select gender' />
 									</SelectTrigger>
@@ -75,7 +90,7 @@ export const UsersHeader: React.FC = () => {
 							</div>
 							<div className='space-y-1'>
 								<label className='text-sm font-medium'>Role</label>
-								<Select>
+								<Select name='role'>
 									<SelectTrigger className='w-full'>
 										<SelectValue placeholder='Select role' />
 									</SelectTrigger>
