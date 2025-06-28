@@ -1,41 +1,24 @@
-import { prisma } from '@/lib'
-import { ApiResponse } from '@/lib/api-response'
+import { apiResponse, apiResponseError, userService } from '@/lib'
+import { ApiResponseType } from '@/types/types'
+import { NextResponse } from 'next/server'
 
-export async function DELETE(request: Request, { params }: { params: Promise<{ email: string }> }) {
+export async function DELETE(
+	request: Request,
+	{ params }: { params: Promise<{ email: string }> }
+): Promise<NextResponse<ApiResponseType>> {
 	const { email } = await params
 
 	try {
-		const existingUser = await prisma.user.findUnique({
-			where: {
-				email,
-			},
-		})
+		const deletedUser = await userService.deleteByEmail(email)
 
-		if (!existingUser)
-			return ApiResponse({
-				success: true,
-				message: `There is no user with this: ${email}`,
-				data: null,
-			})
+		const { createdAt, password, updatedAt, ...safeUser } = deletedUser
 
-		const deletedUser = await prisma.user.delete({
-			where: {
-				email,
-			},
-		})
-
-		const { createdAt, updatedAt, password: _, ...safeUser } = deletedUser
-
-		return ApiResponse({
+		return apiResponse({
 			success: true,
-			message: 'User successfully deleted from database',
+			message: 'User deleted successfully',
 			data: safeUser,
 		})
 	} catch (error) {
-		return ApiResponse({
-			success: false,
-			message: 'Something went wrong in server',
-			data: null,
-		})
+		return apiResponseError(error)
 	}
 }

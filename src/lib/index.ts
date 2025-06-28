@@ -1,4 +1,6 @@
 export * from './api-response'
+export * from './api-response-error'
 export * from './db'
 export * from './prisma'
+export * from './user.service'
 export * from './utils'

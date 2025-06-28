@@ -125,6 +125,8 @@ exports.Prisma.UserScalarFieldEnum = {
   email: 'email',
   userName: 'userName',
   password: 'password',
+  role: 'role',
+  userLang: 'userLang',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 };
@@ -134,6 +136,15 @@ exports.Prisma.TokenScalarFieldEnum = {
   refreshToken: 'refreshToken',
   accessToken: 'accessToken',
   userId: 'userId'
+};
+
+exports.Prisma.WordScalarFieldEnum = {
+  id: 'id',
+  kanji: 'kanji',
+  translation: 'translation',
+  transcription: 'transcription',
+  example: 'example',
+  jlptLevel: 'jlptLevel'
 };
 
 exports.Prisma.SortOrder = {
@@ -150,11 +161,24 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.UserRole = exports.$Enums.UserRole = {
+  ADMIN: 'ADMIN',
+  STUDENT: 'STUDENT',
+  TEACHER: 'TEACHER',
+  USER: 'USER'
+};
 
+exports.UserLang = exports.$Enums.UserLang = {
+  UZ: 'UZ',
+  RU: 'RU',
+  JA: 'JA',
+  EN: 'EN'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
-  Token: 'Token'
+  Token: 'Token',
+  Word: 'Word'
 };
 
 /**

@@ -1,31 +1,22 @@
-import { prisma } from '@/lib'
-import { ApiResponse } from '@/lib/api-response'
+import { apiResponse, apiResponseError, userService } from '@/lib'
+import { ApiResponseType } from '@/types/types'
+import { NextResponse } from 'next/server'
 
-export async function GET() {
+export async function GET(): Promise<NextResponse<ApiResponseType>> {
 	try {
-		const existingUser = await prisma.user.findMany()
+		const foundedUser = await userService.findAll()
 
-		if (!existingUser || existingUser.length === 0)
-			return ApiResponse({
-				success: false,
-				message: 'There are no users in database',
-				data: null,
-			})
+		const safeUsers = foundedUser.map(({ createdAt, password, updatedAt, ...safeUser }) => safeUser)
 
-		const safeUsers = existingUser.map(
-			({ createdAt, password, updatedAt, ...safeUser }) => safeUser
+		return apiResponse(
+			{
+				success: true,
+				message: 'Users returned successfully from database',
+				data: safeUsers,
+			},
+			{ status: 200 }
 		)
-
-		return ApiResponse({
-			success: true,
-			message: 'Users successfully returned from database',
-			data: safeUsers,
-		})
 	} catch (error) {
-		return ApiResponse({
-			success: false,
-			message: 'Something went wrong in server',
-			data: null,
-		})
+		return apiResponseError(error)
 	}
 }
