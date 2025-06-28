@@ -6,7 +6,10 @@
 		"dev": "next dev --turbopack",
 		"build": "next build",
 		"start": "next start",
-		"lint": "next lint"
+		"lint": "next lint",
+		"prisma:push": "prisma db push && prisma db seed",
+		"prisma:studio": "prisma db studio",
+		"prisma:generate": "prisma db generate"
 	},
 	"prisma": {
 		"seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
