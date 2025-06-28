@@ -1,3 +1,4 @@
+'use client'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -9,7 +10,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { Trash2 } from 'lucide-react'
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { Loader } from '../loader'
 interface DeleteDialogProps {
 	dialogTrigger: ReactNode
@@ -23,8 +24,9 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 	deleteItemFn,
 	isPending,
 }) => {
+	const [open, setOpen] = useState(false)
 	return (
-		<Dialog>
+		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger>{triger}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
@@ -40,7 +42,13 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 						{isPending ? (
 							<Loader title='Deleting...' variant='destructive' />
 						) : (
-							<Button onClick={() => deleteItemFn(itemId)} variant='destructive'>
+							<Button
+								onClick={() => {
+									deleteItemFn(itemId)
+									setOpen(false)
+								}}
+								variant='destructive'
+							>
 								Yes
 							</Button>
 						)}
