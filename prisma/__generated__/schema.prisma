@@ -15,6 +15,8 @@ model User {
   userName String @map("user_name")
   password String
 
+  lesson Lesson[] @relation("user_lesson")
+
   role     UserRole? @default(USER)
   userLang UserLang? @default(UZ) @map("user_lang")
 
@@ -38,6 +40,17 @@ model Token {
   @@map("tokens")
 }
 
+model Lesson {
+  id String @id @default(uuid())
+
+  words Word[] @relation("words_lesson")
+
+  user   User   @relation("user_lesson", fields: [id], references: [id], onDelete: Cascade)
+  userId String @unique @map("user_id")
+
+  @@map("lessons")
+}
+
 model Word {
   id String @id @default(uuid())
 
@@ -46,6 +59,9 @@ model Word {
   transcription String
   example       String
   jlptLevel     String @map("jlpt_level")
+
+  lesson   Lesson @relation("words_lesson", fields: [id], references: [id], onDelete: Cascade)
+  lessonId String @unique @map("lesson_id")
 
   @@map("words")
 }
