@@ -1,56 +1,24 @@
-import { prisma } from '@/lib'
-import { ApiResponse } from '@/lib/api-response'
+import { apiResponse, apiResponseError, userService } from '@/lib'
+import { ApiResponseType, CreateUserRequestType } from '@/types/types'
+import { NextResponse } from 'next/server'
 
-import * as bcrypt from 'bcrypt'
-
-type Body = {
-	userName: string
-	email: string
-	password: string
-}
-
-export async function PATCH(request: Request) {
-	const { email, password, userName }: Body = await request.json()
+export async function PATCH(
+	request: Request,
+	{ params }: { params: Promise<{ email: string }> }
+): Promise<NextResponse<ApiResponseType>> {
+	const { email } = await params
+	const payload: CreateUserRequestType = await request.json()
 
 	try {
-		const existingUser = await prisma.user.findUnique({
-			where: {
-				email,
-			},
-		})
+		const updatedUser = await userService.update(email, payload)
 
-		if (!existingUser)
-			return ApiResponse({
-				success: false,
-				message: `There is no user with this email: ${email}`,
-				data: null,
-			})
+		const { createdAt, updatedAt, password, tokens, ...safeUser } = updatedUser
 
-		const hashedPass = await bcrypt.hash(password, 10)
-
-		const editedUser = await prisma.user.update({
-			where: {
-				email,
-			},
-			data: {
-				email,
-				userName,
-				password: hashedPass,
-			},
-		})
-
-		const { createdAt, password: _, updatedAt, ...safeUser } = editedUser
-
-		return ApiResponse({
-			success: true,
-			message: 'User edited successfully',
-			data: safeUser,
-		})
+		return apiResponse(
+			{ success: true, message: 'User updated successfully', data: safeUser },
+			{ status: 200 }
+		)
 	} catch (error) {
-		return ApiResponse({
-			success: false,
-			message: 'Something went wrong in server',
-			data: null,
-		})
+		return apiResponseError(error)
 	}
 }
