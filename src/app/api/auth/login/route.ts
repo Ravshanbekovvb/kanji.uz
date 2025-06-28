@@ -1,10 +1,8 @@
 import { apiResponse, apiResponseError, authService } from '@/lib'
 import { ApiResponseType, CreateUserRequestType } from '@/types/types'
-import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponseType>> {
-	const cookie = await cookies()
 	const payload: Pick<CreateUserRequestType, 'email' | 'password'> = await request.json()
 
 	try {
@@ -12,10 +10,20 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponseTy
 
 		const { createdAt, updatedAt, password, tokens, ...safeUser } = registeredUser
 
-		return apiResponse(
-			{ success: true, message: 'User created successfully', data: safeUser },
+		const response = apiResponse(
+			{ success: true, message: 'User logged successfully', data: safeUser },
 			{ status: 200 }
 		)
+
+		response.cookies.set('accessToken', tokens?.accessToken!, {
+			httpOnly: true,
+			secure: process.env.NODE_ENV === 'production',
+			path: '/',
+			maxAge: 60 * 60 * 24,
+			sameSite: 'lax',
+		})
+
+		return response
 	} catch (error) {
 		return apiResponseError(error)
 	}

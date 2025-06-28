@@ -1,9 +1,9 @@
 import { apiResponse, apiResponseError, authService } from '@/lib'
-import { ApiResponseType, CreateUserRequest } from '@/types/types'
+import { ApiResponseType, CreateUserWithRepeatPasswordRequestType } from '@/types/types'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponseType>> {
-	const payload: CreateUserRequest = await request.json()
+	const payload: CreateUserWithRepeatPasswordRequestType = await request.json()
 
 	try {
 		const registeredUser = await authService.register(payload)
