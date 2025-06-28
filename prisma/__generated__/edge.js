@@ -139,7 +139,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/bekzod/projects/words-pdf-2/prisma/__generated__",
+      "value": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\__generated__",
       "fromEnvVar": null
     },
     "config": {
@@ -148,16 +148,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/bekzod/projects/words-pdf-2/prisma/schema.prisma",
+    "sourceFilePath": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../.env"
   },
   "relativePath": "..",
@@ -167,7 +167,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
