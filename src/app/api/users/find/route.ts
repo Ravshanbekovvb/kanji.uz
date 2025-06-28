@@ -6,7 +6,9 @@ export async function GET(): Promise<NextResponse<ApiResponseType>> {
 	try {
 		const foundedUser = await userService.findAll()
 
-		const safeUsers = foundedUser.map(({ createdAt, password, updatedAt, ...safeUser }) => safeUser)
+		const safeUsers = foundedUser.map(
+			({ createdAt, password, updatedAt, tokens, ...safeUser }) => safeUser
+		)
 
 		return apiResponse(
 			{

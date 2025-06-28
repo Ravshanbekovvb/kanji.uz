@@ -1,5 +1,5 @@
 import { navbarIconMap } from '@/components/shared/sidebar/navigation'
-import { User } from '@/lib'
+import { Token, User } from '@/lib'
 
 type NavbarType = {
 	top: navbarMenuType[]
@@ -13,7 +13,8 @@ type NavbarMenuType = {
 	className?: string
 }
 
-type CreateUserRequest = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
+type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
+type CreateUserWithRepeatPasswordRequestType = CreateUserRequestType & { repeatPassword: string }
 
 type SuccessResponseType<T> = {
 	success: true
@@ -25,6 +26,10 @@ type ErrorResponseType = {
 	success: false
 	message: string
 	data: null
+}
+
+type UserWithTokens = User & {
+	tokens: Token | null
 }
 
 export type ApiResponseType<T = unknown> = SuccessResponseType<T> | ErrorResponseType

@@ -1,12 +1,14 @@
 import { apiResponse, apiResponseError, authService } from '@/lib'
-import { ApiResponseType, CreateUserRequest } from '@/types/types'
+import { ApiResponseType, CreateUserRequestType } from '@/types/types'
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponseType>> {
-	const payload: CreateUserRequest = await request.json()
+	const cookie = await cookies()
+	const payload: Pick<CreateUserRequestType, 'email' | 'password'> = await request.json()
 
 	try {
-		const registeredUser = await authService.register(payload)
+		const registeredUser = await authService.login(payload)
 
 		const { createdAt, updatedAt, password, tokens, ...safeUser } = registeredUser
 

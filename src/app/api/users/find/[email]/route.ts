@@ -1,4 +1,5 @@
 import { apiResponse, apiResponseError, userService } from '@/lib'
+import { NotFoundError } from '@/types/errors'
 import { ApiResponseType } from '@/types/types'
 import { NextResponse } from 'next/server'
 
@@ -11,13 +12,9 @@ export async function GET(
 	try {
 		const foundedUser = await userService.findByEmail(email)
 
-		if (!foundedUser)
-			throw apiResponse(
-				{ success: false, message: `User with this email not found: ${email}`, data: null },
-				{ status: 404 }
-			)
+		if (!foundedUser) throw new NotFoundError(`User with this email not found: ${email}`)
 
-		const { createdAt, updatedAt, password, ...safeUser } = foundedUser
+		const { createdAt, updatedAt, password, tokens, ...safeUser } = foundedUser
 
 		return apiResponse(
 			{

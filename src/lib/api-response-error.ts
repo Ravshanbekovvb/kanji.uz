@@ -1,8 +1,13 @@
-import { ConflictError, NotFoundError } from '@/types/errors'
+import { BadRequest, ConflictError, NotFoundError, UnauthorizedError } from '@/types/errors'
 import { apiResponse } from './api-response'
 
 export function apiResponseError(error: unknown) {
-	if (error instanceof NotFoundError || error instanceof ConflictError)
+	if (
+		error instanceof NotFoundError ||
+		error instanceof ConflictError ||
+		error instanceof BadRequest ||
+		error instanceof UnauthorizedError
+	)
 		return apiResponse(
 			{ success: false, message: error.message, data: null },
 			{ status: error.status }

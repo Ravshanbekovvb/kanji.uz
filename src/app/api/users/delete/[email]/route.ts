@@ -11,7 +11,7 @@ export async function DELETE(
 	try {
 		const deletedUser = await userService.deleteByEmail(email)
 
-		const { createdAt, password, updatedAt, ...safeUser } = deletedUser
+		const { createdAt, password, updatedAt, tokens, ...safeUser } = deletedUser
 
 		return apiResponse({
 			success: true,
