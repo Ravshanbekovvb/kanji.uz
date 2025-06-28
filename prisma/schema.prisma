@@ -12,8 +12,11 @@ model User {
   id String @id @default(uuid())
 
   email    String @unique
-  userName String
+  userName String @map("user_name")
   password String
+
+  role     UserRole? @default(USER)
+  userLang UserLang? @default(UZ) @map("user_lang")
 
   tokens Token? @relation("user_tokens")
 
@@ -26,11 +29,37 @@ model User {
 model Token {
   id String @id @default(uuid())
 
-  refreshToken String?
-  accessToken  String?
+  refreshToken String? @map("refresh_token")
+  accessToken  String? @map("access_token")
 
   user   User   @relation("user_tokens", fields: [userId], references: [id], onDelete: Cascade)
-  userId String @unique
+  userId String @unique @map("user_id")
 
   @@map("token")
+}
+
+model Word {
+  id String @id @default(uuid())
+
+  kanji         String
+  translation   String
+  transcription String
+  example       String
+  jlptLevel     String @map("jlpt_level")
+
+  @@map("words")
+}
+
+enum UserRole {
+  ADMIN
+  STUDENT
+  TEACHER
+  USER
+}
+
+enum UserLang {
+  UZ
+  RU
+  JA
+  EN
 }
