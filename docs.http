@@ -1,0 +1,1130 @@
+@url = http://localhost:3000/api
+@cookie =
+@teacher_cookie =
+@student_cookie =
+
+#################
+# USER PROFILE  #
+#################
+
+### Get current user's profile information
+GET {{url}}/users/me
+Content-Type: application/json
+
+###########
+# STUDENT #
+###########
+
+### Get all students (with pagination)
+GET {{url}}/students?page=1&limit=10
+Content-Type: application/json
+
+### Get all students with search/filter
+GET {{url}}/students?name=佐藤&gradeYear=1
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific student by ID
+GET {{url}}/students/cmarz7rcd000c10dr28ej8a1j
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new student
+POST {{url}}/students
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Taro Yamada",
+  "kanaName": "ヤマダタロウ",
+  "studentTypeId": "cmarz7rb9000110dr6ojo0a9p",
+  "gradeYear": 2,
+  "lineId": "taro_line123",
+  "notes": "Transfer student from Tokyo",
+  "username": "taroy2023",
+  "password": "password123",
+  "email": "taro@example.com",
+  "branchIds": ["cmarz7rb9000110dr6ojo0a9p", "cln2x5abcd00010abc123def9"]
+}
+
+### Update a student
+PATCH {{url}}/students/cmas08xhw0005101w54ztl6sd
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Taro Suzuki",
+  "kanaName": "スズキタロウ",
+  "username": "tarosuzuki2023",
+  "password": "newpassword123",
+  "email": "tarosuzuki@example.com",
+  "gradeYear": 3,
+  "notes": "Updated information",
+  "branchIds": ["cmarz7rb9000110dr6ojo0a9p"]
+}
+
+### Delete a student
+DELETE {{url}}/students/cmas07pnk0002101wxjv0b0kp
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Update student password (self-service)
+PATCH {{url}}/students/me/password
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "currentPassword": "currentpassword123",
+  "newPassword": "newpassword456",
+  "confirmPassword": "newpassword456"
+}
+
+###########
+# TEACHER #
+###########
+
+### Get all teachers (with pagination)
+GET {{url}}/teachers?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all teachers with search/filter
+GET {{url}}/teachers?name=山
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific teacher by ID
+GET {{url}}/teachers/cmarz7rc8000a10dr02ta0l0b
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new teacher
+POST {{url}}/teachers
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Kenji Tanaka",
+  "kanaName": "タナカケンジ",
+  "email": "kenji@example.com",
+  "lineId": "kenji_line456",
+  "notes": "Math specialist with 5 years of experience",
+  "username": "kenji2023",
+  "password": "password123",
+  "branchIds": ["cmarz7rb9000110dr6ojo0a9p", "cln2x5abcd00010abc123def9"]
+}
+
+### Update a teacher
+PATCH {{url}}/teachers/cmas1oeez000210ziinyavr5v
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Kenji Suzuki",
+  "kanaName": "スズキケンジ",
+  "username": "kenjisuzuki",
+  "password": "newpassword456",
+  "email": "kenjisuzuki@example.com",
+  "notes": "Now teaching science as well as math",
+  "branchIds": ["cmarz7rb9000110dr6ojo0a9p"]
+}
+
+### Delete a teacher
+DELETE {{url}}/teachers/cmas1oeez000210ziinyavr5v
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Update teacher password (self-service)
+PATCH {{url}}/teachers/me/password
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "currentPassword": "currentpassword123",
+  "newPassword": "newpassword456",
+  "confirmPassword": "newpassword456"
+}
+
+##########
+# STAFF  #
+##########
+
+### Get all staff (with pagination)
+GET {{url}}/staffs?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all staff with search/filter
+GET {{url}}/staffs?name=鈴
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific staff by ID
+GET {{url}}/staffs/cln2x5abcd00010abc123def9
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new staff
+POST {{url}}/staffs
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Akira Tanaka",
+  "username": "akiratanaka",
+  "password": "securepassword123",
+  "email": "akira.tanaka@example.com",
+  "branchIds": ["cmarz7rb9000110dr6ojo0a9p", "cln2x5abcd00010abc123def9"]
+}
+
+### Update a staff
+PATCH {{url}}/staffs/cln2x5abcd00010abc123def9
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Akira Suzuki",
+  "username": "akirasuzuki",
+  "password": "newsecurepassword456",
+  "email": "akira.suzuki@example.com",
+  "branchIds": ["cln2x5abcd00010abc123def9"]
+}
+
+### Delete a staff
+DELETE {{url}}/staffs/cln2x5abcd00010abc123def9
+Content-Type: application/json
+Cookie: {{cookie}}
+
+###########
+# BRANCH  #
+###########
+
+### Get all branches (with pagination)
+GET {{url}}/branches?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all branches with search/filter
+GET {{url}}/branches?name=Tokyo
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific branch by ID
+GET {{url}}/branches/cmarz7rb9000110dr6ojo0a9p
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new branch
+POST {{url}}/branches
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Osaka Branch",
+  "notes": "New branch in central Osaka district",
+  "userIds": ["clm5x7a9d00010abcdefg123", "clm5x7b3e00020abcdefg456"]
+}
+
+### Update a branch
+PATCH {{url}}/branches/cmarz7rb9000110dr6ojo0a9p
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Tokyo Central Branch",
+  "notes": "Updated branch information",
+  "userIds": ["clm5x7a9d00010abcdefg123", "clm5x7c2f00030abcdefg789"]
+}
+
+### Delete a branch
+DELETE {{url}}/branches/cmarz7rb9000110dr6ojo0a9p
+Content-Type: application/json
+Cookie: {{cookie}}
+
+####################
+# BRANCH SELECTION #
+####################
+
+### Set the user's selected branch
+POST {{url}}/branch-selection
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "branchId": "cmarz7rb9000110dr6ojo0a9p"
+}
+
+###########
+# EVENT   #
+###########
+
+### Get all events (with pagination)
+GET {{url}}/events?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all events with search/filter
+GET {{url}}/events?name=Summer&startDate=2025-07-01&endDate=2025-09-30
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get events with recurring filter
+GET {{url}}/events?isRecurring=true
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific event by ID
+GET {{url}}/events/cmarz7rb9000210dr6ojo0b7q
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new event
+POST {{url}}/events
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Summer Break",
+  "startDate": "2025-07-15",
+  "endDate": "2025-08-31",
+  "isRecurring": false,
+  "notes": "Annual summer vacation period",
+  "branchId": "cmarz7rb9000110dr6ojo0a9p"
+}
+
+### Create a recurring event
+POST {{url}}/events
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Weekly Staff Meeting",
+  "startDate": "2025-06-01",
+  "endDate": "2025-12-31",
+  "isRecurring": true,
+  "notes": "Occurs every Monday at 9am"
+}
+
+### Update an event
+PATCH {{url}}/events/cmarz7rb9000210dr6ojo0b7q
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Extended Summer Break",
+  "startDate": "2025-07-10",
+  "endDate": "2025-09-05",
+  "notes": "Extended due to facility renovations"
+}
+
+### Update just the name of an event
+PATCH {{url}}/events/cmarz7rb9000210dr6ojo0b7q
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Revised Summer Break"
+}
+
+### Delete an event
+DELETE {{url}}/events/cmarz7rb9000210dr6ojo0b7q
+Content-Type: application/json
+Cookie: {{cookie}}
+
+###############
+# STUDENT TYPE  #
+###############
+
+### Get all student types (with pagination)
+GET {{url}}/student-types?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all student types with search/filter
+GET {{url}}/student-types?name=elementary
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific student type by ID
+GET {{url}}/student-types/cmarz7rb9000310dr6ojo0c8r
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new student type
+POST {{url}}/student-types
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Junior High School",
+  "maxYears": 3,
+  "description": "Middle school students, grades 7-9"
+}
+
+### Update a student type
+PATCH {{url}}/student-types/cmarz7rb9000310dr6ojo0c8r
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Junior High",
+  "maxYears": 3,
+  "description": "Updated description for middle school students"
+}
+
+### Delete a student type
+DELETE {{url}}/student-types/cmarz7rb9000310dr6ojo0c8r
+Content-Type: application/json
+Cookie: {{cookie}}
+
+##########
+# BOOTHS #
+##########
+
+### Get all booths (with pagination)
+GET {{url}}/booths?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all booths with search/filter
+GET {{url}}/booths?name=Study&status=true
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific booth by ID
+GET {{url}}/booths/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new booth
+POST {{url}}/booths
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Study Booth A",
+  "status": true,
+  "notes": "Quiet study area for individual study"
+}
+
+### Update a booth
+PATCH {{url}}/booths/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Study Booth B",
+  "status": true,
+  "notes": "Updated booth information"
+}
+
+### Delete a booth
+DELETE {{url}}/booths/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+##############
+# CLASS TYPES #
+##############
+
+### Get all class types (with pagination)
+GET {{url}}/class-types?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all class types with search/filter
+GET {{url}}/class-types?name=group
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific class type by ID
+GET {{url}}/class-types/cmas3wxyz0001101tuv4d5e6
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new class type
+POST {{url}}/class-types
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Group Session",
+  "notes": "For small group classes of 3-5 students"
+}
+
+### Update a class type
+PATCH {{url}}/class-types/cmas3wxyz0001101tuv4d5e6
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Small Group Session",
+  "notes": "Updated for groups of 2-4 students"
+}
+
+### Delete a class type
+DELETE {{url}}/class-types/cmas3wxyz0001101tuv4d5e6
+Content-Type: application/json
+Cookie: {{cookie}}
+
+############
+# SUBJECTS #
+############
+
+### Get all subjects (with pagination)
+GET {{url}}/subjects?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all subjects with search/filter
+GET {{url}}/subjects?name=math
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all subjects for a specific branch
+GET {{url}}/subjects?branchId=cmarz7rb9000110dr6ojo0a9p
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific subject by ID
+GET {{url}}/subjects/cmas4abcd0001101txyz5e6f7
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new subject
+POST {{url}}/subjects
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "Advanced Mathematics",
+  "notes": "Calculus and advanced algebra for high school students",
+  "branchId": "cmarz7rb9000110dr6ojo0a9p"
+}
+
+### Update a subject
+PATCH {{url}}/subjects/cmas4abcd0001101txyz5e6f7
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "name": "College Prep Mathematics",
+  "notes": "Updated curriculum focused on college entrance exams"
+}
+
+### Delete a subject
+DELETE {{url}}/subjects/cmas4abcd0001101txyz5e6f7
+Content-Type: application/json
+Cookie: {{cookie}}
+
+#################
+# CLASS SESSIONS #
+#################
+
+### Get all class sessions (with pagination)
+GET {{url}}/class-sessions?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all class sessions with search/filter
+GET {{url}}/class-sessions?teacherId=cmarz7rc8000a10dr02ta0l0b&startDate=2023-01-01&endDate=2023-12-31
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all class sessions for a specific subject
+GET {{url}}/class-sessions?subjectId=cmarz7rb9000310dr6ojo0c8r
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all class sessions for a specific series
+GET {{url}}/class-sessions?seriesId=550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific class session by ID
+GET {{url}}/class-sessions/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create a new one-time class session
+POST {{url}}/class-sessions
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "teacherId": "cmarz7rc8000a10dr02ta0l0b",
+  "studentId": "cmarz7rcd000c10dr28ej8a1j",
+  "subjectId": "cmarz7rb9000310dr6ojo0c8r",
+  "classTypeId": "cmarz7rb9000310dr6ojo0c8r",
+  "boothId": "cmas2pqrs0001101tjuv3f4g5",
+  "date": "2023-06-15",
+  "startTime": "14:00",
+  "endTime": "15:30",
+  "notes": "One-on-one tutoring session"
+}
+
+### Create a recurring class session
+POST {{url}}/class-sessions
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "teacherId": "cmarz7rc8000a10dr02ta0l0b",
+  "studentId": "cmarz7rcd000c10dr28ej8a1j",
+  "subjectId": "cmarz7rb9000310dr6ojo0c8r",
+  "classTypeId": "cmarz7rb9000310dr6ojo0c8r",
+  "boothId": "cmas2pqrs0001101tjuv3f4g5",
+  "date": "2023-06-15",
+  "startTime": "14:00",
+  "endTime": "15:30",
+  "notes": "Weekly math tutoring",
+  "isRecurring": true,
+  "startDate": "2023-06-15",
+  "endDate": "2023-08-31",
+  "daysOfWeek": [1, 3] // Monday and Wednesday
+}
+
+### Update a class session
+PATCH {{url}}/class-sessions/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "teacherId": "cmarz7rc8000a10dr02ta0l0b",
+  "startTime": "14:30",
+  "endTime": "16:00",
+  "notes": "Updated session information"
+}
+
+### Delete a class session
+DELETE {{url}}/class-sessions/cmas2pqrs0001101tjuv3f4g5
+Content-Type: application/json
+Cookie: {{cookie}}
+
+#####################
+# CLASS SESSION SERIES #
+#####################
+
+### Get all sessions in a series
+GET {{url}}/class-sessions/series/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Update all future sessions in a series
+PATCH {{url}}/class-sessions/series/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "teacherId": "cmarz7rc8000a10dr02ta0l0b",
+  "startTime": "15:00",
+  "endTime": "16:30",
+  "notes": "Updated recurring sessions"
+}
+
+### Delete all future sessions in a series
+DELETE {{url}}/class-sessions/series/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Cookie: {{cookie}}
+
+
+# ----------------------------------------------------------------------------------------------------------------
+
+######################
+# USER AVAILABILITY  #
+######################
+
+### Get all availability records (with pagination)
+GET {{url}}/user-availability?page=1&limit=10
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get availability filtered by user
+GET {{url}}/user-availability?userId=cm1234567890abcdef123456
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get availability filtered by type and status
+GET {{url}}/user-availability?type=REGULAR&status=APPROVED
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get availability for specific day of week
+GET {{url}}/user-availability?dayOfWeek=MONDAY&type=REGULAR
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get exception availability for date range
+GET {{url}}/user-availability?type=EXCEPTION&startDate=2024-01-01&endDate=2024-02-29
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get pending availability records (admin view)
+GET {{url}}/user-availability?status=PENDING
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get a specific availability record by ID
+GET {{url}}/user-availability/cm2345678901bcdef234567a
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Create regular availability - Full day Monday
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "MONDAY",
+  "fullDay": true,
+  "type": "REGULAR",
+  "notes": "Available all day Monday"
+}
+
+### Create regular availability - Partial day Tuesday
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "TUESDAY",
+  "startTime": "09:00",
+  "endTime": "17:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "Available Tuesday 9AM-5PM"
+}
+
+### Create regular availability - Morning slot Wednesday
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "WEDNESDAY",
+  "startTime": "09:00",
+  "endTime": "12:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "Morning availability only"
+}
+
+### Create regular availability - Afternoon slot Wednesday
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "WEDNESDAY",
+  "startTime": "13:00",
+  "endTime": "17:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "Afternoon availability only"
+}
+
+### Create regular availability - Unavailable Thursday
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "THURSDAY",
+  "startTime": null,
+  "endTime": null,
+  "fullDay": false,
+  "type": "REGULAR",
+  "reason": "Weekly staff meeting",
+  "notes": "Not available on Thursdays"
+}
+
+### Create exception availability - Available specific date
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "date": "2024-12-25",
+  "startTime": "10:00",
+  "endTime": "15:00",
+  "fullDay": false,
+  "type": "EXCEPTION",
+  "reason": "Holiday availability",
+  "notes": "Available Christmas Day morning/afternoon"
+}
+
+### Create exception availability - Unavailable specific date
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "date": "2024-01-15",
+  "startTime": null,
+  "endTime": null,
+  "fullDay": false,
+  "type": "EXCEPTION",
+  "reason": "Medical appointment",
+  "notes": "Not available all day"
+}
+
+### Create availability for specific user (admin only)
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm3456789012cdef345678ab",
+  "dayOfWeek": "FRIDAY",
+  "startTime": "14:00",
+  "endTime": "18:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "Friday afternoon availability"
+}
+
+### Update an availability record
+PATCH {{url}}/user-availability/cm2345678901bcdef234567a
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "startTime": "10:00",
+  "endTime": "16:00",
+  "notes": "Updated time slot"
+}
+
+### Update availability status (admin only)
+PATCH {{url}}/user-availability/cm2345678901bcdef234567a
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "status": "APPROVED",
+  "reason": "Approved by admin"
+}
+
+### Delete a specific availability record
+DELETE {{url}}/user-availability/cm2345678901bcdef234567a
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Batch delete availability records
+DELETE {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "availabilityIds": [
+    "cm2345678901bcdef234567a",
+    "cm3456789012cdef345678ab",
+    "cm4567890123def456789abc"
+  ]
+}
+
+####################
+# BATCH OPERATIONS #
+####################
+
+### Batch create regular weekly availability
+POST {{url}}/user-availability/batch
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "type": "REGULAR",
+  "overwriteExisting": true,
+  "availability": [
+    {
+      "dayOfWeek": "MONDAY",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "fullDay": false,
+      "notes": "Monday availability"
+    },
+    {
+      "dayOfWeek": "TUESDAY",
+      "startTime": "09:00",
+      "endTime": "17:00",
+      "fullDay": false,
+      "notes": "Tuesday availability"
+    },
+    {
+      "dayOfWeek": "WEDNESDAY",
+      "startTime": "09:00",
+      "endTime": "12:00",
+      "fullDay": false,
+      "notes": "Wednesday morning only"
+    },
+    {
+      "dayOfWeek": "WEDNESDAY",
+      "startTime": "13:00",
+      "endTime": "17:00",
+      "fullDay": false,
+      "notes": "Wednesday afternoon only"
+    },
+    {
+      "dayOfWeek": "FRIDAY",
+      "fullDay": true,
+      "notes": "Available all day Friday"
+    }
+  ]
+}
+
+### Batch create exception availability for vacation period
+POST {{url}}/user-availability/batch
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "type": "EXCEPTION",
+  "overwriteExisting": true,
+  "availability": [
+    {
+      "date": "2024-03-15",
+      "startTime": null,
+      "endTime": null,
+      "fullDay": false,
+      "reason": "Vacation",
+      "notes": "Spring break - unavailable"
+    },
+    {
+      "date": "2024-03-16",
+      "startTime": null,
+      "endTime": null,
+      "fullDay": false,
+      "reason": "Vacation",
+      "notes": "Spring break - unavailable"
+    },
+    {
+      "date": "2024-03-17",
+      "startTime": null,
+      "endTime": null,
+      "fullDay": false,
+      "reason": "Vacation",
+      "notes": "Spring break - unavailable"
+    }
+  ]
+}
+
+### Batch create for specific user (admin only)
+POST {{url}}/user-availability/batch
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm3456789012cdef345678ab",
+  "type": "REGULAR",
+  "overwriteExisting": false,
+  "availability": [
+    {
+      "dayOfWeek": "MONDAY",
+      "startTime": "10:00",
+      "endTime": "14:00",
+      "fullDay": false,
+      "notes": "Part-time schedule"
+    },
+    {
+      "dayOfWeek": "WEDNESDAY",
+      "startTime": "10:00",
+      "endTime": "14:00",
+      "fullDay": false,
+      "notes": "Part-time schedule"
+    }
+  ]
+}
+
+### Batch approve/reject availability records (admin only)
+PATCH {{url}}/user-availability/batch
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "availabilityIds": [
+    "cm2345678901bcdef234567a",
+    "cm3456789012cdef345678ab",
+    "cm4567890123def456789abc"
+  ],
+  "status": "APPROVED",
+  "reason": "Bulk approval for regular schedule"
+}
+
+### Batch reject availability records (admin only)
+PATCH {{url}}/user-availability/batch
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "availabilityIds": [
+    "cm5678901234ef567890abcd",
+    "cm6789012345f67890abcde1"
+  ],
+  "status": "REJECTED",
+  "reason": "Conflicts with existing schedule"
+}
+
+######################
+# CONFLICT CHECKING #
+######################
+
+### Check availability conflict for single user
+POST {{url}}/user-availability/conflicts
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm1234567890abcdef123456",
+  "date": "2024-02-15",
+  "startTime": "10:00",
+  "endTime": "12:00"
+}
+
+### Check availability for multiple users at once
+GET {{url}}/user-availability/conflicts?userIds=cm1234567890abcdef123456,cm3456789012cdef345678ab,cm4567890123def456789abc&date=2024-02-15&startTime=10:00&endTime=12:00
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Check availability for teacher and student pair
+GET {{url}}/user-availability/conflicts?userIds=teacher_cm123456,student_cm789012&date=2024-02-20&startTime=14:00&endTime=15:30
+Content-Type: application/json
+Cookie: {{cookie}}
+
+##################
+# ADMIN DASHBOARD #
+##################
+
+### Get admin dashboard with pending approvals
+GET {{url}}/user-availability/admin?status=PENDING&page=1&limit=20
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get all availability records for admin review
+GET {{url}}/user-availability/admin?page=1&limit=50
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get availability records by type
+GET {{url}}/user-availability/admin?type=EXCEPTION&status=APPROVED
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Get availability records for specific user
+GET {{url}}/user-availability/admin?userId=cm1234567890abcdef123456
+Content-Type: application/json
+Cookie: {{cookie}}
+
+### Admin create/override availability directly (auto-approved)
+POST {{url}}/user-availability/admin
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm3456789012cdef345678ab",
+  "dayOfWeek": "MONDAY",
+  "startTime": "09:00",
+  "endTime": "17:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "status": "APPROVED",
+  "notes": "Admin override for regular Monday schedule",
+  "overwriteExisting": true
+}
+
+### Admin create exception availability for user
+POST {{url}}/user-availability/admin
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm4567890123def456789abc",
+  "date": "2024-04-01",
+  "startTime": null,
+  "endTime": null,
+  "fullDay": false,
+  "type": "EXCEPTION",
+  "status": "APPROVED",
+  "reason": "Administrative leave",
+  "notes": "Approved absence for training",
+  "overwriteExisting": true
+}
+
+### Admin reject with reason
+POST {{url}}/user-availability/admin
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "userId": "cm5678901234ef567890abcd",
+  "dayOfWeek": "FRIDAY",
+  "startTime": "18:00",
+  "endTime": "22:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "status": "REJECTED",
+  "reason": "Outside business hours policy",
+  "notes": "Cannot approve evening availability"
+}
+
+#####################
+# INTEGRATION TESTS #
+#####################
+
+### Test conflict scenario - overlapping times
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "MONDAY",
+  "startTime": "10:30",
+  "endTime": "12:30",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "This should conflict if user already has 10:00-12:00 or 11:00-13:00"
+}
+
+### Test full day availability
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "SATURDAY",
+  "fullDay": true,
+  "type": "REGULAR",
+  "notes": "Available all Saturday"
+}
+
+### Test unavailable day
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{cookie}}
+
+{
+  "dayOfWeek": "SUNDAY",
+  "startTime": null,
+  "endTime": null,
+  "fullDay": false,
+  "type": "REGULAR",
+  "reason": "Day off",
+  "notes": "Not available Sundays"
+}
+
+### Test teacher self-submission (should be PENDING)
+POST {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{teacher_cookie}}
+
+{
+  "dayOfWeek": "TUESDAY",
+  "startTime": "13:00",
+  "endTime": "18:00",
+  "fullDay": false,
+  "type": "REGULAR",
+  "notes": "Afternoon teaching availability"
+}
+
+### Test student access (should only see own records)
+GET {{url}}/user-availability
+Content-Type: application/json
+Cookie: {{student_cookie}}
