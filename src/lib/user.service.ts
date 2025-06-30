@@ -5,8 +5,21 @@ import {
 } from '@/types/types'
 import { prisma, PrismaClient } from './prisma'
 
-import { BadRequest, ConflictError, NotFoundError } from '@/types/errors'
+import { BadRequest, ConflictError, NotFoundError, UnauthorizedError } from '@/types/errors'
 import * as bcrypt from 'bcrypt'
+import { cookies } from 'next/headers'
+
+import * as jwt from 'jsonwebtoken'
+import { UUIDTypes } from 'uuid'
+
+const JWT_SECRET_KEY = process.env.JWT_SECRET!
+
+type JwtPayloadType = {
+	sub: string
+	email: string
+	jwt: UUIDTypes
+	iat: number
+}
 
 class UserService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -101,6 +114,29 @@ class UserService {
 		})
 
 		return deletedUser
+	}
+
+	async getMe(request: Request): Promise<UserWithTokens> {
+		const token = (await cookies()).get('accessToken')
+
+		if (!token) throw new UnauthorizedError('Not authorized')
+
+		const { value } = token
+
+		let email
+
+		try {
+			const payload = jwt.verify(value, JWT_SECRET_KEY) as JwtPayloadType
+			email = payload.email
+		} catch (err) {
+			throw new UnauthorizedError('Invalid or expired token')
+		}
+
+		const existingUser = await this.findByEmail(email)
+
+		if (!existingUser) throw new NotFoundError('User not found')
+
+		return existingUser
 	}
 }
 
