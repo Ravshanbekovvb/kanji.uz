@@ -1,4 +1,5 @@
 'use client'
+import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, navbarMenus } from '@/lib/db'
 import { cn } from '@/lib/utils'
 import {
@@ -15,10 +16,7 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useEffect, useState } from 'react'
-// import { useTranslations } from 'use-intl'
 
-// import { getDataFromToken } from '@/services/getDatafromToken'
 export const navbarIconMap = {
 	badge: <BadgePlusIcon />,
 	bookHeart: <BookHeart />,
@@ -33,18 +31,15 @@ export const navbarIconMap = {
 type NavbarIconKey = keyof typeof navbarIconMap
 
 export const Navigation: React.FC = () => {
-	const [role, setRole] = useState<string | unknown>(null)
-	// const t = useTranslations()
+	const { user } = useAuth()
 	const pathname = usePathname()
 	const activePath = '/' + (pathname.split('/')[1] || '')
 
-	let renderedMenu = null
-	useEffect(() => {
-		// const role = getDataFromToken()?.role
-		setRole('ADMIN')
-	}, [])
-
-	if (role === 'ADMIN' && AdminNavbar) {
+	let renderedMenu
+	if (user === null) {
+		return <div>loading...</div>
+	}
+	if (user.role === 'ADMIN' && AdminNavbar) {
 		renderedMenu = AdminNavbar.map(menuItem => {
 			const isActive = activePath === menuItem.link
 			const activeColor =
@@ -88,7 +83,7 @@ export const Navigation: React.FC = () => {
 		})
 	}
 
-	if (['USER', 'STUDENT', 'TEACHER'].includes(role as string)) {
+	if (['USER', 'STUDENT', 'TEACHER'].includes(user.role as string)) {
 		renderedMenu = navbarMenus.map(menuItem => {
 			const isActive = activePath === menuItem.link
 			const activeColor =

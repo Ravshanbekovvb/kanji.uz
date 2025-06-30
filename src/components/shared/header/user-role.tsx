@@ -1,39 +1,42 @@
 'use client'
+import { useAuth } from '@/contexts/auth-context'
 import { cn } from '@/lib/utils'
-import { useEffect, useState } from 'react'
-// import { getDataFromToken } from '@/services/getDatafromToken'
-// import { JWTPayload } from 'jose'
-type Props = {
+
+type UserRoleProps = {
 	className?: string
 }
 
-export const UserRole: React.FC<Props> = ({ className }: Props) => {
-	// const [isUserdata, setIsuserData] = useState<JWTPayload | null>(null)
+export const UserRole: React.FC<UserRoleProps> = ({ className }: UserRoleProps) => {
+	const { user, isLoading } = useAuth()
 
-	useEffect(() => {
-		// const userDatas = getDataFromToken()
-		// setIsuserData(userDatas)
-	}, [])
+	if (isLoading) {
+		return (
+			<div className={cn('flex items-center gap-2', className)}>
+				<div className='w-10 h-10 bg-gray-200 rounded-full animate-pulse' />
+				<div className='flex flex-col gap-1'>
+					<div className='h-4 w-16 bg-gray-200 rounded animate-pulse' />
+					<div className='h-3 w-12 bg-gray-200 rounded animate-pulse' />
+				</div>
+			</div>
+		)
+	}
+
+	if (!user) {
+		return null
+	}
+
 	return (
 		<div className={cn('flex items-center gap-2', className)}>
 			<img
-				src={
-					'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt08ADSBsRRxQ2xzvxjADA0SCVuwEwY6gASg&s'
-				}
-				// src={
-				// 	isUserdata && isUserdata.gender === 'MALE'
-				// 		? 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt08ADSBsRRxQ2xzvxjADA0SCVuwEwY6gASg&s'
-				// 		: isUserdata?.gender === 'FEMALE'
-				// 		? 'https://w7.pngwing.com/pngs/4/736/png-transparent-female-avatar-girl-face-woman-user-flat-classy-users-icon-thumbnail.png'
-				// 		: 'https://cdn.pixabay.com/photo/2016/10/18/18/19/question-mark-1750942_1280.png'
-				// }
-				alt=''
+				src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt08ADSBsRRxQ2xzvxjADA0SCVuwEwY6gASg&s'
+				alt='User avatar'
 				width={40}
+				height={40}
 				className='rounded-full'
 			/>
 			<div className='flex flex-col'>
-				<div className='font-bold capitalize'>asd</div>
-				<div className='text-black/50 text-[12px]'>Admin</div>
+				<div className='font-bold capitalize'>{user.userName}</div>
+				<div className='text-black/50 text-[12px] capitalize'>{user.role}</div>
 			</div>
 		</div>
 	)

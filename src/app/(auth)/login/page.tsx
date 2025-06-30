@@ -2,37 +2,53 @@
 import { Loader } from '@/components/shared'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { useAuth } from '@/contexts/auth-context'
 import { logoFont } from '@/fonts/font'
-// import axios from 'axios'
-import { Eye, EyeOff } from 'lucide-react' // ikonalar uchun
+import { Eye, EyeOff } from 'lucide-react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
-// import { toast, Toaster } from 'sonner'
-interface Data {
-	email: FormDataEntryValue | null
-	password: FormDataEntryValue | null
-}
-
+import { toast, Toaster } from 'sonner'
 function Page() {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
+	const { login } = useAuth()
+	const router = useRouter()
 
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+		setIsLoading(true)
 
 		const formData = new FormData(e.currentTarget)
+		const email = formData.get('email') as string
+		const password = formData.get('password') as string
 
-		const data = {
-			email: formData.get('email'),
-			password: formData.get('password'),
+		if (!email || !password) {
+			toast.error('Please fill in all fields')
+			setIsLoading(false)
+			return
 		}
-		console.log(data)
+
+		try {
+			const result = await login(email, password)
+
+			if (result.success) {
+				toast.success('Login successful!')
+				router.push('/')
+			} else {
+				toast.error(result.error || 'Login failed')
+			}
+		} catch (error) {
+			console.error('Login error:', error)
+			toast.error('An unexpected error occurred')
+		} finally {
+			setIsLoading(false)
+		}
 	}
 
 	return (
 		<div className='relative w-full min-h-screen flex items-center justify-center'>
-			{/* <Toaster position='top-center' richColors /> */}
-			{/* Background Image */}
+			<Toaster position='top-center' richColors />
 
 			<Image
 				src={'/backgroundImage.webp'}
@@ -75,7 +91,7 @@ function Page() {
 					</div>
 				</div>
 				{isLoading ? (
-					<Loader />
+					<Loader className='w-full mt-4 p-2' />
 				) : (
 					<Button
 						type='submit'
