@@ -7,6 +7,7 @@ export async function DELETE(
 	{ params }: { params: Promise<{ email: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
 	const { email } = await params
+	console.log(email)
 
 	try {
 		const deletedUser = await userService.deleteByEmail(email)

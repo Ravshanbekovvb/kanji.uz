@@ -27,7 +27,7 @@ interface EditUserDialogProps {
 }
 
 export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, currentData }) => {
-	const { isPending, mutate: editUser } = useEditUser(currentData.email)
+	const { isPending, mutate: editUser } = useEditUser(currentData.id)
 	const [open, setOpen] = useState(false)
 	const editUserFn = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
@@ -41,13 +41,15 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
 		}
 
-		try {
-			editUser(data)
-		} catch (err) {
-			console.log(err)
-		} finally {
-			setOpen(false)
-		}
+		editUser(data, {
+			onSuccess: () => {
+				setOpen(false)
+			},
+			onError: err => {
+				console.log(err)
+				// Dialog yopilmaydi, xatolik yuz berganda
+			},
+		})
 	}
 
 	return (

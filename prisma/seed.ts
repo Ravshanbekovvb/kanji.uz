@@ -5,16 +5,70 @@ async function up() {
 	await prisma.user.createMany({
 		data: [
 			{
-				userName: "Mullaboyev Nodirbek Ravshanbek o'g'li",
-				email: 'fishberg2020@mail.ru',
-				password: hashSync('11111111', 10),
+				userName: 'Hakim',
+				email: 'b@mail.ru',
+				password: hashSync('admin', 10),
 				role: 'ADMIN',
 			},
 			{
-				userName: 'Xasanova Navruza Farxodovna',
-				email: 'navruza@mail.ru',
-				password: hashSync('11111111', 10),
+				userName: 'Ibgorimov',
+				email: 'behruz@gmail.com',
+				password: hashSync('admin', 10),
 				role: 'ADMIN',
+			},
+			{
+				userName: 'Karimov',
+				email: 'karimov@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Aliyeva',
+				email: 'aliya@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Toirov',
+				email: 'toirov@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Juraeva',
+				email: 'juraeva@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Sattorov',
+				email: 'sattorov@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Hamidova',
+				email: 'hamidova@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Rustamov',
+				email: 'rustamov@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Islomova',
+				email: 'islomova@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
+			},
+			{
+				userName: 'Bekmurodov',
+				email: 'bekmurodov@example.com',
+				password: hashSync('admin', 10),
+				role: 'USER',
 			},
 		],
 	})
