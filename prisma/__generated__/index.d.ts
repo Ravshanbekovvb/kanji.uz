@@ -3425,16 +3425,19 @@ export namespace Prisma {
 
   export type LessonMinAggregateOutputType = {
     id: string | null
+    title: string | null
     userId: string | null
   }
 
   export type LessonMaxAggregateOutputType = {
     id: string | null
+    title: string | null
     userId: string | null
   }
 
   export type LessonCountAggregateOutputType = {
     id: number
+    title: number
     userId: number
     _all: number
   }
@@ -3442,16 +3445,19 @@ export namespace Prisma {
 
   export type LessonMinAggregateInputType = {
     id?: true
+    title?: true
     userId?: true
   }
 
   export type LessonMaxAggregateInputType = {
     id?: true
+    title?: true
     userId?: true
   }
 
   export type LessonCountAggregateInputType = {
     id?: true
+    title?: true
     userId?: true
     _all?: true
   }
@@ -3530,6 +3536,7 @@ export namespace Prisma {
 
   export type LessonGroupByOutputType = {
     id: string
+    title: string
     userId: string
     _count: LessonCountAggregateOutputType | null
     _min: LessonMinAggregateOutputType | null
@@ -3552,6 +3559,7 @@ export namespace Prisma {
 
   export type LessonSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     userId?: boolean
     words?: boolean | Lesson$wordsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3560,22 +3568,25 @@ export namespace Prisma {
 
   export type LessonSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lesson"]>
 
   export type LessonSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
+    title?: boolean
     userId?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lesson"]>
 
   export type LessonSelectScalar = {
     id?: boolean
+    title?: boolean
     userId?: boolean
   }
 
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId", ExtArgs["result"]["lesson"]>
+  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId", ExtArgs["result"]["lesson"]>
   export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     words?: boolean | Lesson$wordsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3596,6 +3607,7 @@ export namespace Prisma {
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
+      title: string
       userId: string
     }, ExtArgs["result"]["lesson"]>
     composites: {}
@@ -4023,6 +4035,7 @@ export namespace Prisma {
    */
   interface LessonFieldRefs {
     readonly id: FieldRef<"Lesson", 'String'>
+    readonly title: FieldRef<"Lesson", 'String'>
     readonly userId: FieldRef<"Lesson", 'String'>
   }
     
@@ -5586,6 +5599,7 @@ export namespace Prisma {
 
   export const LessonScalarFieldEnum: {
     id: 'id',
+    title: 'title',
     userId: 'userId'
   };
 
@@ -5835,6 +5849,7 @@ export namespace Prisma {
     OR?: LessonWhereInput[]
     NOT?: LessonWhereInput | LessonWhereInput[]
     id?: StringFilter<"Lesson"> | string
+    title?: StringFilter<"Lesson"> | string
     userId?: StringFilter<"Lesson"> | string
     words?: WordListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -5842,6 +5857,7 @@ export namespace Prisma {
 
   export type LessonOrderByWithRelationInput = {
     id?: SortOrder
+    title?: SortOrder
     userId?: SortOrder
     words?: WordOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
@@ -5853,12 +5869,14 @@ export namespace Prisma {
     AND?: LessonWhereInput | LessonWhereInput[]
     OR?: LessonWhereInput[]
     NOT?: LessonWhereInput | LessonWhereInput[]
+    title?: StringFilter<"Lesson"> | string
     words?: WordListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
   export type LessonOrderByWithAggregationInput = {
     id?: SortOrder
+    title?: SortOrder
     userId?: SortOrder
     _count?: LessonCountOrderByAggregateInput
     _max?: LessonMaxOrderByAggregateInput
@@ -5870,6 +5888,7 @@ export namespace Prisma {
     OR?: LessonScalarWhereWithAggregatesInput[]
     NOT?: LessonScalarWhereWithAggregatesInput | LessonScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Lesson"> | string
+    title?: StringWithAggregatesFilter<"Lesson"> | string
     userId?: StringWithAggregatesFilter<"Lesson"> | string
   }
 
@@ -6072,6 +6091,7 @@ export namespace Prisma {
   }
 
   export type LessonCreateInput = {
+    title: string
     userId: string
     words?: WordCreateNestedManyWithoutLessonInput
     user?: UserCreateNestedOneWithoutLessonInput
@@ -6079,11 +6099,13 @@ export namespace Prisma {
 
   export type LessonUncheckedCreateInput = {
     id?: string
+    title: string
     userId: string
     words?: WordUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type LessonUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     words?: WordUpdateManyWithoutLessonNestedInput
     user?: UserUpdateOneRequiredWithoutLessonNestedInput
@@ -6091,21 +6113,25 @@ export namespace Prisma {
 
   export type LessonUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     words?: WordUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type LessonCreateManyInput = {
     id?: string
+    title: string
     userId: string
   }
 
   export type LessonUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type LessonUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6394,16 +6420,19 @@ export namespace Prisma {
 
   export type LessonCountOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     userId?: SortOrder
   }
 
   export type LessonMaxOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     userId?: SortOrder
   }
 
   export type LessonMinOrderByAggregateInput = {
     id?: SortOrder
+    title?: SortOrder
     userId?: SortOrder
   }
 
@@ -6764,11 +6793,13 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutUserInput = {
+    title: string
     userId: string
     words?: WordCreateNestedManyWithoutLessonInput
   }
 
   export type LessonUncheckedCreateWithoutUserInput = {
+    title: string
     userId: string
     words?: WordUncheckedCreateNestedManyWithoutLessonInput
   }
@@ -6821,6 +6852,7 @@ export namespace Prisma {
     OR?: LessonScalarWhereInput[]
     NOT?: LessonScalarWhereInput | LessonScalarWhereInput[]
     id?: StringFilter<"Lesson"> | string
+    title?: StringFilter<"Lesson"> | string
     userId?: StringFilter<"Lesson"> | string
   }
 
@@ -7033,12 +7065,14 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutWordsInput = {
+    title: string
     userId: string
     user?: UserCreateNestedOneWithoutLessonInput
   }
 
   export type LessonUncheckedCreateWithoutWordsInput = {
     id?: string
+    title: string
     userId: string
   }
 
@@ -7059,30 +7093,36 @@ export namespace Prisma {
   }
 
   export type LessonUpdateWithoutWordsInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateWithoutWordsInput = {
     id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
   export type LessonCreateManyUserInput = {
+    title: string
     userId: string
   }
 
   export type LessonUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     words?: WordUpdateManyWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     words?: WordUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateManyWithoutUserInput = {
+    title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
   }
 
