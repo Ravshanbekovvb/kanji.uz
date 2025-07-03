@@ -42,6 +42,11 @@ export const navbarMenus: NavbarMenuType[] = [
 
 export const AdminNavbar = [
 	{
+		icon: 'home',
+		title: 'Home',
+		link: '/',
+	},
+	{
 		icon: 'users',
 		title: 'Users',
 		link: '/users',

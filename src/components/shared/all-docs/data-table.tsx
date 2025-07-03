@@ -54,7 +54,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 								}}
 							>
 								{row.getVisibleCells().map(cell => (
-									<TableCell key={cell.id}>
+									<TableCell key={cell.id} className=''>
 										{flexRender(cell.column.columnDef.cell, cell.getContext())}
 									</TableCell>
 								))}

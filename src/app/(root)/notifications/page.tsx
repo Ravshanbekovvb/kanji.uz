@@ -1,3 +1,5 @@
+import { Notifications } from '@/components/shared/notifications/notifications'
+
 export default function Page() {
-	return <div>Page</div>
+	return <Notifications />
 }

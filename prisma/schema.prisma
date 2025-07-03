@@ -48,6 +48,8 @@ model Lesson {
   user   User   @relation("user_lesson", fields: [id], references: [id], onDelete: Cascade)
   userId String @unique @map("user_id")
 
+  title String
+  
   @@map("lessons")
 }
 

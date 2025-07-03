@@ -100,7 +100,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 			}
 		} catch (error) {
 			console.error('Logout failed:', error)
-			// Force logout on client side even if server request fails
 			setUser(null)
 			router.push('/login')
 		}

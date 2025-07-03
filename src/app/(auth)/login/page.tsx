@@ -8,13 +8,17 @@ import { Eye, EyeOff } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
-import { toast, Toaster } from 'sonner'
+import { toast } from 'sonner'
+interface Data {
+	email: FormDataEntryValue | null
+	password: FormDataEntryValue | null
+}
+
 function Page() {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 	const [isLoading, setIsLoading] = useState<boolean>(false)
 	const { login } = useAuth()
 	const router = useRouter()
-
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		setIsLoading(true)
@@ -48,8 +52,6 @@ function Page() {
 
 	return (
 		<div className='relative w-full min-h-screen flex items-center justify-center'>
-			<Toaster position='top-center' richColors />
-
 			<Image
 				src={'/backgroundImage.webp'}
 				alt='Background Image'
@@ -91,7 +93,7 @@ function Page() {
 					</div>
 				</div>
 				{isLoading ? (
-					<Loader className='w-full mt-4 p-2' />
+					<Loader className='w-full p-2 rounded-md mt-4' />
 				) : (
 					<Button
 						type='submit'

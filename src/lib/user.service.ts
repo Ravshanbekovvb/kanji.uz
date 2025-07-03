@@ -78,16 +78,14 @@ class UserService {
 		return createdUser
 	}
 
-	async update(email: string, payload: CreateUserRequestType): Promise<UserWithTokens> {
-		const existingUser = await this.findByEmail(email)
-
-		if (!existingUser) throw new NotFoundError(`There is no user with this email: ${email}`)
+	async update(id: string, payload: CreateUserRequestType): Promise<UserWithTokens> {
+		const existingUser = await this.findById(id)
 
 		const hashedPassword = await bcrypt.hash(payload.password, 10)
 
 		const updatedUser = await this.prisma.user.update({
 			where: {
-				email: existingUser.email,
+				id: existingUser.id,
 			},
 			data: {
 				...payload,
