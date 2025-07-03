@@ -140,6 +140,7 @@ exports.Prisma.TokenScalarFieldEnum = {
 
 exports.Prisma.LessonScalarFieldEnum = {
   id: 'id',
+  title: 'title',
   userId: 'userId'
 };
 
