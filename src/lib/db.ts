@@ -2,9 +2,14 @@ import { NavbarMenuType } from '@/types/types'
 
 export const navbarMenus: NavbarMenuType[] = [
 	{
+		icon: 'home',
+		title: 'Home',
+		link: '/',
+	},
+	{
 		icon: 'badge',
 		title: 'Create PDF',
-		link: '/',
+		link: '/create-pdf',
 	},
 	{
 		icon: 'bookHeart',

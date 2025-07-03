@@ -32,4 +32,15 @@ type UserWithTokens = User & {
 	tokens: Token | null
 }
 
+interface DarsData {
+	user: string
+	title: string
+	words: {
+		kanji: string
+		translation: string
+		transcription: string
+		example: string
+	}[]
+}
+
 export type ApiResponseType<T = unknown> = SuccessResponseType<T> | ErrorResponseType

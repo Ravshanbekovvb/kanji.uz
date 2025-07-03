@@ -1,3 +1,5 @@
+import AllDocs from '@/components/shared/all-docs/all-docs'
+
 export default function Page() {
-	return <div>Page</div>
+	return <AllDocs />
 }

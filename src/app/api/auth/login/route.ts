@@ -4,10 +4,8 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request): Promise<NextResponse<ApiResponseType>> {
 	const payload: Pick<CreateUserRequestType, 'email' | 'password'> = await request.json()
-
 	try {
 		const registeredUser = await authService.login(payload)
-
 		const { createdAt, updatedAt, password, tokens, ...safeUser } = registeredUser
 
 		const response = apiResponse(

@@ -9,6 +9,7 @@ import {
 	ChevronRightIcon,
 	FileText,
 	HelpCircle,
+	House,
 	ListCheck,
 	LogOut,
 	Settings,
@@ -18,6 +19,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export const navbarIconMap = {
+	home: <House />,
 	badge: <BadgePlusIcon />,
 	bookHeart: <BookHeart />,
 	listCheck: <ListCheck />,
