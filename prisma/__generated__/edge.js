@@ -170,7 +170,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\__generated__",
+      "value": "/home/bekzod/projects/words-pdf-2/prisma/__generated__",
       "fromEnvVar": null
     },
     "config": {
@@ -179,12 +179,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\schema.prisma",
+    "sourceFilePath": "/home/bekzod/projects/words-pdf-2/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

@@ -4,13 +4,12 @@ import { NextResponse } from 'next/server'
 
 export async function DELETE(
 	request: Request,
-	{ params }: { params: Promise<{ email: string }> }
+	{ params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
-	const { email } = await params
-	console.log(email)
+	const { id } = await params
 
 	try {
-		const deletedUser = await userService.deleteByEmail(email)
+		const deletedUser = await userService.deleteById(id)
 
 		const { createdAt, password, updatedAt, tokens, ...safeUser } = deletedUser
 
