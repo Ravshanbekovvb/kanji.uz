@@ -4,13 +4,13 @@ import { NextResponse } from 'next/server'
 
 export async function PATCH(
 	request: Request,
-	{ params }: { params: Promise<{ email: string }> }
+	{ params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
-	const { email } = await params
+	const { id } = await params
 	const payload: CreateUserRequestType = await request.json()
 
 	try {
-		const updatedUser = await userService.update(email, payload)
+		const updatedUser = await userService.update(id, payload)
 
 		const { createdAt, updatedAt, password, tokens, ...safeUser } = updatedUser
 

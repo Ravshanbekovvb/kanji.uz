@@ -23,14 +23,6 @@ export const Actions: React.FC<Props> = ({ row }) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end' onClick={e => e.stopPropagation()}>
-				{/* <DropdownMenuItem
-					className='cursor-pointer flex items-center gap-2'
-					onSelect={e => e.preventDefault()}
-				>
-					<Brain color='black' />
-					MEMORIZE
-				</DropdownMenuItem> */}
-
 				<DropdownMenuItem
 					className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
 					onSelect={e => e.preventDefault()}
@@ -42,7 +34,7 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					className='cursor-pointer flex items-center gap-2'
 					onSelect={e => e.preventDefault()}
 				>
-					<Download />
+					<Download color='black' />
 					DOWNLOAD
 				</DropdownMenuItem>
 			</DropdownMenuContent>

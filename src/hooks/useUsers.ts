@@ -63,13 +63,13 @@ export function useCreateUser() {
 		},
 	})
 }
-export function useEditUser(email: string) {
+export function useEditUser(id: string) {
 	const queryClient = useQueryClient()
 
 	return useMutation({
 		mutationKey: ['users', 'edit'],
 		mutationFn: async (data: CreateUserRequestType) => {
-			const res = await fetch(`/api/users/update/${email}`, {
+			const res = await fetch(`/api/users/update/${id}`, {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ export function useEditUser(email: string) {
 			const responseData = await res.json()
 
 			if (!res.ok) {
-				throw new Error(responseData.message)
+				throw new Error(responseData?.message || 'Nomaʼlum xatolik')
 			}
 
 			return responseData
@@ -87,7 +87,7 @@ export function useEditUser(email: string) {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['Users'] })
 		},
-		onError: (error: any) => {
+		onError: (error: Error) => {
 			toast.error(error.message)
 		},
 	})

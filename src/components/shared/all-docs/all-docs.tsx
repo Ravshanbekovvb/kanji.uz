@@ -253,11 +253,9 @@ async function getData(): Promise<
 }
 export default async function AllDocs() {
 	const data = await getData()
-	console.log(data)
-
 	return (
 		<div>
-			<h1 className='text-2xl font-bold mb-4'>All documents</h1>
+			<h2 className='mb-4 text-4xl font-semibold'>All documents</h2>
 			<DataTable columns={columns} data={data} />
 		</div>
 	)

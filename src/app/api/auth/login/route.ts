@@ -8,8 +8,6 @@ export async function POST(request: Request): Promise<NextResponse<ApiResponseTy
 	try {
 		const registeredUser = await authService.login(payload)
 
-		console.log('User: ' + registeredUser)
-
 		const { createdAt, updatedAt, password, tokens, ...safeUser } = registeredUser
 
 		const response = apiResponse(

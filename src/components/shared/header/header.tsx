@@ -4,7 +4,7 @@ import { UserRole } from './user-role'
 
 export const Header: React.FC = () => {
 	return (
-		<header className='flex justify-between gap-3 items-center px-10 max-sm:px-6 py-4 border-b border-b-black sticky top-0 z-10 bg-white'>
+		<header className='flex justify-between gap-3 items-center px-10 max-sm:px-6 py-4 border-b border-b-black sticky top-0 z-10 bg-white min-h-[75px]'>
 			<NavbarButton />
 			<div className='flex gap-4 items-center'>
 				<LocaleSwitcher />
