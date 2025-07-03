@@ -1,5 +1,6 @@
 import { navbarIconMap } from '@/components/shared/sidebar/navigation'
-import { Token, User } from '@/lib'
+import { Token, User, UserRole } from '@/lib'
+import { JwtPayload } from 'jsonwebtoken'
 
 type NavbarType = {
 	top: navbarMenuType[]
@@ -30,6 +31,12 @@ type ErrorResponseType = {
 
 type UserWithTokens = User & {
 	tokens: Token | null
+}
+
+type JWTType = JwtPayload & {
+	sub: string
+	email: string
+	role: UserRole
 }
 
 interface DarsData {

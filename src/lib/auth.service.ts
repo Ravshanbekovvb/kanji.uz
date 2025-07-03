@@ -72,6 +72,7 @@ class AuthService {
 			{
 				sub: `user-${existingUser.id}`,
 				email,
+				role: existingUser.role,
 				jti: uuidv4(),
 			},
 			JWT_SECRET_KEY

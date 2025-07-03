@@ -18,6 +18,7 @@ class UserService {
 			},
 			include: {
 				tokens: true,
+				lesson: true,
 			},
 		})
 
