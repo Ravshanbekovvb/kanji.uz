@@ -58,6 +58,7 @@ class AuthService {
 
 	async login(payload: Pick<CreateUserRequestType, 'email' | 'password'>): Promise<UserWithTokens> {
 		const { email, password } = payload
+		console.log('P' + JSON.stringify(payload))
 
 		const existingUser = await this.userService.findByEmail(email)
 
