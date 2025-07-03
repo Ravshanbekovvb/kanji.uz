@@ -47,8 +47,10 @@ model Lesson {
 
   words Word[] @relation("words_lesson")
 
-  user   User   @relation("user_lesson", fields: [id], references: [id], onDelete: Cascade)
+  user   User   @relation("user_lesson", fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique @map("user_id")
+
+  title String
 
   @@map("lessons")
 }
@@ -62,8 +64,8 @@ model Word {
   example       String
   jlptLevel     String @map("jlpt_level")
 
-  lesson   Lesson @relation("words_lesson", fields: [id], references: [id], onDelete: Cascade)
-  lessonId String @unique @map("lesson_id")
+  lesson   Lesson @relation("words_lesson", fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId String @map("lesson_id")
 
   @@map("words")
 }
