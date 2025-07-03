@@ -37,13 +37,15 @@ export const UsersHeader: React.FC = () => {
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
 		}
 
-		try {
-			createUser(data)
-		} catch (error) {
-			console.error(error)
-		} finally {
-			setOpen(false)
-		}
+		createUser(data, {
+			onSuccess: () => {
+				setOpen(false)
+			},
+			onError: error => {
+				console.error(error)
+				// Dialog yopilmaydi, xatolik yuz berganda
+			},
+		})
 	}
 	return (
 		<div className='flex justify-between items-center'>

@@ -8,6 +8,7 @@ import {
 	TableRow,
 } from '@/components/ui/table'
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { useRouter } from 'next/navigation'
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
@@ -20,7 +21,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 	})
-
+	const router = useRouter()
 	return (
 		<div className='rounded-md border'>
 			<Table>
@@ -46,6 +47,9 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 								key={row.id}
 								data-state={row.getIsSelected() && 'selected'}
 								className='hover:bg-gray-200 cursor-pointer'
+								onClick={() => {
+									router.push(`/users/${(row.original as any).id}`)
+								}}
 							>
 								{row.getVisibleCells().map(cell => (
 									<TableCell key={cell.id}>

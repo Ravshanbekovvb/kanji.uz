@@ -14,7 +14,7 @@ class UserService {
 	async findByEmail(email: string): Promise<UserWithTokens | null> {
 		const existingUser = await this.prisma.user.findUnique({
 			where: {
-				email,
+				id: email,
 			},
 			include: {
 				tokens: true,

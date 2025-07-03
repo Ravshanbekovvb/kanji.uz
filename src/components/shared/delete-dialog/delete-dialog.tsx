@@ -15,7 +15,10 @@ import { Loader } from '../loader'
 interface DeleteDialogProps {
 	dialogTrigger: ReactNode
 	itemId: string
-	deleteItemFn: (id: string) => void
+	deleteItemFn: (
+		id: string,
+		callbacks?: { onSuccess?: () => void; onError?: (error: any) => void }
+	) => void
 	isPending: boolean
 }
 export const DeleteDialog: React.FC<DeleteDialogProps> = ({
@@ -44,8 +47,15 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 						) : (
 							<Button
 								onClick={() => {
-									deleteItemFn(itemId)
-									setOpen(false)
+									deleteItemFn(itemId, {
+										onSuccess: () => {
+											setOpen(false)
+										},
+										onError: error => {
+											console.error('Delete failed:', error)
+											// Dialog yopilmaydi, xatolik yuz berganda
+										},
+									})
 								}}
 								variant='destructive'
 							>

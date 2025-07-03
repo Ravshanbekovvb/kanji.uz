@@ -86,10 +86,6 @@ class AuthService {
 			},
 		}
 	}
-
-	async logout() {}
-
-	async saveSession() {}
 }
 
 const authService = new AuthService(userService)
