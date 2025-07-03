@@ -11,10 +11,25 @@ import * as bcrypt from 'bcrypt'
 class UserService {
 	constructor(private readonly prisma: PrismaClient) {}
 
+	async findById(id: string): Promise<UserWithTokens> {
+		const existingUser = await this.prisma.user.findUnique({
+			where: {
+				id,
+			},
+			include: {
+				tokens: true,
+			},
+		})
+
+		if (!existingUser) throw new NotFoundError(`There is no user with this ID: #${id}`)
+
+		return existingUser
+	}
+
 	async findByEmail(email: string): Promise<UserWithTokens | null> {
 		const existingUser = await this.prisma.user.findUnique({
 			where: {
-				id: email,
+				email,
 			},
 			include: {
 				tokens: true,
@@ -84,6 +99,21 @@ class UserService {
 		})
 
 		return updatedUser
+	}
+
+	async deleteById(id: string): Promise<UserWithTokens> {
+		const existingUser = await this.findById(id)
+
+		const deletedUser = await this.prisma.user.delete({
+			where: {
+				id: existingUser.id,
+			},
+			include: {
+				tokens: true,
+			},
+		})
+
+		return deletedUser
 	}
 
 	async deleteByEmail(email: string): Promise<UserWithTokens> {
