@@ -43,6 +43,8 @@ model Token {
 model Lesson {
   id String @id @default(uuid())
 
+  title String
+
   words Word[] @relation("words_lesson")
 
   user   User   @relation("user_lesson", fields: [id], references: [id], onDelete: Cascade)
