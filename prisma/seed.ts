@@ -198,6 +198,27 @@ async function up() {
 			userLang: 'UZ',
 		},
 	})
+
+	await prisma.user.create({
+		data: {
+			email: '1@gmail.com',
+			password: hashSync('admin', 10),
+			userName: '1',
+			role: 'ADMIN',
+			userLang: 'UZ',
+			notification: {
+				create: {
+					message: 'This is first private notification',
+				},
+			},
+		},
+	})
+
+	await prisma.notification.create({
+		data: {
+			message: 'This is second public notification',
+		},
+	})
 }
 
 // await prisma.user.createMany({
