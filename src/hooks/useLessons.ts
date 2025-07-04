@@ -1,113 +1,57 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { ParamValue } from 'next/dist/server/request/params'
+import { toast } from 'sonner'
 
 export function useLessons() {
 	const { isPending, error, data } = useQuery({
-		queryKey: ['Users'],
+		queryKey: ['lessons'],
 		queryFn: () => fetch('/api/lessons/find').then(res => res.json()),
 	})
 	return { data, isPending, error }
 }
 
-// export function useDeleteUser() {
-// 	const queryClient = useQueryClient()
+export function useDeleteLesson() {
+	const queryClient = useQueryClient()
 
-// 	return useMutation({
-// 		mutationKey: ['delete user'],
-// 		mutationFn: async (email: string) => {
-// 			const res = await fetch(`/api/users/delete/${email}`, { method: 'DELETE' })
-// 			console.log(res)
+	return useMutation({
+		mutationKey: ['delete Lesson'],
+		mutationFn: async (LessonId: string) => {
+			const res = await fetch(`/api/lessons/delete/${LessonId}`, { method: 'DELETE' })
 
-// 			if (!res.ok) throw new Error('Failed to delete user')
-// 			return res.json()
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['Users'] })
-// 		},
-// 		onError: (e: any) => {
-// 			toast.error(e.message)
-// 		},
-// 	})
-// }
+			if (!res.ok) throw new Error('Failed to delete lesson')
+			return res.json()
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['lessons'] })
+		},
+		onError: (e: any) => {
+			toast.error(e.message)
+		},
+	})
+}
+export function useFindLessonById(LessonId: ParamValue) {
+	const { isPending, error, data } = useQuery({
+		queryKey: ['lessons', 'lesson', LessonId],
+		queryFn: async () => {
+			const res = await fetch(`/api/lessons/find/${LessonId}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			})
+			const responseData = await res.json()
 
-// export function useCreateUser() {
-// 	const queryClient = useQueryClient()
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
 
-// 	return useMutation({
-// 		mutationKey: ['users', 'create'],
-// 		mutationFn: async (data: CreateUserWithRepeatPasswordRequestType) => {
-// 			const res = await fetch(`/api/auth/register`, {
-// 				method: 'POST',
-// 				headers: {
-// 					'Content-Type': 'application/json',
-// 				},
-// 				body: JSON.stringify(data),
-// 			})
-// 			const responseData = await res.json()
+			return responseData
+		},
+		select: data => ({
+			words: data.data.words,
+			title: data.data.title[0],
+		}),
+	})
 
-// 			if (!res.ok) {
-// 				throw new Error(responseData.message)
-// 			}
-
-// 			return responseData
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['Users'] })
-// 		},
-// 		onError: (error: any) => {
-// 			toast.error(error.message)
-// 		},
-// 	})
-// }
-// export function useEditUser(id: string) {
-// 	const queryClient = useQueryClient()
-
-// 	return useMutation({
-// 		mutationKey: ['users', 'edit'],
-// 		mutationFn: async (data: CreateUserRequestType) => {
-// 			const res = await fetch(`/api/users/update/${id}`, {
-// 				method: 'PATCH',
-// 				headers: {
-// 					'Content-Type': 'application/json',
-// 				},
-// 				body: JSON.stringify(data),
-// 			})
-// 			const responseData = await res.json()
-
-// 			if (!res.ok) {
-// 				throw new Error(responseData?.message || 'Nomaʼlum xatolik')
-// 			}
-
-// 			return responseData
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['Users'] })
-// 		},
-// 		onError: (error: Error) => {
-// 			toast.error(error.message)
-// 		},
-// 	})
-// }
-// export function useFindUserById(id: ParamValue) {
-// 	const { isPending, error, data } = useQuery({
-// 		queryKey: ['users', 'user', id],
-// 		queryFn: async () => {
-// 			const res = await fetch(`/api/users/find/${id}`, {
-// 				method: 'GET',
-// 				headers: {
-// 					'Content-Type': 'application/json',
-// 				},
-// 			})
-// 			const responseData = await res.json()
-
-// 			if (!res.ok) {
-// 				throw new Error(responseData.message)
-// 			}
-
-// 			return responseData
-// 		},
-// 		select: data => data.data,
-// 		enabled: !!id,
-// 	})
-
-// 	return { data, isPending, error }
-// }
+	return { data, isPending, error }
+}

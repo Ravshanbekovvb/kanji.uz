@@ -3427,21 +3427,18 @@ export namespace Prisma {
     id: string | null
     title: string | null
     userId: string | null
-    title: string | null
   }
 
   export type LessonMaxAggregateOutputType = {
     id: string | null
     title: string | null
     userId: string | null
-    title: string | null
   }
 
   export type LessonCountAggregateOutputType = {
     id: number
     title: number
     userId: number
-    title: number
     _all: number
   }
 
@@ -3450,21 +3447,18 @@ export namespace Prisma {
     id?: true
     title?: true
     userId?: true
-    title?: true
   }
 
   export type LessonMaxAggregateInputType = {
     id?: true
     title?: true
     userId?: true
-    title?: true
   }
 
   export type LessonCountAggregateInputType = {
     id?: true
     title?: true
     userId?: true
-    title?: true
     _all?: true
   }
 
@@ -3544,7 +3538,6 @@ export namespace Prisma {
     id: string
     title: string
     userId: string
-    title: string
     _count: LessonCountAggregateOutputType | null
     _min: LessonMinAggregateOutputType | null
     _max: LessonMaxAggregateOutputType | null
@@ -3568,7 +3561,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
-    title?: boolean
     words?: boolean | Lesson$wordsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
     _count?: boolean | LessonCountOutputTypeDefaultArgs<ExtArgs>
@@ -3578,7 +3570,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
-    title?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lesson"]>
 
@@ -3586,7 +3577,6 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
-    title?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lesson"]>
 
@@ -3594,14 +3584,9 @@ export namespace Prisma {
     id?: boolean
     title?: boolean
     userId?: boolean
-    title?: boolean
   }
 
-<<<<<<< Updated upstream
   export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "userId", ExtArgs["result"]["lesson"]>
-=======
-  export type LessonOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "title", ExtArgs["result"]["lesson"]>
->>>>>>> Stashed changes
   export type LessonInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     words?: boolean | Lesson$wordsArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -3624,7 +3609,6 @@ export namespace Prisma {
       id: string
       title: string
       userId: string
-      title: string
     }, ExtArgs["result"]["lesson"]>
     composites: {}
   }
@@ -4053,7 +4037,6 @@ export namespace Prisma {
     readonly id: FieldRef<"Lesson", 'String'>
     readonly title: FieldRef<"Lesson", 'String'>
     readonly userId: FieldRef<"Lesson", 'String'>
-    readonly title: FieldRef<"Lesson", 'String'>
   }
     
 
@@ -5616,13 +5599,8 @@ export namespace Prisma {
 
   export const LessonScalarFieldEnum: {
     id: 'id',
-<<<<<<< Updated upstream
     title: 'title',
     userId: 'userId'
-=======
-    userId: 'userId',
-    title: 'title'
->>>>>>> Stashed changes
   };
 
   export type LessonScalarFieldEnum = (typeof LessonScalarFieldEnum)[keyof typeof LessonScalarFieldEnum]
@@ -5873,7 +5851,6 @@ export namespace Prisma {
     id?: StringFilter<"Lesson"> | string
     title?: StringFilter<"Lesson"> | string
     userId?: StringFilter<"Lesson"> | string
-    title?: StringFilter<"Lesson"> | string
     words?: WordListRelationFilter
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
@@ -5882,7 +5859,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
-    title?: SortOrder
     words?: WordOrderByRelationAggregateInput
     user?: UserOrderByWithRelationInput
   }
@@ -5902,7 +5878,6 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
-    title?: SortOrder
     _count?: LessonCountOrderByAggregateInput
     _max?: LessonMaxOrderByAggregateInput
     _min?: LessonMinOrderByAggregateInput
@@ -5915,7 +5890,6 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Lesson"> | string
     title?: StringWithAggregatesFilter<"Lesson"> | string
     userId?: StringWithAggregatesFilter<"Lesson"> | string
-    title?: StringWithAggregatesFilter<"Lesson"> | string
   }
 
   export type WordWhereInput = {
@@ -6117,13 +6091,8 @@ export namespace Prisma {
   }
 
   export type LessonCreateInput = {
-<<<<<<< Updated upstream
-    title: string
-    userId: string
-=======
     id?: string
     title: string
->>>>>>> Stashed changes
     words?: WordCreateNestedManyWithoutLessonInput
     user: UserCreateNestedOneWithoutLessonInput
   }
@@ -6132,18 +6101,12 @@ export namespace Prisma {
     id?: string
     title: string
     userId: string
-    title: string
     words?: WordUncheckedCreateNestedManyWithoutLessonInput
   }
 
   export type LessonUpdateInput = {
-<<<<<<< Updated upstream
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
     words?: WordUpdateManyWithoutLessonNestedInput
     user?: UserUpdateOneRequiredWithoutLessonNestedInput
   }
@@ -6152,7 +6115,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
     words?: WordUncheckedUpdateManyWithoutLessonNestedInput
   }
 
@@ -6160,24 +6122,17 @@ export namespace Prisma {
     id?: string
     title: string
     userId: string
-    title: string
   }
 
   export type LessonUpdateManyMutationInput = {
-<<<<<<< Updated upstream
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
   }
 
   export type LessonUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
   }
 
   export type WordCreateInput = {
@@ -6467,21 +6422,18 @@ export namespace Prisma {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
-    title?: SortOrder
   }
 
   export type LessonMaxOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
-    title?: SortOrder
   }
 
   export type LessonMinOrderByAggregateInput = {
     id?: SortOrder
     title?: SortOrder
     userId?: SortOrder
-    title?: SortOrder
   }
 
   export type LessonScalarRelationFilter = {
@@ -6841,24 +6793,14 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutUserInput = {
-<<<<<<< Updated upstream
-    title: string
-    userId: string
-=======
     id?: string
     title: string
->>>>>>> Stashed changes
     words?: WordCreateNestedManyWithoutLessonInput
   }
 
   export type LessonUncheckedCreateWithoutUserInput = {
-<<<<<<< Updated upstream
-    title: string
-    userId: string
-=======
     id?: string
     title: string
->>>>>>> Stashed changes
     words?: WordUncheckedCreateNestedManyWithoutLessonInput
   }
 
@@ -6912,7 +6854,6 @@ export namespace Prisma {
     id?: StringFilter<"Lesson"> | string
     title?: StringFilter<"Lesson"> | string
     userId?: StringFilter<"Lesson"> | string
-    title?: StringFilter<"Lesson"> | string
   }
 
   export type TokenUpsertWithoutUserInput = {
@@ -7124,22 +7065,15 @@ export namespace Prisma {
   }
 
   export type LessonCreateWithoutWordsInput = {
-<<<<<<< Updated upstream
-    title: string
-    userId: string
-    user?: UserCreateNestedOneWithoutLessonInput
-=======
     id?: string
     title: string
     user: UserCreateNestedOneWithoutLessonInput
->>>>>>> Stashed changes
   }
 
   export type LessonUncheckedCreateWithoutWordsInput = {
     id?: string
     title: string
     userId: string
-    title: string
   }
 
   export type LessonCreateOrConnectWithoutWordsInput = {
@@ -7159,13 +7093,8 @@ export namespace Prisma {
   }
 
   export type LessonUpdateWithoutWordsInput = {
-<<<<<<< Updated upstream
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
     user?: UserUpdateOneRequiredWithoutLessonNestedInput
   }
 
@@ -7173,19 +7102,9 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
   }
 
   export type LessonCreateManyUserInput = {
-<<<<<<< Updated upstream
-    title: string
-    userId: string
-  }
-
-  export type LessonUpdateWithoutUserInput = {
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: string
     title: string
   }
@@ -7193,29 +7112,18 @@ export namespace Prisma {
   export type LessonUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
     words?: WordUpdateManyWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateWithoutUserInput = {
-<<<<<<< Updated upstream
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
     words?: WordUncheckedUpdateManyWithoutLessonNestedInput
   }
 
   export type LessonUncheckedUpdateManyWithoutUserInput = {
-<<<<<<< Updated upstream
-    title?: StringFieldUpdateOperationsInput | string
-    userId?: StringFieldUpdateOperationsInput | string
-=======
     id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
->>>>>>> Stashed changes
   }
 
   export type WordCreateManyLessonInput = {

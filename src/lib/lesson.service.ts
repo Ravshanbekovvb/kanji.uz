@@ -43,6 +43,7 @@ class LessonService {
 				title: true,
 				user: true,
 				userId: true,
+				words: true,
 			},
 		})
 
@@ -78,6 +79,7 @@ class LessonService {
 			},
 			select: {
 				words: true,
+				title: true,
 			},
 		})
 

@@ -13,9 +13,14 @@ export async function GET(
 		const words = await lessonService.findWordsByLessonId(lessonId)
 
 		const singleWordsArray = words.flatMap(item => item.words)
+		const singleTitle = words.flatMap(item => item.title)
 
 		return apiResponse(
-			{ success: true, message: 'Words returned successfully', data: singleWordsArray },
+			{
+				success: true,
+				message: 'Words returned successfully',
+				data: { title: singleTitle, words: singleWordsArray },
+			},
 			{ status: 200 }
 		)
 	} catch (error) {

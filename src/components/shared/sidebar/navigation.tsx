@@ -33,7 +33,7 @@ export const navbarIconMap = {
 type NavbarIconKey = keyof typeof navbarIconMap
 
 export const Navigation: React.FC = () => {
-	const { user } = useAuth()
+	const { user, logout } = useAuth()
 	const pathname = usePathname()
 	const activePath = '/' + (pathname.split('/')[1] || '')
 
@@ -59,18 +59,30 @@ export const Navigation: React.FC = () => {
 						menuItem.title === 'Logout' ? 'flex-1 items-end' : ''
 					)}
 				>
-					<Link
-						href={menuItem.link}
-						className={cn(
-							'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
-							isActive && activeColor,
-							menuItem.className || 'hover:bg-blue-200'
-						)}
-					>
-						<span className='flex justify-center items-center gap-2 text-base'>
-							{navbarIconMap[menuItem.icon as NavbarIconKey]} {menuItem.title}
-						</span>
-						{menuItem.title !== 'Logout' && (
+					{menuItem.title === 'Logout' ? (
+						<button
+							onClick={() => logout()}
+							className={cn(
+								'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
+								menuItem.className || 'hover:bg-red-200'
+							)}
+						>
+							<span className='flex justify-center items-center gap-2 text-base'>
+								{navbarIconMap[menuItem.icon as NavbarIconKey]} {menuItem.title}
+							</span>
+						</button>
+					) : (
+						<Link
+							href={menuItem.link}
+							className={cn(
+								'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
+								isActive && activeColor,
+								menuItem.className || 'hover:bg-blue-200'
+							)}
+						>
+							<span className='flex justify-center items-center gap-2 text-base'>
+								{navbarIconMap[menuItem.icon as NavbarIconKey]} {menuItem.title}
+							</span>
 							<ChevronRightIcon
 								className={cn(
 									'opacity-0 invisible pr-4 group-hover:visible group-hover:opacity-100 group-hover:pr-0 duration-300',
@@ -78,8 +90,8 @@ export const Navigation: React.FC = () => {
 								)}
 								size={18}
 							/>
-						)}
-					</Link>
+						</Link>
+					)}
 				</li>
 			)
 		})
@@ -103,18 +115,30 @@ export const Navigation: React.FC = () => {
 						menuItem.title === 'Help' ? 'flex-1 items-end' : ''
 					)}
 				>
-					<Link
-						href={menuItem.link}
-						className={cn(
-							'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
-							isActive && activeColor,
-							menuItem.className || 'hover:bg-blue-200'
-						)}
-					>
-						<span className='flex justify-center items-center gap-2 text-base'>
-							{navbarIconMap[menuItem.icon]} {menuItem.title}
-						</span>
-						{menuItem.title !== 'Logout' && (
+					{menuItem.title === 'Logout' ? (
+						<button
+							onClick={() => logout()}
+							className={cn(
+								'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
+								menuItem.className || 'hover:bg-red-200'
+							)}
+						>
+							<span className='flex justify-center items-center gap-2 text-base'>
+								{navbarIconMap[menuItem.icon]} {menuItem.title}
+							</span>
+						</button>
+					) : (
+						<Link
+							href={menuItem.link}
+							className={cn(
+								'flex justify-between items-center px-3 py-2 group rounded-md duration-300 whitespace-nowrap w-full',
+								isActive && activeColor,
+								menuItem.className || 'hover:bg-blue-200'
+							)}
+						>
+							<span className='flex justify-center items-center gap-2 text-base'>
+								{navbarIconMap[menuItem.icon]} {menuItem.title}
+							</span>
 							<ChevronRightIcon
 								className={cn(
 									'opacity-0 invisible pr-4 group-hover:visible group-hover:opacity-100 group-hover:pr-0 duration-300',
@@ -122,8 +146,8 @@ export const Navigation: React.FC = () => {
 								)}
 								size={18}
 							/>
-						)}
-					</Link>
+						</Link>
+					)}
 				</li>
 			)
 		})

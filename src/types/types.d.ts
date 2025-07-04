@@ -40,14 +40,18 @@ type JWTType = JwtPayload & {
 }
 
 interface DarsData {
-	user: string
+	id: string
 	title: string
 	words: {
 		kanji: string
 		translation: string
 		transcription: string
 		example: string
+		jlptLevel: string
 	}[]
+	user: {
+		userName: string
+	}
 }
 
 export type ApiResponseType<T = unknown> = SuccessResponseType<T> | ErrorResponseType

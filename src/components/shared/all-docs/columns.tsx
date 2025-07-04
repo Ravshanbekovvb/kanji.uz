@@ -15,8 +15,9 @@ export const columns: ColumnDef<DarsData>[] = [
 		id: 'wordCount',
 	},
 	{
-		accessorKey: 'user',
+		accessorFn: row => row.user.userName,
 		header: 'User',
+		id: 'userName',
 	},
 	{
 		header: 'Actions',
