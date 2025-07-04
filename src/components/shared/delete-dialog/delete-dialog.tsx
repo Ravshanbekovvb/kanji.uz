@@ -53,7 +53,6 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 										},
 										onError: error => {
 											console.error('Delete failed:', error)
-											// Dialog yopilmaydi, xatolik yuz berganda
 										},
 									})
 								}}

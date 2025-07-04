@@ -95,13 +95,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
 			})
 
 			if (response.ok) {
-				setUser(null)
 				router.push('/login')
+				setUser(null)
 			}
 		} catch (error) {
+			router.push('/login')
 			console.error('Logout failed:', error)
 			setUser(null)
-			router.push('/login')
 		}
 	}
 

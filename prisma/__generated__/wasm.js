@@ -140,13 +140,8 @@ exports.Prisma.TokenScalarFieldEnum = {
 
 exports.Prisma.LessonScalarFieldEnum = {
   id: 'id',
-<<<<<<< Updated upstream
   title: 'title',
   userId: 'userId'
-=======
-  userId: 'userId',
-  title: 'title'
->>>>>>> Stashed changes
 };
 
 exports.Prisma.WordScalarFieldEnum = {

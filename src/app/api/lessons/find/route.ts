@@ -26,8 +26,6 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
 
 	const userId = sub.replace('user-', '')
 
-	console.log(role)
-
 	try {
 		if (role === 'ADMIN') {
 			const lessons = await lessonService.findAllForAdmin()
