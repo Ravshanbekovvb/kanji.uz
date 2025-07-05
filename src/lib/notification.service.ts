@@ -51,11 +51,60 @@ class NotificationService {
 		return existingNotifications
 	}
 
-	async create() {}
+	async create(payload: Pick<Notification, 'message' | 'userId'>): Promise<Notification> {
+		const { message, userId } = payload
 
-	async delete() {}
+		const createdNotification = await this.prisma.notification.create({
+			data: {
+				message,
+				userId,
+			},
+		})
 
-	async update() {}
+		return createdNotification
+	}
+
+	async delete(notificationId: string): Promise<Notification> {
+		const existingNotification = await this.prisma.notification.findUnique({
+			where: {
+				id: notificationId,
+			},
+		})
+
+		if (!existingNotification)
+			throw new NotFoundError(`Notification with this ID not found: #${notificationId}`)
+
+		const deletedNotification = await this.prisma.notification.delete({
+			where: {
+				id: existingNotification.id,
+			},
+		})
+
+		return deletedNotification
+	}
+
+	async update(payload: Pick<Notification, 'message' | 'userId'>, notificationId: string) {
+		const existingNotification = await this.prisma.notification.findUnique({
+			where: {
+				id: notificationId,
+			},
+		})
+
+		if (!existingNotification)
+			throw new NotFoundError(`Notification with this ID not found: #${notificationId}`)
+
+		const updatedNotification = await this.prisma.notification.update({
+			where: {
+				id: notificationId,
+			},
+			data: {
+				message: payload.message,
+				userId: payload.userId,
+			},
+		})
+
+		return updatedNotification
+	}
 }
 
 const notificationService = new NotificationService(prisma)
