@@ -154,6 +154,13 @@ exports.Prisma.WordScalarFieldEnum = {
   lessonId: 'lessonId'
 };
 
+exports.Prisma.NotificationScalarFieldEnum = {
+  id: 'id',
+  message: 'message',
+  userId: 'userId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -186,7 +193,8 @@ exports.Prisma.ModelName = {
   User: 'User',
   Token: 'Token',
   Lesson: 'Lesson',
-  Word: 'Word'
+  Word: 'Word',
+  Notification: 'Notification'
 };
 
 /**
