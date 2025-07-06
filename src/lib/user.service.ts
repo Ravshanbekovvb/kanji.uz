@@ -53,7 +53,7 @@ class UserService {
 	}
 
 	async create(payload: CreateUserWithRepeatPasswordRequestType): Promise<UserWithTokens> {
-		const { email, password, userName, repeatPassword } = payload
+		const { email, password, userName, repeatPassword, role, userLang } = payload
 
 		const existingUser = await this.findByEmail(email)
 
@@ -70,6 +70,8 @@ class UserService {
 				email,
 				password: hashedPassword,
 				userName,
+				role,
+				userLang,
 			},
 			include: {
 				tokens: true,

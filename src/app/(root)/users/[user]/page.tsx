@@ -83,12 +83,20 @@ export default function Page() {
 						</tr>
 					</thead>
 					<tbody className='bg-white'>
-						{data.lesson.map((item: { title: string; id: string }, index: number) => (
-							<tr key={index} className='hover:bg-gray-200 cursor-pointer'>
-								<td className='px-4 py-2 border font-medium text-gray-800'>{index + 1}</td>
-								<td className='px-4 py-2 border text-gray-800'>{item.title}</td>
+						{data.lesson.length <= 0 ? (
+							<tr>
+								<td colSpan={2} className='px-4 py-6 text-center text-gray-500'>
+									No lessons available.
+								</td>
 							</tr>
-						))}
+						) : (
+							data.lesson.map((item: { title: string; id: string }, index: number) => (
+								<tr key={index} className='hover:bg-gray-200 cursor-pointer'>
+									<td className='px-4 py-2 border font-medium text-gray-800'>{index + 1}</td>
+									<td className='px-4 py-2 border text-gray-800'>{item.title}</td>
+								</tr>
+							))
+						)}
 					</tbody>
 				</table>
 			</div>
