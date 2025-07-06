@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Roboto_Mono } from 'next/font/google'
+import { Toaster } from 'sonner'
 import './globals.css'
 
 const roboto = Roboto_Mono({
@@ -21,6 +22,7 @@ export default function RootLayout({
 		<html lang='en'>
 			<body className={`${roboto.className} antialiased`} suppressHydrationWarning>
 				{children}
+				<Toaster position='top-right' richColors />
 			</body>
 		</html>
 	)

@@ -16,12 +16,10 @@ interface Data {
 
 function Page() {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
-	const [isLoading, setIsLoading] = useState<boolean>(false)
-	const { login } = useAuth()
+	const { login, isLoading } = useAuth()
 	const router = useRouter()
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-		setIsLoading(true)
 
 		const formData = new FormData(e.currentTarget)
 		const email = formData.get('email') as string
@@ -29,7 +27,6 @@ function Page() {
 
 		if (!email || !password) {
 			toast.error('Please fill in all fields')
-			setIsLoading(false)
 			return
 		}
 
@@ -45,8 +42,6 @@ function Page() {
 		} catch (error) {
 			console.error('Login error:', error)
 			toast.error('An unexpected error occurred')
-		} finally {
-			setIsLoading(false)
 		}
 	}
 
@@ -77,7 +72,7 @@ function Page() {
 					name='email'
 					className='w-full p-2 border rounded-md mt-4'
 				/>
-				<div className='relative'>
+				<div className='relative mb-4'>
 					<Input
 						autoComplete='off'
 						name='password'
@@ -93,11 +88,11 @@ function Page() {
 					</div>
 				</div>
 				{isLoading ? (
-					<Loader className='w-full p-2 rounded-md mt-4' />
+					<Loader className='w-full p-2 rounded-md' />
 				) : (
 					<Button
 						type='submit'
-						className='w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md mt-4'
+						className='w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md'
 					>
 						Login
 					</Button>
