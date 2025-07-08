@@ -5,18 +5,21 @@ import { NextResponse } from 'next/server'
 
 export async function GET(
 	request: Request,
-	{ params }: { params: Promise<{ userId: string }> }
+	{ params }: { params: Promise<{ lessonId: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
-	const { userId } = await params
+	const { lessonId } = await params
 
 	try {
-		const wordsWithUser = await lessonService.findByUserId(userId)
+		const words = await lessonService.findWordsByLessonId(lessonId)
+
+		const singleWordsArray = words.flatMap(item => item.words)
+		const singleTitle = words.flatMap(item => item.title)
 
 		return apiResponse(
 			{
 				success: true,
 				message: 'Words returned successfully',
-				data: wordsWithUser,
+				data: { title: singleTitle, words: singleWordsArray },
 			},
 			{ status: 200 }
 		)
