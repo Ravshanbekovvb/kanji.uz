@@ -47,7 +47,6 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 			},
 			onError: err => {
 				console.log(err)
-				// Dialog yopilmaydi, xatolik yuz berganda
 			},
 		})
 	}
@@ -124,9 +123,7 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 						{isPending ? (
 							<Loader variant='default' title='Editing...' />
 						) : (
-							<Button type='submit' variant={'default'}>
-								Edit
-							</Button>
+							<Button type='submit'>Edit</Button>
 						)}
 					</div>
 				</form>

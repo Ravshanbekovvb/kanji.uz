@@ -33,7 +33,6 @@ export const Actions: React.FC<Props> = ({ row }) => {
 			},
 		})
 	}
-	console.log(row.original.words)
 
 	return (
 		<DropdownMenu>

@@ -7,10 +7,18 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from '@/components/ui/select'
+import {
 	useCreateNotification,
 	useDeleteNotification,
-	useNotificationsAll,
+	useNotificationsPrivate,
 } from '@/hooks/useNotifications'
+import { useUsers } from '@/hooks/useUsers'
 import { Edit, EllipsisVertical, SendHorizontal, Trash2 } from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
@@ -18,30 +26,38 @@ import { DeleteDialog } from '../delete-dialog'
 import { Loader } from '../loader'
 import { NotificationEditDialog } from './notification-edit-dialog'
 
-export const NotificationAll: React.FC = () => {
-	const { data, error, isPending } = useNotificationsAll()
-	const { mutate: deleteNotification, isPending: deleteNotificationIsPanding } =
-		useDeleteNotification()
+export const NotificationPrivate: React.FC = () => {
+	const { data, error, isPending } = useNotificationsPrivate()
+	const { data: userData, isPending: userIsPending, error: userError } = useUsers(true)
 	const { mutate: createNotificationPrivate, isPending: notificationIsPending } =
 		useCreateNotification()
-	if (isPending) {
+	const { mutate: deleteNotification, isPending: deleteNotificationIsPanding } =
+		useDeleteNotification()
+	if (isPending || userIsPending) {
 		return 'loading...'
 	}
-	if (error) {
+	if (error || userError) {
 		return 'error...'
 	}
-	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+
+	const handlesubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		const form = e.currentTarget
 		const formData = new FormData(form)
-		const message = formData.get('message')
 
-		if (!message) {
-			toast.error('Message must not be empty!')
+		const message = formData.get('message')
+		const userId = formData.get('userId')
+
+		if (!message || !userId) {
+			toast.error('Message and user must not be empty!')
 			return
 		}
+
 		createNotificationPrivate(
-			{ message: message, userId: null },
+			{
+				message,
+				userId,
+			},
 			{
 				onSuccess: () => {
 					form.reset()
@@ -51,13 +67,25 @@ export const NotificationAll: React.FC = () => {
 	}
 	return (
 		<div>
-			<form className='flex items-center gap-2' onSubmit={handleSubmit}>
+			<form className='flex items-center gap-2' onSubmit={handlesubmit}>
 				<input
 					name='message'
 					type='text'
-					placeholder='type new notification...'
+					placeholder='type new notification personal...'
 					className='border p-2 rounded w-full'
 				/>
+				<Select name='userId'>
+					<SelectTrigger className='w-[180px] h-42'>
+						<SelectValue placeholder='Select User' />
+					</SelectTrigger>
+					<SelectContent>
+						{userData.map((user: { userName: string; id: string }, index: number) => (
+							<SelectItem value={user.id} key={index} className='cursor-pointer'>
+								{user.userName}
+							</SelectItem>
+						))}
+					</SelectContent>
+				</Select>
 				{notificationIsPending ? (
 					<Loader title='' />
 				) : (
@@ -70,23 +98,27 @@ export const NotificationAll: React.FC = () => {
 					</Button>
 				)}
 			</form>
-
 			{data.length > 0 ? (
 				data.map((item, ind) => (
 					<div
 						key={item.id ?? ind}
-						className='shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-200 p-5 my-5 border'
+						className='shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-200 p-3 my-5 border'
 					>
-						<div className='flex flex-col gap-2'>
+						<div className='flex flex-col gap-1'>
+							<div className='text-2xl font-semibold'>
+								<span className='text-lg mr-2'>🧔🏻</span>
+								{item.user && <>{item.user.userName}</>}
+							</div>
 							<div className='text-lg font-semibold'>
-								<span className='text-lg mr-2'>📩</span>
+								<span className='text-lg mr-2'>💬</span>
 								{item.message}
 							</div>
-							<div className='text-sm font-semibold'>
+							<div className='text-sm font-semibold text-gray-400'>
 								<span className='text-lg mr-2'>📅</span>
 								{new Date(item.createdAt).toISOString().split('T')[0]}
 							</div>
 						</div>
+
 						<div>
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
