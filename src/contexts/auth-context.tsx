@@ -1,11 +1,15 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
-
+interface Lesson {
+	title: string
+	userId: string
+}
 interface User {
 	id: string
 	email: string
 	userName: string
+	lesson: Lesson[]
 	role: string
 }
 

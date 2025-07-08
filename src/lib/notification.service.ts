@@ -25,7 +25,7 @@ class NotificationService {
 		const { isPrivate, isPublic } = getSearchParams(url)
 
 		let where = {}
-
+		let include = {}
 		if (isPublic && !isPrivate) {
 			where = {
 				user: null,
@@ -38,6 +38,13 @@ class NotificationService {
 					isNot: null,
 				},
 			}
+			include = {
+				user: {
+					select: {
+						userName: true,
+					},
+				},
+			}
 		}
 
 		if (isPrivate && isPublic) {
@@ -46,6 +53,7 @@ class NotificationService {
 
 		const existingNotifications = await this.prisma.notification.findMany({
 			where,
+			include,
 		})
 
 		return existingNotifications

@@ -85,6 +85,9 @@ export function useEditUser(id: string) {
 			return responseData
 		},
 		onSuccess: () => {
+			// Invalidate the specific user query
+			queryClient.invalidateQueries({ queryKey: ['users', 'user', id] })
+			// Invalidate the users list query
 			queryClient.invalidateQueries({ queryKey: ['Users'] })
 		},
 		onError: (error: Error) => {

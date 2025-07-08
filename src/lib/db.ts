@@ -8,12 +8,12 @@ export const navbarMenus: NavbarMenuType[] = [
 	},
 	{
 		icon: 'badge',
-		title: 'Create PDF',
+		title: 'Create Doc',
 		link: '/create-pdf',
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Words',
+		title: 'My Docs',
 		link: '/my-docs',
 	},
 	{
