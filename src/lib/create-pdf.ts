@@ -1,3 +1,5 @@
+import jsPDF from 'jspdf'
+
 type Props = {
 	word: string
 	translation?: boolean
@@ -109,6 +111,7 @@ export const setKanjiTextSize = (kanji: string) => {
 			: 10
 	return result
 }
+
 export const setTranscriptionTextSize = (reading: string) => {
 	const length = reading.length
 	if (length <= 2) return 22
@@ -146,6 +149,7 @@ export const setRomajiTextSize = (reading: string) => {
 	if (length <= 16) return 13
 	return 12
 }
+
 export const setExampleTextSize = (reading: string) => {
 	const length = reading.length
 	if (length <= 2) return 22
@@ -164,7 +168,7 @@ export const setExampleTextSize = (reading: string) => {
 	if (length <= 16) return 7
 	return 7
 }
-import jsPDF from 'jspdf'
+
 interface Word {
 	kanji: string
 	translation: string
@@ -172,13 +176,16 @@ interface Word {
 	example: string
 	jlptLevel: string
 }
+
 interface createPdf {
 	words: Word[]
 	title: string
+	type?: 'table' | 'card'
 }
-export function createPdf({ words, title }: createPdf) {
+
+export function createPdf({ words, title, type = 'card' }: createPdf) {
 	const doc = new jsPDF({
-		orientation: 'landscape',
+		orientation: type === 'card' ? 'landscape' : 'portrait',
 		unit: 'cm',
 		format: 'a4',
 	})
@@ -189,6 +196,94 @@ export function createPdf({ words, title }: createPdf) {
 
 	doc.setLineWidth(1 / 20)
 
+	if (type === 'table') {
+		createTableFormat(doc, words, title)
+	} else {
+		createCardFormat(doc, words, title)
+	}
+
+	doc.save(`${title}_${words.length}_words.pdf`)
+
+	return 'PDF muvaffaqiyatli yaratildi!'
+}
+
+function createTableFormat(doc: jsPDF, words: Word[], title: string) {
+	const wordsPerPage = 25 // har sahifada 20 ta so'z
+	const totalPages = Math.ceil(words.length / wordsPerPage)
+
+	for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
+		if (pageIndex > 0) {
+			doc.addPage('l')
+		}
+
+		const startIndex = pageIndex * wordsPerPage
+		const endIndex = Math.min(startIndex + wordsPerPage, words.length)
+		const pageWords = words.slice(startIndex, endIndex)
+
+		// Sarlavha
+		doc.setFontSize(14)
+		doc.setFont('NotoSansJP-Thin')
+		doc.text(`${title}`, 1, 1, {
+			align: 'left',
+		})
+
+		// Jadval sarlavhalari
+		doc.setFontSize(10)
+		const headers = ['#', 'Kanji', 'Translation', 'Transcription', 'Example', 'JLPT']
+		const colWidths = [1, 2.5, 4, 3, 7.5, 1]
+		let x = 1
+		let y = 1.5
+
+		doc.setLineWidth(0.000000001) // yupqaroq chiziq
+
+		// Sarlavhalar
+		headers.forEach((header, i) => {
+			doc.setFont('NotoSansJP-Thin', 'bold')
+			doc.rect(x, y, colWidths[i], 1) // F - filled (background)
+			doc.text(header, x + colWidths[i] / 2, y + 0.5, {
+				align: 'center',
+				baseline: 'middle',
+			})
+			x += colWidths[i]
+		})
+		doc.setFont('NotoSansJP-Thin', 'normal')
+
+		// So'zlar
+		pageWords.forEach((word, index) => {
+			y += 1
+			x = 1
+
+			const rowData = [
+				(startIndex + index + 1).toString(),
+				word.kanji,
+				word.translation,
+				word.transcription,
+				word.example,
+				word.jlptLevel,
+			]
+
+			rowData.forEach((data, i) => {
+				doc.rect(x, y, colWidths[i], 1)
+
+				if (i === 1) {
+					doc.setFont('NotoSansJP')
+					doc.setFontSize(Math.min(14, Math.max(8, 16 - data.length)))
+				} else {
+					doc.setFont('NotoSansJP-Thin')
+					doc.setFontSize(Math.min(10, Math.max(6, 12 - data.length / 10)))
+				}
+
+				doc.text(data, x + colWidths[i] / 2, y + 0.5, {
+					align: 'center',
+					baseline: 'middle',
+				})
+				x += colWidths[i]
+			})
+		})
+	}
+}
+
+function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 	const widths = 7.425
 	const height = 4.2
 	const wordsPerPage = 20 // 5 qator x 4 ustun
@@ -283,29 +378,4 @@ export function createPdf({ words, title }: createPdf) {
 			})
 		}
 	}
-
-	doc.save(`${title}_${words.length}_words.pdf`)
-
-	return 'PDF muvaffaqiyatli yaratildi!'
-}
-
-export const parsePdfFileName = (fileName: string) => {
-	const cleanName = fileName.replace('.pdf', '')
-	const parts = cleanName.split('_')
-
-	if (parts.length !== 6) {
-		throw new Error('Fayl nomi noto‘g‘ri formatda: ' + fileName)
-	}
-
-	const userId = parseInt(parts[0], 10) // 38
-	const userName = parts[1] // Anvar
-	const kanji = parts[2] // 回
-	const level = parseInt(parts[3], 10) // 5
-	const wordCount = parseInt(parts[4], 10) // 98
-
-	if (isNaN(userId) || isNaN(level) || isNaN(wordCount)) {
-		throw new Error('Raqamli qismlarda xatolik bor: ' + fileName)
-	}
-
-	return { userId, userName, kanji, level, wordCount }
 }
