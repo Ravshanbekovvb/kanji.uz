@@ -1,9 +1,18 @@
 'use client'
 import { Loader } from '@/components/shared'
 import { Button } from '@/components/ui/button'
+import {
+	Dialog,
+	DialogContent,
+	DialogDescription,
+	DialogHeader,
+	DialogTitle,
+	DialogTrigger,
+} from '@/components/ui/dialog'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
 import { ArrowLeft, Download } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
@@ -16,6 +25,7 @@ interface Word {
 	jlptLevel: string
 }
 export default function Page() {
+	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
 	const [isDownloading, setIsDownloading] = useState<boolean>(false)
 	const params = useParams()
 	if (!params.doc) {
@@ -84,29 +94,93 @@ export default function Page() {
 				</table>
 			</div>
 
-			{isDownloading ? (
-				<Loader title='downloading...' className='mt-10' />
-			) : (
-				<Button
-					className='mt-10'
-					onClick={async () => {
-						setIsDownloading(true)
-						setTimeout(() => {
-							try {
-								createPdf({ words: data.words, title: data.title })
-							} catch (error) {
-								console.error('PDF yaratishda xatolik:', error)
-							} finally {
-								setTimeout(() => setIsDownloading(false), 200)
-							}
-						}, 100)
-					}}
-					disabled={isDownloading}
-				>
-					<Download />
-					Download PDF
-				</Button>
-			)}
+			<Dialog>
+				<DialogTrigger asChild>
+					<Button className='mt-10'>
+						<Download className='mr-2' />
+						Download PDF
+					</Button>
+				</DialogTrigger>
+				<DialogContent className='min-w-[530px]'>
+					<DialogHeader>
+						<DialogTitle className='text-3xl font-bold text-center mb-6'>
+							Select the type of PDF
+						</DialogTitle>
+						<DialogDescription asChild>
+							<div className='flex items-center justify-center gap-6 max-h-[220px]'>
+								<div
+									className={`border-2 rounded-xl p-3 min-h-full cursor-pointer transition-all duration-200 hover:shadow-lg ${
+										pdfType === 'table'
+											? 'border-blue-500 bg-blue-50 shadow-md'
+											: 'border-gray-300 hover:border-gray-400'
+									}`}
+									onClick={() => setPdfType('table')}
+								>
+									<div className='flex flex-col items-center text-center'>
+										<span className='font-semibold text-xl mb-2 text-gray-800'>Table Format</span>
+
+										<Image
+											src='/table-image.png'
+											alt='table-format'
+											width={180}
+											height={70}
+											className='rounded-lg border shadow-sm object-cover min-h-[160px] min-w-[200px]'
+										/>
+									</div>
+								</div>
+								<div
+									className={`border-2 rounded-xl p-3 min-h-full cursor-pointer transition-all duration-200 hover:shadow-lg ${
+										pdfType === 'card'
+											? 'border-blue-500 bg-blue-50 shadow-md'
+											: 'border-gray-300 hover:border-gray-400'
+									}`}
+									onClick={() => setPdfType('card')}
+								>
+									<div className='flex flex-col items-center text-center'>
+										<span className='font-semibold text-xl mb-2 text-gray-800'>Card Format</span>
+
+										<Image
+											src='/card-image.png'
+											alt='card-format'
+											width={180}
+											height={90}
+											className='rounded-lg border shadow-sm object-cover min-h-[160px] min-w-[200px]'
+										/>
+									</div>
+								</div>
+							</div>
+						</DialogDescription>
+
+						{isDownloading ? (
+							<Loader className='mt-10' />
+						) : (
+							<Button
+								className='mt-10'
+								onClick={async () => {
+									setIsDownloading(true)
+									setTimeout(() => {
+										try {
+											createPdf({
+												words: data.words,
+												title: data.title,
+												type: pdfType,
+											})
+										} catch (error) {
+											console.error('PDF yaratishda xatolik:', error)
+										} finally {
+											setTimeout(() => setIsDownloading(false), 200)
+										}
+									}, 100)
+								}}
+								disabled={isDownloading}
+							>
+								<Download className='mr-2' />
+								Download PDF
+							</Button>
+						)}
+					</DialogHeader>
+				</DialogContent>
+			</Dialog>
 		</div>
 	)
 }
