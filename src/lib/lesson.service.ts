@@ -1,5 +1,5 @@
 import { NotFoundError } from '@/types/errors'
-import { Lesson, prisma, PrismaClient, User } from './prisma'
+import { Lesson, prisma, PrismaClient, User, Word } from './prisma'
 
 type LessonWithUser = Lesson & {
 	user: User
@@ -21,13 +21,17 @@ class LessonService {
 		return existingLesson
 	}
 
-	async findByUserId(userId: string): Promise<User & { lesson: Lesson[] }> {
+	async findByUserId(userId: string): Promise<User & { lesson: (Lesson & { words: Word[] })[] }> {
 		const existingUser = await this.prisma.user.findUnique({
 			where: {
 				id: userId,
 			},
 			include: {
-				lesson: true,
+				lesson: {
+					include: {
+						words: true,
+					},
+				},
 			},
 		})
 
@@ -67,6 +71,23 @@ class LessonService {
 	}
 
 	async update() {}
+
+	async updateTitle(id: string, title: string): Promise<Lesson> {
+		const existingLesson = await this.findById(id)
+
+		if (!existingLesson) throw new NotFoundError(`Lesson with this ID not found: #${id}`)
+
+		const updatedLesson = await this.prisma.lesson.update({
+			where: {
+				id: existingLesson.id,
+			},
+			data: {
+				title,
+			},
+		})
+
+		return updatedLesson
+	}
 
 	async findWordsByLessonId(id: string) {
 		const existingLesson = await this.findById(id)

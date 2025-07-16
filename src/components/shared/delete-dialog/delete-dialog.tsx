@@ -30,7 +30,7 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 	const [open, setOpen] = useState(false)
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger>{triger}</DialogTrigger>
+			<DialogTrigger asChild>{triger}</DialogTrigger>
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
