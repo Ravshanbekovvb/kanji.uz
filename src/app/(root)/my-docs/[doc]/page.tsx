@@ -1,5 +1,5 @@
 'use client'
-import { Loader } from '@/components/shared'
+import { DeleteDialog, Loader } from '@/components/shared'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -10,8 +10,9 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { useFindLessonById } from '@/hooks/useLessons'
+import { useDeleteWord } from '@/hooks/useWord'
 import { createPdf } from '@/lib/create-pdf'
-import { ArrowLeft, Download } from 'lucide-react'
+import { ArrowLeft, Download, Edit, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -28,6 +29,7 @@ export default function Page() {
 	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
 	const [isDownloading, setIsDownloading] = useState<boolean>(false)
 	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const { mutate: DeleteWord, isPending: deleteWordIsPending } = useDeleteWord()
 	const params = useParams()
 	if (!params.doc) {
 		return 'loading..'
@@ -36,7 +38,7 @@ export default function Page() {
 	if (isPending) {
 		return (
 			<div className='p-6'>
-				<div className='text-center'>Loading user profile...</div>
+				<div className='text-center'>Loading Lesson words...</div>
 			</div>
 		)
 	}
@@ -44,7 +46,7 @@ export default function Page() {
 	if (error) {
 		return (
 			<div className='p-6'>
-				<div className='text-center text-red-500'>Error loading user profile</div>
+				<div className='text-center text-red-500'>Error Lesson words</div>
 			</div>
 		)
 	}
@@ -52,7 +54,7 @@ export default function Page() {
 	if (!data) {
 		return (
 			<div className='p-6'>
-				<div className='text-center'>lesson not found</div>
+				<div className='text-center'>words not found</div>
 			</div>
 		)
 	}
@@ -60,15 +62,17 @@ export default function Page() {
 	return (
 		<div>
 			<Link
-				href='/all-docs'
+				href='/my-docs'
 				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4'
 			>
 				<ArrowLeft size={18} />
-				<span>Back to All documents</span>
+				<span>Back to My documents</span>
 			</Link>
+
 			<h2 className='mb-4 text-4xl font-semibold'>{data.title}</h2>
+
 			<div className='max-h-89 overflow-y-auto'>
-				<table className='min-w-full border border-gray-800 rounded-md text-left text-sm'>
+				<table className='min-w-full border rounded-md text-left text-sm'>
 					<thead className='bg-gray-100 text-gray-700 '>
 						<tr>
 							<th className='px-4 py-2 border'>#</th>
@@ -77,17 +81,34 @@ export default function Page() {
 							<th className='px-4 py-2 border'>Transkripsiya</th>
 							<th className='px-4 py-2 border'>Misol</th>
 							<th className='px-4 py-2 border'>JLPT</th>
+							<th className='py-2 border text-center'>A</th>
 						</tr>
 					</thead>
 					<tbody>
 						{data.words.map((item: Word, index: number) => (
-							<tr key={item.id} className='hover:bg-gray-50'>
+							<tr key={item.id} className='hover:bg-gray-200/80 group'>
 								<td className='px-4 py-2 border font-medium'>{index + 1}</td>
-								<td className='px-4 py-2 border text-xl'>{item.kanji}</td>
+								<td className='px-4 py-2 border text-xl flex items-center justify-between'>
+									{item.kanji}
+									<Edit
+										className='group-hover:opacity-100 opacity-0 transition-opacity duration-200 cursor-pointer'
+										size={20}
+									/>
+								</td>
 								<td className='px-4 py-2 border'>{item.translation}</td>
 								<td className='px-4 py-2 border'>{item.transcription}</td>
 								<td className='px-4 py-2 border'>{item.example}</td>
 								<td className='px-4 py-2 border'>{item.jlptLevel}</td>
+								<td className='px-4 py-2 border'>
+									<DeleteDialog
+										itemId={item.id}
+										isPending={deleteWordIsPending}
+										deleteItemFn={DeleteWord}
+										dialogTrigger={
+											<Trash2 className='mx-auto cursor-pointer hover:text-red-500 transition-colors' />
+										}
+									/>
+								</td>
 							</tr>
 						))}
 					</tbody>

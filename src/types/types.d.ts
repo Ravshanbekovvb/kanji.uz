@@ -1,5 +1,5 @@
 import { navbarIconMap } from '@/components/shared/sidebar/navigation'
-import { Token, User, UserRole } from '@/lib'
+import { Lesson, Token, User, UserRole, Word } from '@/lib'
 import { JwtPayload } from 'jsonwebtoken'
 
 type NavbarType = {
@@ -31,6 +31,14 @@ type ErrorResponseType = {
 
 type UserWithTokens = User & {
 	tokens: Token | null
+}
+
+type UserWithLessons = User & {
+	lesson: LessonWithWords[]
+}
+
+type LessonWithWords = Lesson & {
+	words: Word[]
 }
 
 type JWTType = JwtPayload & {
