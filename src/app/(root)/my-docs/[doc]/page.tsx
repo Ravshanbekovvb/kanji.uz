@@ -1,5 +1,6 @@
 'use client'
 import { DeleteDialog, Loader } from '@/components/shared'
+import { DialogWordEdit } from '@/components/shared/word/dialog-word-edit'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -68,8 +69,12 @@ export default function Page() {
 				<ArrowLeft size={18} />
 				<span>Back to My documents</span>
 			</Link>
-
-			<h2 className='mb-4 text-4xl font-semibold'>{data.title}</h2>
+			<div className='mb-4 flex items-center justify-between '>
+				<h2 className='mb-4 text-4xl font-semibold'>{data.title}</h2>
+				<Link href={`/create-lesson?lessonId=${params.doc}`}>
+					<Button variant={'outline'}> + Add Word</Button>
+				</Link>
+			</div>
 
 			<div className='max-h-89 overflow-y-auto'>
 				<table className='min-w-full border rounded-md text-left text-sm'>
@@ -81,7 +86,7 @@ export default function Page() {
 							<th className='px-4 py-2 border'>Transkripsiya</th>
 							<th className='px-4 py-2 border'>Misol</th>
 							<th className='px-4 py-2 border'>JLPT</th>
-							<th className='py-2 border text-center'>A</th>
+							<th className='py-2 border text-center'>*</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -90,15 +95,64 @@ export default function Page() {
 								<td className='px-4 py-2 border font-medium'>{index + 1}</td>
 								<td className='px-4 py-2 border text-xl flex items-center justify-between'>
 									{item.kanji}
-									<Edit
-										className='group-hover:opacity-100 opacity-0 transition-opacity duration-200 cursor-pointer'
-										size={20}
+									<DialogWordEdit
+										word={item}
+										trigger={
+											<Edit
+												className='group-hover:opacity-100 opacity-0 transition-opacity duration-200 cursor-pointer'
+												size={16}
+											/>
+										}
 									/>
 								</td>
-								<td className='px-4 py-2 border'>{item.translation}</td>
-								<td className='px-4 py-2 border'>{item.transcription}</td>
-								<td className='px-4 py-2 border'>{item.example}</td>
-								<td className='px-4 py-2 border'>{item.jlptLevel}</td>
+								<td className='px-4 py-2 border relative group cursor-pointer'>
+									{item.translation}
+									<DialogWordEdit
+										word={item}
+										trigger={
+											<Edit
+												className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-gray-500 hover:text-black'
+												size={16}
+											/>
+										}
+									/>
+								</td>
+								<td className='px-4 py-2 border relative group cursor-pointer'>
+									{item.transcription}
+									<DialogWordEdit
+										word={item}
+										trigger={
+											<Edit
+												className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-gray-500 hover:text-black'
+												size={16}
+											/>
+										}
+									/>
+								</td>
+								<td className='px-4 py-2 border relative group cursor-pointer'>
+									{item.example}
+									<DialogWordEdit
+										word={item}
+										trigger={
+											<Edit
+												className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-gray-500 hover:text-black'
+												size={16}
+											/>
+										}
+									/>
+								</td>
+								<td className='px-4 py-2 border relative group cursor-pointer'>
+									{item.jlptLevel}
+									<DialogWordEdit
+										word={item}
+										trigger={
+											<Edit
+												className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-200 cursor-pointer text-gray-500 hover:text-black'
+												size={16}
+											/>
+										}
+									/>
+								</td>
 								<td className='px-4 py-2 border'>
 									<DeleteDialog
 										itemId={item.id}

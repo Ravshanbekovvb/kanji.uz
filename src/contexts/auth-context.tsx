@@ -79,6 +79,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 			if (response.ok && result.success) {
 				setUser(result.data)
+				// Recheck auth to ensure everything is in sync
+				await checkAuth()
 				return { success: true }
 			} else {
 				return { success: false, error: result.message || 'Login failed' }

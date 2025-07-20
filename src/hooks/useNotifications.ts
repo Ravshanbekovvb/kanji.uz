@@ -139,3 +139,11 @@ export function useNotificationById(userId: string) {
 		select: data => data.data,
 	})
 }
+
+export function useUserCombinedNotifications() {
+	return useQuery<NotificationAllApiResponse, Error, Notification[]>({
+		queryKey: ['notifications', 'user-combined'],
+		queryFn: () => fetch('/api/notifications/user-combined').then(res => res.json()),
+		select: data => data.data,
+	})
+}

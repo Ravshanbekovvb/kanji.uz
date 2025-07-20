@@ -9,15 +9,17 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { FormEvent, useState } from 'react'
 import { toast } from 'sonner'
+
 interface Data {
 	email: FormDataEntryValue | null
 	password: FormDataEntryValue | null
 }
 
-function Page() {
+export default function Page() {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
-	const { login, isLoading } = useAuth()
+	const { login, isLoading, user, isAuthenticated } = useAuth()
 	const router = useRouter()
+
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
@@ -92,7 +94,7 @@ function Page() {
 				) : (
 					<Button
 						type='submit'
-						className='w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md'
+						className='bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md w-full'
 					>
 						Login
 					</Button>
@@ -101,5 +103,3 @@ function Page() {
 		</div>
 	)
 }
-
-export default Page

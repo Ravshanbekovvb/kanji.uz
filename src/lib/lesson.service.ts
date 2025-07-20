@@ -56,6 +56,39 @@ class LessonService {
 
 	async create() {}
 
+	async createLessonWithWords(
+		userId: string,
+		title: string,
+		words: Array<{
+			kanji: string
+			translation: string
+			transcription: string
+			example: string
+			jlptLevel: string
+		}>
+	): Promise<Lesson & { words: Word[] }> {
+		const newLesson = await this.prisma.lesson.create({
+			data: {
+				title,
+				userId,
+				words: {
+					create: words.map(word => ({
+						kanji: word.kanji,
+						translation: word.translation,
+						transcription: word.transcription,
+						example: word.example,
+						jlptLevel: word.jlptLevel,
+					})),
+				},
+			},
+			include: {
+				words: true,
+			},
+		})
+
+		return newLesson
+	}
+
 	async deleteById(id: string) {
 		const existingLesson = await this.findById(id)
 
@@ -105,6 +138,43 @@ class LessonService {
 		})
 
 		return words
+	}
+
+	async addWordsToLesson(
+		lessonId: string,
+		words: Array<{
+			kanji: string
+			translation: string
+			transcription: string
+			example: string
+			jlptLevel: string
+		}>
+	): Promise<Lesson & { words: Word[] }> {
+		const existingLesson = await this.findById(lessonId)
+
+		if (!existingLesson) throw new NotFoundError(`Lesson with this ID not found: #${lessonId}`)
+
+		const updatedLesson = await this.prisma.lesson.update({
+			where: {
+				id: lessonId,
+			},
+			data: {
+				words: {
+					create: words.map(word => ({
+						kanji: word.kanji,
+						translation: word.translation,
+						transcription: word.transcription,
+						example: word.example,
+						jlptLevel: word.jlptLevel,
+					})),
+				},
+			},
+			include: {
+				words: true,
+			},
+		})
+
+		return updatedLesson
 	}
 }
 

@@ -259,7 +259,7 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 				word.translation,
 				word.transcription,
 				word.example,
-				word.jlptLevel,
+				`${word.jlptLevel}`,
 			]
 
 			rowData.forEach((data, i) => {
@@ -320,7 +320,7 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 			doc.setFontSize(10)
 			doc.setFont('NotoSansJP-Thin')
 			doc.text(
-				`${title} ー ${currentPageWords[i].jlptLevel}`,
+				`${title} ー N${currentPageWords[i].jlptLevel}`,
 				col * widths + widths / 2,
 				row * height + height / 7,
 				{

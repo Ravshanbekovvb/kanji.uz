@@ -117,3 +117,93 @@ export function useUpdateLessonTitle() {
 		},
 	})
 }
+
+export function useCreateLesson() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['createLesson'],
+		mutationFn: async ({
+			title,
+			words,
+		}: {
+			title: string
+			words: Array<{
+				kanji: string
+				translation: string
+				transcription: string
+				example: string
+				jlptLevel: string
+			}>
+		}) => {
+			const res = await fetch('/api/lessons/create', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ title, words }),
+			})
+
+			const responseData = await res.json()
+
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
+
+			return responseData
+		},
+		onSuccess: () => {
+			// Invalidate related queries to refetch updated data
+			queryClient.invalidateQueries({ queryKey: ['lessons'] })
+			toast.success('Lesson created successfully')
+		},
+		onError: (error: any) => {
+			toast.error(error.message || 'Failed to create lesson')
+		},
+	})
+}
+
+export function useAddWordsToLesson() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['addWordsToLesson'],
+		mutationFn: async ({
+			lessonId,
+			words,
+		}: {
+			lessonId: string
+			words: Array<{
+				kanji: string
+				translation: string
+				transcription: string
+				example: string
+				jlptLevel: string
+			}>
+		}) => {
+			const res = await fetch(`/api/lessons/add-words/${lessonId}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ words }),
+			})
+
+			const responseData = await res.json()
+
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
+
+			return responseData
+		},
+		onSuccess: () => {
+			// Invalidate related queries to refetch updated data
+			queryClient.invalidateQueries({ queryKey: ['lessons'] })
+			toast.success('Words added successfully to lesson')
+		},
+		onError: (error: any) => {
+			toast.error(error.message || 'Failed to add words to lesson')
+		},
+	})
+}

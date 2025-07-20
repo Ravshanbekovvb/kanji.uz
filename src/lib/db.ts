@@ -7,9 +7,14 @@ export const navbarMenus: NavbarMenuType[] = [
 		link: '/',
 	},
 	{
+		icon: 'brain',
+		title: 'Memorize',
+		link: '/memorize',
+	},
+	{
 		icon: 'badge',
-		title: 'Create Doc',
-		link: '/create-pdf',
+		title: 'Create Lesson',
+		link: '/create-lesson',
 	},
 	{
 		icon: 'bookHeart',
@@ -71,29 +76,5 @@ export const AdminNavbar = [
 		title: 'Logout',
 		link: '/login',
 		className: 'hover:bg-red-500/30',
-	},
-]
-
-export const list = [
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
-	},
-	{
-		Item: 1,
 	},
 ]
