@@ -46,6 +46,7 @@ A modern web application for learning Japanese words with interactive memorizati
    ```
 
    **Environment Variables Explanation:**
+
    - `DATABASE_URL` - PostgreSQL database connection string
    - `JWT_SECRET` - Secret key for JWT token authentication
    - `NEXT_PUBLIC_GROQ_API_KEY` - API key for Groq AI service
