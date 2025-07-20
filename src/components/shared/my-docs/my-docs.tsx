@@ -18,7 +18,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
 import { LessonWithWords } from '@/types/types'
-import { Download, Edit, EllipsisVertical, Trash2 } from 'lucide-react'
+import { Download, EllipsisVertical } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -45,25 +45,43 @@ export const MyDocs: React.FC = () => {
 	}
 	return (
 		<div>
-			<h2 className='mb-4 text-4xl font-semibold'>My Documents</h2>
+			<div className='flex items-center justify-between'>
+				<h2 className='mb-4 text-4xl font-semibold'>My Documents</h2>
+				<Link href={'create-lesson'}>
+					<Button className='w'>Create lesson</Button>
+				</Link>
+			</div>
 			{data.lessons.length > 0 ? (
 				<div className='grid gap-4'>
 					{data.lessons.map((lesson: LessonWithWords) => (
 						<Link
 							href={`my-docs/${lesson.id}`}
 							key={lesson.id}
-							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center'
+							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center group'
 						>
 							<div>
 								<h3 className='text-xl font-medium relative'>{lesson.title} </h3>
-								<p className='text-sm text-gray-600'>Words: {lesson.words?.length || 0}</p>
+								<p className='text-sm font-semibold text-purple-600 bg-indigo-100 px-3 py-1 rounded-full group-hover:bg-indigo-200'>
+									Words: {lesson.words?.length || 0}
+								</p>
 							</div>
 
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
-									<EllipsisVertical className='h-10 w-10 p-2 bg-white hover:border border-black rounded-full cursor-default' />
+									<EllipsisVertical className='h-10 w-10 p-2 bg-white group-hover:border border-black rounded-full cursor-default' />
 								</DropdownMenuTrigger>
 								<DropdownMenuContent align='end' onClick={e => e.stopPropagation()}>
+									<Link href={'/memorize'}>
+										<DropdownMenuItem
+											className='cursor-pointer flex items-center gap-2'
+											onClick={() => {
+												localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
+											}}
+										>
+											<Image src={'/target-icon.webp'} alt='target-icon' height={8} width={23} />
+											MEMORIZE
+										</DropdownMenuItem>
+									</Link>
 									<DialogTitleEdit
 										lessonId={lesson.id}
 										currentTitle={lesson.title}
@@ -72,25 +90,29 @@ export const MyDocs: React.FC = () => {
 												className='cursor-pointer flex items-center gap-2'
 												onSelect={e => e.preventDefault()}
 											>
-												<Edit color='black' />
+												<Image src={'/edit-icon.webp'} alt='target-icon' height={8} width={23} />
 												EDIT TITLE
 											</DropdownMenuItem>
 										}
 									/>
-
 									<Dialog open={isOpen} onOpenChange={setIsOpen}>
 										<DialogTrigger asChild>
 											<DropdownMenuItem
-												className='cursor-pointer flex items-center gap-2 text-blue-900'
+												className='cursor-pointer flex items-center gap-2'
 												onSelect={e => e.preventDefault()}
 											>
-												<Download color='blue' />
+												<Image
+													src={'/download-icon.webp'}
+													alt='target-icon'
+													height={8}
+													width={23}
+												/>
 												Download PDF
 											</DropdownMenuItem>
 										</DialogTrigger>
 										<DialogContent className='min-w-[530px]'>
 											<DialogHeader>
-												<DialogTitle className='text-3xl font-bold text-center mb-6'>
+												<DialogTitle className='text-3xl font-bold text-center mb-6 '>
 													Select the type of PDF
 												</DialogTitle>
 												<DialogDescription asChild>
@@ -184,7 +206,7 @@ export const MyDocs: React.FC = () => {
 												className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
 												onSelect={e => e.preventDefault()}
 											>
-												<Trash2 color='red' />
+												<Image src={'/delete-icon.webp'} alt='delete-icon' width={20} height={20} />
 												DELETE
 											</DropdownMenuItem>
 										}

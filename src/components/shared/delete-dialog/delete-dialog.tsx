@@ -9,7 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-import { Trash2 } from 'lucide-react'
+import Image from 'next/image'
 import { ReactNode, useState } from 'react'
 import { Loader } from '../loader'
 interface DeleteDialogProps {
@@ -34,7 +34,8 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Trash2 size={35} />
+						<Image src={'/delete-icon.webp'} alt='delete-icon' width={35} height={35} />
+						{/* <Trash2 size={35} /> */}
 						Are you absolutely sure?
 					</DialogTitle>
 					<DialogDescription>

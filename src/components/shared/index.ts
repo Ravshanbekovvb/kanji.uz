@@ -1,5 +1,6 @@
 export * from './delete-dialog'
 export * from './header'
 export * from './loader'
-export * from './mobile-menu'
+export { default as MobileNav } from './mobile-nav'
 export * from './sidebar'
+export * from './word'

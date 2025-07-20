@@ -6,6 +6,7 @@ import {
 	BadgePlusIcon,
 	BellDot,
 	BookHeart,
+	Brain,
 	ChevronRightIcon,
 	FileText,
 	HelpCircle,
@@ -19,6 +20,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export const navbarIconMap = {
+	brain: <Brain />,
 	home: <House />,
 	badge: <BadgePlusIcon />,
 	bookHeart: <BookHeart />,
