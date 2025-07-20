@@ -6,7 +6,10 @@ import { NextRequest } from 'next/server'
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET!
 
-export async function POST(request: NextRequest, { params }: { params: Promise<{ lessonId: string }> }) {
+export async function POST(
+	request: NextRequest,
+	{ params }: { params: Promise<{ lessonId: string }> }
+) {
 	const accessToken = request.cookies.get('accessToken')?.value
 
 	if (!accessToken) {
