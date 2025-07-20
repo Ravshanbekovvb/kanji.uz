@@ -12,7 +12,6 @@ import { Form } from './form'
 import { Reset } from './reset'
 import { SwitchInputs } from './switch-inputs'
 
-// Local word interface for localStorage (without id and lessonId)
 interface LocalWord {
 	kanji: string
 	translation: string
@@ -121,13 +120,11 @@ export const CreatePdf: React.FC = () => {
 				setIsUpdate(Math.random())
 
 				if (existingLessonId) {
-					// When adding to existing lesson, only save new words to localStorage
 					const storedNewWords = localStorage.getItem('newWords')
 					const newWords = storedNewWords ? JSON.parse(storedNewWords) : []
 					newWords.push(newWord)
 					localStorage.setItem('newWords', JSON.stringify(newWords))
 				} else {
-					// Normal mode - add to main words array
 					words.push(newWord)
 					localStorage.setItem('words', JSON.stringify(words))
 				}

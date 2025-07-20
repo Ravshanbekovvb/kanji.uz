@@ -1,4 +1,5 @@
 import { useUserCombinedNotifications } from '@/hooks/useNotifications'
+import { LoaderIcon } from 'lucide-react'
 
 interface NotificiationForUsersProps {
 	userId: string
@@ -11,7 +12,12 @@ export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ us
 	}
 
 	if (isPending) {
-		return <div className='text-center text-gray-500 mt-10'>⏳ Loading notifications...</div>
+		return (
+			<div className='text-center text-gray-500 mt-10'>
+				<LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />⏳ Loading
+				notifications...
+			</div>
+		)
 	}
 
 	return (

@@ -18,7 +18,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
 import { LessonWithWords } from '@/types/types'
-import { Download, EllipsisVertical } from 'lucide-react'
+import { Download, EllipsisVertical, LoaderIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useState } from 'react'
@@ -37,7 +37,7 @@ export const MyDocs: React.FC = () => {
 	}
 
 	if (isPending) {
-		return <div>Loading your documents...</div>
+		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
 	}
 
 	if (!data || !data.lessons) {

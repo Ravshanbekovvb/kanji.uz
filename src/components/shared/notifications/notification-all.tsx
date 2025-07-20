@@ -11,7 +11,7 @@ import {
 	useDeleteNotification,
 	useNotificationsAll,
 } from '@/hooks/useNotifications'
-import { Edit, EllipsisVertical, SendHorizontal, Trash2 } from 'lucide-react'
+import { Edit, EllipsisVertical, LoaderIcon, SendHorizontal, Trash2 } from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
 import { DeleteDialog } from '../delete-dialog'
@@ -25,7 +25,7 @@ export const NotificationAll: React.FC = () => {
 	const { mutate: createNotificationPrivate, isPending: notificationIsPending } =
 		useCreateNotification()
 	if (isPending) {
-		return 'loading...'
+		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
 	}
 	if (error) {
 		return 'error...'

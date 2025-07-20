@@ -4,7 +4,7 @@ import { useAuth } from '@/contexts/auth-context'
 import { useFindLessonsByUserId } from '@/hooks/useLessons'
 import { DarsData } from '@/types/types'
 import clsx from 'clsx'
-import { X } from 'lucide-react'
+import { LoaderIcon, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
@@ -90,7 +90,7 @@ export const Memorize: React.FC = () => {
 		return 'Error getting Lessons..'
 	}
 	if (isPending) {
-		return 'loading..'
+		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
 	}
 	if (!data) {
 		return 'lessons is not defined'
