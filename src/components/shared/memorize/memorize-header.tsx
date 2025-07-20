@@ -15,7 +15,6 @@ export const MemorizeHeader: React.FC<Props> = ({
 	setWords,
 }) => {
 	const reset = () => {
-		// const memorize_words = JSON.parse(localStorage.getItem('words-for-memorize') || 'words:[]')
 		setWords([])
 	}
 	return (

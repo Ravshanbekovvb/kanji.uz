@@ -15,6 +15,7 @@ import {
 	LogOut,
 	Settings,
 	Users,
+	UserX,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -35,14 +36,32 @@ export const navbarIconMap = {
 type NavbarIconKey = keyof typeof navbarIconMap
 
 export const Navigation: React.FC = () => {
-	const { user, logout } = useAuth()
+	const { user, logout, isLoading } = useAuth()
 	const pathname = usePathname()
 	const activePath = '/' + (pathname.split('/')[1] || '')
 
 	let renderedMenu
-	if (user === null) {
-		return <div>loading...</div>
+	if (isLoading) {
+		return (
+			<nav className='flex flex-col py-5 px-3 h-full w-full'>
+				<ul className='flex flex-col flex-1 gap-2 w-full'>
+					{Array.from({ length: 5 }).map((_, i) => (
+						<li key={i} className='w-full h-10 rounded-md bg-gray-200 animate-pulse'></li>
+					))}
+				</ul>
+			</nav>
+		)
 	}
+	if (!user) {
+		return (
+			<div className='flex flex-col items-center justify-center h-full text-center text-gray-500'>
+				<UserX size={48} className='mb-2' />
+				<p className='text-lg font-medium'>User not found</p>
+				<p className='text-sm'>Please log in again.</p>
+			</div>
+		)
+	}
+
 	if (user.role === 'ADMIN' && AdminNavbar) {
 		renderedMenu = AdminNavbar.map(menuItem => {
 			const isActive = activePath === menuItem.link
