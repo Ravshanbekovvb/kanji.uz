@@ -12,9 +12,10 @@ datasource db {
 model User {
   id String @id @default(uuid())
 
-  email    String @unique
-  userName String @map("user_name")
-  password String
+  email      String @unique
+  userName   String @map("user_name")
+  password   String
+  loginCount Int    @default(0) @map("login_count")
 
   notification Notification[] @relation("user_notification")
 
