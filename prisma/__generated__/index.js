@@ -181,7 +181,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "c:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\__generated__",
+      "value": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\__generated__",
       "fromEnvVar": null
     },
     "config": {
@@ -195,7 +195,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "c:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\schema.prisma",
+    "sourceFilePath": "C:\\Users\\Behruz\\Desktop\\words-pdf-2\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -209,6 +209,7 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
+  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
