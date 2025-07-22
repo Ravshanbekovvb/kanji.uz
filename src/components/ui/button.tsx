@@ -49,7 +49,7 @@ function Button({
 	}) {
 	const Comp = asChild ? Slot : 'button'
 	return (
-		<div className='relative inline-block group'>
+		<div className='relative group'>
 			<Comp
 				data-slot='button'
 				className={cn(buttonVariants({ variant, size, className }), 'faq-button')}

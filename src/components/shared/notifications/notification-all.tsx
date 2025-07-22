@@ -25,7 +25,12 @@ export const NotificationAll: React.FC = () => {
 	const { mutate: createNotificationPrivate, isPending: notificationIsPending } =
 		useCreateNotification()
 	if (isPending) {
-		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
+		return (
+			<div className='flex items-center gap-5'>
+				<LoaderIcon className='rotate-right' size={40} />
+				Loading all notifications...
+			</div>
+		)
 	}
 	if (error) {
 		return 'error...'

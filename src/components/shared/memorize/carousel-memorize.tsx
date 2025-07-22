@@ -47,7 +47,7 @@ export const CarouselMemorize = ({
 						<CarouselItem key={ind}>
 							<div>
 								<Card>
-									<CardContent className='flex items-center justify-center p-4 h-[250px]'>
+									<CardContent className='flex items-center justify-center p-4 h-[250px] max-md:h-[200px] max-lg:h-[210px]'>
 										<span
 											className={clsx('font-semibold whitespace-nowrap select-none', kanjiSize)}
 										>

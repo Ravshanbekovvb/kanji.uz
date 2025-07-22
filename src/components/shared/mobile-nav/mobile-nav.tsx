@@ -1,6 +1,16 @@
 'use client'
 import { useAuth } from '@/contexts/auth-context'
-import { Bell, BookOpen, FileText, Home, Plus, Settings, Users } from 'lucide-react'
+import {
+	Bell,
+	BookOpen,
+	Brain,
+	ChartColumnDecreasing,
+	FileText,
+	Home,
+	Plus,
+	Settings,
+	Users,
+} from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -22,12 +32,22 @@ export default function MobileNav() {
 						icon: Users,
 					},
 					{
+						label: 'Diagnostics',
+						href: '/diagnostics',
+						icon: ChartColumnDecreasing,
+					},
+					{
 						label: 'All Docs',
 						href: '/all-docs',
 						icon: FileText,
 					},
 			  ]
 			: [
+					{
+						label: 'Memorize',
+						href: '/memorize',
+						icon: Brain,
+					},
 					{
 						label: 'Create',
 						href: '/create-lesson',
@@ -60,7 +80,7 @@ export default function MobileNav() {
 			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 safe-area-pb'>
 				<div
 					className={`grid gap-1 px-2 py-2 ${
-						user?.role === 'ADMIN' ? 'grid-cols-3' : 'grid-cols-3'
+						user?.role === 'ADMIN' ? 'grid-cols-4' : 'grid-cols-4'
 					}`}
 				>
 					{navItems.map(item => {
