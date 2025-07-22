@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
-import { ArrowLeft, Download } from 'lucide-react'
+import { ArrowLeft, Download, LoaderIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
@@ -35,8 +35,9 @@ export default function Page() {
 	const { data, error, isPending } = useFindLessonById(params.doc)
 	if (isPending) {
 		return (
-			<div className='p-6'>
-				<div className='text-center'>Loading user profile...</div>
+			<div className='text-center flex items-center gap-5'>
+				<LoaderIcon className='rotate-right' size={40} />
+				Loading document...
 			</div>
 		)
 	}

@@ -67,6 +67,12 @@ class AuthService {
 
 		if (!isPasswordsMatching) throw new UnauthorizedError('Incorrect password or email')
 
+		// Increment login count
+		await prisma.user.update({
+			where: { id: existingUser.id },
+			data: { loginCount: { increment: 1 } },
+		})
+
 		const accessToken = jwt.sign(
 			{
 				sub: `user-${existingUser.id}`,
@@ -77,13 +83,16 @@ class AuthService {
 			JWT_SECRET_KEY
 		)
 
+		// Get updated user with incremented login count
+		const updatedUser = await this.userService.findByEmail(email)
+
 		return {
-			...existingUser,
+			...updatedUser!,
 			tokens: {
 				id: '',
 				accessToken,
 				refreshToken: null,
-				userId: existingUser.id,
+				userId: updatedUser!.id,
 			},
 		}
 	}

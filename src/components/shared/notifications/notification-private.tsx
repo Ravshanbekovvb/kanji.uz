@@ -19,7 +19,7 @@ import {
 	useNotificationsPrivate,
 } from '@/hooks/useNotifications'
 import { useUsers } from '@/hooks/useUsers'
-import { Edit, EllipsisVertical, SendHorizontal, Trash2 } from 'lucide-react'
+import { Edit, EllipsisVertical, LoaderIcon, SendHorizontal, Trash2 } from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
 import { DeleteDialog } from '../delete-dialog'
@@ -34,7 +34,12 @@ export const NotificationPrivate: React.FC = () => {
 	const { mutate: deleteNotification, isPending: deleteNotificationIsPanding } =
 		useDeleteNotification()
 	if (isPending || userIsPending) {
-		return 'loading...'
+		return (
+			<div className='flex items-center gap-5'>
+				<LoaderIcon className='rotate-right' size={40} />
+				Loading private notifications...
+			</div>
+		)
 	}
 	if (error || userError) {
 		return 'error...'

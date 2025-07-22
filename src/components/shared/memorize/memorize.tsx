@@ -1,10 +1,9 @@
 'use client'
-import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/auth-context'
 import { useFindLessonsByUserId } from '@/hooks/useLessons'
 import { DarsData } from '@/types/types'
 import clsx from 'clsx'
-import { LoaderIcon, X } from 'lucide-react'
+import { LoaderIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
@@ -30,7 +29,7 @@ export const Memorize: React.FC = () => {
 	}
 
 	const handleShowWordDetails = () => {
-		setShowWordDetails(!showWordDetails)
+		setShowWordDetails(prev => !prev)
 	}
 
 	const handleNotMemorized = () => {
@@ -110,8 +109,7 @@ export const Memorize: React.FC = () => {
 				{words.length > 0 ? (
 					<div
 						className={clsx(
-							'flex flex-col items-center transition-all duration-700 ease-in-out',
-							needHelp ? 'w-[700px]' : 'w-full'
+							'flex flex-col items-center transition-all duration-700 ease-in-out w-full'
 						)}
 					>
 						<CarouselMemorize
@@ -149,40 +147,6 @@ export const Memorize: React.FC = () => {
 						))}
 					</div>
 				)}
-
-				{/* Help Panel */}
-				<div
-					className={clsx(
-						'fixed  top-50 right-0 w-[450px] bg-slate-100 border-l border-gray-200 shadow-xl p-5 transition-all duration-700 ease-in-out rounded-2xl',
-						needHelp ? '-translate-x-5' : 'translate-x-full'
-					)}
-				>
-					<div className='flex justify-between items-center mb-3'>
-						<h3 className='text-xl font-semibold text-gray-800'>About the Buttons</h3>
-						<button
-							className='text-gray-500 hover:text-red-500 transition-colors'
-							onClick={() => setNeedHelp(!needHelp)}
-						>
-							<X className='w-5 h-5' />
-						</button>
-					</div>
-					<div className='text-gray-600 text-sm leading-relaxed flex flex-col gap-5'>
-						<div className='leading-10'>
-							<Button variant={'keyboard_Button'}>space</Button> – This button is pressed when you
-							couldn't remember the word. The word will be shown again.
-						</div>
-						<div className='leading-10'>
-							<Button variant={'keyboard_Button'}>ctrl</Button> – Hint for a word
-						</div>
-						<div className='leading-10'>
-							<Button variant={'keyboard_Button'} className='min-w-20'>
-								↵ enter
-							</Button>{' '}
-							– This button is pressed when you successfully remembered the word. The word will be
-							marked as memorized.
-						</div>
-					</div>
-				</div>
 			</div>
 		</div>
 	)

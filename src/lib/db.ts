@@ -51,6 +51,7 @@ export const AdminNavbar = [
 		title: 'Home',
 		link: '/',
 	},
+
 	{
 		icon: 'users',
 		title: 'Users',
@@ -65,6 +66,11 @@ export const AdminNavbar = [
 		icon: 'bell',
 		title: 'Notifications',
 		link: '/notifications',
+	},
+	{
+		icon: 'ChartColumnDecreasing',
+		title: 'Diagnostics',
+		link: '/diagnostics',
 	},
 	{
 		icon: 'settings',

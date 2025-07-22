@@ -7,8 +7,8 @@ import {
 	BellDot,
 	BookHeart,
 	Brain,
+	ChartColumnDecreasing,
 	ChevronRightIcon,
-	FileText,
 	HelpCircle,
 	House,
 	ListCheck,
@@ -31,7 +31,7 @@ export const navbarIconMap = {
 	settings: <Settings />,
 	help: <HelpCircle />,
 	logout: <LogOut />,
-	textFromImage: <FileText />,
+	ChartColumnDecreasing: <ChartColumnDecreasing />,
 } as const
 type NavbarIconKey = keyof typeof navbarIconMap
 
