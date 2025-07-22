@@ -1,6 +1,7 @@
 'use client'
 import { useUsers } from '@/hooks/useUsers'
 import { cn } from '@/lib/utils'
+import { LoaderIcon } from 'lucide-react'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 import { UsersHeader } from './users-header'
@@ -8,7 +9,7 @@ export default function Users() {
 	const { data, isPending, error } = useUsers(true)
 
 	if (isPending) {
-		return 'loading..'
+		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
 	}
 	if (error) {
 		return 'error..'

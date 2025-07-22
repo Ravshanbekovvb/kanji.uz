@@ -1,7 +1,11 @@
 import { jwtVerify } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
-const JWT_SECRET_KEY = new TextEncoder().encode(process.env.JWT_SECRET!)
+// Use Web Crypto API compatible with Edge Runtime
+const getJWTSecretKey = () => {
+	const secret = process.env.JWT_SECRET!
+	return new TextEncoder().encode(secret)
+}
 
 interface JWTPayload {
 	sub: string
@@ -46,7 +50,7 @@ export async function middleware(request: NextRequest) {
 	}
 
 	try {
-		const { payload } = await jwtVerify(accessToken, JWT_SECRET_KEY)
+		const { payload } = await jwtVerify(accessToken, getJWTSecretKey())
 		const decoded = payload as unknown as JWTPayload
 		const userRole = decoded.role
 

@@ -45,7 +45,7 @@ export const NotificationEditDialog: React.FC<NotificationEditDialogProps> = ({
 			},
 			onError: err => {
 				toast.error(err.message)
-				console.log(err)
+				console.error(err)
 			},
 		})
 	}

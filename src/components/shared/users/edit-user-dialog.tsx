@@ -46,7 +46,7 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 				setOpen(false)
 			},
 			onError: err => {
-				console.log(err)
+				console.error(err)
 			},
 		})
 	}

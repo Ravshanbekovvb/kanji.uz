@@ -75,7 +75,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 			})
 
 			const result = await response.json()
-			console.log(result)
 
 			if (response.ok && result.success) {
 				setUser(result.data)

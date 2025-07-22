@@ -8,7 +8,6 @@ export async function GET(
 	{ params }: { params: Promise<{ userId: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
 	const { userId } = await params
-	console.log(userId)
 
 	try {
 		const notifications = await notificationService.findByUserId(userId)

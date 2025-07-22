@@ -8,14 +8,13 @@ export async function GET(
 	{ params }: { params: Promise<{ id: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
 	const { id } = await params
-	console.log(id)
 
 	try {
 		const foundedUser = await userService.findById(id)
 
 		if (!foundedUser) throw new NotFoundError(`User with this id not found: ${id}`)
 
-		const { createdAt, updatedAt, password, tokens, ...safeUser } = foundedUser
+		const { updatedAt, password, tokens, ...safeUser } = foundedUser
 
 		return apiResponse(
 			{
