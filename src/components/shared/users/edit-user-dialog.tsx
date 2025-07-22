@@ -39,6 +39,7 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 			password: String(formData.get('password')),
 			role: (String(formData.get('role')) as UserRole) ?? null,
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
+			loginCount:currentData.loginCount
 		}
 
 		editUser(data, {

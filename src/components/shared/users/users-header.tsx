@@ -35,6 +35,7 @@ export const UsersHeader: React.FC = () => {
 			repeatPassword: String(formData.get('repeatPassword')),
 			role: (String(formData.get('role')) as UserRole) ?? null,
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
+			loginCount:0
 		}
 
 		createUser(data, {
