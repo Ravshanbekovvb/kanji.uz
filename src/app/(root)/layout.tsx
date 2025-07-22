@@ -10,7 +10,7 @@ export default function Home({ children }: Readonly<{ children: React.ReactNode 
 				<QueryClientProvider client={queryClient}>
 					{/* Desktop Sidebar */}
 					<Sidebar className='max-md:hidden' />
-
+					
 					{/* Mobile Navigation */}
 					<MobileNav />
 
