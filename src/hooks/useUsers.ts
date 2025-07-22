@@ -20,7 +20,6 @@ export function useDeleteUser() {
 		mutationKey: ['delete user'],
 		mutationFn: async (email: string) => {
 			const res = await fetch(`/api/users/delete/${email}`, { method: 'DELETE' })
-			console.log(res)
 
 			if (!res.ok) throw new Error('Failed to delete user')
 			return res.json()

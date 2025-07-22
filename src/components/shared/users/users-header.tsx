@@ -36,7 +36,6 @@ export const UsersHeader: React.FC = () => {
 			role: (String(formData.get('role')) as UserRole) ?? null,
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
 		}
-		console.log(data)
 
 		createUser(data, {
 			onSuccess: () => {
