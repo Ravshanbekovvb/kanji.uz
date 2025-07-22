@@ -29,11 +29,11 @@ export const Profile: React.FC = () => {
 				userName: name,
 				role: user?.role as UserRole,
 				userLang: null,
+				loginCount: data.loginCount, // Preserve existing loginCount
 			},
 			{
 				onSuccess: () => {
 					toast.success('Edited successfully!')
-					// Refresh the auth context to update the header
 					checkAuth()
 				},
 				onError: (error: Error) => {
