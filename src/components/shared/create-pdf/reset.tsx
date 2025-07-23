@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import { useStore } from '@/store/store'
 import { RefreshCcw } from 'lucide-react'
 import { toast } from 'sonner'
@@ -21,11 +22,8 @@ export const Reset: React.FC<ResetProps> = ({ existingLessonId }) => {
 		toast.success('Reset successful')
 	}
 	return (
-		<div
-			className='rounded-full bg-blue-800 hover:bg-blue-900 w-10 h-10 flex justify-center items-center text-slate-50 borde  cursor-pointer'
-			onClick={reset}
-		>
+		<Button className='cursor-pointer' onClick={reset} variant={'outline'}>
 			<RefreshCcw />
-		</div>
+		</Button>
 	)
 }

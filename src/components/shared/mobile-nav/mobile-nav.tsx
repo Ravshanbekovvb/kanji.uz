@@ -7,16 +7,25 @@ import {
 	ChartColumnDecreasing,
 	FileText,
 	Home,
+	LogOut,
 	Plus,
 	Settings,
 	Users,
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
+import { logoFont } from '@/fonts/font'
 export default function MobileNav() {
 	const pathname = usePathname()
-	const { user } = useAuth()
+	const { user, logout } = useAuth()
 
 	const navItems = [
 		{
@@ -108,7 +117,9 @@ export default function MobileNav() {
 			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 safe-area-pt'>
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
-						<div className='text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent'>
+						<div
+							className={`text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${logoFont.className}`}
+						>
 							Tsukurou
 						</div>
 					</div>
@@ -131,11 +142,26 @@ export default function MobileNav() {
 							)
 						})}
 						{user && (
-							<div className='ml-2 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
-								<span className='text-white font-semibold text-xs'>
-									{user.userName?.charAt(0).toUpperCase()}
-								</span>
-							</div>
+							<DropdownMenu>
+								<DropdownMenuTrigger asChild>
+									<div className='ml-2 w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
+										<span className='text-white font-semibold text-xs'>
+											{user.userName?.charAt(0).toUpperCase()}
+										</span>
+									</div>
+								</DropdownMenuTrigger>
+								<DropdownMenuContent>
+									<DropdownMenuLabel>{user.email}</DropdownMenuLabel>
+									<DropdownMenuSeparator />
+									<DropdownMenuItem
+										className='flex items-center text-red-500 hover:text-red-500'
+										onClick={logout}
+									>
+										<LogOut color='red' />
+										Logout
+									</DropdownMenuItem>
+								</DropdownMenuContent>
+							</DropdownMenu>
 						)}
 					</div>
 				</div>
