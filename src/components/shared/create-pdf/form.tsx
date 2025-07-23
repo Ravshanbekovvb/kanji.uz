@@ -82,7 +82,7 @@ export const Form: React.FC<Props> = ({
 				)}
 			>
 				{isLoading ? (
-					<Loader className='py-6' title='Adding...' />
+					<Loader className='py-6 w-full' title='Adding...' />
 				) : (
 					<Button type='submit' className={cn('max-md:w-full h-full py-3')}>
 						<span className='whitespace-nowrap'>Add Word</span>

@@ -33,7 +33,6 @@ export const CreatePdf: React.FC = () => {
 	const { setEmblaActiveIndex, setIsUpdate, isUpdate } = useStore()
 
 	const searchParams = useSearchParams()
-	const router = useRouter()
 	const lessonId = searchParams.get('lessonId')
 
 	// Fetch existing lesson if lessonId is provided
@@ -111,9 +110,9 @@ export const CreatePdf: React.FC = () => {
 			.then(({ translatedWord, transcription, example, jlptLevel }) => {
 				const newWord: LocalWord = {
 					kanji: word,
-					translation: translatedWord,
+					translation: settings.autoTranslate ? translatedWord : '',
 					transcription: transcription,
-					example: example,
+					example: settings.autoAddingExample ? example : '',
 					jlptLevel: jlptLevel,
 				}
 				setWordsLength(words.length)
