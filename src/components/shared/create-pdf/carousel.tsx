@@ -52,16 +52,16 @@ export const Carousel: React.FC<Props> = ({
 	useEffect(() => {
 		if (emblaApi) emblaApi.scrollTo(activeIndex)
 	}, [activeIndex, emblaApi])
-
+	const windowWidth = window.innerWidth
 	return (
 		<div className='p-10 select-none max-xl:p-5'>
 			<CarouselBlock
-				className='w-[380px] p-3 border-2 border-dashed border-black'
+				className='w-[380px] p-3 border-2 border-dashed border-black max-sm:w-[280px]'
 				setApi={(e: CarouselApi) => {
 					setEmblaApi(e)
 				}}
 			>
-				<CarouselContent className='h-[180px]'>
+				<CarouselContent className='h-[180px] max-sm:h-[140px]'>
 					{words.map((item, ind) => {
 						const kanjiSize = setTextSize({ word: item.kanji })
 
@@ -86,23 +86,40 @@ export const Carousel: React.FC<Props> = ({
 								<div className={cn(exampleSize)}>{item.example}</div>
 							</>
 						) : (
-							<>
-								<div className='flex justify-center gap-5 font-light'>
-									<div>{lessonTitle ? lessonTitle + ' ー N' + item.jlptLevel : ''}</div>
-									{/* <div>日本語直前対第 ー N {'2'} 語彙</div>
-									<div>第 {'2'} 回</div> */}
+							<div className='flex flex-col'>
+								<div className='flex justify-center font-light '>
+									{lessonTitle ? lessonTitle + ' ー N' + item.jlptLevel : ''}
 								</div>
-								<div className={cn('font-semibold text-center p-0 m-0', kanjiSize)}>
+
+								<div
+									className={cn(
+										'font-semibold text-center',
+										windowWidth > 640
+											? kanjiSize
+											: item.kanji.length >= 10
+											? 'text-xl'
+											: item.kanji.length >= 8
+											? 'text-2xl pt-10'
+											: item.kanji.length >= 6
+											? 'text-4xl pt-7'
+											: item.kanji.length >= 4
+											? 'text-5xl pt-6'
+											: item.kanji.length >= 2
+											? 'text-7xl pt-4'
+											: 'text-7xl pt-5'
+									)}
+								>
 									{item.kanji}
 								</div>
-							</>
+							</div>
 						)
 
 						return (
 							<CarouselItem
 								key={ind}
 								className={cn(
-									translationCarousel && 'text-center flex flex-col justify-center gap-5'
+									translationCarousel &&
+										'text-center flex flex-col justify-center gap-5 max-sm:gap-1'
 								)}
 							>
 								{content}

@@ -90,11 +90,11 @@ export default function Page() {
 					</div>
 				</div>
 				{isLoading ? (
-					<Loader className='w-full p-2 rounded-md' />
+					<Loader className='w-full' />
 				) : (
 					<Button
 						type='submit'
-						className='bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-md w-full'
+						className='w-full'
 					>
 						Login
 					</Button>

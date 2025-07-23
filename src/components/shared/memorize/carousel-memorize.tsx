@@ -39,7 +39,7 @@ export const CarouselMemorize = ({
 		}
 	}, [api])
 	return (
-		<Carousel className='w-full max-w-[400px] m-10 mx-auto' setApi={setApi}>
+		<Carousel className='w-full max-w-[400px] m-10 max-sm:m-5 mx-auto' setApi={setApi}>
 			<CarouselContent>
 				{words.words.map((item, ind) => {
 					const kanjiSize = setTextSize({ word: item.kanji })

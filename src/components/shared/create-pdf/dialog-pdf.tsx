@@ -177,7 +177,7 @@ export default function DialogPdf({
 			{canShowDialog ? (
 				<AlertDialog>
 					<AlertDialogTrigger asChild>
-						<Button variant={'destructive'}>
+						<Button variant={'destructive'} className='max-sm:w-full h-full'>
 							<CircleStop size={20} />
 						</Button>
 					</AlertDialogTrigger>
@@ -430,7 +430,11 @@ export default function DialogPdf({
 					</AlertDialogContent>
 				</AlertDialog>
 			) : (
-				<Button variant={'destructive'} onClick={handleDialogClick} className='py-6 max-md:w-full'>
+				<Button
+					variant={'destructive'}
+					onClick={handleDialogClick}
+					className='py-6 max-md:w-full max-sm:w-full h-full'
+				>
 					<CircleStop size={20} />
 				</Button>
 			)}

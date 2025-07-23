@@ -18,9 +18,9 @@ export const MemorizeHeader: React.FC<Props> = ({
 }) => {
 	return (
 		<div className='flex items-center gap-5 justify-between'>
-			<h2 className='text-4xl font-semibold'>Memorize</h2>
+			<h2 className='text-4xl font-semibold max-sm:hidden'>Memorize</h2>
 
-			<div className={clsx('flex items-center gap-5', wordsLength ? '' : 'hidden')}>
+			<div className={clsx('flex items-center gap-5 max-sm:justify-center max-sm:w-full', wordsLength ? '' : 'hidden')}>
 				<Button
 					variant={'outline'}
 					className='cursor-pointer'
@@ -41,7 +41,7 @@ export const MemorizeHeader: React.FC<Props> = ({
 						</Button>
 					</PopoverTrigger>
 
-					<PopoverContent className='w-[90vw] max-w-[500px] p-4 mr-10'>
+					<PopoverContent className='w-[90vw] max-w-[500px] p-4 mr-10 max-md:mr-5'>
 						<div className='flex justify-between items-center mb-4'>
 							<h3 className='text-lg sm:text-xl font-semibold text-gray-800'>About the Buttons</h3>
 							<PopoverClose asChild>
