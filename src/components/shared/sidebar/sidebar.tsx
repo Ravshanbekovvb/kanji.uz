@@ -23,7 +23,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 		>
 			<a
 				href='/'
-				className={`min-h-[75px] flex justify-center items-center text-2xl font-bold uppercase tracking-widest border-b border-b-black pt-3 ${logoFont.className}`}
+				className={`min-h-[75px] flex justify-center items-center text-2xl font-bold uppercase tracking-widest border-b border-b-black pt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ${logoFont.className}`}
 			>
 				tsukurou!
 			</a>

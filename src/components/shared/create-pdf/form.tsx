@@ -84,12 +84,7 @@ export const Form: React.FC<Props> = ({
 				{isLoading ? (
 					<Loader className='py-6' title='Adding...' />
 				) : (
-					<Button
-						type='submit'
-						className={cn(
-							'py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md transition-colors border-2 border-blue-600 h-full'
-						)}
-					>
+					<Button type='submit' className={cn('max-md:w-full h-full py-3')}>
 						<span className='whitespace-nowrap'>Add Word</span>
 						<SendHorizontal size={20} />
 					</Button>

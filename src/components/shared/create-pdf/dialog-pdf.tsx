@@ -22,7 +22,7 @@ import { useAddWordsToLesson, useCreateLesson } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
 import { cn } from '@/lib/utils'
 import { useStore } from '@/store/store'
-import { CircleStop, Download, Trash2 } from 'lucide-react'
+import { CircleStop, Download, Trash2, UserRound } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -40,14 +40,12 @@ interface LocalWord {
 }
 
 type DialogPdfProps = {
-	className?: string
 	lessonTitle: string
 	words: LocalWord[]
 	existingLessonId?: string | null
 }
 
 export default function DialogPdf({
-	className,
 	lessonTitle,
 	words: propWords,
 	existingLessonId,
@@ -65,11 +63,8 @@ export default function DialogPdf({
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			if (existingLessonId) {
-				// In existing lesson mode, show all words (existing + new)
-				// propWords already contains the combined words from CreatePdf component
 				setWords(propWords)
 			} else {
-				// Normal mode - load from localStorage
 				const storegedList = localStorage.getItem('words')
 				const parsedWords: LocalWord[] = storegedList ? JSON.parse(storegedList) : []
 				setWords(parsedWords)
@@ -77,7 +72,6 @@ export default function DialogPdf({
 		}
 	}, [isUpdate, existingLessonId, propWords])
 
-	// Check if dialog should be enabled
 	const canShowDialog = lessonTitle.trim().length > 0 && propWords.length > 0
 
 	const handleDialogClick = () => {
@@ -89,7 +83,6 @@ export default function DialogPdf({
 	const saveToDatabase = async () => {
 		try {
 			if (existingLessonId) {
-				// Add words to existing lesson - only save new words, not existing ones
 				const storedNewWords = localStorage.getItem('newWords')
 				const newWords = storedNewWords ? JSON.parse(storedNewWords) : []
 
@@ -102,15 +95,14 @@ export default function DialogPdf({
 					lessonId: existingLessonId,
 					words: newWords,
 				})
-				// Clear localStorage after successful save
+
 				localStorage.removeItem('newWords')
 			} else {
-				// Create new lesson
 				await createLesson.mutateAsync({
 					title: lessonTitle,
 					words: words,
 				})
-				// Clear localStorage after successful save
+
 				localStorage.removeItem('words')
 				localStorage.removeItem('lessonTitle')
 			}
@@ -131,8 +123,6 @@ export default function DialogPdf({
 					? 'Words added to lesson and PDF downloaded successfully!'
 					: 'Lesson saved and PDF downloaded successfully!'
 				toast.success(message)
-
-				// Navigate back to the lesson page if adding words to existing lesson
 				if (existingLessonId) {
 					setTimeout(() => {
 						router.push(`/my-docs/${existingLessonId}`)
@@ -186,13 +176,10 @@ export default function DialogPdf({
 		<>
 			{canShowDialog ? (
 				<AlertDialog>
-					<AlertDialogTrigger
-						className={cn(
-							'flex justify-center items-center gap-2 px-3 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-md transition-colors border-2 border-red-600',
-							className
-						)}
-					>
-						<CircleStop size={20} />
+					<AlertDialogTrigger asChild>
+						<Button variant={'destructive'}>
+							<CircleStop size={20} />
+						</Button>
 					</AlertDialogTrigger>
 					<AlertDialogContent className='min-w-[1450px] max-h-[600px] max-sm:min-w-full max-sm:min-h-full max-sm:rounded-none flex flex-col justify-between rounded-4xl'>
 						<AlertDialogHeader>
@@ -443,15 +430,9 @@ export default function DialogPdf({
 					</AlertDialogContent>
 				</AlertDialog>
 			) : (
-				<button
-					onClick={handleDialogClick}
-					className={cn(
-						'flex justify-center items-center gap-2 px-3 py-3 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg shadow-md transition-colors border-2 border-red-600',
-						className
-					)}
-				>
+				<Button variant={'destructive'} onClick={handleDialogClick} className='py-6 max-md:w-full'>
 					<CircleStop size={20} />
-				</button>
+				</Button>
 			)}
 		</>
 	)

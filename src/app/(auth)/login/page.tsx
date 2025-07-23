@@ -53,7 +53,7 @@ export default function Page() {
 				src={'/backgroundImage.webp'}
 				alt='Background Image'
 				fill
-				className='absolute top-0 left-0 w-full h-full pointer-events-none bg-cover'
+				className='absolute top-0 left-0 w-full h-full pointer-events-none bg-cover object-cover'
 			/>
 
 			{/* Login Form */}
