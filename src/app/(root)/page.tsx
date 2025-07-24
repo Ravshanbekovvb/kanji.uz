@@ -39,7 +39,7 @@ export default function Page() {
 
 						{/* Action Buttons */}
 						<div className='flex flex-col sm:flex-row gap-3 justify-center lg:justify-start'>
-							<Link href='/create-pdf'>
+							<Link href='/create-lesson'>
 								<Button
 									size='lg'
 									className='w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300'

@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
 
 		// Define role-based access
 		const adminOnlyRoutes = ['/users', '/all-docs', '/diagnostics']
-		const userOnlyRoutes = ['/my-docs', '/create-pdf']
+		const userOnlyRoutes = ['/my-docs', '/create-lesson']
 		const commonRoutes = ['/settings', '/notifications']
 
 		// Check if admin is accessing user-only routes
