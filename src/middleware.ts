@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
 	// Skip middleware for auth pages and API routes
 	if (
 		pathname.startsWith('/login') ||
-		pathname.startsWith('/api/') ||
+		// pathname.startsWith('/api/') ||
 		pathname.startsWith('/_next/') ||
 		pathname.startsWith('/fonts/') ||
 		pathname.includes('.')
