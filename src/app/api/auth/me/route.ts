@@ -1,23 +1,17 @@
-import { apiResponse, apiResponseError } from '@/lib'
+import { apiResponse, apiResponseError, verifyToken } from '@/lib'
 import { prisma } from '@/lib/prisma'
 import { ApiResponseType } from '@/types/types'
-import * as jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
 
-const JWT_SECRET_KEY = process.env.JWT_SECRET!
-
-export async function GET(request: NextRequest): Promise<NextResponse<ApiResponseType>> {
+export async function GET(request: NextRequest): Promise<NextResponse<ApiResponseType> | NextResponse> {
 	try {
-		const accessToken = request.cookies.get('accessToken')?.value
-
-		if (!accessToken) {
-			return apiResponse(
-				{ success: false, message: 'No access token provided', data: null },
-				{ status: 401 }
-			)
+		// Verify token
+		const authResult = verifyToken(request)
+		if (!authResult.isValid) {
+			return authResult.response!
 		}
 
-		const decoded = jwt.verify(accessToken, JWT_SECRET_KEY) as any
+		const decoded = authResult.user!
 		const userId = decoded.sub?.replace('user-', '')
 
 		if (!userId) {

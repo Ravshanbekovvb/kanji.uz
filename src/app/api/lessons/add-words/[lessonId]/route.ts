@@ -1,37 +1,21 @@
-import { apiResponse } from '@/lib'
+import { apiResponse, verifyToken } from '@/lib'
 import { lessonService } from '@/lib/lesson.service'
-import { JWTType } from '@/types/types'
-import * as jwt from 'jsonwebtoken'
 import { NextRequest } from 'next/server'
-
-const JWT_SECRET_KEY = process.env.JWT_SECRET!
 
 export async function POST(
 	request: NextRequest,
 	{ params }: { params: Promise<{ lessonId: string }> }
 ) {
-	const accessToken = request.cookies.get('accessToken')?.value
-
-	if (!accessToken) {
-		return apiResponse(
-			{ success: false, message: 'No access token provided', data: null },
-			{ status: 401 }
-		)
+	// Verify token
+	const authResult = verifyToken(request)
+	if (!authResult.isValid) {
+		return authResult.response!
 	}
 
+	const { role, sub } = authResult.user!
+	const userId = sub.replace('user-', '')
+
 	try {
-		const isTokenValid = jwt.verify(accessToken, JWT_SECRET_KEY) as JWTType
-
-		if (!isTokenValid) {
-			return apiResponse(
-				{ success: false, message: 'Token is expired', data: null },
-				{ status: 401 }
-			)
-		}
-
-		const { sub } = isTokenValid
-		const userId = sub.replace('user-', '')
-
 		const { lessonId } = await params
 
 		const body = await request.json()
@@ -44,21 +28,23 @@ export async function POST(
 			)
 		}
 
-		// Check if the lesson belongs to the authenticated user
-		const existingLesson = await lessonService.findById(lessonId)
+		// Check if the lesson belongs to the authenticated user (except for admin)
+		if (role !== 'ADMIN') {
+			const existingLesson = await lessonService.findById(lessonId)
 
-		if (!existingLesson) {
-			return apiResponse(
-				{ success: false, message: 'Lesson not found', data: null },
-				{ status: 404 }
-			)
-		}
+			if (!existingLesson) {
+				return apiResponse(
+					{ success: false, message: 'Lesson not found', data: null },
+					{ status: 404 }
+				)
+			}
 
-		if (existingLesson.userId !== userId) {
-			return apiResponse(
-				{ success: false, message: 'You do not have permission to modify this lesson', data: null },
-				{ status: 403 }
-			)
+			if (existingLesson.userId !== userId) {
+				return apiResponse(
+					{ success: false, message: 'You do not have permission to modify this lesson', data: null },
+					{ status: 403 }
+				)
+			}
 		}
 
 		const updatedLesson = await lessonService.addWordsToLesson(lessonId, words)

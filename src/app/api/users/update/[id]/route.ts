@@ -1,28 +1,31 @@
-import { apiResponse, apiResponseError, userService } from '@/lib'
-import { ApiResponseType, CreateUserRequestType, JWTType } from '@/types/types'
-import * as jwt from 'jsonwebtoken'
+import { apiResponse, apiResponseError, userService, verifyToken } from '@/lib'
+import { ApiResponseType, CreateUserRequestType } from '@/types/types'
 import { NextRequest, NextResponse } from 'next/server'
-const JWT_SECRET_KEY = process.env.JWT_SECRET!
+
 export async function PATCH(
 	request: NextRequest,
 	{ params }: { params: Promise<{ id: string }> }
-): Promise<NextResponse<ApiResponseType>> {
+): Promise<NextResponse<ApiResponseType> | NextResponse> {
 	const { id } = await params
 	const payload: CreateUserRequestType = await request.json()
-	const accessToken = request.cookies.get('accessToken')?.value
+	
+	// Verify token
+	const authResult = verifyToken(request)
+	if (!authResult.isValid) {
+		return authResult.response!
+	}
 
-	if (!accessToken) {
+	const { role, sub } = authResult.user!
+	const currentUserId = sub.replace('user-', '')
+
+	// Check permissions: Admin can update anyone, Users can only update themselves
+	if (role !== 'ADMIN' && currentUserId !== id) {
 		return apiResponse(
-			{ success: false, message: 'No access token provided', data: null },
-			{ status: 401 }
+			{ success: false, message: 'Access denied. You can only update your own profile.', data: null },
+			{ status: 403 }
 		)
 	}
-
-	const isTokenValid = jwt.verify(accessToken, JWT_SECRET_KEY) as JWTType
-
-	if (!isTokenValid) {
-		return apiResponse({ success: false, message: 'Token is expired', data: null }, { status: 401 })
-	}
+	
 	try {
 		const updatedUser = await userService.update(id, payload)
 

@@ -64,7 +64,7 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 						)}
 
 						<DialogClose asChild>
-							<Button variant='default' disabled={isPending}>
+							<Button variant='outline' disabled={isPending}>
 								No
 							</Button>
 						</DialogClose>
