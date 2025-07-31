@@ -55,7 +55,7 @@ export const MyDocs: React.FC = () => {
 				<div className='grid gap-4'>
 					{data.lessons.map((lesson: LessonWithWords) => (
 						<Link
-							href={`my-docs/${lesson.id}`}
+							href={`my-lessons/${lesson.id}`}
 							key={lesson.id}
 							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center group'
 						>

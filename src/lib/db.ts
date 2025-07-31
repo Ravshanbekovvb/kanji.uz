@@ -18,8 +18,8 @@ export const navbarMenus: NavbarMenuType[] = [
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Docs',
-		link: '/my-docs',
+		title: 'My Lessons',
+		link: '/my-lessons',
 	},
 	{
 		icon: 'settings',

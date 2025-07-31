@@ -1,3 +1,4 @@
+'use client'
 import {
 	CarouselApi,
 	Carousel as CarouselBlock,
