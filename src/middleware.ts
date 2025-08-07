@@ -19,10 +19,10 @@ export async function middleware(request: NextRequest) {
 
 	console.log('🔥 MIDDLEWARE EXECUTING:', pathname)
 
-	// Skip middleware for auth pages, certain static files
+	// Skip middleware for auth pages and API routes
 	if (
 		pathname.startsWith('/login') ||
-		pathname.startsWith('/api/auth/') || // Only skip auth API
+		pathname.startsWith('/api/') ||
 		pathname.startsWith('/_next/') ||
 		pathname.startsWith('/fonts/') ||
 		pathname.includes('.')
@@ -60,34 +60,11 @@ export async function middleware(request: NextRequest) {
 			decoded: { sub: decoded.sub, role: decoded.role },
 		})
 
-		// Define role-based access for pages
+		// Define role-based access
 		const adminOnlyRoutes = ['/users', '/all-docs', '/diagnostics']
 		const userOnlyRoutes = ['/my-docs', '/create-lesson']
 		const commonRoutes = ['/settings', '/notifications']
 
-		// Define role-based access for API routes
-		const adminOnlyApiRoutes = ['/api/users/find$', '/api/users/create', '/api/users/delete', '/api/users/login-stats'] // Admin only APIs
-		const protectedApiRoutes = [...adminOnlyApiRoutes] // All protected APIs
-
-		// Check API route access
-		if (pathname.startsWith('/api/')) {
-			console.log('🔍 CHECKING API ACCESS:', { pathname, userRole })
-			
-			// Admin-only API routes (using exact match for /api/users/find but not /api/users/find/[id])
-			if (pathname === '/api/users/find' || adminOnlyApiRoutes.some(route => 
-				route.endsWith('$') ? pathname === route.slice(0, -1) : pathname.startsWith(route)
-			)) {
-				if (userRole !== 'ADMIN') {
-					console.log('🚫 API ACCESS DENIED - ADMIN REQUIRED:', pathname)
-					return NextResponse.json(
-						{ success: false, message: 'Access denied. Admin role required.', data: null },
-						{ status: 403 }
-					)
-				}
-			}
-		}
-
-		// Check page route access
 		// Check if admin is accessing user-only routes
 		if (userRole === 'ADMIN' && userOnlyRoutes.some(route => pathname.startsWith(route))) {
 			// Redirect admin to home if they try to access user-only routes
@@ -100,7 +77,7 @@ export async function middleware(request: NextRequest) {
 			return NextResponse.redirect(new URL('/', request.url))
 		}
 
-		console.log('✅ ALLOWING ACCESS TO:', pathname)
+		console.log('🚫 ALLOWING ACCESS TO:', pathname)
 		// Allow access to common routes for both roles
 		return NextResponse.next()
 	} catch (error) {
@@ -114,12 +91,12 @@ export const config = {
 	matcher: [
 		/*
 		 * Match all request paths except for the ones starting with:
-		 * - api/auth (authentication routes - public)
+		 * - api (API routes)
 		 * - _next/static (static files)
 		 * - _next/image (image optimization files)
 		 * - favicon.ico (favicon file)
 		 * - public files (images, fonts, etc.)
 		 */
-		'/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.).*)',
+		'/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)',
 	],
 }

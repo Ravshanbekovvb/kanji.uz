@@ -1,21 +1,9 @@
-import { apiResponse, apiResponseError, verifyToken, requireAdmin } from '@/lib'
+import { apiResponse, apiResponseError } from '@/lib'
 import { prisma } from '@/lib/prisma'
 import { ApiResponseType } from '@/types/types'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 
-export async function GET(request: NextRequest): Promise<NextResponse<ApiResponseType> | NextResponse> {
-	// Verify token
-	const authResult = verifyToken(request)
-	if (!authResult.isValid) {
-		return authResult.response!
-	}
-
-	// Check if user is admin
-	const roleCheck = requireAdmin(authResult.user!.role)
-	if (!roleCheck.isValid) {
-		return roleCheck.response!
-	}
-
+export async function GET(): Promise<NextResponse<ApiResponseType>> {
 	try {
 		const users = await prisma.user.findMany({
 			select: {

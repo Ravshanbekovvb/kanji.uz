@@ -1,7 +1,6 @@
 export * from './api-response'
 export * from './api-response-error'
 export * from './auth.service'
-export * from './auth.middleware'
 export * from './db'
 export * from './prisma'
 export * from './user.service'
