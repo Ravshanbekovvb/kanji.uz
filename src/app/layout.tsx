@@ -20,7 +20,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${roboto.className} antialiased`} suppressHydrationWarning>
+			<body className={`${roboto.className} antialiased h-svh`} suppressHydrationWarning>
 				{children}
 				<Toaster position='top-right' richColors />
 			</body>

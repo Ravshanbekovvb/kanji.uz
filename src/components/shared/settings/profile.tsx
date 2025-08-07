@@ -11,19 +11,10 @@ import { Loader } from '../loader'
 
 export const Profile: React.FC = () => {
 	const { user, checkAuth } = useAuth()
-	
-	console.log('🔍 Profile component - Current user:', user)
-	
 	const { isPending: UserEditIsPending, mutate: editUser } = useEditUser(user?.id as string)
 	const { data, error, isPending } = useFindUserById(user?.id as string)
-	
-	console.log('🔍 useFindUserById result:', { data, error, isPending, userId: user?.id })
-	
 	if (isPending) return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
-	if (error) {
-		console.error('❌ Profile error:', error)
-		return <div>Error loading user: {error?.message || 'Unknown error'}</div>
-	}
+	if (error) return <div>Error loading user</div>
 	if (!data) return <div>data not found</div>
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
