@@ -1,9 +1,10 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { PageTitle } from '../title'
 import { Profile } from './profile'
 export const Settings: React.FC = () => {
 	return (
 		<div>
-			<h2 className='mb-4 text-4xl font-semibold'>Settings</h2>
+			<PageTitle title='Settings' />
 			<Tabs defaultValue='profile' className='w-full'>
 				<TabsList>
 					<TabsTrigger value='profile'>profile</TabsTrigger>

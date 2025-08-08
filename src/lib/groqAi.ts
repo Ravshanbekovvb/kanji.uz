@@ -6,9 +6,8 @@ const groq = new Groq({
 })
 
 export const getTranscription = async (kanji: string): Promise<string> => {
-	let transcription: string = ''
-	await groq.chat.completions
-		.create({
+	try {
+		const chatCompletion = await groq.chat.completions.create({
 			messages: [
 				{
 					role: 'user',
@@ -17,20 +16,18 @@ export const getTranscription = async (kanji: string): Promise<string> => {
 			],
 			model: 'llama-3.3-70b-versatile',
 		})
-		.then(chatCompletion => {
-			const hiraganaContent = chatCompletion.choices[0]?.message?.content || ''
-			transcription = hiraganaContent
-		})
-		.catch(err => {
-			return 'error in transcription'
-		})
-	return transcription
+
+		const hiraganaContent = chatCompletion.choices[0]?.message?.content || ''
+		return hiraganaContent.trim()
+	} catch (error) {
+		console.error('Error getting transcription:', error)
+		throw new Error('Failed to get transcription from AI')
+	}
 }
 
 export const getExample = async (kanji: string): Promise<string> => {
-	let transcription: string = ''
-	await groq.chat.completions
-		.create({
+	try {
+		const chatCompletion = await groq.chat.completions.create({
 			messages: [
 				{
 					role: 'user',
@@ -39,20 +36,18 @@ export const getExample = async (kanji: string): Promise<string> => {
 			],
 			model: 'llama-3.3-70b-versatile',
 		})
-		.then(chatCompletion => {
-			const hiraganaContent = chatCompletion.choices[0]?.message?.content || ''
-			transcription = hiraganaContent
-		})
-		.catch(err => {
-			return 'error in transcription'
-		})
-	return transcription
+
+		const exampleContent = chatCompletion.choices[0]?.message?.content || ''
+		return exampleContent.trim()
+	} catch (error) {
+		console.error('Error getting example:', error)
+		throw new Error('Failed to get example from AI')
+	}
 }
 
 export const getLevel = async (kanji: string): Promise<string> => {
-	let level: string = ''
-	await groq.chat.completions
-		.create({
+	try {
+		const chatCompletion = await groq.chat.completions.create({
 			messages: [
 				{
 					role: 'user',
@@ -61,12 +56,48 @@ export const getLevel = async (kanji: string): Promise<string> => {
 			],
 			model: 'llama-3.3-70b-versatile',
 		})
-		.then(chatCompletion => {
-			const jlptLevel = chatCompletion.choices[0]?.message?.content || ''
-			level = jlptLevel.trim()
-		})
-		.catch(err => {
-			return 'error in JLPT level check'
-		})
-	return level
+
+		const jlptLevel = chatCompletion.choices[0]?.message?.content || ''
+		return jlptLevel.trim()
+	} catch (error) {
+		console.error('Error getting JLPT level:', error)
+		throw new Error('Failed to get JLPT level from AI')
+	}
+}
+
+// Manual fallback functions for when AI fails
+export const getTranscriptionWithFallback = async (
+	kanji: string
+): Promise<{ value: string; isManual: boolean }> => {
+	try {
+		const aiResult = await getTranscription(kanji)
+		return { value: aiResult, isManual: false }
+	} catch (error) {
+		console.error('AI transcription failed, falling back to manual input:', error)
+		return { value: '', isManual: true }
+	}
+}
+
+export const getExampleWithFallback = async (
+	kanji: string
+): Promise<{ value: string; isManual: boolean }> => {
+	try {
+		const aiResult = await getExample(kanji)
+		return { value: aiResult, isManual: false }
+	} catch (error) {
+		console.error('AI example failed, falling back to manual input:', error)
+		return { value: '', isManual: true }
+	}
+}
+
+export const getLevelWithFallback = async (
+	kanji: string
+): Promise<{ value: string; isManual: boolean }> => {
+	try {
+		const aiResult = await getLevel(kanji)
+		return { value: aiResult, isManual: false }
+	} catch (error) {
+		console.error('AI level detection failed, falling back to manual input:', error)
+		return { value: '', isManual: true }
+	}
 }

@@ -1,6 +1,7 @@
 'use client'
 import { useLessons } from '@/hooks/useLessons'
 import { LoaderIcon } from 'lucide-react'
+import { PageTitle } from '../title'
 import { columns } from './columns'
 import { DataTable } from './data-table'
 
@@ -16,7 +17,7 @@ export default function AllDocs() {
 
 	return (
 		<div>
-			<h2 className='mb-4 text-4xl font-semibold'>All documents</h2>
+			<PageTitle title='All Lessons' />
 			<DataTable columns={columns} data={data.data} />
 		</div>
 	)

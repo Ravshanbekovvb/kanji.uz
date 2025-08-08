@@ -4,13 +4,13 @@ import { Container } from '@/components/ui/container'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { translateText } from '@/lib/translate'
 import { useStore } from '@/store/store'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
+import { PageTitle } from '../title'
 import { Carousels } from './carousels'
 import { Form } from './form'
 import { Reset } from './reset'
-import { SwitchInputs } from './switch-inputs'
 
 interface LocalWord {
 	kanji: string
@@ -25,10 +25,6 @@ export const CreatePdf: React.FC = () => {
 	const [words, setWords] = useState<LocalWord[]>([])
 	const [lessonTitle, setLessonTitle] = useState<string>('')
 	const [existingLessonId, setExistingLessonId] = useState<string | null>(null)
-	const [settings, setSettings] = useState({
-		autoTranslate: true,
-		autoAddingExample: true,
-	})
 	const [isLoading, setIsLoading] = useState(false)
 	const { setEmblaActiveIndex, setIsUpdate, isUpdate } = useStore()
 
@@ -78,7 +74,6 @@ export const CreatePdf: React.FC = () => {
 
 	const translateFetch = async (
 		word: string,
-
 		to: 'uz' | 'ru' | 'en',
 		e: FormEvent<HTMLFormElement>,
 		from = 'ja'
@@ -110,9 +105,9 @@ export const CreatePdf: React.FC = () => {
 			.then(({ translatedWord, transcription, example, jlptLevel }) => {
 				const newWord: LocalWord = {
 					kanji: word,
-					translation: settings.autoTranslate ? translatedWord : '',
+					translation: translatedWord, // Use auto translation from Google
 					transcription: transcription,
-					example: settings.autoAddingExample ? example : '',
+					example: example,
 					jlptLevel: jlptLevel,
 				}
 				setWordsLength(words.length)
@@ -145,13 +140,6 @@ export const CreatePdf: React.FC = () => {
 		}
 	}, [wordsLength])
 
-	const handleSwitchChange = (key: string, checked: boolean) => {
-		setSettings(prevState => ({
-			...prevState,
-			[key]: checked!,
-		}))
-	}
-
 	const handleTitleChange = (newTitle: string) => {
 		if (existingLessonId) {
 			return
@@ -162,10 +150,9 @@ export const CreatePdf: React.FC = () => {
 
 	return (
 		<Container className='max-sm:px-2 overflow-x-hidden'>
-			<div className='flex justify-between items-center'>
-				<h2 className='text-4xl font-semibold mb-4'>
-					{existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'}
-				</h2>
+			<div className='flex justify-between items-center mb-4'>
+				<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
+
 				<Reset existingLessonId={existingLessonId} />
 			</div>
 			<div>
@@ -189,10 +176,8 @@ export const CreatePdf: React.FC = () => {
 			</div>
 
 			<Carousels existingLessonId={existingLessonId} allWords={words} lessonTitle={lessonTitle} />
-			<SwitchInputs settings={settings} handleSwitchChange={handleSwitchChange} />
 			<Form
 				isLoading={isLoading}
-				settings={settings}
 				translateFetch={translateFetch}
 				lessonTitle={lessonTitle}
 				words={words}

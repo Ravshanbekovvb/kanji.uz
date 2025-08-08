@@ -1,5 +1,6 @@
 'use client'
 import { Loader } from '@/components/shared'
+import { PageTitle } from '@/components/shared/title'
 import { Button } from '@/components/ui/button'
 import {
 	Dialog,
@@ -67,7 +68,7 @@ export default function Page() {
 				<ArrowLeft size={18} />
 				<span>Back to All documents</span>
 			</Link>
-			<h2 className='mb-4 text-4xl font-semibold'>{data.title}</h2>
+			<PageTitle title={data.title} />
 			<div className='max-h-89 overflow-y-auto'>
 				<table className='min-w-full border border-gray-800 rounded-md text-left text-sm'>
 					<thead className='bg-gray-100 text-gray-700 '>

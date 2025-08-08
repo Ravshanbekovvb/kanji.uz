@@ -20,9 +20,8 @@ import {
 } from '@/components/ui/dialog'
 import { useAddWordsToLesson, useCreateLesson } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
-import { cn } from '@/lib/utils'
 import { useStore } from '@/store/store'
-import { CircleStop, Download, Trash2, UserRound } from 'lucide-react'
+import { CircleStop, Download, Trash2 } from 'lucide-react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
@@ -177,7 +176,7 @@ export default function DialogPdf({
 			{canShowDialog ? (
 				<AlertDialog>
 					<AlertDialogTrigger asChild>
-						<Button variant={'destructive'} className='max-sm:w-full h-full'>
+						<Button variant={'destructive'} className='p-6'>
 							<CircleStop size={20} />
 						</Button>
 					</AlertDialogTrigger>
@@ -430,11 +429,7 @@ export default function DialogPdf({
 					</AlertDialogContent>
 				</AlertDialog>
 			) : (
-				<Button
-					variant={'destructive'}
-					onClick={handleDialogClick}
-					className='py-6 max-md:w-full max-sm:w-full h-full'
-				>
+				<Button variant={'destructive'} onClick={handleDialogClick} className='p-6'>
 					<CircleStop size={20} />
 				</Button>
 			)}

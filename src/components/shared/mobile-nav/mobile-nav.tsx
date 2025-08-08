@@ -1,5 +1,14 @@
 'use client'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuItem,
+	DropdownMenuLabel,
+	DropdownMenuSeparator,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/contexts/auth-context'
+import { logoFont } from '@/fonts/font'
 import {
 	Bell,
 	BookOpen,
@@ -14,15 +23,6 @@ import {
 } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { logoFont } from '@/fonts/font'
 export default function MobileNav() {
 	const pathname = usePathname()
 	const { user, logout } = useAuth()
@@ -64,7 +64,7 @@ export default function MobileNav() {
 					},
 					{
 						label: 'My Docs',
-						href: '/my-docs',
+						href: '/my-lessons',
 						icon: BookOpen,
 					},
 			  ]),

@@ -24,6 +24,7 @@ import Link from 'next/link'
 import { useState } from 'react'
 import { DeleteDialog } from '../delete-dialog'
 import { Loader } from '../loader'
+import { PageTitle } from '../title'
 import { DialogTitleEdit } from './dialog-title-edit'
 export const MyDocs: React.FC = () => {
 	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
@@ -45,9 +46,9 @@ export const MyDocs: React.FC = () => {
 	}
 	return (
 		<div>
-			<div className='flex items-center justify-between'>
-				<h2 className='mb-4 text-4xl font-semibold'>My Documents</h2>
-				<Link href={'create-lesson'}>
+			<div className='flex items-center justify-between mb-4'>
+				<PageTitle title='My Lessons' />
+				<Link href={'/create-lesson'}>
 					<Button className='w'>Create lesson</Button>
 				</Link>
 			</div>
