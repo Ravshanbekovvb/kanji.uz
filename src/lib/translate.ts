@@ -1,5 +1,9 @@
 import translate from 'translate'
-import { getExample, getLevel, getTranscription } from './groqAi'
+import {
+	getExampleWithFallback,
+	getLevelWithFallback,
+	getTranscriptionWithFallback,
+} from './groqAi'
 
 export const translateText = async (
 	word: string,
@@ -15,14 +19,22 @@ export const translateText = async (
 	translate.engine = 'google'
 
 	try {
+		// Always try to translate the word first
 		const translatedWord: string = await translate(word, { to: to, from: from })
-		const transcription: string = await getTranscription(word)
-		const example: string = await getExample(word)
-		const jlptLevel: string = await getLevel(word)
 
-		return { translatedWord, transcription, example, jlptLevel }
+		// Try AI functions with fallback
+		const transcriptionResult = await getTranscriptionWithFallback(word)
+		const exampleResult = await getExampleWithFallback(word)
+		const jlptLevelResult = await getLevelWithFallback(word)
+
+		return {
+			translatedWord,
+			transcription: transcriptionResult.value,
+			example: exampleResult.value,
+			jlptLevel: jlptLevelResult.value,
+		}
 	} catch (error) {
-		const errorMessage = error instanceof Error ? error.message : 'Непредвиденная ошибка'
+		const errorMessage = error instanceof Error ? error.message : 'Unexpected error'
 
 		return {
 			translatedWord: '',

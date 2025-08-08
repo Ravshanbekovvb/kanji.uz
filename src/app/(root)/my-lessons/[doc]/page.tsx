@@ -64,7 +64,7 @@ export default function Page() {
 	return (
 		<div>
 			<Link
-				href='/my-docs'
+				href='/my-lessons'
 				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4'
 			>
 				<ArrowLeft size={18} />
@@ -228,10 +228,10 @@ export default function Page() {
 						</DialogDescription>
 
 						{isDownloading ? (
-							<Loader className='mt-10' />
+							<Loader className='mt-10 max-sm:w-full' />
 						) : (
 							<Button
-								className='mt-10'
+								className='mt-10  max-sm:w-full'
 								onClick={async () => {
 									setIsDownloading(true)
 									setTimeout(() => {

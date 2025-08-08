@@ -1,6 +1,7 @@
 'use client'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAuth } from '@/contexts/auth-context'
+import { PageTitle } from '../title'
 import { NotificationAll } from './notification-all'
 import { NotificationPrivate } from './notification-private'
 import { NotificiationForUsers } from './notificiation-for-users'
@@ -9,7 +10,7 @@ export const Notifications: React.FC = () => {
 	const { user } = useAuth()
 	return (
 		<div>
-			<h2 className='mb-4 text-4xl font-semibold'>Notifications</h2>
+			<PageTitle title='Notifications' />
 			{user?.role === 'ADMIN' ? (
 				<Tabs defaultValue='all'>
 					<TabsList>

@@ -4,6 +4,7 @@ import { PopoverClose } from '@radix-ui/react-popover'
 import clsx from 'clsx'
 import { Check, Eye, HelpCircle, RefreshCcw, X } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
+import { PageTitle } from '../title'
 interface Props {
 	needHelp: boolean
 	setNeedHelp: Dispatch<SetStateAction<boolean>>
@@ -18,9 +19,14 @@ export const MemorizeHeader: React.FC<Props> = ({
 }) => {
 	return (
 		<div className='flex items-center gap-5 justify-between'>
-			<h2 className='text-4xl font-semibold max-sm:hidden'>Memorize</h2>
+			<PageTitle title='Memorize' />
 
-			<div className={clsx('flex items-center gap-5 max-sm:justify-center max-sm:w-full', wordsLength ? '' : 'hidden')}>
+			<div
+				className={clsx(
+					'flex items-center gap-5 max-sm:justify-center max-sm:w-full',
+					wordsLength ? '' : 'hidden'
+				)}
+			>
 				<Button
 					variant={'outline'}
 					className='cursor-pointer'

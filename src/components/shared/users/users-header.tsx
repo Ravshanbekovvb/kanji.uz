@@ -20,6 +20,7 @@ import { useCreateUser } from '@/hooks/useUsers'
 import { UserLang, UserRole } from '@/lib'
 import { FormEvent, useState } from 'react'
 import { Loader } from '../loader'
+import { PageTitle } from '../title'
 export const UsersHeader: React.FC = () => {
 	const { isPending, mutate: createUser } = useCreateUser()
 	const [open, setOpen] = useState(false)
@@ -35,7 +36,7 @@ export const UsersHeader: React.FC = () => {
 			repeatPassword: String(formData.get('repeatPassword')),
 			role: (String(formData.get('role')) as UserRole) ?? null,
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
-			loginCount:0
+			loginCount: 0,
 		}
 
 		createUser(data, {
@@ -50,7 +51,7 @@ export const UsersHeader: React.FC = () => {
 	}
 	return (
 		<div className='flex justify-between items-center'>
-			<h2 className='mb-4 text-4xl font-semibold'>Users</h2>
+			<PageTitle title='Users' />
 			<Dialog open={open} onOpenChange={setOpen}>
 				<DialogTrigger asChild>
 					<Button className='cursor-pointer'>Create User</Button>

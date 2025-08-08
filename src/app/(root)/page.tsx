@@ -48,7 +48,7 @@ export default function Page() {
 									Start Creating
 								</Button>
 							</Link>
-							<Link href='/my-docs'>
+							<Link href='/my-lessons'>
 								<Button
 									size='lg'
 									variant='outline'

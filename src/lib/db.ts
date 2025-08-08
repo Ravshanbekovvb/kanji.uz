@@ -1,6 +1,6 @@
 import { NavbarMenuType } from '@/types/types'
 
-export const navbarMenus: NavbarMenuType[] = [
+export const userNavbar: NavbarMenuType[] = [
 	{
 		icon: 'home',
 		title: 'Home',
@@ -44,8 +44,37 @@ export const navbarMenus: NavbarMenuType[] = [
 		className: 'hover:bg-red-500/30',
 	},
 ]
+export const defaultNavbar: NavbarMenuType[] = [
+	{
+		icon: 'home',
+		title: 'Home',
+		link: '/',
+	},
+	{
+		icon: 'settings',
+		title: 'Settings',
+		link: '/settings',
+	},
+	{
+		icon: 'bell',
+		title: 'Notifications',
+		link: '/notifications',
+	},
+	{
+		icon: 'help',
+		title: 'Help',
+		link: '/help',
+		className: 'hover:bg-green-500/30',
+	},
+	{
+		icon: 'logout',
+		title: 'Logout',
+		link: '/login',
+		className: 'hover:bg-red-500/30',
+	},
+]
 
-export const AdminNavbar = [
+export const AdminNavbar: NavbarMenuType[] = [
 	{
 		icon: 'home',
 		title: 'Home',

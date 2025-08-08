@@ -9,10 +9,15 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
+import {
+	getExampleWithFallback,
+	getLevelWithFallback,
+	getTranscriptionWithFallback,
+} from '@/lib/groqAi'
 import { cn } from '@/lib/utils'
 import { useStore } from '@/store/store'
-import { Edit } from 'lucide-react'
-import { useRef } from 'react'
+import { Edit, Loader2, Wand2 } from 'lucide-react'
+import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 interface Words {
 	kanji: string
@@ -38,7 +43,46 @@ interface Word {
 
 export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
+	const [isLoading, setIsLoading] = useState(false)
 	const { setIsUpdate } = useStore()
+
+	const generateWithAI = async () => {
+		if (!datas?.kanji || !datas?.type) return
+
+		setIsLoading(true)
+		try {
+			let result = { value: '', isManual: false }
+
+			switch (datas.type) {
+				case 'transcription':
+					result = await getTranscriptionWithFallback(datas.kanji)
+					break
+				case 'example':
+					result = await getExampleWithFallback(datas.kanji)
+					break
+				case 'jlptLevel':
+					result = await getLevelWithFallback(datas.kanji)
+					break
+				default:
+					toast.error('AI generation not available for this field')
+					return
+			}
+
+			if (result.isManual) {
+				toast.warning(`AI failed to generate ${datas.type}. Please enter manually.`)
+			} else if (result.value && inputRef.current) {
+				inputRef.current.value = result.value
+				toast.success(`AI generated ${datas.type} successfully!`)
+			} else {
+				toast.error(`Failed to generate ${datas.type}`)
+			}
+		} catch (error) {
+			console.error('Error generating with AI:', error)
+			toast.error(`Failed to generate ${datas.type}. Please enter manually.`)
+		} finally {
+			setIsLoading(false)
+		}
+	}
 
 	const saveChange = () => {
 		const storegedWords = localStorage.getItem('words')
@@ -65,12 +109,33 @@ export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiP
 					<DialogDescription>
 						{datas?.kanji} - {datas?.transcription} - {datas?.translation} - {datas?.example}
 					</DialogDescription>
-					<Input
-						type='text'
-						className='border border-black p-1'
-						defaultValue={word}
-						ref={inputRef}
-					/>
+					<div className='flex gap-2'>
+						<Input
+							type='text'
+							className='border border-black p-1 flex-1'
+							defaultValue={word}
+							ref={inputRef}
+						/>
+						{(datas?.type === 'transcription' ||
+							datas?.type === 'example' ||
+							datas?.type === 'jlptLevel') && (
+							<Button
+								type='button'
+								variant='outline'
+								size='sm'
+								onClick={generateWithAI}
+								disabled={isLoading}
+								className='shrink-0'
+							>
+								{isLoading ? (
+									<Loader2 className='h-4 w-4 animate-spin' />
+								) : (
+									<Wand2 className='h-4 w-4' />
+								)}
+								{isLoading ? 'Generating...' : 'AI'}
+							</Button>
+						)}
+					</div>
 				</DialogHeader>
 
 				<DialogClose asChild>
