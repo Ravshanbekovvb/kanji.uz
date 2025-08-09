@@ -5,6 +5,7 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { useAuth } from '@/contexts/auth-context'
 import {
+	ArrowRight,
 	BookOpen,
 	CheckCircle,
 	HelpCircle,
@@ -16,13 +17,13 @@ import {
 	Settings,
 	Users,
 } from 'lucide-react'
+import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 export default function Page() {
 	const { user } = useAuth()
 	const [formData, setFormData] = useState({
-		name: user?.userName,
 		phone: '',
 		message: '',
 	})
@@ -52,14 +53,17 @@ export default function Page() {
 				headers: {
 					'Content-Type': 'application/json',
 				},
-				body: JSON.stringify(formData),
+				body: JSON.stringify({
+					...formData,
+					name: user?.userName || 'Anonymous',
+				}),
 			})
 
 			const result = await response.json()
 
 			if (result.success) {
 				toast.success('Your message has been sent successfully!')
-				setFormData({ name: '', phone: '', message: '' })
+				setFormData({ phone: '', message: '' })
 			} else {
 				toast.error(result.error || 'Failed to send message')
 			}
@@ -95,25 +99,18 @@ export default function Page() {
 
 	const contactMethods = [
 		{
-			icon: MessageSquare,
-			title: 'Live Chat',
-			description: 'Get instant help through our support chat',
-			action: 'Chat Now',
-		},
-		{
 			icon: Mail,
 			title: 'Email Support',
 			description: 'Send us detailed questions via email',
-			action: 'support@wordspdf.com',
+			action: 'ravshanbekovbehruz79@gmail.com',
 		},
 		{
 			icon: Phone,
 			title: 'Phone Support',
 			description: 'Talk to our support team directly',
-			action: '+1 (555) 123-4567',
+			action: '+998 94 418-38-10',
 		},
 	]
-
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6'>
 			<div className='max-w-6xl mx-auto space-y-8'>
@@ -202,6 +199,24 @@ export default function Page() {
 					{/* Contact Methods */}
 					<div className='space-y-6'>
 						<h2 className='text-2xl font-bold text-gray-900'>Other Ways to Reach Us</h2>
+						<Card className='p-6'>
+							<div className='flex items-start gap-4'>
+								<div className='p-3 bg-blue-100 rounded-full'>
+									<Image alt='telegram icon' src={'/telegram-icon.webp'} width={30} height={30} />
+								</div>
+								<div className='flex-1'>
+									<h3 className='font-semibold text-gray-900 mb-1'>Live Chat</h3>
+									<p className='text-gray-600 mb-2'>Get instant help through our support chat</p>
+									<a
+										href='https://t.me/Ravshanbekovb'
+										className='text-blue-600 font-medium flex items-center gap-3'
+									>
+										Chat Now
+										<ArrowRight />
+									</a>
+								</div>
+							</div>
+						</Card>
 						{contactMethods.map((method, index) => (
 							<Card key={index} className='p-6'>
 								<div className='flex items-start gap-4'>
