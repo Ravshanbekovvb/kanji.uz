@@ -1,64 +1,116 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { useAuth } from '@/contexts/auth-context'
 import {
-	Bell,
 	BookOpen,
-	FileText,
+	CheckCircle,
 	HelpCircle,
-	LogOut,
-	MessageCircle,
+	Loader2,
+	Mail,
+	MessageSquare,
+	Phone,
+	Send,
 	Settings,
-	Target,
 	Users,
-	Zap,
 } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
 
 export default function Page() {
-	const features = [
+	const { user } = useAuth()
+	const [formData, setFormData] = useState({
+		name: user?.userName,
+		phone: '',
+		message: '',
+	})
+	const [isSubmitting, setIsSubmitting] = useState(false)
+
+	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+		const { name, value } = e.target
+		setFormData(prev => ({
+			...prev,
+			[name]: value,
+		}))
+	}
+
+	const handleSubmit = async (e: React.FormEvent) => {
+		e.preventDefault()
+
+		if (!formData.message.trim()) {
+			toast.error('Please fill in your message')
+			return
+		}
+
+		setIsSubmitting(true)
+
+		try {
+			const response = await fetch('/api/help/send-message', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(formData),
+			})
+
+			const result = await response.json()
+
+			if (result.success) {
+				toast.success('Your message has been sent successfully!')
+				setFormData({ name: '', phone: '', message: '' })
+			} else {
+				toast.error(result.error || 'Failed to send message')
+			}
+		} catch (error) {
+			toast.error('Network error. Please try again.')
+		} finally {
+			setIsSubmitting(false)
+		}
+	}
+
+	const faqItems = [
 		{
-			icon: <FileText className='h-6 w-6 text-blue-600' />,
-			title: 'Create PDF',
-			description:
-				'Enter words or materials and download them in PDF format for easy printing and studying.',
+			question: 'How do I start memorizing words?',
+			answer:
+				"Go to the 'Memorize' section, select a lesson, and use the keyboard shortcuts (Space, Enter, Ctrl) to interact with the flashcards.",
 		},
 		{
-			icon: <BookOpen className='h-6 w-6 text-green-600' />,
-			title: 'My Docs',
-			description:
-				'View, manage and download all your prepared PDF files in one convenient location.',
+			question: 'How can I create my own lesson?',
+			answer:
+				"Navigate to 'Create Lesson' where you can add words, translations, and organize them into custom lessons.",
 		},
 		{
-			icon: <Bell className='h-6 w-6 text-orange-600' />,
-			title: 'Notifications',
-			description: 'Stay updated with notifications about new features and important site updates.',
+			question: 'What are the keyboard shortcuts?',
+			answer:
+				'Space - Show word details, Enter - Mark as memorized, Ctrl - Move to next word without memorizing.',
 		},
 		{
-			icon: <Settings className='h-6 w-6 text-purple-600' />,
-			title: 'Settings',
-			description: 'Customize your personal preferences and account settings to suit your needs.',
-		},
-		{
-			icon: <LogOut className='h-6 w-6 text-red-600' />,
-			title: 'Secure Logout',
-			description: 'Safely log out from your account to protect your personal information.',
+			question: 'How do I track my progress?',
+			answer:
+				"Visit the 'My Lessons' section to see your learning statistics and completed lessons.",
 		},
 	]
 
-	const benefits = [
+	const contactMethods = [
 		{
-			icon: <Target className='h-8 w-8 text-blue-500' />,
-			title: 'Focused Learning',
-			description: 'Designed specifically for vocabulary memorization and language learning',
+			icon: MessageSquare,
+			title: 'Live Chat',
+			description: 'Get instant help through our support chat',
+			action: 'Chat Now',
 		},
 		{
-			icon: <Users className='h-8 w-8 text-green-500' />,
-			title: 'For Everyone',
-			description: 'Perfect for both teachers and students of all levels',
+			icon: Mail,
+			title: 'Email Support',
+			description: 'Send us detailed questions via email',
+			action: 'support@wordspdf.com',
 		},
 		{
-			icon: <Zap className='h-8 w-8 text-yellow-500' />,
-			title: 'Quick & Easy',
-			description: 'Create and download flashcards in just a few clicks',
+			icon: Phone,
+			title: 'Phone Support',
+			description: 'Talk to our support team directly',
+			action: '+1 (555) 123-4567',
 		},
 	]
 
@@ -66,135 +118,134 @@ export default function Page() {
 		<div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6'>
 			<div className='max-w-6xl mx-auto space-y-8'>
 				{/* Header Section */}
-				<div className='text-center space-y-4'>
-					<div className='inline-flex items-center justify-center w-16 h-16 bg-blue-600 rounded-full mb-4'>
-						<HelpCircle className='h-8 w-8 text-white' />
+				<div className='text-center mb-12'>
+					<div className='inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6'>
+						<HelpCircle className='h-10 w-10 text-white' />
 					</div>
 					<h1 className='text-4xl md:text-5xl font-bold text-gray-900 mb-4'>Help & Support</h1>
-					<p className='text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed'>
-						Welcome to your vocabulary learning companion! This platform is designed to help
-						teachers and students create, manage, and use flashcards for effective vocabulary
-						memorization.
+					<p className='text-xl text-gray-600 max-w-2xl mx-auto'>
+						We're here to help you make the most of your vocabulary learning journey
 					</p>
 				</div>
 
-				{/* Benefits Section */}
-				<div className='grid md:grid-cols-3 gap-6 my-12'>
-					{benefits.map((benefit, index) => (
-						<Card
-							key={index}
-							className='border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 bg-white'
-						>
-							<CardContent className='p-6 text-center'>
-								<div className='flex justify-center mb-4'>{benefit.icon}</div>
-								<h3 className='text-lg font-semibold text-gray-900 mb-2'>{benefit.title}</h3>
-								<p className='text-gray-600 text-sm'>{benefit.description}</p>
-							</CardContent>
-						</Card>
-					))}
+				{/* Quick Links */}
+				<div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-12'>
+					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
+						<BookOpen className='h-8 w-8 text-blue-600 mb-4' />
+						<h3 className='text-lg font-semibold mb-2'>Getting Started</h3>
+						<p className='text-gray-600'>Learn the basics of using our platform</p>
+					</Card>
+					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
+						<Users className='h-8 w-8 text-green-600 mb-4' />
+						<h3 className='text-lg font-semibold mb-2'>Community</h3>
+						<p className='text-gray-600'>Connect with other learners</p>
+					</Card>
+					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
+						<Settings className='h-8 w-8 text-purple-600 mb-4' />
+						<h3 className='text-lg font-semibold mb-2'>Account Settings</h3>
+						<p className='text-gray-600'>Manage your preferences</p>
+					</Card>
 				</div>
 
-				{/* Features Section */}
-				<Card className='border-0 shadow-xl bg-white'>
-					<CardHeader className='text-center pb-8'>
-						<CardTitle className='text-3xl font-bold text-gray-900 mb-2'>
-							Platform Features
-						</CardTitle>
-						<CardDescription className='text-lg text-gray-600'>
-							Discover all the tools available to enhance your learning experience
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<div className='grid md:grid-cols-2 lg:grid-cols-3 gap-6'>
-							{features.map((feature, index) => (
-								<div
-									key={index}
-									className='flex items-start space-x-4 p-4 rounded-lg hover:bg-gray-50 transition-colors duration-200'
-								>
-									<div className='flex-shrink-0 mt-1'>{feature.icon}</div>
-									<div>
-										<h3 className='font-semibold text-gray-900 mb-1'>{feature.title}</h3>
-										<p className='text-sm text-gray-600 leading-relaxed'>{feature.description}</p>
+				{/* Contact Form */}
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+					<Card className='p-8'>
+						<h2 className='text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3'>
+							<MessageSquare className='h-6 w-6 text-blue-600' />
+							Send us a Message
+						</h2>
+						<form onSubmit={handleSubmit} className='space-y-6'>
+							<div>
+								<label htmlFor='phone' className='block text-sm font-medium text-gray-700 mb-2'>
+									Phone Number
+								</label>
+								<Input
+									type='tel'
+									id='phone'
+									name='phone'
+									value={formData.phone}
+									onChange={handleInputChange}
+									placeholder='+1 (555) 123-4567'
+								/>
+							</div>
+							<div>
+								<label htmlFor='message' className='block text-sm font-medium text-gray-700 mb-2'>
+									Message *
+								</label>
+								<textarea
+									id='message'
+									name='message'
+									value={formData.message}
+									onChange={handleInputChange}
+									rows={4}
+									className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
+									placeholder='How can we help you?'
+									required
+								/>
+							</div>
+							<Button type='submit' className='w-full' disabled={isSubmitting}>
+								{isSubmitting ? (
+									<>
+										<Loader2 className='h-4 w-4 animate-spin mr-2' />
+										Sending...
+									</>
+								) : (
+									<>
+										<Send className='h-4 w-4 mr-2' />
+										Send Message
+									</>
+								)}
+							</Button>
+						</form>
+					</Card>
+
+					{/* Contact Methods */}
+					<div className='space-y-6'>
+						<h2 className='text-2xl font-bold text-gray-900'>Other Ways to Reach Us</h2>
+						{contactMethods.map((method, index) => (
+							<Card key={index} className='p-6'>
+								<div className='flex items-start gap-4'>
+									<div className='p-3 bg-blue-100 rounded-full'>
+										<method.icon className='h-6 w-6 text-blue-600' />
+									</div>
+									<div className='flex-1'>
+										<h3 className='font-semibold text-gray-900 mb-1'>{method.title}</h3>
+										<p className='text-gray-600 mb-2'>{method.description}</p>
+										<p className='text-blue-600 font-medium'>{method.action}</p>
 									</div>
 								</div>
-							))}
-						</div>
-					</CardContent>
+							</Card>
+						))}
+					</div>
+				</div>
+
+				{/* FAQ Section */}
+				<Card className='p-8'>
+					<h2 className='text-2xl font-bold text-gray-900 mb-6'>Frequently Asked Questions</h2>
+					<div className='space-y-6'>
+						{faqItems.map((item, index) => (
+							<div key={index} className='border-b border-gray-200 pb-6 last:border-b-0'>
+								<h3 className='text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2'>
+									<CheckCircle className='h-5 w-5 text-green-600' />
+									{item.question}
+								</h3>
+								<p className='text-gray-600 ml-7'>{item.answer}</p>
+							</div>
+						))}
+					</div>
 				</Card>
 
-				{/* How It Works Section */}
-				<Card className='border-0 shadow-xl bg-gradient-to-r from-blue-600 to-indigo-600 text-white'>
-					<CardHeader className='text-center'>
-						<CardTitle className='text-3xl font-bold mb-2'>How It Works</CardTitle>
-						<CardDescription className='text-blue-100 text-lg'>
-							Simple steps to get started with your vocabulary learning journey
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<div className='grid md:grid-cols-3 gap-8 mt-8'>
-							<div className='text-center'>
-								<div className='w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4'>
-									<span className='text-2xl font-bold'>1</span>
-								</div>
-								<h3 className='text-xl font-semibold mb-2'>Create</h3>
-								<p className='text-blue-100'>Enter your vocabulary words and definitions</p>
-							</div>
-							<div className='text-center'>
-								<div className='w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4'>
-									<span className='text-2xl font-bold'>2</span>
-								</div>
-								<h3 className='text-xl font-semibold mb-2'>Download</h3>
-								<p className='text-blue-100'>Generate and download your PDF flashcards</p>
-							</div>
-							<div className='text-center'>
-								<div className='w-12 h-12 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-4'>
-									<span className='text-2xl font-bold'>3</span>
-								</div>
-								<h3 className='text-xl font-semibold mb-2'>Study</h3>
-								<p className='text-blue-100'>
-									Print and use your flashcards for effective learning
-								</p>
-							</div>
-						</div>
-					</CardContent>
-				</Card>
-
-				{/* Contact Section */}
-				<Card className='border-0 shadow-xl bg-white'>
-					<CardHeader className='text-center'>
-						<div className='inline-flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-4'>
-							<MessageCircle className='h-6 w-6 text-green-600' />
-						</div>
-						<CardTitle className='text-2xl font-bold text-gray-900 mb-2'>
-							Need Additional Help?
-						</CardTitle>
-						<CardDescription className='text-gray-600'>
-							Our admin is here to assist you with any questions or issues you might have
-						</CardDescription>
-					</CardHeader>
-					<CardContent className='text-center'>
-						<div className='bg-gradient-to-r from-green-50 to-blue-50 rounded-lg p-6'>
-							<p className='text-gray-700 mb-4'>
-								Have questions, suggestions, or need technical support?
-								<br />
-								Connect with our admin on Telegram for quick assistance.
+				{/* Status Banner */}
+				<Card className='p-6 bg-green-50 border-green-200'>
+					<div className='flex items-center gap-3'>
+						<CheckCircle className='h-6 w-6 text-green-600' />
+						<div>
+							<h3 className='font-semibold text-green-900'>All Systems Operational</h3>
+							<p className='text-green-700'>
+								Our platform is running smoothly with no known issues.
 							</p>
-							<a
-								href='https://t.me/Ravshanbekovb'
-								target='_blank'
-								rel='noopener noreferrer'
-								className='inline-block'
-							>
-								<Button
-									size='lg'
-									className='bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-8 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105'
-								>
-									<MessageCircle className='h-5 w-5 mr-2' />
-									Contact Admin on Telegram
-								</Button>
-							</a>
 						</div>
-					</CardContent>
+					</div>
 				</Card>
 
 				{/* Footer */}
