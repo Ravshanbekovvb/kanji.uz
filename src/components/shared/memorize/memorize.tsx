@@ -5,6 +5,7 @@ import { DarsData } from '@/types/types'
 import clsx from 'clsx'
 import { LoaderIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { Congratulations } from '../congratulations/congratulations'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
 import { MemorizeHeader } from './memorize-header'
@@ -13,6 +14,8 @@ export const Memorize: React.FC = () => {
 	const [words, setWords] = useState<any[]>([])
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [showWordDetails, setShowWordDetails] = useState<boolean>(false)
+	const [currentLessonTitle, setCurrentLessonTitle] = useState<string>('')
+	const [showCongratulations, setShowCongratulations] = useState<boolean>(false)
 	const { user } = useAuth()
 	const { data, error, isPending } = useFindLessonsByUserId(user?.id)
 
@@ -21,7 +24,10 @@ export const Memorize: React.FC = () => {
 		const updatedWords = words.filter((_, idx) => idx !== currentIndex)
 		setWords(updatedWords)
 		localStorage.setItem('words-for-memorize', JSON.stringify({ words: updatedWords }))
+
 		if (updatedWords.length === 0) {
+			// Show congratulations when all words are memorized
+			setShowCongratulations(true)
 			setCurrentIndex(0)
 		} else if (currentIndex >= updatedWords.length) {
 			setCurrentIndex(updatedWords.length - 1)
@@ -38,11 +44,18 @@ export const Memorize: React.FC = () => {
 		setCurrentIndex(nextIndex)
 	}
 
+	const handleCloseCongratulations = () => {
+		setShowCongratulations(false)
+		setCurrentLessonTitle('')
+		localStorage.removeItem('words-for-memorize')
+	}
+
 	useEffect(() => {
 		const parsed: DarsData = JSON.parse(
 			localStorage.getItem('words-for-memorize') || '{"words": []}'
 		)
 		setWords(parsed.words || [])
+		setCurrentLessonTitle(parsed.title || '')
 		setCurrentIndex(0)
 	}, [])
 
@@ -134,6 +147,7 @@ export const Memorize: React.FC = () => {
 								onClick={() => {
 									localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
 									setWords(lesson.words)
+									setCurrentLessonTitle(lesson.title)
 									setCurrentIndex(0)
 								}}
 							>
@@ -148,6 +162,11 @@ export const Memorize: React.FC = () => {
 					</div>
 				)}
 			</div>
+
+			{/* CONGRATULATIONS MODAL */}
+			{showCongratulations && (
+				<Congratulations lessonTitle={currentLessonTitle} onClose={handleCloseCongratulations} />
+			)}
 		</div>
 	)
 }
