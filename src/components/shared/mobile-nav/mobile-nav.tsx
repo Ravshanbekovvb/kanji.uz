@@ -15,6 +15,7 @@ import {
 	Brain,
 	ChartColumnDecreasing,
 	FileText,
+	HelpCircle,
 	Home,
 	LogOut,
 	Plus,
@@ -153,10 +154,13 @@ export default function MobileNav() {
 								<DropdownMenuContent>
 									<DropdownMenuLabel>{user.email}</DropdownMenuLabel>
 									<DropdownMenuSeparator />
-									<DropdownMenuItem
-										className='flex items-center text-red-500 hover:text-red-500'
-										onClick={logout}
-									>
+									<Link href={'/help'} className='flex items-center'>
+										<DropdownMenuItem className='text-gray-500 '>
+											<HelpCircle />
+											Help
+										</DropdownMenuItem>
+									</Link>
+									<DropdownMenuItem className='flex items-center text-red-500 ' onClick={logout}>
 										<LogOut color='red' />
 										Logout
 									</DropdownMenuItem>

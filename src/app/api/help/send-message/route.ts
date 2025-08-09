@@ -26,8 +26,8 @@ export async function POST(request: NextRequest) {
 
 		// Format message for Telegram
 		const telegramMessage = `
-*from TSUKUROU*
-
+ *🏛 TSUKUROU*
+ 
 🆘 *Help Request*
 
 👤 *Name:* ${name}
@@ -39,29 +39,56 @@ ${message}
 		`.trim()
 
 		const chatIds = [TELEGRAM_CHAT_ID_1, TELEGRAM_CHAT_ID_2]
-		const responses = await Promise.all(
-			chatIds.map(chatId =>
-				fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-					method: 'POST',
-					headers: { 'Content-Type': 'application/json' },
-					body: JSON.stringify({
-						chat_id: chatId,
-						text: telegramMessage,
-						parse_mode: 'Markdown',
-					}),
-				})
-			)
+
+		const results = await Promise.allSettled(
+			chatIds.map(async (chatId, index) => {
+				console.log(`Attempting to send to chat ${index + 1} (${chatId})...`)
+				const response = await fetch(
+					`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+					{
+						method: 'POST',
+						headers: { 'Content-Type': 'application/json' },
+						body: JSON.stringify({
+							chat_id: chatId,
+							text: telegramMessage,
+							parse_mode: 'Markdown',
+						}),
+					}
+				)
+
+				if (!response.ok) {
+					const errorText = await response.text()
+					console.error(`Failed to send to chat ${index + 1}:`, response.status, errorText)
+					throw new Error(`Chat ${index + 1} (${chatId}): ${response.status} - ${errorText}`)
+				}
+
+				console.log(`✅ Successfully sent to chat ${index + 1} (${chatId})`)
+				return { chatId, success: true }
+			})
 		)
 
-		const allOk = responses.every(res => res.ok)
-		if (!allOk) {
-			throw new Error('Failed to send message to all Telegram chats')
+		const successful = results.filter(result => result.status === 'fulfilled')
+		const failed = results.filter(result => result.status === 'rejected')
+
+		console.log(`Results: ${successful.length} successful, ${failed.length} failed`)
+
+		if (failed.length > 0) {
+			console.log('Failed chats:', failed.map(f => f.reason?.message).join(', '))
 		}
 
-		return NextResponse.json({
-			success: true,
-			message: 'Your help request has been sent successfully!',
-		})
+		// If at least one message was sent successfully, consider it a success
+		if (successful.length > 0) {
+			return NextResponse.json({
+				success: true,
+				message: `Your help request has been sent successfully to ${successful.length} chat(s)!`,
+				details: {
+					successful: successful.length,
+					failed: failed.length,
+				},
+			})
+		}
+		// If no messages were sent successfully
+		throw new Error('Failed to send message to any Telegram chat')
 	} catch (error) {
 		console.error('Error sending help message:', error)
 		return NextResponse.json({ success: false, error: 'Failed to send message' }, { status: 500 })
