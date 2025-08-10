@@ -133,3 +133,7 @@
 .rotate-right {
 	animation: rotateRight 1s linear infinite;
 }
+/* 
+div {
+	border: 2px solid red;
+} */
