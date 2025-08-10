@@ -92,10 +92,7 @@ export default function Page() {
 				{isLoading ? (
 					<Loader className='w-full' />
 				) : (
-					<Button
-						type='submit'
-						className='w-full'
-					>
+					<Button type='submit' className='w-full'>
 						Login
 					</Button>
 				)}

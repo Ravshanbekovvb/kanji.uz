@@ -12,7 +12,6 @@ import {
 	Loader2,
 	Mail,
 	MessageSquare,
-	Phone,
 	Send,
 	Settings,
 	Users,
@@ -104,15 +103,15 @@ export default function Page() {
 			description: 'Send us detailed questions via email',
 			action: 'ravshanbekovbehruz79@gmail.com',
 		},
-		{
-			icon: Phone,
-			title: 'Phone Support',
-			description: 'Talk to our support team directly',
-			action: '+998 94 418-38-10',
-		},
+		// {
+		// 	icon: Phone,
+		// 	title: 'Phone Support',
+		// 	description: 'Talk to our support team directly',
+		// 	action: '+998 94 418-38-10',
+		// },
 	]
 	return (
-		<div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6'>
+		<div className='min-h-full bg-gradient-to-br from-blue-50 to-indigo-100 p-6'>
 			<div className='max-w-6xl mx-auto space-y-8'>
 				{/* Header Section */}
 				<div className='text-center mb-12'>
@@ -146,7 +145,7 @@ export default function Page() {
 
 				{/* Contact Form */}
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-					<Card className='p-8'>
+					<Card className='p-4'>
 						<h2 className='text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3'>
 							<MessageSquare className='h-6 w-6 text-blue-600' />
 							Send us a Message
@@ -199,7 +198,7 @@ export default function Page() {
 					{/* Contact Methods */}
 					<div className='space-y-6'>
 						<h2 className='text-2xl font-bold text-gray-900'>Other Ways to Reach Us</h2>
-						<Card className='p-6'>
+						<Card className='p-4'>
 							<div className='flex items-start gap-4'>
 								<div className='p-3 bg-blue-100 rounded-full'>
 									<Image alt='telegram icon' src={'/telegram-icon.webp'} width={30} height={30} />
@@ -218,7 +217,7 @@ export default function Page() {
 							</div>
 						</Card>
 						{contactMethods.map((method, index) => (
-							<Card key={index} className='p-6'>
+							<Card key={index} className='p-4'>
 								<div className='flex items-start gap-4'>
 									<div className='p-3 bg-blue-100 rounded-full'>
 										<method.icon className='h-6 w-6 text-blue-600' />
@@ -226,7 +225,7 @@ export default function Page() {
 									<div className='flex-1'>
 										<h3 className='font-semibold text-gray-900 mb-1'>{method.title}</h3>
 										<p className='text-gray-600 mb-2'>{method.description}</p>
-										<p className='text-blue-600 font-medium'>{method.action}</p>
+										<p className='text-blue-600 font-medium wrap-anywhere'>{method.action}</p>
 									</div>
 								</div>
 							</Card>
@@ -235,7 +234,7 @@ export default function Page() {
 				</div>
 
 				{/* FAQ Section */}
-				<Card className='p-8'>
+				<Card className='p-6'>
 					<h2 className='text-2xl font-bold text-gray-900 mb-6'>Frequently Asked Questions</h2>
 					<div className='space-y-6'>
 						{faqItems.map((item, index) => (
