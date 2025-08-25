@@ -20,7 +20,10 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body className={`${roboto.className} antialiased h-svh`} suppressHydrationWarning>
+			<head>
+				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+			</head>
+			<body className={`${roboto.className} antialiased min-h-screen`} suppressHydrationWarning>
 				{children}
 				<Toaster position='top-right' richColors />
 			</body>

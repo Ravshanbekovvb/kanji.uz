@@ -14,12 +14,12 @@ export default function Home({ children }: Readonly<{ children: React.ReactNode 
 					{/* Mobile Navigation */}
 					<MobileNav />
 
-					<main className='flex flex-col h-screen w-full overflow-y-auto'>
+					<main className='flex flex-col min-h-screen w-full'>
 						{/* Desktop Header */}
 						<Header className='max-md:hidden' />
 
 						{/* Content with mobile padding */}
-						<div className='p-4 md:p-10 pb-20 md:pb-10 pt-20 md:pt-4'>{children}</div>
+						<div className='flex-1 p-4 md:p-10 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-10 pt-[calc(4rem+env(safe-area-inset-top))] md:pt-4 overflow-y-auto'>{children}</div>
 					</main>
 				</QueryClientProvider>
 			</div>
