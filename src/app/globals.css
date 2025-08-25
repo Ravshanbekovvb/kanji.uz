@@ -133,6 +133,36 @@
 .rotate-right {
 	animation: rotateRight 1s linear infinite;
 }
+
+/* iOS Safari safe area utilities */
+.pt-safe {
+	padding-top: env(safe-area-inset-top);
+}
+
+.pb-safe {
+	padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Prevent overscroll bounce on iOS */
+body {
+	overscroll-behavior: none;
+	-webkit-overflow-scrolling: touch;
+}
+
+/* Fix viewport units on iOS */
+@supports (height: 100vh) {
+	.min-h-screen-safe {
+		min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+	}
+}
+
+/* Fix scroll container on mobile */
+.mobile-scroll-container {
+	height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+	overflow-y: auto;
+	-webkit-overflow-scrolling: touch;
+}
+
 /* 
 div {
 	border: 2px solid red;

@@ -87,7 +87,7 @@ export default function MobileNav() {
 	return (
 		<div className='md:hidden'>
 			{/* Bottom Navigation */}
-			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 safe-area-pb'>
+			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 pb-safe'>
 				<div
 					className={`grid gap-1 px-2 py-2 ${
 						user?.role === 'ADMIN' ? 'grid-cols-4' : 'grid-cols-4'
@@ -115,7 +115,7 @@ export default function MobileNav() {
 			</div>
 
 			{/* Top Mobile Header */}
-			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 safe-area-pt'>
+			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 pt-safe'>
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
 						<div
