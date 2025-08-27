@@ -16,7 +16,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 	return (
 		<aside
 			className={cn(
-				'bg-[#ffffff] relative w-[250px] h-dvh border-r border-black flex flex-col justify-between duration-200 overflow-hidden',
+				'bg-[#ffffff] sticky top-0 w-[250px] h-dvh border-r border-black flex flex-col justify-between duration-200 overflow-hidden',
 				isOpened ? 'w-[300px] opacity-100 visible' : 'w-0 opacity-0 invisible',
 				className
 			)}
