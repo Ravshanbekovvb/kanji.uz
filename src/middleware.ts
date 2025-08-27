@@ -8,7 +8,7 @@ const getJWTSecretKey = () => {
 
 interface JWTPayload {
 	sub: string
-	role: 'ADMIN' | 'USER'
+	role: 'ADMIN' | 'USER' |  'TEACHER'| 'STUDENT'
 	iat: number
 	exp: number
 }
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
 			return NextResponse.redirect(new URL('/', request.url))
 		}
 
-		if (userRole === 'USER' && adminOnlyRoutes.some(route => pathname.startsWith(route))) {
+		if (userRole === 'USER' || userRole === 'TEACHER' || userRole === 'STUDENT' && adminOnlyRoutes.some(route => pathname.startsWith(route))) {
 			return NextResponse.redirect(new URL('/', request.url))
 		}
 
