@@ -329,15 +329,15 @@ export default function DialogPdf({
 											Save and Download
 										</Button>
 									</DialogTrigger>
-									<DialogContent className='min-w-[530px]'>
+									<DialogContent className='min-w-[530px] max-sm:min-w-auto'>
 										<DialogHeader>
-											<DialogTitle className='text-3xl font-bold text-center mb-6'>
+											<DialogTitle className='text-3xl font-bold text-center mb-6 max-sm:mb-9 max-sm:text-xl'>
 												Select the type of PDF
 											</DialogTitle>
 											<DialogDescription asChild>
-												<div className='flex items-center justify-center gap-6 max-h-[220px]'>
+												<div className='flex items-center justify-center gap-6 max-h-[220px] max-sm:flex-col max-sm:max-h-[400px] '>
 													<div
-														className={`border-2 rounded-xl p-3 min-h-full cursor-pointer transition-all duration-200 hover:shadow-lg ${
+														className={`border-2 rounded-xl p-3 min-h-ful cursor-pointer transition-all duration-200 hover:shadow-lg max-sm:w-full ${
 															pdfType === 'table'
 																? 'border-blue-500 bg-blue-50 shadow-md'
 																: 'border-gray-300 hover:border-gray-400'
@@ -359,7 +359,7 @@ export default function DialogPdf({
 														</div>
 													</div>
 													<div
-														className={`border-2 rounded-xl p-3 min-h-full cursor-pointer transition-all duration-200 hover:shadow-lg ${
+														className={`border-2 rounded-xl p-3 cursor-pointer transition-all duration-200 hover:shadow-lg max-sm:w-full ${
 															pdfType === 'card'
 																? 'border-blue-500 bg-blue-50 shadow-md'
 																: 'border-gray-300 hover:border-gray-400'
@@ -387,7 +387,7 @@ export default function DialogPdf({
 												<Loader className='mt-10' />
 											) : (
 												<Button
-													className='mt-10'
+													className='mt-10 w-full'
 													onClick={async () => {
 														setIsDownloading(true)
 														setTimeout(() => {
