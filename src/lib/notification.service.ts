@@ -113,6 +113,53 @@ class NotificationService {
 
 		return updatedNotification
 	}
+
+	async markAsRead(notificationId: string): Promise<Notification> {
+		const existingNotification = await this.prisma.notification.findUnique({
+			where: {
+				id: notificationId,
+			},
+		})
+
+		if (!existingNotification)
+			throw new NotFoundError(`Notification with this ID not found: #${notificationId}`)
+
+		const updatedNotification = await this.prisma.notification.update({
+			where: {
+				id: notificationId,
+			},
+			data: {
+				isRead: true,
+			},
+		})
+
+		return updatedNotification
+	}
+
+	async markAllAsRead(userId: string): Promise<{ count: number }> {
+		const result = await this.prisma.notification.updateMany({
+			where: {
+				userId: userId,
+				isRead: false,
+			},
+			data: {
+				isRead: true,
+			},
+		})
+
+		return result
+	}
+
+	async getUnreadCount(userId: string): Promise<number> {
+		const count = await this.prisma.notification.count({
+			where: {
+				userId: userId,
+				isRead: false,
+			},
+		})
+
+		return count
+	}
 }
 
 const notificationService = new NotificationService(prisma)

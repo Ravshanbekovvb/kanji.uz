@@ -1,4 +1,5 @@
 import { NavbarButton } from './navbar-button'
+import { NotificationBadge } from './notification-badge'
 import { UserRole } from './user-role'
 
 interface HeaderProps {
@@ -12,6 +13,7 @@ export const Header: React.FC<HeaderProps> = ({ className }) => {
 		>
 			<NavbarButton />
 			<div className='flex gap-4 items-center'>
+				<NotificationBadge />
 				{/* <LocaleSwitcher /> */}
 				<UserRole />
 			</div>

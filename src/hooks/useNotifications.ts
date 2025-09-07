@@ -147,3 +147,69 @@ export function useUserCombinedNotifications() {
 		select: data => data.data,
 	})
 }
+
+export function useMarkAsRead() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['notifications', 'mark-as-read'],
+		mutationFn: async (notificationId: string) => {
+			const res = await fetch('/api/notifications/mark-as-read', {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ notificationId }),
+			})
+
+			if (!res.ok) throw new Error('Failed to mark notification as read')
+			return res.json()
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['notifications'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count'] })
+		},
+		onError: (error: any) => {
+			toast.error(error.message)
+		},
+	})
+}
+
+export function useMarkAllAsRead() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['notifications', 'mark-all-as-read'],
+		mutationFn: async (userId: string) => {
+			const res = await fetch('/api/notifications/mark-all-as-read', {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ userId }),
+			})
+
+			if (!res.ok) throw new Error('Failed to mark all notifications as read')
+			return res.json()
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['notifications'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count'] })
+			toast.success('All notifications marked as read')
+		},
+		onError: (error: any) => {
+			toast.error(error.message)
+		},
+	})
+}
+
+export function useUnreadCount(userId: string) {
+	return useQuery<{ data: { count: number } }, Error, number>({
+		queryKey: ['unread-count', userId],
+		queryFn: () =>
+			fetch(`/api/notifications/unread-count?userId=${userId}`).then(res => res.json()),
+		select: data => data.data.count,
+		enabled: !!userId,
+		refetchInterval: 30000, // 30 soniyada bir marta refresh
+	})
+}

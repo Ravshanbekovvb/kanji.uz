@@ -10,7 +10,7 @@ export const Notifications: React.FC = () => {
 	const { user } = useAuth()
 	return (
 		<div>
-			<PageTitle title='Notifications' />
+			<PageTitle title='Notifications' className='mb-5' />
 			{user?.role === 'ADMIN' ? (
 				<Tabs defaultValue='all'>
 					<TabsList>

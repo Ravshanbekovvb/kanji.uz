@@ -9,6 +9,8 @@ type Store = {
 	setIsUpdate: (index: number) => void
 	isKanjiCardTitle: string
 	setKanjiCardTitle: (title: string) => void
+	currentAi: 'chatgpt' | 'groq'
+	setCurrentAi: (ai: 'chatgpt' | 'groq') => void
 }
 
 export const useStore = create<Store>()(set => ({
@@ -20,4 +22,6 @@ export const useStore = create<Store>()(set => ({
 	setIsUpdate: index => set({ isUpdate: index }),
 	isKanjiCardTitle: '',
 	setKanjiCardTitle: title => set({ isKanjiCardTitle: title }),
+	currentAi: 'groq',
+	setCurrentAi: ai => set({ currentAi: ai }),
 }))

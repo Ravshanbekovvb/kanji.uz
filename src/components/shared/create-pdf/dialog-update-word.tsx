@@ -44,7 +44,7 @@ interface Word {
 export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [isLoading, setIsLoading] = useState(false)
-	const { setIsUpdate } = useStore()
+	const { setIsUpdate, currentAi } = useStore()
 
 	const generateWithAI = async () => {
 		if (!datas?.kanji || !datas?.type) return
@@ -55,13 +55,13 @@ export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiP
 
 			switch (datas.type) {
 				case 'transcription':
-					result = await getTranscriptionWithFallback(datas.kanji)
+					result = await getTranscriptionWithFallback(datas.kanji, currentAi)
 					break
 				case 'example':
-					result = await getExampleWithFallback(datas.kanji)
+					result = await getExampleWithFallback(datas.kanji, currentAi)
 					break
 				case 'jlptLevel':
-					result = await getLevelWithFallback(datas.kanji)
+					result = await getLevelWithFallback(datas.kanji, currentAi)
 					break
 				default:
 					toast.error('AI generation not available for this field')

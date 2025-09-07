@@ -16,10 +16,20 @@ import {
 import {
 	useCreateNotification,
 	useDeleteNotification,
+	useMarkAsRead,
 	useNotificationsPrivate,
 } from '@/hooks/useNotifications'
 import { useUsers } from '@/hooks/useUsers'
-import { Edit, EllipsisVertical, LoaderIcon, SendHorizontal, Trash2 } from 'lucide-react'
+import {
+	CheckCircle,
+	Edit,
+	EllipsisVertical,
+	LoaderIcon,
+	Mail,
+	MailOpen,
+	SendHorizontal,
+	Trash2,
+} from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
 import { DeleteDialog } from '../delete-dialog'
@@ -33,6 +43,7 @@ export const NotificationPrivate: React.FC = () => {
 		useCreateNotification()
 	const { mutate: deleteNotification, isPending: deleteNotificationIsPanding } =
 		useDeleteNotification()
+	const { mutate: markAsRead, isPending: markAsReadPending } = useMarkAsRead()
 	if (isPending || userIsPending) {
 		return (
 			<div className='flex items-center gap-5'>
@@ -107,24 +118,57 @@ export const NotificationPrivate: React.FC = () => {
 				data.map((item, ind) => (
 					<div
 						key={item.id ?? ind}
-						className='shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-200 p-3 my-5 border'
+						className={`shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-200 p-3 my-5 border transition-all ${
+							item.isRead ? 'bg-gray-50 opacity-80' : 'bg-white border-l-4 border-l-blue-500'
+						}`}
 					>
-						<div className='flex flex-col gap-1'>
-							<div className='text-2xl font-semibold'>
-								<span className='text-lg mr-2'>🧔🏻</span>
-								{item.user && <>{item.user.userName}</>}
+						<div className='flex items-center gap-3'>
+							<div className='flex flex-col items-center'>
+								{item.isRead ? (
+									<MailOpen size={24} className='text-gray-400' />
+								) : (
+									<Mail size={24} className='text-blue-600' />
+								)}
+								{!item.isRead && <div className='w-3 h-3 bg-red-500 rounded-full mt-1'></div>}
 							</div>
-							<div className='text-lg font-semibold'>
-								<span className='text-lg mr-2'>💬</span>
-								{item.message}
-							</div>
-							<div className='text-sm font-semibold text-gray-400'>
-								<span className='text-lg mr-2'>📅</span>
-								{new Date(item.createdAt).toISOString().split('T')[0]}
+							<div className='flex flex-col gap-1'>
+								<div className='text-2xl font-semibold'>
+									<span className='text-lg mr-2'>🧔🏻</span>
+									{item.user && <>{item.user.userName}</>}
+								</div>
+								<div
+									className={`text-lg font-semibold ${
+										item.isRead ? 'text-gray-600' : 'text-black'
+									}`}
+								>
+									<span className='text-lg mr-2'>💬</span>
+									{item.message}
+								</div>
+								<div className='text-sm font-semibold text-gray-400'>
+									<span className='text-lg mr-2'>📅</span>
+									{new Date(item.createdAt).toISOString().split('T')[0]}
+								</div>
+								{item.isRead && (
+									<div className='text-xs text-green-600 flex items-center gap-1'>
+										<CheckCircle size={12} />
+										Read
+									</div>
+								)}
 							</div>
 						</div>
 
-						<div>
+						<div className='flex items-center gap-2'>
+							{!item.isRead && (
+								<Button
+									variant='outline'
+									size='sm'
+									onClick={() => markAsRead(item.id)}
+									disabled={markAsReadPending}
+									className='text-blue-600 border-blue-600 hover:bg-blue-50'
+								>
+									Mark as Read
+								</Button>
+							)}
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
 									<Button
