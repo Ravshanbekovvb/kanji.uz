@@ -11,6 +11,7 @@ import { PageTitle } from '../title'
 import { Carousels } from './carousels'
 import { Form } from './form'
 import { Reset } from './reset'
+import Image from 'next/image'
 
 interface LocalWord {
 	kanji: string
@@ -26,7 +27,7 @@ export const CreatePdf: React.FC = () => {
 	const [lessonTitle, setLessonTitle] = useState<string>('')
 	const [existingLessonId, setExistingLessonId] = useState<string | null>(null)
 	const [isLoading, setIsLoading] = useState(false)
-	const { setEmblaActiveIndex, setIsUpdate, isUpdate } = useStore()
+	const { setEmblaActiveIndex, setIsUpdate, isUpdate, currentAi } = useStore()
 
 	const searchParams = useSearchParams()
 	const lessonId = searchParams.get('lessonId')
@@ -101,7 +102,7 @@ export const CreatePdf: React.FC = () => {
 
 		setIsLoading(true)
 
-		await translateText(word, to, from)
+		await translateText(word, to, from, currentAi)
 			.then(({ translatedWord, transcription, example, jlptLevel }) => {
 				const newWord: LocalWord = {
 					kanji: word,
@@ -151,8 +152,14 @@ export const CreatePdf: React.FC = () => {
 	return (
 		<Container className='max-sm:px-2 overflow-x-hidden'>
 			<div className='flex justify-between items-center mb-4'>
-				<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
-
+				<div className='flex items-center gap-5'>
+					<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
+					{currentAi === 'groq' ? (
+						<Image alt='groq logo' src={'groq.png'} width={80} height={80} className='mt-2' />
+					) : (
+						<Image alt='chat-gpt logo' src={'chat-gpt.png'} width={60} height={60} />
+					)}
+				</div>
 				<Reset existingLessonId={existingLessonId} />
 			</div>
 			<div>

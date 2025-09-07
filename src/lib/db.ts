@@ -27,11 +27,6 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/settings',
 	},
 	{
-		icon: 'bell',
-		title: 'Notifications',
-		link: '/notifications',
-	},
-	{
 		icon: 'help',
 		title: 'Help',
 		link: '/help',
@@ -54,11 +49,6 @@ export const defaultNavbar: NavbarMenuType[] = [
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',
-	},
-	{
-		icon: 'bell',
-		title: 'Notifications',
-		link: '/notifications',
 	},
 	{
 		icon: 'help',
@@ -90,11 +80,6 @@ export const AdminNavbar: NavbarMenuType[] = [
 		icon: 'listCheck',
 		title: 'All Docs',
 		link: '/all-docs',
-	},
-	{
-		icon: 'bell',
-		title: 'Notifications',
-		link: '/notifications',
 	},
 	{
 		icon: 'ChartColumnDecreasing',

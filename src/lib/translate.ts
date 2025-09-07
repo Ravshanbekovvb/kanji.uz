@@ -8,7 +8,8 @@ import {
 export const translateText = async (
 	word: string,
 	to: string,
-	from?: string
+	from?: string,
+	currentAi: 'chatgpt' | 'groq' = 'groq'
 ): Promise<{
 	translatedWord: string
 	transcription: string
@@ -23,9 +24,9 @@ export const translateText = async (
 		const translatedWord: string = await translate(word, { to: to, from: from })
 
 		// Try AI functions with fallback
-		const transcriptionResult = await getTranscriptionWithFallback(word)
-		const exampleResult = await getExampleWithFallback(word)
-		const jlptLevelResult = await getLevelWithFallback(word)
+		const transcriptionResult = await getTranscriptionWithFallback(word, currentAi)
+		const exampleResult = await getExampleWithFallback(word, currentAi)
+		const jlptLevelResult = await getLevelWithFallback(word, currentAi)
 
 		return {
 			translatedWord,

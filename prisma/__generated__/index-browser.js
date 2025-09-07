@@ -158,6 +158,7 @@ exports.Prisma.WordScalarFieldEnum = {
 exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   message: 'message',
+  isRead: 'isRead',
   userId: 'userId',
   createdAt: 'createdAt'
 };
