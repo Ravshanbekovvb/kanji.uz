@@ -5,6 +5,7 @@ import { DarsData } from '@/types/types'
 import clsx from 'clsx'
 import { LoaderIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
+import { CarouselApi } from '@/components/ui/carousel'
 import { Congratulations } from '../congratulations/congratulations'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
@@ -16,6 +17,7 @@ export const Memorize: React.FC = () => {
 	const [showWordDetails, setShowWordDetails] = useState<boolean>(false)
 	const [currentLessonTitle, setCurrentLessonTitle] = useState<string>('')
 	const [showCongratulations, setShowCongratulations] = useState<boolean>(false)
+	const [carouselApi, setCarouselApi] = useState<CarouselApi>()
 	const { user } = useAuth()
 	const { data, error, isPending } = useFindLessonsByUserId(user?.id)
 
@@ -30,7 +32,17 @@ export const Memorize: React.FC = () => {
 			setShowCongratulations(true)
 			setCurrentIndex(0)
 		} else if (currentIndex >= updatedWords.length) {
-			setCurrentIndex(updatedWords.length - 1)
+			const newIndex = updatedWords.length - 1
+			setCurrentIndex(newIndex)
+			// Update carousel position
+			if (carouselApi) {
+				carouselApi.scrollTo(newIndex)
+			}
+		} else {
+			// Update carousel position
+			if (carouselApi) {
+				carouselApi.scrollTo(currentIndex)
+			}
 		}
 	}
 
@@ -42,6 +54,11 @@ export const Memorize: React.FC = () => {
 		if (words.length <= 1) return
 		const nextIndex = (currentIndex + 1) % words.length
 		setCurrentIndex(nextIndex)
+
+		// Update carousel position
+		if (carouselApi) {
+			carouselApi.scrollTo(nextIndex)
+		}
 	}
 
 	const handleCloseCongratulations = () => {
@@ -58,6 +75,15 @@ export const Memorize: React.FC = () => {
 		setCurrentLessonTitle(parsed.title || '')
 		setCurrentIndex(0)
 	}, [])
+
+	// Carousel API listener
+	useEffect(() => {
+		if (!carouselApi) return
+
+		carouselApi.on('select', () => {
+			setCurrentIndex(carouselApi.selectedScrollSnap())
+		})
+	}, [carouselApi])
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
@@ -96,7 +122,7 @@ export const Memorize: React.FC = () => {
 
 		window.addEventListener('keydown', handleKeyDown)
 		return () => window.removeEventListener('keydown', handleKeyDown)
-	}, [handleMemorized, handleNotMemorized, handleShowWordDetails])
+	}, [words.length, currentIndex, carouselApi])
 
 	if (error) {
 		return 'Error getting Lessons..'
@@ -128,6 +154,7 @@ export const Memorize: React.FC = () => {
 						<CarouselMemorize
 							words={{ id: '', title: '', user: { userName: '' }, words }}
 							currentIndex={currentIndex}
+							setCarouselApi={setCarouselApi}
 						/>
 						<KeyboardButtons
 							onMemorized={handleMemorized}
