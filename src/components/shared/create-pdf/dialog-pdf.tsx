@@ -180,7 +180,6 @@ export default function DialogPdf({
 					<AlertDialogTrigger asChild>
 						<Button variant={'destructive'} className='p-6'>
 							<CircleStop size={20} />
-							111
 						</Button>
 					</AlertDialogTrigger>
 					<AlertDialogContent className='min-w-[1450px] max-h-[600px] max-sm:min-w-full max-sm:min-h-full max-sm:rounded-none flex flex-col justify-between rounded-4xl'>
@@ -434,7 +433,6 @@ export default function DialogPdf({
 			) : (
 				<Button variant={'destructive'} onClick={handleDialogClick} className='p-6'>
 					<CircleStop size={20} />
-					222
 				</Button>
 			)}
 		</>
