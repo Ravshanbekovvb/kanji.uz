@@ -124,25 +124,6 @@ export default function Page() {
 					</p>
 				</div>
 
-				{/* Quick Links */}
-				<div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-12'>
-					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
-						<BookOpen className='h-8 w-8 text-blue-600 mb-4' />
-						<h3 className='text-lg font-semibold mb-2'>Getting Started</h3>
-						<p className='text-gray-600'>Learn the basics of using our platform</p>
-					</Card>
-					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
-						<Users className='h-8 w-8 text-green-600 mb-4' />
-						<h3 className='text-lg font-semibold mb-2'>Community</h3>
-						<p className='text-gray-600'>Connect with other learners</p>
-					</Card>
-					<Card className='p-6 hover:shadow-lg transition-shadow cursor-pointer'>
-						<Settings className='h-8 w-8 text-purple-600 mb-4' />
-						<h3 className='text-lg font-semibold mb-2'>Account Settings</h3>
-						<p className='text-gray-600'>Manage your preferences</p>
-					</Card>
-				</div>
-
 				{/* Contact Form */}
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
 					<Card className='p-4'>
@@ -232,35 +213,6 @@ export default function Page() {
 						))}
 					</div>
 				</div>
-
-				{/* FAQ Section */}
-				<Card className='p-6'>
-					<h2 className='text-2xl font-bold text-gray-900 mb-6'>Frequently Asked Questions</h2>
-					<div className='space-y-6'>
-						{faqItems.map((item, index) => (
-							<div key={index} className='border-b border-gray-200 pb-6 last:border-b-0'>
-								<h3 className='text-lg font-semibold text-gray-900 mb-2 flex items-center gap-2'>
-									<CheckCircle className='h-5 w-5 text-green-600' />
-									{item.question}
-								</h3>
-								<p className='text-gray-600 ml-7'>{item.answer}</p>
-							</div>
-						))}
-					</div>
-				</Card>
-
-				{/* Status Banner */}
-				<Card className='p-6 bg-green-50 border-green-200'>
-					<div className='flex items-center gap-3'>
-						<CheckCircle className='h-6 w-6 text-green-600' />
-						<div>
-							<h3 className='font-semibold text-green-900'>All Systems Operational</h3>
-							<p className='text-green-700'>
-								Our platform is running smoothly with no known issues.
-							</p>
-						</div>
-					</div>
-				</Card>
 
 				{/* Footer */}
 				<div className='text-center text-gray-500 text-sm py-8'>
