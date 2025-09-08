@@ -1,6 +1,7 @@
 import {
 	useMarkAllAsRead,
 	useMarkAsRead,
+	useMarkPublicAsRead,
 	useUserCombinedNotifications,
 } from '@/hooks/useNotifications'
 import { Button } from '@/components/ui/button'
@@ -12,12 +13,8 @@ interface NotificiationForUsersProps {
 export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ userId }) => {
 	const { data, isPending, error } = useUserCombinedNotifications()
 	const { mutate: markAsRead, isPending: markAsReadPending } = useMarkAsRead()
+	const { mutate: markPublicAsRead, isPending: markPublicPending } = useMarkPublicAsRead()
 	const { mutate: markAllAsRead, isPending: markAllPending } = useMarkAllAsRead()
-
-	if (error) {
-		return <div className='text-center text-red-500 mt-10'>❌ Error loading notifications</div>
-	}
-
 	if (isPending) {
 		return (
 			<div className='flex items-center gap-5'>
@@ -26,12 +23,40 @@ export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ us
 			</div>
 		)
 	}
+	if (error) {
+		return <div className='text-center text-red-500 mt-10'>❌ Error loading notifications</div>
+	}
 
-	const unreadCount = data.filter(item => !item.isRead && item.userId === userId).length
+	if (!data) {
+		return (
+			<div className='text-center text-gray-500 italic mt-10 p-10 bg-gray-50 rounded-2xl'>
+				📭 No notifications available
+			</div>
+		)
+	}
+
+	const unreadCount = data.filter(item => {
+		const isPublic = !item.userId
+		const isPersonal = item.userId === userId
+
+		if (isPersonal) {
+			return !item.isRead
+		}
+
+		if (isPublic) {
+			// Check if user has marked this public notification as read
+			const readByUser = (item as any).readByUsers?.some(
+				(readStatus: any) => readStatus.userId === userId
+			)
+			return !item.isRead && !readByUser
+		}
+
+		return false
+	}).length
 
 	return (
 		<div>
-			{data.length > 0 && unreadCount > 0 && (
+			{data && data.length > 0 && unreadCount > 0 && (
 				<div className='mb-4 flex justify-between items-center p-4 bg-blue-50 rounded-lg border-l-4 border-blue-500'>
 					<div>
 						<p className='text-blue-800 font-semibold'>
@@ -43,76 +68,118 @@ export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ us
 						disabled={markAllPending}
 						className='bg-blue-600 hover:bg-blue-700'
 					>
-						{markAllPending ? 'Marking...' : 'Mark All as Read'}
+						{markAllPending ? (
+							<div className='flex items-center gap-5'>
+								<LoaderIcon className='rotate-right' size={40} />
+								Marking
+							</div>
+						) : (
+							'Mark All as Read'
+						)}
 					</Button>
 				</div>
 			)}
 
-			{data.length > 0 ? (
+			{data && data.length > 0 ? (
 				data.map(item => {
 					const isPublic = !item.userId
 					const isPersonal = item.userId === userId
+					const readByUser = isPublic
+						? (item as any).readByUsers?.some((readStatus: any) => readStatus.userId === userId)
+						: false
+					const isNotificationRead = isPersonal
+						? item.isRead
+						: isPublic
+						? item.isRead || readByUser
+						: true
 
 					return (
 						<div
 							key={item.id}
-							className={`shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-50 p-5 my-5 border transition-all duration-200 ${
-								!item.isRead && isPersonal ? 'border-l-4 border-l-blue-500 bg-blue-50/20' : ''
+							className={`group border rounded-2xl p-6 my-5 w-full shadow-sm transition-all duration-200 hover:shadow-lg hover:border-gray-300 ${
+								!isNotificationRead && (isPersonal || isPublic)
+									? 'border-l-4 border-l-blue-500 bg-blue-50/30'
+									: 'bg-white'
 							}`}
 						>
-							<div className='flex items-center gap-3 w-full'>
-								{isPersonal && (
-									<div className='flex flex-col items-center'>
-										{item.isRead ? (
-											<MailOpen size={24} className='text-gray-400' />
+							<div className='flex items-start justify-between gap-6'>
+								{/* Chap taraf - Icon va status */}
+								{(isPersonal || isPublic) && (
+									<div className='flex flex-col items-center shrink-0'>
+										{isNotificationRead ? (
+											<MailOpen size={28} className='text-gray-400' />
 										) : (
-											<Mail size={24} className='text-blue-600' />
+											<Mail size={28} className='text-blue-600 animate-pulse' />
 										)}
-										{!item.isRead && <div className='w-3 h-3 bg-red-500 rounded-full mt-1'></div>}
+										{!isNotificationRead && (
+											<span className='w-3 h-3 bg-red-500 rounded-full mt-2 shadow-md'></span>
+										)}
 									</div>
 								)}
-								<div className='flex justify-between w-full'>
-									<div className='flex flex-col gap-2'>
-										<div
-											className={`text-lg font-semibold ${
-												!item.isRead && isPersonal ? 'text-blue-900' : ''
-											}`}
-										>
-											<span className='text-lg mr-2'>{isPublic ? '📢' : '📩'}</span>
-											{item.message}
-										</div>
-										<div className='text-sm text-gray-600'>
-											<span className='text-lg mr-2'>📅</span>
-											{new Date(item.createdAt).toLocaleString()}
-										</div>
-										{item.isRead && isPersonal && (
-											<div className='text-xs text-green-600 flex items-center gap-1'>
-												<CheckCircle size={12} />
-												Read
-											</div>
-										)}
+
+								{/* O‘ng taraf - Asosiy content */}
+								<div className='flex flex-col w-full gap-3'>
+									{/* Title & message */}
+									<div
+										className={`text-base font-semibold flex items-center gap-2 ${
+											!isNotificationRead && (isPersonal || isPublic)
+												? 'text-blue-900'
+												: 'text-gray-800'
+										}`}
+									>
+										<span>{isPublic ? '📢' : '📩'}</span>
+										{item.message}
 									</div>
-									<div className='flex flex-col items-end gap-1'>
-										<div
-											className={`px-3 py-1 rounded-full text-xs font-semibold ${
-												isPublic ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'
-											}`}
-										>
-											{isPublic ? 'PUBLIC' : 'PERSONAL'}
-										</div>
-										<div className='text-xs text-gray-500 font-medium'>ADMIN</div>
-										{!item.isRead && isPersonal && (
-											<Button
-												variant='outline'
-												size='sm'
-												onClick={() => markAsRead(item.id)}
-												disabled={markAsReadPending}
-												className='text-blue-600 border-blue-600 hover:bg-blue-50 mt-2'
-											>
-												Mark as Read
-											</Button>
-										)}
+
+									{/* Sana */}
+									<div className='flex items-center gap-2 text-sm text-gray-500'>
+										<span>📅</span>
+										{new Date(item.createdAt).toLocaleString()}
 									</div>
+
+									{/* Read holati */}
+									{isNotificationRead && (isPersonal || isPublic) && (
+										<div className='flex items-center gap-1 text-xs font-medium text-green-600'>
+											<CheckCircle size={12} />
+											Read
+										</div>
+									)}
+								</div>
+
+								{/* Badge va actions */}
+								<div className='flex flex-col items-end gap-2 shrink-0'>
+									<div
+										className={`px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${
+											isPublic ? 'bg-blue-100 text-blue-700' : 'bg-green-100 text-green-700'
+										}`}
+									>
+										{isPublic ? 'PUBLIC' : 'PERSONAL'}
+									</div>
+									<div className='text-xs text-gray-500 font-medium'>ADMIN</div>
+
+									{/* Buttons */}
+									{!isNotificationRead && isPersonal && (
+										<Button
+											variant='outline'
+											size='sm'
+											onClick={() => markAsRead(item.id)}
+											disabled={markAsReadPending}
+											className='text-blue-600 border-blue-600 hover:bg-blue-50 mt-1'
+										>
+											Mark as Read
+										</Button>
+									)}
+									{!isNotificationRead && isPublic && (
+										<Button
+											variant='outline'
+											size='sm'
+											onClick={() => markPublicAsRead(item.id)}
+											disabled={markPublicPending}
+											className='text-blue-600 border-blue-600 hover:bg-blue-50 mt-1'
+										>
+											Mark as Read
+										</Button>
+									)}
 								</div>
 							</div>
 						</div>

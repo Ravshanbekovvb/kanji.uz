@@ -35,8 +35,11 @@ import { toast } from 'sonner'
 import { DeleteDialog } from '../delete-dialog'
 import { Loader } from '../loader'
 import { NotificationEditDialog } from './notification-edit-dialog'
+import { useAuth } from '@/contexts/auth-context'
+import { User } from '@/lib'
 
 export const NotificationPrivate: React.FC = () => {
+	const { user: me } = useAuth()
 	const { data, error, isPending } = useNotificationsPrivate()
 	const { data: userData, isPending: userIsPending, error: userError } = useUsers(true)
 	const { mutate: createNotificationPrivate, isPending: notificationIsPending } =
@@ -95,11 +98,13 @@ export const NotificationPrivate: React.FC = () => {
 						<SelectValue placeholder='Select User' />
 					</SelectTrigger>
 					<SelectContent>
-						{userData.map((user: { userName: string; id: string }, index: number) => (
-							<SelectItem value={user.id} key={index} className='cursor-pointer'>
-								{user.userName}
-							</SelectItem>
-						))}
+						{userData
+							.filter((user: User) => user.id !== me?.id)
+							.map((user: { userName: string; id: string }, index: number) => (
+								<SelectItem value={user.id} key={index} className='cursor-pointer'>
+									{user.userName}
+								</SelectItem>
+							))}
 					</SelectContent>
 				</Select>
 				{notificationIsPending ? (

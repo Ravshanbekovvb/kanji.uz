@@ -168,6 +168,35 @@ export function useMarkAsRead() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['notifications'] })
 			queryClient.invalidateQueries({ queryKey: ['unread-count'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count-combined'] })
+		},
+		onError: (error: any) => {
+			toast.error(error.message)
+		},
+	})
+}
+
+export function useMarkPublicAsRead() {
+	const queryClient = useQueryClient()
+
+	return useMutation({
+		mutationKey: ['notifications', 'mark-public-as-read'],
+		mutationFn: async (notificationId: string) => {
+			const res = await fetch('/api/notifications/mark-public-as-read', {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ notificationId }),
+			})
+
+			if (!res.ok) throw new Error('Failed to mark public notification as read')
+			return res.json()
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['notifications'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count-combined'] })
 		},
 		onError: (error: any) => {
 			toast.error(error.message)
@@ -195,6 +224,7 @@ export function useMarkAllAsRead() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['notifications'] })
 			queryClient.invalidateQueries({ queryKey: ['unread-count'] })
+			queryClient.invalidateQueries({ queryKey: ['unread-count-combined'] })
 			toast.success('All notifications marked as read')
 		},
 		onError: (error: any) => {
@@ -209,6 +239,34 @@ export function useUnreadCount(userId: string) {
 		queryFn: () =>
 			fetch(`/api/notifications/unread-count?userId=${userId}`).then(res => res.json()),
 		select: data => data.data.count,
+		enabled: !!userId,
+		refetchInterval: 30000, // 30 soniyada bir marta refresh
+	})
+}
+
+export function useCombinedUnreadCount(userId: string) {
+	return useQuery<{ data: Notification[] }, Error, number>({
+		queryKey: ['unread-count-combined', userId],
+		queryFn: () => fetch('/api/notifications/user-combined').then(res => res.json()),
+		select: data => {
+			if (!data?.data || !Array.isArray(data.data)) return 0
+
+			// Count personal unread notifications
+			const personalUnread = data.data.filter(item => !item.isRead && item.userId === userId).length
+
+			// Count public unread notifications (those not read by this user)
+			const publicUnread = data.data.filter(item => {
+				if (item.userId !== null) return false // Skip personal notifications
+
+				// Check if user has read this public notification
+				const readByUser = (item as any).readByUsers?.some(
+					(readStatus: any) => readStatus.userId === userId
+				)
+				return !item.isRead && !readByUser
+			}).length
+
+			return personalUnread + publicUnread
+		},
 		enabled: !!userId,
 		refetchInterval: 30000, // 30 soniyada bir marta refresh
 	})

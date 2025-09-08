@@ -57,8 +57,19 @@ CREATE TABLE "notifications" (
     "message" TEXT NOT NULL,
     "user_id" TEXT,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "is_read" BOOLEAN NOT NULL DEFAULT false,
 
     CONSTRAINT "notifications_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "notification_read_status" (
+    "id" TEXT NOT NULL,
+    "notification_id" TEXT NOT NULL,
+    "user_id" TEXT NOT NULL,
+    "read_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "notification_read_status_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateIndex
@@ -66,6 +77,9 @@ CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "tokens_user_id_key" ON "tokens"("user_id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "notification_read_status_notification_id_user_id_key" ON "notification_read_status"("notification_id", "user_id");
 
 -- AddForeignKey
 ALTER TABLE "tokens" ADD CONSTRAINT "tokens_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -78,3 +92,10 @@ ALTER TABLE "words" ADD CONSTRAINT "words_lesson_id_fkey" FOREIGN KEY ("lesson_i
 
 -- AddForeignKey
 ALTER TABLE "notifications" ADD CONSTRAINT "notifications_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "notification_read_status" ADD CONSTRAINT "notification_read_status_notification_id_fkey" FOREIGN KEY ("notification_id") REFERENCES "notifications"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "notification_read_status" ADD CONSTRAINT "notification_read_status_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
