@@ -70,7 +70,6 @@ export const AdminNavbar: NavbarMenuType[] = [
 		title: 'Home',
 		link: '/',
 	},
-
 	{
 		icon: 'users',
 		title: 'Users',
@@ -78,7 +77,7 @@ export const AdminNavbar: NavbarMenuType[] = [
 	},
 	{
 		icon: 'listCheck',
-		title: 'All Docs',
+		title: 'All Lessons',
 		link: '/all-docs',
 	},
 	{
