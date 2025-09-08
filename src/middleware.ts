@@ -27,7 +27,7 @@ export async function middleware(request: NextRequest) {
 		const userRole = decoded.role
 
 		const adminOnlyRoutes = ['/users', '/all-docs', '/diagnostics']
-		const userOnlyRoutes = ['/my-docs', '/create-lesson']
+		const userOnlyRoutes = ['/my-docs', '/create-lesson', '/memorize']
 		const commonRoutes = ['/settings', '/notifications']
 
 		if (userRole === 'ADMIN' && userOnlyRoutes.some(route => pathname.startsWith(route))) {

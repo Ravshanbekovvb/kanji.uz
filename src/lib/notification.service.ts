@@ -30,6 +30,9 @@ class NotificationService {
 			where = {
 				user: null,
 			}
+			include = {
+				readByUsers: true,
+			}
 		}
 
 		if (isPrivate && !isPublic) {
@@ -49,6 +52,14 @@ class NotificationService {
 
 		if (isPrivate && isPublic) {
 			where = {}
+			include = {
+				user: {
+					select: {
+						userName: true,
+					},
+				},
+				readByUsers: true,
+			}
 		}
 
 		const existingNotifications = await this.prisma.notification.findMany({
@@ -136,8 +147,42 @@ class NotificationService {
 		return updatedNotification
 	}
 
+	async markPublicNotificationAsReadByUser(notificationId: string, userId: string): Promise<void> {
+		// Check if the notification exists and is public
+		const notification = await this.prisma.notification.findUnique({
+			where: {
+				id: notificationId,
+			},
+		})
+
+		if (!notification)
+			throw new NotFoundError(`Notification with this ID not found: #${notificationId}`)
+
+		if (notification.userId !== null) {
+			throw new Error('This method is only for public notifications')
+		}
+
+		// Create or update the read status
+		await this.prisma.notificationReadStatus.upsert({
+			where: {
+				notificationId_userId: {
+					notificationId: notificationId,
+					userId: userId,
+				},
+			},
+			update: {
+				readAt: new Date(),
+			},
+			create: {
+				notificationId: notificationId,
+				userId: userId,
+			},
+		})
+	}
+
 	async markAllAsRead(userId: string): Promise<{ count: number }> {
-		const result = await this.prisma.notification.updateMany({
+		// Mark all personal notifications as read
+		const personalResult = await this.prisma.notification.updateMany({
 			where: {
 				userId: userId,
 				isRead: false,
@@ -147,18 +192,68 @@ class NotificationService {
 			},
 		})
 
-		return result
+		// Get all unread public notifications
+		const publicNotifications = await this.prisma.notification.findMany({
+			where: {
+				userId: null,
+				isRead: false,
+				NOT: {
+					readByUsers: {
+						some: {
+							userId: userId,
+						},
+					},
+				},
+			},
+		})
+
+		// Mark all public notifications as read for this user
+		for (const notification of publicNotifications) {
+			await this.prisma.notificationReadStatus.upsert({
+				where: {
+					notificationId_userId: {
+						notificationId: notification.id,
+						userId: userId,
+					},
+				},
+				update: {
+					readAt: new Date(),
+				},
+				create: {
+					notificationId: notification.id,
+					userId: userId,
+				},
+			})
+		}
+
+		return { count: personalResult.count + publicNotifications.length }
 	}
 
 	async getUnreadCount(userId: string): Promise<number> {
-		const count = await this.prisma.notification.count({
+		// Count personal unread notifications
+		const personalCount = await this.prisma.notification.count({
 			where: {
 				userId: userId,
 				isRead: false,
 			},
 		})
 
-		return count
+		// Count public notifications that user hasn't marked as read
+		const publicCount = await this.prisma.notification.count({
+			where: {
+				userId: null, // Public notifications
+				isRead: false,
+				NOT: {
+					readByUsers: {
+						some: {
+							userId: userId,
+						},
+					},
+				},
+			},
+		})
+
+		return personalCount + publicCount
 	}
 }
 

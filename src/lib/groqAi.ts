@@ -75,7 +75,7 @@ export const getLevel = async (
 	try {
 		const prompt =
 			currentAi === 'chatgpt'
-				? `Return only a single digit (1–5) for JLPT level of "${kanji}", or 0 if unknown. No text.`
+				? `Return only a single digit (1–5) for JLPT level of "${kanji}". No text.`
 				: `You must strictly identify the JLPT level of the following Japanese word: "${kanji}". Only return a single digit: 1, 2, 3, 4, or 5 — representing N1, N2, N3, N4, or N5 respectively. Do NOT include any letters (like "N"), words, or explanations. ONLY respond with one of these digits: 1, 2, 3, 4, or 5. If unknown, respond with "0".`
 		const result = await getAICompletion(prompt, currentAi)
 		return result.trim()
