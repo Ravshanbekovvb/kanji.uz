@@ -8,7 +8,7 @@ import { useEffect, useState } from 'react'
 interface CarouselMemorizeProps {
 	words: DarsData
 	currentIndex: number
-	setCarouselApi?: (api: CarouselApi) => void
+	setCarouselApi: (api: CarouselApi) => void
 }
 export const CarouselMemorize = ({
 	words,
@@ -33,11 +33,12 @@ export const CarouselMemorize = ({
 			setCurrent(api.selectedScrollSnap() + 1)
 		})
 	}, [currentIndex, api])
+
 	useEffect(() => {
-		if (api && setCarouselApi) {
+		if (api) {
 			setCarouselApi(api)
 		}
-	}, [api])
+	}, [api, setCarouselApi])
 	return (
 		<Carousel className='w-full max-w-[400px] m-10 max-sm:m-5 mx-auto' setApi={setApi}>
 			<CarouselContent>
@@ -61,7 +62,7 @@ export const CarouselMemorize = ({
 				})}
 			</CarouselContent>
 			<div className='text-muted-foreground py-1 text-center text-sm select-none'>
-				Word {currentIndex + 1} of {count}
+				Word {current} of {count}
 			</div>
 		</Carousel>
 	)

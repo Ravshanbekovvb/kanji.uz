@@ -94,7 +94,7 @@ export const KeyboardButtons: React.FC<KeyboardButtonsProps> = ({
 			</div>
 
 			<PopoverContent
-				className='w-80 p-6 mx-4 max-w-[calc(100vw-2rem)]'
+				className='w-80 p-6 xl:mx-70 xl:mt-42 mx-4 max-w-[calc(100vw-2rem)]'
 				side='top'
 				align='center'
 				sideOffset={10}
@@ -113,7 +113,7 @@ export const KeyboardButtons: React.FC<KeyboardButtonsProps> = ({
 								<span className='font-semibold'>Example:</span> {currentWord.example}
 							</div>
 							<div>
-								<span className='font-semibold'>Level:</span> {currentWord.jlptLevel}
+								<span className='font-semibold'>Level:</span> N{currentWord.jlptLevel}
 							</div>
 						</div>
 					</div>
