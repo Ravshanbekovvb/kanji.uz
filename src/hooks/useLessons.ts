@@ -1,3 +1,4 @@
+import { LessonWithWords } from '@/types/types'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
