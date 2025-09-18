@@ -17,7 +17,6 @@ export default function AllDocs() {
 	return (
 		<div>
 			<PageTitle title='All Lessons' className='mb-4' />
-
 			<DataTable columns={columns} data={data.data} />
 		</div>
 	)

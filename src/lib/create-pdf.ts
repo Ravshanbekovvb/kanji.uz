@@ -165,8 +165,45 @@ export const setExampleTextSize = (reading: string) => {
 	if (length <= 13) return 12
 	if (length <= 14) return 11
 	if (length <= 15) return 10
-	if (length <= 16) return 7
-	return 7
+	if (length <= 20) return 8
+	if (length <= 30) return 7
+	if (length <= 40) return 6
+	return 5
+}
+
+// Uzun textni ikki qatorga bo'lish funksiyasi
+export const splitTextIntoLines = (text: string, maxLength: number = 25): string[] => {
+	if (text.length <= maxLength) {
+		return [text]
+	}
+
+	// Agar text juda uzun bo'lsa, kesib qisqartirish
+	if (text.length > maxLength * 2.2) {
+		text = text.substring(0, Math.floor(maxLength * 2.2) - 3) + '...'
+	}
+
+	// So'zlarni bo'lib olish
+	const words = text.split(' ')
+	const lines: string[] = []
+	let currentLine = ''
+
+	for (const word of words) {
+		// Agar joriy qator + yangi so'z maksimal uzunlikdan oshsa
+		if ((currentLine + ' ' + word).length > maxLength && currentLine !== '') {
+			lines.push(currentLine.trim())
+			currentLine = word
+		} else {
+			currentLine = currentLine ? currentLine + ' ' + word : word
+		}
+	}
+
+	// Oxirgi qatorni qo'shish
+	if (currentLine) {
+		lines.push(currentLine.trim())
+	}
+
+	// Maksimal 2 qator qaytarish va har birini kichraytirish
+	return lines.slice(0, 2)
 }
 
 interface Word {
@@ -208,7 +245,7 @@ export function createPdf({ words, title, type = 'card' }: createPdf) {
 }
 
 function createTableFormat(doc: jsPDF, words: Word[], title: string) {
-	const wordsPerPage = 25 // har sahifada 20 ta so'z
+	const wordsPerPage = 15 // har sahifada 15 ta so'z (ikki qatorli example uchun yanada kamaytirildi)
 	const totalPages = Math.ceil(words.length / wordsPerPage)
 
 	for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
@@ -250,9 +287,6 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 
 		// So'zlar
 		pageWords.forEach((word, index) => {
-			y += 1
-			x = 1
-
 			const rowData = [
 				(startIndex + index + 1).toString(),
 				word.kanji,
@@ -262,21 +296,63 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 				`${word.jlptLevel}`,
 			]
 
+			// Example uzun bo'lsa, row height'ini oshirish
+			const exampleLines = splitTextIntoLines(word.example, 30) // Table uchun kichikroq
+			const isMultiLineExample = exampleLines.length > 1
+			const rowHeight = isMultiLineExample ? 2 : 1.2 // Yetarli joy berish
+
+			y += rowHeight
+			x = 1
+
 			rowData.forEach((data, i) => {
-				doc.rect(x, y, colWidths[i], 1)
+				doc.rect(x, y, colWidths[i], rowHeight)
 
 				if (i === 1) {
+					// Kanji
 					doc.setFont('NotoSansJP')
 					doc.setFontSize(Math.min(14, Math.max(8, 16 - data.length)))
+					doc.text(data, x + colWidths[i] / 2, y + rowHeight / 2, {
+						align: 'center',
+						baseline: 'middle',
+					})
+				} else if (i === 4) {
+					// Example - uzun bo'lsa ikki qatorga bo'lish
+					doc.setFont('NotoSansJP-Thin')
+
+					if (exampleLines.length === 1) {
+						// Bitta qator
+						const fontSize = Math.min(8, Math.max(5, 9 - data.length / 20))
+						doc.setFontSize(fontSize)
+						doc.text(exampleLines[0], x + colWidths[i] / 2, y + rowHeight / 2, {
+							align: 'center',
+							baseline: 'middle',
+						})
+					} else {
+						// Ikki qator - kichikroq font
+						const fontSize = Math.min(7, Math.max(4, 8 - data.length / 25))
+						doc.setFontSize(fontSize)
+
+						// Birinchi qator
+						doc.text(exampleLines[0], x + colWidths[i] / 2, y + rowHeight * 0.35, {
+							align: 'center',
+							baseline: 'middle',
+						})
+
+						// Ikkinchi qator
+						doc.text(exampleLines[1], x + colWidths[i] / 2, y + rowHeight * 0.65, {
+							align: 'center',
+							baseline: 'middle',
+						})
+					}
 				} else {
+					// Boshqa ustunlar
 					doc.setFont('NotoSansJP-Thin')
 					doc.setFontSize(Math.min(10, Math.max(6, 12 - data.length / 10)))
+					doc.text(data, x + colWidths[i] / 2, y + rowHeight / 2, {
+						align: 'center',
+						baseline: 'middle',
+					})
 				}
-
-				doc.text(data, x + colWidths[i] / 2, y + 0.5, {
-					align: 'center',
-					baseline: 'middle',
-				})
 				x += colWidths[i]
 			})
 		})
