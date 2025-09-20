@@ -88,8 +88,15 @@ export const Carousel: React.FC<Props> = ({
 							</>
 						) : (
 							<div className='flex flex-col'>
-								<div className='flex justify-center font-light '>
-									{lessonTitle ? lessonTitle + ' ー N' + item.jlptLevel : ''}
+								<div className='flex justify-between font-light mx-2'>
+									<div>
+										{lessonTitle ? (
+											lessonTitle
+										) : (
+											<div className='underline text-red-500'>ENTER LESSON TITLE</div>
+										)}
+									</div>
+									<div>N{item.jlptLevel}</div>
 								</div>
 
 								<div
