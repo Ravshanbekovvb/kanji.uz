@@ -205,7 +205,13 @@ export const splitTextIntoLines = (text: string, maxLength: number = 25): string
 	// Maksimal 2 qator qaytarish va har birini kichraytirish
 	return lines.slice(0, 2)
 }
-
+function splitByLength(text: string, maxLength: number): string[] {
+	const result: string[] = []
+	for (let i = 0; i < text.length; i += maxLength) {
+		result.push(text.slice(i, i + maxLength))
+	}
+	return result
+}
 interface Word {
 	kanji: string
 	translation: string
@@ -245,7 +251,7 @@ export function createPdf({ words, title, type = 'card' }: createPdf) {
 }
 
 function createTableFormat(doc: jsPDF, words: Word[], title: string) {
-	const wordsPerPage = 15 // har sahifada 15 ta so'z (ikki qatorli example uchun yanada kamaytirildi)
+	const wordsPerPage = 20 // har sahifada 15 ta so'z (ikki qatorli example uchun yanada kamaytirildi)
 	const totalPages = Math.ceil(words.length / wordsPerPage)
 
 	for (let pageIndex = 0; pageIndex < totalPages; pageIndex++) {
@@ -284,7 +290,7 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 			x += colWidths[i]
 		})
 		doc.setFont('NotoSansJP-Thin', 'normal')
-
+		y += 1
 		// So'zlar
 		pageWords.forEach((word, index) => {
 			const rowData = [
@@ -293,15 +299,14 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 				word.translation,
 				word.transcription,
 				word.example,
-				`${word.jlptLevel}`,
+				`N${word.jlptLevel}`,
 			]
 
 			// Example uzun bo'lsa, row height'ini oshirish
-			const exampleLines = splitTextIntoLines(word.example, 30) // Table uchun kichikroq
-			const isMultiLineExample = exampleLines.length > 1
-			const rowHeight = isMultiLineExample ? 2 : 1.2 // Yetarli joy berish
+			const exampleLines = splitByLength(word.example, 26)
+			const lineHeight = 0.4 // har bir qator balandligi
+			const rowHeight = Math.max(1.2, exampleLines.length * lineHeight)
 
-			y += rowHeight
 			x = 1
 
 			rowData.forEach((data, i) => {
@@ -315,8 +320,34 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 						align: 'center',
 						baseline: 'middle',
 					})
+				} else if (i === 2) {
+					// Translate
+					doc.setFont('NotoSansJP-Thin')
+
+					const translationLines = splitByLength(data, 20) // har 20 harfda bo‘lib yuborish
+					const lineHeight = 0.4
+
+					if (translationLines.length === 1) {
+						// Bitta qator
+						const fontSize = Math.min(9, Math.max(6, 11 - data.length / 10))
+						doc.setFontSize(fontSize)
+						doc.text(translationLines[0], x + colWidths[i] / 2, y + rowHeight / 2, {
+							align: 'center',
+							baseline: 'middle',
+						})
+					} else {
+						// Ikki yoki undan ko‘p qator
+						translationLines.forEach((line, lineIndex) => {
+							doc.setFontSize(7)
+							const lineY = y + 0.4 + lineIndex * lineHeight
+							doc.text(line, x + colWidths[i] / 2, lineY, {
+								align: 'center',
+								baseline: 'middle',
+							})
+						})
+					}
 				} else if (i === 4) {
-					// Example - uzun bo'lsa ikki qatorga bo'lish
+					// Example
 					doc.setFont('NotoSansJP-Thin')
 
 					if (exampleLines.length === 1) {
@@ -328,20 +359,13 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 							baseline: 'middle',
 						})
 					} else {
-						// Ikki qator - kichikroq font
-						const fontSize = Math.min(7, Math.max(4, 8 - data.length / 25))
-						doc.setFontSize(fontSize)
-
-						// Birinchi qator
-						doc.text(exampleLines[0], x + colWidths[i] / 2, y + rowHeight * 0.35, {
-							align: 'center',
-							baseline: 'middle',
-						})
-
-						// Ikkinchi qator
-						doc.text(exampleLines[1], x + colWidths[i] / 2, y + rowHeight * 0.65, {
-							align: 'center',
-							baseline: 'middle',
+						exampleLines.forEach((line, lineIndex) => {
+							doc.setFontSize(7)
+							const lineY = y + 0.4 + lineIndex * lineHeight
+							doc.text(line, x + colWidths[i] / 2, lineY, {
+								align: 'center',
+								baseline: 'middle',
+							})
 						})
 					}
 				} else {
@@ -355,6 +379,7 @@ function createTableFormat(doc: jsPDF, words: Word[], title: string) {
 				}
 				x += colWidths[i]
 			})
+			y += rowHeight
 		})
 	}
 }
@@ -395,12 +420,23 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 			// Sarlavha
 			doc.setFontSize(10)
 			doc.setFont('NotoSansJP-Thin')
+			// lesson title chap tomonda
 			doc.text(
-				`${title} ー N${currentPageWords[i].jlptLevel}`,
-				col * widths + widths / 2,
+				`${title}`,
+				col * widths + 0.2, // chapdan biroz ichkariga
 				row * height + height / 7,
 				{
-					align: 'center',
+					align: 'left',
+					baseline: 'middle',
+				}
+			)
+			// JLPT level ong tomonda
+			doc.text(
+				`N${currentPageWords[i].jlptLevel}`,
+				(col + 1) * widths - 0.2, // o‘ngdan biroz ichkariga
+				row * height + height / 7,
+				{
+					align: 'right',
 					baseline: 'middle',
 				}
 			)
@@ -439,19 +475,82 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 				baseline: 'middle',
 			})
 
-			// Tarjima
-			doc.setFontSize(setRomajiTextSize(currentPageWords[i].translation))
-			doc.text(currentPageWords[i].translation, centerX, row * height + height * 0.5, {
-				align: 'center',
-				baseline: 'middle',
-			})
+			// Tarjima - uzun bo'lsa ikki qatorga bo'lish
+			const translate = currentPageWords[i].translation
+			if (translate.length <= 28) {
+				// Qisqa misol - bitta qator
+				doc.setFontSize(setRomajiTextSize(translate))
+				doc.text(translate, centerX, row * height + height * 0.5, {
+					align: 'center',
+					baseline: 'middle',
+				})
+			} else {
+				// Uzun misol - ikki qatorga bo'lish
+				const translateLines = splitTextIntoLines(translate, 28) // bo‘shliq bo‘lsa so‘z bo‘yicha
 
-			// Misol
-			doc.setFontSize(setExampleTextSize(currentPageWords[i].example))
-			doc.text(currentPageWords[i].example, centerX, row * height + height * 0.8, {
-				align: 'center',
-				baseline: 'middle',
-			})
+				if (translateLines.length === 1) {
+					// Agar split qilgandan keyin ham bitta qator bo'lsa
+					doc.setFontSize(setRomajiTextSize(translate))
+					doc.text(translateLines[0], centerX, row * height + height * 0.5, {
+						align: 'center',
+						baseline: 'middle',
+					})
+				} else {
+					// Ikki qator
+					doc.setFontSize(setRomajiTextSize(translate))
+
+					// Birinchi qator
+					doc.text(translateLines[0], centerX, row * height + height * 0.45, {
+						align: 'center',
+						baseline: 'middle',
+					})
+
+					// Ikkinchi qator
+					doc.text(translateLines[1], centerX, row * height + height * 0.6, {
+						align: 'center',
+						baseline: 'middle',
+					})
+				}
+			}
+			const example = currentPageWords[i].example
+			if (example.length <= 30) {
+				// Qisqa misol - bitta qator
+				doc.setFontSize(setExampleTextSize(example))
+				doc.text(example, centerX, row * height + height * 0.8, {
+					align: 'center',
+					baseline: 'middle',
+				})
+			} else {
+				// Uzun misol - ikki qatorga bo'lish
+				const exampleLines = example.includes(' ')
+					? splitTextIntoLines(example, 26) // bo‘shliq bo‘lsa so‘z bo‘yicha
+					: splitByLength(example, 26)
+				const fontSize = Math.max(6, setExampleTextSize(example) - 2) // Biroz kichikroq font
+
+				if (exampleLines.length === 1) {
+					// Agar split qilgandan keyin ham bitta qator bo'lsa
+					doc.setFontSize(fontSize)
+					doc.text(exampleLines[0], centerX, row * height + height * 0.8, {
+						align: 'center',
+						baseline: 'middle',
+					})
+				} else {
+					// Ikki qator
+					doc.setFontSize(fontSize)
+
+					// Birinchi qator
+					doc.text(exampleLines[0], centerX, row * height + height * 0.8, {
+						align: 'center',
+						baseline: 'middle',
+					})
+
+					// Ikkinchi qator
+					doc.text(exampleLines[1], centerX, row * height + height * 0.88, {
+						align: 'center',
+						baseline: 'middle',
+					})
+				}
+			}
 		}
 	}
 }
