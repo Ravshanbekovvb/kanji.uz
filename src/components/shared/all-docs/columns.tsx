@@ -15,6 +15,18 @@ export const columns: ColumnDef<DarsData>[] = [
 		id: 'wordCount',
 	},
 	{
+		accessorFn: row => {
+			const date = new Date(row.createdAt)
+			return date.toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+			})
+		},
+		header: 'Created at',
+		id: 'createdAt',
+	},
+	{
 		accessorFn: row => row.user.userName,
 		header: 'User',
 		id: 'userName',

@@ -50,6 +50,7 @@ type JWTType = JwtPayload & {
 interface DarsData {
 	id: string
 	title: string
+	createdAt: string
 	words: {
 		kanji: string
 		translation: string

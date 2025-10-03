@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button'
 import {
 	Dialog,
 	DialogContent,
@@ -6,18 +7,35 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { createPdf } from '@/lib/create-pdf'
+import { LessonWithWords } from '@/types/types'
+import { Download } from 'lucide-react'
 import Image from 'next/image'
 import { ReactNode, useState } from 'react'
 import { Loader } from '../loader'
-import { Button } from '@/components/ui/button'
-import { createPdf } from '@/lib/create-pdf'
-import { Download } from 'lucide-react'
-import { LessonWithWords } from '@/types/types'
-interface DialogSelectTypePdfProps {
-	lesson: LessonWithWords
-	trigger: ReactNode
+
+interface LocalWord {
+	kanji: string
+	translation: string
+	transcription: string
+	example: string
+	jlptLevel: string
 }
-export const DialogSelectTypePdf: React.FC<DialogSelectTypePdfProps> = ({ lesson, trigger }) => {
+
+interface DialogSelectTypePdfProps {
+	lesson?: LessonWithWords
+	customWords?: LocalWord[]
+	lessonTitle?: string
+	trigger: ReactNode
+	onDownload?: (pdfType: 'table' | 'card') => Promise<void>
+}
+export const DialogSelectTypePdf: React.FC<DialogSelectTypePdfProps> = ({
+	lesson,
+	customWords,
+	lessonTitle,
+	trigger,
+	onDownload,
+}) => {
 	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
 	const [isDownloading, setIsDownloading] = useState<boolean>(false)
 	const [isOpen, setIsOpen] = useState<boolean>(false)
@@ -81,13 +99,26 @@ export const DialogSelectTypePdf: React.FC<DialogSelectTypePdfProps> = ({ lesson
 							className='mt-10 w-full'
 							onClick={async () => {
 								setIsDownloading(true)
-								setTimeout(() => {
+								setTimeout(async () => {
 									try {
-										createPdf({
-											words: lesson.words,
-											title: lesson.title,
-											type: pdfType,
-										})
+										if (onDownload) {
+											// Custom download handler (for dialog-pdf.tsx case)
+											await onDownload(pdfType)
+										} else if (lesson) {
+											// Default behavior (for existing usage)
+											await createPdf({
+												words: lesson.words,
+												title: lesson.title,
+												type: pdfType,
+											})
+										} else if (customWords && lessonTitle) {
+											// Custom words case
+											await createPdf({
+												words: customWords,
+												title: lessonTitle,
+												type: pdfType,
+											})
+										}
 									} catch (error) {
 										console.error('PDF yaratishda xatolik:', error)
 									}
