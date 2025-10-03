@@ -5,6 +5,11 @@ type LessonWithUser = Lesson & {
 	user: User
 }
 
+type LessonWithUserAndWords = Lesson & {
+	user: User
+	words: Word[]
+}
+
 class LessonService {
 	constructor(private readonly prisma: PrismaClient) {}
 
@@ -40,7 +45,7 @@ class LessonService {
 		return existingUser
 	}
 
-	async findAllForAdmin(): Promise<Pick<LessonWithUser, 'user' | 'id' | 'title' | 'userId'>[]> {
+	async findAllForAdmin(): Promise<LessonWithUserAndWords[]> {
 		const existingLessons = await this.prisma.lesson.findMany({
 			select: {
 				id: true,
@@ -48,6 +53,7 @@ class LessonService {
 				user: true,
 				userId: true,
 				words: true,
+				createdAt: true,
 			},
 		})
 

@@ -10,23 +10,14 @@ import {
 	AlertDialogTrigger,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog'
 import { useAddWordsToLesson, useCreateLesson } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/create-pdf'
 import { useStore } from '@/store/store'
 import { CircleStop, Download, Trash2 } from 'lucide-react'
-import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
-import { Loader } from '../loader'
+import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { DialogUpdateKanji } from './dialog-update-word'
 
 // Local word interface for localStorage (without id and lessonId)
@@ -49,9 +40,6 @@ export default function DialogPdf({
 	words: propWords,
 	existingLessonId,
 }: DialogPdfProps) {
-	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
-	const [isDownloading, setIsDownloading] = useState<boolean>(false)
-	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [isDownload, setIsDownload] = useState<boolean>(true)
 	const [isWords, setWords] = useState<LocalWord[]>([])
 	const { isUpdate, setIsUpdate, isKanjiCardTitle } = useStore()
@@ -115,7 +103,7 @@ export default function DialogPdf({
 		}
 	}
 
-	const savePdf = async () => {
+	const savePdf = async (pdfType: 'table' | 'card') => {
 		const create_pdf = await createPdf({ words: words, title: lessonTitle, type: pdfType })
 		if (create_pdf) {
 			const savedToDb = await saveToDatabase()
@@ -324,96 +312,17 @@ export default function DialogPdf({
 						<AlertDialogFooter>
 							<AlertDialogCancel>Cancel</AlertDialogCancel>
 							{isDownload ? (
-								<Dialog open={isOpen} onOpenChange={setIsOpen}>
-									<DialogTrigger asChild>
+								<DialogSelectTypePdf
+									customWords={words}
+									lessonTitle={lessonTitle}
+									onDownload={savePdf}
+									trigger={
 										<Button>
 											<Download />
 											Save and Download
 										</Button>
-									</DialogTrigger>
-									<DialogContent className='min-w-[530px] max-sm:min-w-auto'>
-										<DialogHeader>
-											<DialogTitle className='text-3xl font-bold text-center mb-6 max-sm:mb-9 max-sm:text-xl'>
-												Select the type of PDF
-											</DialogTitle>
-											<DialogDescription asChild>
-												<div className='flex items-center justify-center gap-6 max-h-[220px] max-sm:flex-col max-sm:max-h-[400px] '>
-													<div
-														className={`border-2 rounded-xl p-3 min-h-ful cursor-pointer transition-all duration-200 hover:shadow-lg max-sm:w-full ${
-															pdfType === 'table'
-																? 'border-blue-500 bg-blue-50 shadow-md'
-																: 'border-gray-300 hover:border-gray-400'
-														}`}
-														onClick={() => setPdfType('table')}
-													>
-														<div className='flex flex-col items-center text-center'>
-															<span className='font-semibold text-xl mb-2 text-gray-800'>
-																Table Format
-															</span>
-
-															<Image
-																src='/table-image.png'
-																alt='table-format'
-																width={180}
-																height={70}
-																className='rounded-lg border shadow-sm object-cover min-h-[160px] min-w-[200px]'
-															/>
-														</div>
-													</div>
-													<div
-														className={`border-2 rounded-xl p-3 cursor-pointer transition-all duration-200 hover:shadow-lg max-sm:w-full ${
-															pdfType === 'card'
-																? 'border-blue-500 bg-blue-50 shadow-md'
-																: 'border-gray-300 hover:border-gray-400'
-														}`}
-														onClick={() => setPdfType('card')}
-													>
-														<div className='flex flex-col items-center text-center'>
-															<span className='font-semibold text-xl mb-2 text-gray-800'>
-																Card Format
-															</span>
-
-															<Image
-																src='/card-image.png'
-																alt='card-format'
-																width={180}
-																height={90}
-																className='rounded-lg border shadow-sm object-cover min-h-[160px] min-w-[200px]'
-															/>
-														</div>
-													</div>
-												</div>
-											</DialogDescription>
-
-											{isDownloading ? (
-												<Loader className='mt-10' />
-											) : (
-												<Button
-													className='mt-10 w-full'
-													onClick={async () => {
-														setIsDownloading(true)
-														setTimeout(() => {
-															try {
-																savePdf()
-															} catch (error) {
-																console.error('PDF yaratishda xatolik:', error)
-															}
-															// try-catch tashqarisida ishlashi kerak
-															setTimeout(() => {
-																setIsOpen(false)
-																setIsDownloading(false)
-															}, 200)
-														}, 100)
-													}}
-													disabled={isDownloading}
-												>
-													<Download className='mr-2' />
-													Download PDF
-												</Button>
-											)}
-										</DialogHeader>
-									</DialogContent>
-								</Dialog>
+									}
+								/>
 							) : (
 								<Button
 									onClick={saveOnly}

@@ -8,7 +8,7 @@ export const columns: ColumnDef<User>[] = [
 	{
 		accessorKey: 'id',
 		header: 'Id',
-		cell: ({ row }) => row.getValue('id'),
+		cell: ({ row }) => row.index + 1,
 	},
 	{
 		accessorKey: 'email',
@@ -29,6 +29,19 @@ export const columns: ColumnDef<User>[] = [
 		accessorKey: 'userLang',
 		header: 'Language',
 		cell: ({ row }) => row.getValue('userLang'),
+	},
+	{
+		accessorKey: 'createdAt',
+		header: 'Created at',
+		cell: ({ row }) => {
+			const createdAt = row.getValue('createdAt') as string
+			const date = new Date(createdAt)
+			return date.toLocaleDateString('en-US', {
+				year: 'numeric',
+				month: 'short',
+				day: 'numeric',
+			})
+		},
 	},
 	{
 		header: 'Actions',

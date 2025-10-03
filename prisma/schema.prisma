@@ -20,8 +20,8 @@ model User {
   createdAt         DateTime                 @default(now()) @map("created_at")
   updatedAt         DateTime                 @updatedAt @map("updated_at")
   lesson            Lesson[]                 @relation("user_lesson")
-  notification      Notification[]           @relation("user_notification")
   readNotifications NotificationReadStatus[] @relation("user_notification_reads")
+  notification      Notification[]           @relation("user_notification")
   tokens            Token?                   @relation("user_tokens")
 
   @@map("users")
@@ -38,11 +38,12 @@ model Token {
 }
 
 model Lesson {
-  id     String @id @default(uuid())
-  title  String
-  userId String @map("user_id")
-  user   User   @relation("user_lesson", fields: [userId], references: [id], onDelete: Cascade)
-  words  Word[] @relation("words_lesson")
+  id        String   @id @default(uuid())
+  title     String
+  userId    String   @map("user_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  user      User     @relation("user_lesson", fields: [userId], references: [id], onDelete: Cascade)
+  words     Word[]   @relation("words_lesson")
 
   @@map("lessons")
 }
@@ -66,8 +67,8 @@ model Notification {
   userId      String?                  @map("user_id")
   createdAt   DateTime                 @default(now()) @map("created_at")
   isRead      Boolean                  @default(false) @map("is_read")
-  user        User?                    @relation("user_notification", fields: [userId], references: [id], onDelete: Cascade)
   readByUsers NotificationReadStatus[]
+  user        User?                    @relation("user_notification", fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("notifications")
 }

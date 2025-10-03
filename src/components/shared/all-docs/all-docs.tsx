@@ -13,6 +13,7 @@ export default function AllDocs() {
 	if (error) {
 		return 'error..'
 	}
+	console.log(data)
 
 	return (
 		<div>

@@ -14,6 +14,8 @@ export default function Users() {
 	if (error) {
 		return 'error..'
 	}
+	console.log(data)
+
 	return (
 		<div className={cn('flex flex-col gap-5')}>
 			<UsersHeader />

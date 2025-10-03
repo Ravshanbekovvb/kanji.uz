@@ -1,8 +1,8 @@
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Roboto_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
 import './globals.css'
-
 const roboto = Roboto_Mono({
 	weight: ['200', '300', '400', '500', '600', '700'],
 	subsets: ['latin', 'cyrillic'],
@@ -21,11 +21,12 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<head>
-				<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+				<meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
 			</head>
 			<body className={`${roboto.className} antialiased min-h-screen`} suppressHydrationWarning>
 				{children}
 				<Toaster position='top-right' richColors />
+				<SpeedInsights />
 			</body>
 		</html>
 	)
