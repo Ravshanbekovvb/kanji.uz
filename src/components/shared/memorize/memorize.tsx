@@ -1,11 +1,11 @@
 'use client'
+import { CarouselApi } from '@/components/ui/carousel'
 import { useAuth } from '@/contexts/auth-context'
 import { useFindLessonsByUserId } from '@/hooks/useLessons'
 import { DarsData } from '@/types/types'
 import clsx from 'clsx'
 import { LoaderIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { CarouselApi } from '@/components/ui/carousel'
 import { Congratulations } from '../congratulations/congratulations'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
@@ -152,7 +152,7 @@ export const Memorize: React.FC = () => {
 						)}
 					>
 						<CarouselMemorize
-							words={{ id: '', title: '', user: { userName: '' }, words }}
+							words={{ id: '', title: '', user: { userName: '' }, words, createdAt: '' }}
 							currentIndex={currentIndex}
 							setCarouselApi={setCarouselApi}
 						/>
