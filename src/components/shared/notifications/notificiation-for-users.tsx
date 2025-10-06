@@ -1,10 +1,10 @@
+import { Button } from '@/components/ui/button'
 import {
 	useMarkAllAsRead,
 	useMarkAsRead,
 	useMarkPublicAsRead,
 	useUserCombinedNotifications,
 } from '@/hooks/useNotifications'
-import { Button } from '@/components/ui/button'
 import { CheckCircle, LoaderIcon, Mail, MailOpen } from 'lucide-react'
 
 interface NotificiationForUsersProps {
@@ -90,8 +90,8 @@ export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ us
 					const isNotificationRead = isPersonal
 						? item.isRead
 						: isPublic
-						? item.isRead || readByUser
-						: true
+							? item.isRead || readByUser
+							: true
 
 					return (
 						<div
@@ -121,14 +121,14 @@ export const NotificiationForUsers: React.FC<NotificiationForUsersProps> = ({ us
 								<div className='flex flex-col w-full gap-3'>
 									{/* Title & message */}
 									<div
-										className={`text-base font-semibold flex items-center gap-2 ${
+										className={`text-base font-semibold flex items-start gap-2 ${
 											!isNotificationRead && (isPersonal || isPublic)
 												? 'text-blue-900'
 												: 'text-gray-800'
 										}`}
 									>
-										<span>{isPublic ? '📢' : '📩'}</span>
-										{item.message}
+										<span className='mt-1'>{isPublic ? '' : '📩'}</span>
+										<div className='whitespace-pre-wrap break-words'>{item.message}</div>
 									</div>
 
 									{/* Sana */}

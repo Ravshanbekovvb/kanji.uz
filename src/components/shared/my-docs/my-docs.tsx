@@ -6,19 +6,17 @@ import {
 	DropdownMenuItem,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
+import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
-import { createPdf } from '@/lib/create-pdf'
 import { LessonWithWords } from '@/types/types'
-import { Download, EllipsisVertical, LoaderIcon } from 'lucide-react'
+import { EllipsisVertical, LoaderIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useState } from 'react'
 import { DeleteDialog } from '../delete-dialog'
-import { Loader } from '../loader'
+import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { PageTitle } from '../title'
 import { DialogTitleEdit } from './dialog-title-edit'
-import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 export const MyDocs: React.FC = () => {
 	const { user } = useAuth()
 	const { data, error, isPending } = useFindLessonsByUserId(user?.id)
@@ -35,7 +33,7 @@ export const MyDocs: React.FC = () => {
 		return <div>No documents found</div>
 	}
 	return (
-		<div>
+		<Section>
 			<div className='flex items-center justify-between mb-4'>
 				<PageTitle title='My Lessons' />
 				<Link href={'/create-lesson'}>
@@ -126,6 +124,6 @@ export const MyDocs: React.FC = () => {
 			) : (
 				<div className='text-gray-500'>You haven't created any documents yet.</div>
 			)}
-		</div>
+		</Section>
 	)
 }

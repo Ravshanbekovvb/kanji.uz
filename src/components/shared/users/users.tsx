@@ -1,4 +1,5 @@
 'use client'
+import { Section } from '@/components/ui/section'
 import { useUsers } from '@/hooks/useUsers'
 import { cn } from '@/lib/utils'
 import { LoaderIcon } from 'lucide-react'
@@ -17,9 +18,9 @@ export default function Users() {
 	console.log(data)
 
 	return (
-		<div className={cn('flex flex-col gap-5')}>
+		<Section className={cn('flex flex-col gap-5')}>
 			<UsersHeader />
 			<DataTable columns={columns} data={data} />
-		</div>
+		</Section>
 	)
 }

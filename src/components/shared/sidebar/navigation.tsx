@@ -9,6 +9,7 @@ import {
 	Brain,
 	ChartColumnDecreasing,
 	ChevronRightIcon,
+	FileUser,
 	HelpCircle,
 	House,
 	ListCheck,
@@ -31,6 +32,7 @@ export const navbarIconMap = {
 	settings: <Settings />,
 	help: <HelpCircle />,
 	logout: <LogOut />,
+	FileUser: <FileUser />,
 	ChartColumnDecreasing: <ChartColumnDecreasing />,
 } as const
 type NavbarIconKey = keyof typeof navbarIconMap
@@ -127,10 +129,15 @@ export const Navigation: React.FC = () => {
 				<li
 					key={menuItem.title}
 					className={cn(
-						'w-full flex justify-between items-center',
+						'w-full flex justify-between items-center relative',
 						menuItem.title === 'Logout' ? 'flex-1 items-end' : ''
 					)}
 				>
+					{menuItem.badge && (
+						<span className='absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg animate-pulse border-2 border-white transform rotate-12 z-10'>
+							{menuItem.badge}
+						</span>
+					)}
 					{menuItem.title === 'Logout' ? (
 						<button
 							onClick={() => logout()}
@@ -189,10 +196,15 @@ export const Navigation: React.FC = () => {
 				<li
 					key={menuItem.title}
 					className={cn(
-						'w-full flex justify-between items-center',
+						'w-full flex justify-between items-center relative',
 						menuItem.title === 'Help' ? 'flex-1 items-end' : ''
 					)}
 				>
+					{menuItem.badge && (
+						<span className='absolute -top-4 -right-2 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs font-extrabold px-2 py-1 rounded-full shadow-lg animate-bounce border-2 border-white transform rotate-12 z-10'>
+							{menuItem.badge}
+						</span>
+					)}
 					{menuItem.title === 'Logout' ? (
 						<button
 							onClick={() => logout()}

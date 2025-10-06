@@ -1,4 +1,5 @@
 'use client'
+import { Section } from '@/components/ui/section'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useAuth } from '@/contexts/auth-context'
 import { PageTitle } from '../title'
@@ -9,7 +10,7 @@ import { NotificiationForUsers } from './notificiation-for-users'
 export const Notifications: React.FC = () => {
 	const { user } = useAuth()
 	return (
-		<div>
+		<Section>
 			<PageTitle title='Notifications' className='mb-5' />
 			{user?.role === 'ADMIN' ? (
 				<Tabs defaultValue='all'>
@@ -27,6 +28,6 @@ export const Notifications: React.FC = () => {
 			) : (
 				<NotificiationForUsers userId={user?.id as string} />
 			)}
-		</div>
+		</Section>
 	)
 }

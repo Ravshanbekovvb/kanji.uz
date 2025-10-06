@@ -12,6 +12,7 @@ type NavbarMenuType = {
 	title: string
 	link: string
 	className?: string
+	badge?: string
 }
 
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>

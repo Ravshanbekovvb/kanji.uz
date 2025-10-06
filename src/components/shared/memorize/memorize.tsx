@@ -1,5 +1,6 @@
 'use client'
 import { CarouselApi } from '@/components/ui/carousel'
+import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useFindLessonsByUserId } from '@/hooks/useLessons'
 import { DarsData } from '@/types/types'
@@ -135,7 +136,7 @@ export const Memorize: React.FC = () => {
 	}
 
 	return (
-		<div>
+		<Section>
 			{/* HEADER */}
 			<MemorizeHeader
 				needHelp={needHelp}
@@ -194,6 +195,6 @@ export const Memorize: React.FC = () => {
 			{showCongratulations && (
 				<Congratulations lessonTitle={currentLessonTitle} onClose={handleCloseCongratulations} />
 			)}
-		</div>
+		</Section>
 	)
 }

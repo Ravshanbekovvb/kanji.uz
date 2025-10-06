@@ -2,6 +2,7 @@
 
 import { UserLoginChart } from '@/components/shared/charts/user-login-chart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Section } from '@/components/ui/section'
 import { useUserLoginStats } from '@/hooks/useUserLoginStats'
 import { Activity, BarChart3, TrendingUp, Users } from 'lucide-react'
 
@@ -16,7 +17,7 @@ export default function AdminDashboard() {
 	)
 
 	return (
-		<div className='mx-auto space-y-6'>
+		<Section className=' space-y-6'>
 			<div className='flex items-center justify-between'>
 				<div>
 					<h1 className='text-3xl font-bold text-gray-900'>Admin Dashboard</h1>
@@ -103,8 +104,8 @@ export default function AdminDashboard() {
 													user.role === 'ADMIN'
 														? 'bg-red-100 text-red-800'
 														: user.role === 'TEACHER'
-														? 'bg-blue-100 text-blue-800'
-														: 'bg-gray-100 text-gray-800'
+															? 'bg-blue-100 text-blue-800'
+															: 'bg-gray-100 text-gray-800'
 												}`}
 											>
 												{user.role}
@@ -123,6 +124,6 @@ export default function AdminDashboard() {
 					</div>
 				</CardContent>
 			</Card>
-		</div>
+		</Section>
 	)
 }

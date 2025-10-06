@@ -1,9 +1,10 @@
 'use client'
 
-import { Container } from '@/components/ui/container'
+import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { translateText } from '@/lib/translate'
 import { useStore } from '@/store/store'
+import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
@@ -11,7 +12,6 @@ import { PageTitle } from '../title'
 import { Carousels } from './carousels'
 import { Form } from './form'
 import { Reset } from './reset'
-import Image from 'next/image'
 
 interface LocalWord {
 	kanji: string
@@ -150,7 +150,7 @@ export const CreatePdf: React.FC = () => {
 	}
 
 	return (
-		<Container className='max-sm:px-2 overflow-x-hidden'>
+		<Section className='overflow-x-hidden'>
 			<div className='flex justify-between items-center mb-4'>
 				<div className='flex items-center gap-5'>
 					<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
@@ -190,6 +190,6 @@ export const CreatePdf: React.FC = () => {
 				words={words}
 				existingLessonId={existingLessonId}
 			/>
-		</Container>
+		</Section>
 	)
 }
