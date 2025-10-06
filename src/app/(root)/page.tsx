@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { Award, BookOpen, FileText, Plus, TrendingUp, Zap } from 'lucide-react'
 import Link from 'next/link'
@@ -8,17 +9,15 @@ export default function Page() {
 	const { user } = useAuth()
 
 	return (
-		<div className='bg-gradient-to-br from-blue-50 via-white to-indigo-50 overflow-hidden -m-4 md:m-0'>
+		<Section className='bg-gradient-to-br from-blue-50 via-white to-indigo-50 h-full relative'>
+			<div className='absolute inset-0 overflow-hidden'>
+				<div className='absolute -top-40 right-0 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse'></div>
+				<div className='absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000'></div>
+				<div className='absolute top-40 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000'></div>
+			</div>
 			{/* Hero Section */}
-			<div className='relative min-h-[calc(100vh-155px)] md:h-[calc(100vh-155px)] flex items-center justify-center px-4 md:px-6 py-8 md:py-0'>
-				{/* Background Pattern */}
-				<div className='absolute inset-0 overflow-hidden'>
-					<div className='absolute -top-40 -right-40 w-96 h-96 bg-blue-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse'></div>
-					<div className='absolute -bottom-40 -left-40 w-96 h-96 bg-purple-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-1000'></div>
-					<div className='absolute top-40 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000'></div>
-				</div>
-
-				<div className='max-w-6xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-8 items-center w-full'>
+			<div className='relative flex items-center justify-center '>
+				<div className='w-full grid lg:grid-cols-2 gap-8 lg:gap-8 items-center'>
 					{/* Left Content */}
 					<div className='text-center lg:text-left space-y-4 md:space-y-6 order-1 lg:order-1'>
 						<div className='space-y-2 md:space-y-3'>
@@ -134,22 +133,22 @@ export default function Page() {
 				</div>
 
 				{/* Welcome Message for Logged Users - Desktop Only */}
-				{user && (
-					<div className='hidden md:block absolute top-8 right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-200'>
-						<div className='flex items-center gap-3'>
-							<div className='w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
-								<span className='text-white font-semibold text-sm'>
-									{user.userName?.charAt(0).toUpperCase()}
-								</span>
-							</div>
-							<div>
-								<p className='font-medium text-gray-900'>Welcome back!</p>
-								<p className='text-sm text-gray-600'>{user.userName}</p>
-							</div>
+			</div>
+			{user && (
+				<div className='hidden lg:block absolute bottom-8 right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-200'>
+					<div className='flex items-center gap-3'>
+						<div className='w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
+							<span className='text-white font-semibold text-sm'>
+								{user.userName?.charAt(0).toUpperCase()}
+							</span>
+						</div>
+						<div>
+							<p className='font-medium text-gray-900'>Welcome back!</p>
+							<p className='text-sm text-gray-600'>{user.userName}</p>
 						</div>
 					</div>
-				)}
-			</div>
-		</div>
+				</div>
+			)}
+		</Section>
 	)
 }

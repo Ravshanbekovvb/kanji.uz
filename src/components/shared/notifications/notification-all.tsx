@@ -57,9 +57,8 @@ export const NotificationAll: React.FC = () => {
 	return (
 		<div>
 			<form className='flex items-center gap-2' onSubmit={handleSubmit}>
-				<input
+				<textarea
 					name='message'
-					type='text'
 					placeholder='type new notification...'
 					className='border p-2 rounded w-full'
 				/>
@@ -83,8 +82,8 @@ export const NotificationAll: React.FC = () => {
 						className='shadow-xl rounded-2xl flex justify-between items-center w-full hover:bg-gray-200 p-5 my-5 border'
 					>
 						<div className='flex flex-col gap-2'>
-							<div className='text-lg font-semibold'>
-								<span className='text-lg mr-2'>📩</span>
+							<div className='text-lg font-semibold whitespace-pre-wrap break-words'>
+								<span className='text-lg mr-2 '>📩</span>
 								{item.message}
 							</div>
 							<div className='text-sm font-semibold'>

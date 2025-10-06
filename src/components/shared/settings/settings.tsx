@@ -1,10 +1,11 @@
+import { Section } from '@/components/ui/section'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PageTitle } from '../title'
-import { Profile } from './profile'
 import { AiSettings } from './ai-settings'
+import { Profile } from './profile'
 export const Settings: React.FC = () => {
 	return (
-		<div>
+		<Section>
 			<PageTitle title='Settings' className='mb-5' />
 			<Tabs defaultValue='profile' className='w-full'>
 				<TabsList>
@@ -18,6 +19,6 @@ export const Settings: React.FC = () => {
 					<AiSettings />
 				</TabsContent>
 			</Tabs>
-		</div>
+		</Section>
 	)
 }

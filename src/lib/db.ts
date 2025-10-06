@@ -27,11 +27,18 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/settings',
 	},
 	{
+		icon: 'FileUser',
+		title: 'Resume builder',
+		link: '/kasbnoma',
+		badge: 'NEW!',
+	},
+	{
 		icon: 'help',
 		title: 'Help',
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 	},
+
 	{
 		icon: 'logout',
 		title: 'Logout',
@@ -55,6 +62,12 @@ export const defaultNavbar: NavbarMenuType[] = [
 		title: 'Help',
 		link: '/help',
 		className: 'hover:bg-green-500/30',
+	},
+	{
+		icon: 'FileUser',
+		title: 'Resume builder',
+		link: '/kasbnoma.uz',
+		badge: 'NEW!',
 	},
 	{
 		icon: 'logout',
@@ -89,6 +102,12 @@ export const AdminNavbar: NavbarMenuType[] = [
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',
+	},
+	{
+		icon: 'FileUser',
+		title: 'Resume builder',
+		link: '/kasbnoma.uz',
+		badge: 'NEW!',
 	},
 	{
 		icon: 'logout',

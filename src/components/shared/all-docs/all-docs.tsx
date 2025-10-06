@@ -1,4 +1,5 @@
 'use client'
+import { Section } from '@/components/ui/section'
 import { useLessons } from '@/hooks/useLessons'
 import { LoaderIcon } from 'lucide-react'
 import { PageTitle } from '../title'
@@ -16,9 +17,9 @@ export default function AllDocs() {
 	console.log(data)
 
 	return (
-		<div>
+		<Section>
 			<PageTitle title='All Lessons' className='mb-4' />
 			<DataTable columns={columns} data={data.data} />
-		</div>
+		</Section>
 	)
 }

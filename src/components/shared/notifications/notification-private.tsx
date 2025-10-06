@@ -13,6 +13,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import { useAuth } from '@/contexts/auth-context'
 import {
 	useCreateNotification,
 	useDeleteNotification,
@@ -20,6 +21,7 @@ import {
 	useNotificationsPrivate,
 } from '@/hooks/useNotifications'
 import { useUsers } from '@/hooks/useUsers'
+import { User } from '@/lib'
 import {
 	CheckCircle,
 	Edit,
@@ -35,8 +37,6 @@ import { toast } from 'sonner'
 import { DeleteDialog } from '../delete-dialog'
 import { Loader } from '../loader'
 import { NotificationEditDialog } from './notification-edit-dialog'
-import { useAuth } from '@/contexts/auth-context'
-import { User } from '@/lib'
 
 export const NotificationPrivate: React.FC = () => {
 	const { user: me } = useAuth()
@@ -87,9 +87,8 @@ export const NotificationPrivate: React.FC = () => {
 	return (
 		<div>
 			<form className='flex items-center gap-2' onSubmit={handlesubmit}>
-				<input
+				<textarea
 					name='message'
-					type='text'
 					placeholder='type new notification personal...'
 					className='border p-2 rounded w-full'
 				/>

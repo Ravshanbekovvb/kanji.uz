@@ -3,19 +3,9 @@
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
-import {
-	ArrowRight,
-	BookOpen,
-	CheckCircle,
-	HelpCircle,
-	Loader2,
-	Mail,
-	MessageSquare,
-	Send,
-	Settings,
-	Users,
-} from 'lucide-react'
+import { ArrowRight, Globe, HelpCircle, Loader2, Mail, MessageSquare, Send } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -98,34 +88,37 @@ export default function Page() {
 
 	const contactMethods = [
 		{
+			image_url: '/telegram-icon.webp',
+			title: 'Live Chat',
+			description: 'Get instant help through our support chat',
+			action: 'https://t.me/Ravshanbekovb',
+		},
+		{
 			icon: Mail,
 			title: 'Email Support',
 			description: 'Send us detailed questions via email',
-			action: 'ravshanbekovbehruz79@gmail.com',
+			action: 'https://mailto:ravshanbekovbehruz79@gmail.com',
 		},
-		// {
-		// 	icon: Phone,
-		// 	title: 'Phone Support',
-		// 	description: 'Talk to our support team directly',
-		// 	action: '+998 94 418-38-10',
-		// },
+		{
+			icon: Globe,
+			title: 'Official Website',
+			description: 'Visit our official website for more information',
+			action: 'https://ravshanbekov.uz',
+		},
 	]
 	return (
-		<div className='min-h-full bg-gradient-to-br from-blue-50 to-indigo-100 p-6'>
-			<div className='max-w-6xl mx-auto space-y-8'>
+		<Section className='bg-gradient-to-br from-blue-50 to-indigo-100 relative'>
+			<div className='space-y-6'>
 				{/* Header Section */}
-				<div className='text-center mb-12'>
-					<div className='inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full mb-6'>
+				<div className='flex items-center gap-5'>
+					<div className='inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full'>
 						<HelpCircle className='h-10 w-10 text-white' />
 					</div>
-					<h1 className='text-4xl md:text-5xl font-bold text-gray-900 mb-4'>Help & Support</h1>
-					<p className='text-xl text-gray-600 max-w-2xl mx-auto'>
-						We're here to help you make the most of your vocabulary learning journey
-					</p>
+					<h1 className='text-4xl md:text-5xl font-bold text-gray-900'>Help & Support</h1>
 				</div>
 
 				{/* Contact Form */}
-				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
+				<div className='grid grid-cols-1 lg:grid-cols-2 gap-7'>
 					<Card className='p-4'>
 						<h2 className='text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3'>
 							<MessageSquare className='h-6 w-6 text-blue-600' />
@@ -179,46 +172,34 @@ export default function Page() {
 					{/* Contact Methods */}
 					<div className='space-y-6'>
 						<h2 className='text-2xl font-bold text-gray-900'>Other Ways to Reach Us</h2>
-						<Card className='p-4'>
-							<div className='flex items-start gap-4'>
-								<div className='p-3 bg-blue-100 rounded-full'>
-									<Image alt='telegram icon' src={'/telegram-icon.webp'} width={30} height={30} />
-								</div>
-								<div className='flex-1'>
-									<h3 className='font-semibold text-gray-900 mb-1'>Live Chat</h3>
-									<p className='text-gray-600 mb-2'>Get instant help through our support chat</p>
-									<a
-										href='https://t.me/Ravshanbekovb'
-										className='text-blue-600 font-medium flex items-center gap-3'
-									>
-										Chat Now
-										<ArrowRight />
-									</a>
-								</div>
-							</div>
-						</Card>
+
 						{contactMethods.map((method, index) => (
 							<Card key={index} className='p-4'>
 								<div className='flex items-start gap-4'>
 									<div className='p-3 bg-blue-100 rounded-full'>
-										<method.icon className='h-6 w-6 text-blue-600' />
+										{method.icon && <method.icon className='h-6 w-6 text-blue-600' />}
+										{method.image_url && (
+											<Image alt={method.title} src={method.image_url} width={30} height={30} />
+										)}
 									</div>
 									<div className='flex-1'>
 										<h3 className='font-semibold text-gray-900 mb-1'>{method.title}</h3>
 										<p className='text-gray-600 mb-2'>{method.description}</p>
-										<p className='text-blue-600 font-medium wrap-anywhere'>{method.action}</p>
+										<a
+											target='_blank'
+											rel='noopener noreferrer'
+											href={method.action}
+											className='text-blue-600 font-medium wrap-anywhere underline flex items-center gap-5'
+										>
+											{method.title} <ArrowRight />
+										</a>
 									</div>
 								</div>
 							</Card>
 						))}
 					</div>
 				</div>
-
-				{/* Footer */}
-				<div className='text-center text-gray-500 text-sm py-8'>
-					<p>© 2025 Vocabulary Learning Platform. Made with ❤️ for educators and learners.</p>
-				</div>
 			</div>
-		</div>
+		</Section>
 	)
 }
