@@ -17,7 +17,15 @@ type NavbarMenuType = {
 
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
 type CreateUserWithRepeatPasswordRequestType = CreateUserRequestType & { repeatPassword: string }
-
+type SignUpType = {
+	id: string
+	note: string
+	email: string
+	name: string
+	status: 'PENDING' | 'APPROVED' | 'REJECTED'
+	approvedAt: Date | null
+	createdAt: Date
+}
 type SuccessResponseType<T> = {
 	success: true
 	message: string
