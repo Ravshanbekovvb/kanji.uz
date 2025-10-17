@@ -34,7 +34,6 @@ export default function Page() {
 			</div>
 		)
 	}
-	console.log(data)
 
 	return (
 		<div>

@@ -84,7 +84,21 @@ model NotificationReadStatus {
   @@unique([notificationId, userId])
   @@map("notification_read_status")
 }
+model SignupRequest {
+  id          String   @id @default(cuid())
+  email       String   @unique
+  name        String
+  note        String
+  status      RequestStatus @default(PENDING)
+  createdAt   DateTime @default(now())
+  approvedAt  DateTime?
+}
 
+enum RequestStatus {
+  PENDING   // admin hali ko‘rmagan
+  APPROVED  // admin tasdiqlagan
+  REJECTED  // rad etilgan
+}
 enum UserRole {
   ADMIN
   STUDENT

@@ -15,7 +15,6 @@ export default function Users() {
 	if (error) {
 		return 'error..'
 	}
-	console.log(data)
 
 	return (
 		<Section className={cn('flex flex-col gap-5')}>
