@@ -1,9 +1,35 @@
-import { NotFoundError } from '@/types/errors'
+import { ConflictError, NotFoundError } from '@/types/errors'
 import { SignUpType } from '@/types/types'
+import { generateRotatingPassword } from './password-generate'
 import { prisma, PrismaClient } from './prisma'
+import { sendMailService } from './send-mail.service'
+import { userService } from './user.service'
 
 class SignUpService {
 	constructor(private readonly prisma: PrismaClient) {}
+	async create(payload: { email: string; name: string; note: string }): Promise<SignUpType> {
+		const { email, name, note } = payload
+
+		const existingUser = await this.prisma.user.findUnique({ where: { email: email } })
+
+		if (existingUser) throw new ConflictError(`This email "${email}" is already exists`)
+		const exisitingSignupRequest = await this.prisma.signupRequest.findUnique({
+			where: {
+				email: email,
+			},
+		})
+		if (exisitingSignupRequest) throw new ConflictError(`This email "${email}" is already exists`)
+		const createdSignupRequest = await this.prisma.signupRequest.create({
+			data: {
+				email,
+				name,
+				note,
+				status: 'PENDING',
+			},
+		})
+
+		return createdSignupRequest
+	}
 	async findById(id: string): Promise<SignUpType> {
 		const existingSignupRequest = await this.prisma.signupRequest.findUnique({
 			where: {
@@ -27,11 +53,39 @@ class SignUpService {
 			},
 			data: {
 				status: status,
+				approvedAt: new Date(),
 			},
 		})
 		if (!existingSignupRequest)
 			throw new NotFoundError(`There is no Sign up Request with this ID: #${id}`)
+		if (status === 'APPROVED') {
+			const signupRequest = await signupService.findById(id)
+			const password = generateRotatingPassword(
+				existingSignupRequest.email,
+				existingSignupRequest.name,
+				6,
+				'lokal-dev-asd',
+				'weekly'
+			)
+			const createdUser = await userService.create({
+				email: signupRequest.email,
+				role: 'USER',
+				password: password,
+				loginCount: 0,
+				repeatPassword: password,
+				userLang: 'UZ',
+				userName: signupRequest.name,
+			})
 
+			await sendMailService.create({
+				to: createdUser.email,
+				from: process.env.EMAIL_USER!,
+				email: createdUser.email,
+				name: createdUser.userName,
+				password: password,
+				html: 'nima gap!',
+			})
+		}
 		return existingSignupRequest
 	}
 
@@ -46,58 +100,17 @@ class SignUpService {
 		})
 	}
 
-	// async update(id: string, payload: CreateUserRequestType): Promise<UserWithTokens> {
-	// 	const existingUser = await this.findById(id)
+	async deleteById(id: string): Promise<SignUpType> {
+		const existingSignupRequest = await this.findById(id)
 
-	// 	const hashedPassword = await bcrypt.hash(payload.password, 10)
+		const deletedSignupRequest = await this.prisma.signupRequest.delete({
+			where: {
+				id: existingSignupRequest.id,
+			},
+		})
 
-	// 	const updatedUser = await this.prisma.user.update({
-	// 		where: {
-	// 			id: existingUser.id,
-	// 		},
-	// 		data: {
-	// 			...payload,
-	// 			password: hashedPassword,
-	// 		},
-	// 		include: {
-	// 			tokens: true,
-	// 		},
-	// 	})
-
-	// 	return updatedUser
-	// }
-
-	// async deleteById(id: string): Promise<UserWithTokens> {
-	// 	const existingUser = await this.findById(id)
-
-	// 	const deletedUser = await this.prisma.user.delete({
-	// 		where: {
-	// 			id: existingUser.id,
-	// 		},
-	// 		include: {
-	// 			tokens: true,
-	// 		},
-	// 	})
-
-	// 	return deletedUser
-	// }
-
-	// async deleteByEmail(email: string): Promise<UserWithTokens> {
-	// 	const existingUser = await this.findByEmail(email)
-
-	// 	if (!existingUser) throw new NotFoundError(`There is no user with this email: ${email}`)
-
-	// 	const deletedUser = await this.prisma.user.delete({
-	// 		where: {
-	// 			email: existingUser.email,
-	// 		},
-	// 		include: {
-	// 			tokens: true,
-	// 		},
-	// 	})
-
-	// 	return deletedUser
-	// }
+		return deletedSignupRequest
+	}
 }
 
 const signupService = new SignUpService(prisma)

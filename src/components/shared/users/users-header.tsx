@@ -27,7 +27,7 @@ export const UsersHeader: React.FC = () => {
 						<Badge
 							variant={isPending ? 'secondary' : 'destructive'}
 							className={cn(
-								'absolute z-50 rounded-full -right-3 -top-3 min-w-5 min-h-5',
+								'absolute z-2 rounded-full -right-3 -top-3 min-w-6 min-h-6',
 								isPending && 'animate-pulse'
 							)}
 						>

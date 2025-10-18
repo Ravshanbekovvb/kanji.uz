@@ -1,4 +1,4 @@
-import { apiResponse, isAdmin, signupService } from '@/lib'
+import { apiResponse, apiResponseError, isAdmin, signupService } from '@/lib'
 import { BadRequest, ConflictError, NotFoundError, UnauthorizedError } from '@/types/errors'
 import { ApiResponseType, JWTType } from '@/types/types'
 import * as jwt from 'jsonwebtoken'
@@ -65,5 +65,21 @@ export async function GET(
 			},
 			{ status: 500 }
 		)
+	}
+}
+export async function POST(request: NextRequest): Promise<NextResponse<ApiResponseType>> {
+	const payload: { note: string; email: string; name: string } = await request.json()
+
+	try {
+		const createdSignupRequest = await signupService.create(payload)
+
+		const { createdAt, ...safeSignupRequest } = createdSignupRequest
+
+		return apiResponse(
+			{ success: true, message: 'User created successfully', data: safeSignupRequest },
+			{ status: 200 }
+		)
+	} catch (error) {
+		return apiResponseError(error)
 	}
 }

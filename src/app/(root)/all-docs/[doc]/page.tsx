@@ -1,20 +1,10 @@
 'use client'
-import { Loader } from '@/components/shared'
 import { DialogSelectTypePdf } from '@/components/shared/dialog-select-type-pdf/dialog-select-type-pdf'
 import { PageTitle } from '@/components/shared/title'
 import { Button } from '@/components/ui/button'
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-	DialogTrigger,
-} from '@/components/ui/dialog'
+import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
-import { createPdf } from '@/lib/create-pdf'
 import { ArrowLeft, Download, LoaderIcon } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import { useState } from 'react'
@@ -61,7 +51,7 @@ export default function Page() {
 	}
 
 	return (
-		<div>
+		<Section>
 			<Link
 				href='/all-docs'
 				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4'
@@ -105,6 +95,6 @@ export default function Page() {
 					</Button>
 				}
 			/>
-		</div>
+		</Section>
 	)
 }

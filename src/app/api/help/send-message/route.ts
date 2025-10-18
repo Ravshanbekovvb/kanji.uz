@@ -42,7 +42,6 @@ ${message}
 
 		const results = await Promise.allSettled(
 			chatIds.map(async (chatId, index) => {
-				console.log(`Attempting to send to chat ${index + 1} (${chatId})...`)
 				const response = await fetch(
 					`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
 					{
@@ -62,19 +61,12 @@ ${message}
 					throw new Error(`Chat ${index + 1} (${chatId}): ${response.status} - ${errorText}`)
 				}
 
-				console.log(`✅ Successfully sent to chat ${index + 1} (${chatId})`)
 				return { chatId, success: true }
 			})
 		)
 
 		const successful = results.filter(result => result.status === 'fulfilled')
 		const failed = results.filter(result => result.status === 'rejected')
-
-		console.log(`Results: ${successful.length} successful, ${failed.length} failed`)
-
-		if (failed.length > 0) {
-			console.log('Failed chats:', failed.map(f => f.reason?.message).join(', '))
-		}
 
 		// If at least one message was sent successfully, consider it a success
 		if (successful.length > 0) {

@@ -9,15 +9,21 @@ import {
 } from '@/components/ui/table'
 import { SignUpType } from '@/types/types'
 import { ColumnDef, flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table'
+import { LoaderIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { DialogSignupView } from './dialog-signup-view'
 
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
 	data: TData[]
+	isLoading?: boolean
 }
 
-export function DataTableSignupRequests({ columns, data }: DataTableProps<SignUpType, unknown>) {
+export function DataTableSignupRequests({
+	columns,
+	data,
+	isLoading = false,
+}: DataTableProps<SignUpType, unknown>) {
 	const table = useReactTable({
 		data,
 		columns,
@@ -43,7 +49,13 @@ export function DataTableSignupRequests({ columns, data }: DataTableProps<SignUp
 					))}
 				</TableHeader>
 				<TableBody>
-					{table.getRowModel().rows?.length ? (
+					{isLoading ? (
+						<TableRow>
+							<TableCell colSpan={columns.length} className='h-24 text-center'>
+								<LoaderIcon className='animate-spin mx-auto' size={24} />
+							</TableCell>
+						</TableRow>
+					) : table.getRowModel().rows?.length ? (
 						table.getRowModel().rows.map(row => (
 							<DialogSignupView
 								key={row.original.email}

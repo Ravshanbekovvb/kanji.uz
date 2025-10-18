@@ -1,4 +1,5 @@
 'use client'
+import { Section } from '@/components/ui/section'
 import { useFindUserById } from '@/hooks/useUsers'
 import { ArrowLeft, LoaderIcon } from 'lucide-react'
 import Link from 'next/link'
@@ -36,7 +37,7 @@ export default function Page() {
 	}
 
 	return (
-		<div>
+		<Section>
 			<Link
 				href='/users'
 				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-6'
@@ -102,6 +103,6 @@ export default function Page() {
 					</tbody>
 				</table>
 			</div>
-		</div>
+		</Section>
 	)
 }
