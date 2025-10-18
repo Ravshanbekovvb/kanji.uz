@@ -101,7 +101,9 @@ export function AuthProvider({ children }: AuthProviderProps) {
 
 			if (response.ok) {
 				router.push('/login')
-				setUser(null)
+				setTimeout(() => {
+					setUser(null)
+				}, 1000)
 			}
 		} catch (error) {
 			router.push('/login')

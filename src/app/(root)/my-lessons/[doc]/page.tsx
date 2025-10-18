@@ -1,15 +1,14 @@
 'use client'
-import { DeleteDialog, Loader } from '@/components/shared'
+import { DeleteDialog } from '@/components/shared'
 import { DialogSelectTypePdf } from '@/components/shared/dialog-select-type-pdf/dialog-select-type-pdf'
 import { DialogWordEdit } from '@/components/shared/word/dialog-word-edit'
 import { Button } from '@/components/ui/button'
+import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { useDeleteWord } from '@/hooks/useWord'
 import { ArrowLeft, Download, Edit, LoaderIcon, Trash2 } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
 interface Word {
 	id: string
 	kanji: string
@@ -51,7 +50,7 @@ export default function Page() {
 	}
 
 	return (
-		<div>
+		<Section>
 			<Link
 				href='/my-lessons'
 				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4'
@@ -167,6 +166,6 @@ export default function Page() {
 					</Button>
 				}
 			/>
-		</div>
+		</Section>
 	)
 }

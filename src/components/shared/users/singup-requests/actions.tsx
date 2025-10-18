@@ -1,10 +1,11 @@
 // ActionsCell.tsx
 'use client'
 import { Button } from '@/components/ui/button'
-import { useUpdateStatusSignupRequest } from '@/hooks/useSignupRequests'
-import { Check, Loader2, X } from 'lucide-react'
+import { useDeleteSignupRequest, useUpdateStatusSignupRequest } from '@/hooks/useSignupRequests'
+import { Check, Loader2, Trash2, X } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
+import { DeleteDialog } from '../../delete-dialog'
 
 export const ActionsCell = ({
 	id,
@@ -14,6 +15,7 @@ export const ActionsCell = ({
 	status: 'APPROVED' | 'REJECTED' | 'PENDING'
 }) => {
 	const { mutate } = useUpdateStatusSignupRequest()
+	const { mutate: deleteSignupRequest, isPending } = useDeleteSignupRequest()
 	const [loadingAction, setLoadingAction] = useState<'APPROVED' | 'REJECTED' | null>(null)
 
 	const handleStatusChange = (status: 'APPROVED' | 'REJECTED') => {
@@ -76,6 +78,19 @@ export const ActionsCell = ({
 					<X className='w-4 h-4' />
 				)}
 			</Button>
+			<DeleteDialog
+				deleteItemFn={deleteSignupRequest}
+				dialogTrigger={
+					<div
+						className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
+						onClick={e => e.stopPropagation()}
+					>
+						<Trash2 color='red' />
+					</div>
+				}
+				isPending={isPending}
+				itemId={id}
+			/>
 		</div>
 	)
 }

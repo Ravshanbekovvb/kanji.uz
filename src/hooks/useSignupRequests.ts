@@ -12,62 +12,62 @@ export function useSignupRequests(isEnabled: boolean) {
 }
 export function useSignupRequestCounts() {
 	const { isPending, error, data } = useQuery({
-		queryKey: ['SignupRequests'],
+		queryKey: ['SignupRequestCounts'],
 		queryFn: () => fetch('/api/signup-requests/counts').then(res => res.json()),
 		select: data => data.data,
 	})
 	return { data, isPending, error }
 }
 
-// export function useDeleteUser() {
-// 	const queryClient = useQueryClient()
+export function useDeleteSignupRequest() {
+	const queryClient = useQueryClient()
 
-// 	return useMutation({
-// 		mutationKey: ['delete user'],
-// 		mutationFn: async (email: string) => {
-// 			const res = await fetch(`/api/users/delete/${email}`, { method: 'DELETE' })
+	return useMutation({
+		mutationKey: ['delete SignupRequest'],
+		mutationFn: async (id: string) => {
+			const res = await fetch(`/api/signup-requests/${id}`, { method: 'DELETE' })
 
-// 			if (!res.ok) throw new Error('Failed to delete user')
-// 			return res.json()
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['Users'] })
-// 		},
-// 		onError: (e: any) => {
-// 			toast.error(e.message)
-// 		},
-// 	})
-// }
+			if (!res.ok) throw new Error('Failed to delete signup request')
+			return res.json()
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['SignupRequests'] })
+		},
+		onError: (e: any) => {
+			toast.error(e.message)
+		},
+	})
+}
 
-// export function useCreateUser() {
-// 	const queryClient = useQueryClient()
+export function useCreateSignupRequest() {
+	const queryClient = useQueryClient()
 
-// 	return useMutation({
-// 		mutationKey: ['users', 'create'],
-// 		mutationFn: async (data: CreateUserWithRepeatPasswordRequestType) => {
-// 			const res = await fetch(`/api/auth/register`, {
-// 				method: 'POST',
-// 				headers: {
-// 					'Content-Type': 'application/json',
-// 				},
-// 				body: JSON.stringify(data),
-// 			})
-// 			const responseData = await res.json()
+	return useMutation({
+		mutationKey: ['SignupRequest', 'create'],
+		mutationFn: async (data: { note: string; name: string; email: string }) => {
+			const res = await fetch(`/api/signup-requests`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+			const responseData = await res.json()
 
-// 			if (!res.ok) {
-// 				throw new Error(responseData.message)
-// 			}
+			if (!res.ok) {
+				throw new Error(responseData.message)
+			}
 
-// 			return responseData
-// 		},
-// 		onSuccess: () => {
-// 			queryClient.invalidateQueries({ queryKey: ['Users'] })
-// 		},
-// 		onError: (error: any) => {
-// 			toast.error(error.message)
-// 		},
-// 	})
-// }
+			return responseData
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['SignupRequests'] })
+		},
+		onError: (error: any) => {
+			toast.error(error.message)
+		},
+	})
+}
 export function useUpdateStatusSignupRequest() {
 	const queryClient = useQueryClient()
 

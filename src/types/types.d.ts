@@ -1,6 +1,7 @@
 import { navbarIconMap } from '@/components/shared/sidebar/navigation'
 import { Lesson, Token, User, UserRole, Word } from '@/lib'
 import { JwtPayload } from 'jsonwebtoken'
+import { ReactNode } from 'react'
 
 type NavbarType = {
 	top: navbarMenuType[]
@@ -31,7 +32,14 @@ type SuccessResponseType<T> = {
 	message: string
 	data: T
 }
-
+type SendMailType = {
+	email: string
+	html: ReactNode
+	from: string
+	to: string
+	password: string
+	name: string
+}
 type ErrorResponseType = {
 	success: false
 	message: string

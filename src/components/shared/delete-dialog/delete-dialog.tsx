@@ -31,7 +31,7 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
 			<DialogTrigger asChild>{triger}</DialogTrigger>
-			<DialogContent>
+			<DialogContent onClick={e => e.stopPropagation()}>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
 						<Image src={'/delete-icon.webp'} alt='delete-icon' width={35} height={35} />
