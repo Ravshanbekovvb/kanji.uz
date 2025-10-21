@@ -15,7 +15,7 @@ export const Login: React.FC = () => {
 
 			<div className='relative z-10 flex flex-col lg:flex-row items-center justify-center lg:justify-between w-full max-w-7xl mx-auto px-4 md:px-8 py-8 lg:py-0'>
 				{/* left content */}
-				<div className='flex-1 flex flex-col items-center lg:items-start max-w-lg mb-8 lg:mb-0 max-lg:hidden'>
+				<div className='flex-1 flex flex-col items-center lg:items-start max-w-lg mb-8 lg:mb-0'>
 					<div className='text-center lg:text-left'>
 						<h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 leading-tight'>
 							Welcome to
@@ -25,7 +25,7 @@ export const Login: React.FC = () => {
 								Tsukurou!
 							</span>
 						</h1>
-						<p className='text-base sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 lg:px-0'>
+						<p className='text-base max-lg:hidden sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 lg:px-0'>
 							Master new languages with our intelligent vocabulary learning platform
 						</p>
 					</div>

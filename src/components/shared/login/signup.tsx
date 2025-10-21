@@ -36,8 +36,10 @@ export const Signup: React.FC = () => {
 		}
 	}
 	return (
-		<form onSubmit={handleCreateSignupRequest} className='mt-4 sm:mt-6 space-y-3 sm:space-y-4'>
-			{showModal && <SignupSuccessModal onClose={() => setShowModal(false)} email={IsEmail} />}
+		<form
+			onSubmit={handleCreateSignupRequest}
+			className='mt-4 sm:mt-6 space-y-3 sm:space-y-4 relative'
+		>
 			<div className='space-y-1 sm:space-y-2'>
 				<label className='text-xs sm:text-sm font-medium text-gray-700'>Email</label>
 				<Input
@@ -50,7 +52,6 @@ export const Signup: React.FC = () => {
 					className='w-full p-3 border-2 border-gray-200 sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-sm sm:text-base'
 				/>
 			</div>
-
 			<div className='space-y-1 sm:space-y-2'>
 				<label className='text-xs sm:text-sm font-medium text-gray-700'>Full Name</label>
 				<Input
@@ -62,7 +63,6 @@ export const Signup: React.FC = () => {
 					className='w-full p-3 border-2 border-gray-200 sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-sm sm:text-base'
 				/>
 			</div>
-
 			<div className='space-y-1 sm:space-y-2'>
 				<label className='text-xs sm:text-sm font-medium text-gray-700'>
 					Why do you want to join?
@@ -76,14 +76,12 @@ export const Signup: React.FC = () => {
 					className='w-full p-3 border-2 border-gray-200 sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-sm sm:text-base'
 				/>
 			</div>
-
 			<div className='bg-blue-50 border border-blue-200 rounded-lg sm:rounded-xl p-3 sm:p-4 mt-3 sm:mt-4'>
 				<p className='text-xs sm:text-sm text-blue-800'>
 					📧 Your request will be reviewed by our admin team. You'll receive your login credentials
 					within 24 hours.
 				</p>
 			</div>
-
 			<div className='pt-2 sm:pt-2'>
 				{isPending ? (
 					<Loader className='w-full' title='Submitting request...' />
@@ -96,6 +94,7 @@ export const Signup: React.FC = () => {
 					</Button>
 				)}
 			</div>
+			{showModal && <SignupSuccessModal onClose={() => setShowModal(false)} email={IsEmail} />}
 		</form>
 	)
 }

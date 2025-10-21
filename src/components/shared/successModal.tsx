@@ -26,8 +26,8 @@ export function SignupSuccessModal({ onClose, email }: Props) {
 	}
 
 	return (
-		<div className='fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm'>
-			<div className='bg-white rounded-2xl shadow-2xl p-8 w-[90%] max-w-md text-center animate-fadeIn'>
+		<div className='fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm'>
+			<div className='bg-white rounded-2xl shadow-2xl h-full flex flex-col justify-center items-center p-8 w-full max-w-lg text-center animate-fadeIn'>
 				<h2 className='text-2xl font-semibold text-gray-800 mb-4'>
 					✅ Request Submitted Successfully!
 				</h2>
@@ -42,6 +42,7 @@ export function SignupSuccessModal({ onClose, email }: Props) {
 				<div className='text-4xl font-mono text-blue-600 mb-6'>{formatTime(secondsLeft)}</div>
 
 				<button
+					type='button'
 					onClick={onClose}
 					className='bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-all duration-200'
 				>
