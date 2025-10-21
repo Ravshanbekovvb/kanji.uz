@@ -16,7 +16,7 @@ import {
 } from '@/lib/groqAi'
 import { cn } from '@/lib/utils'
 import { useStore } from '@/store/store'
-import { Edit, Loader2, Wand2 } from 'lucide-react'
+import { Loader2, Wand2 } from 'lucide-react'
 import { useRef, useState } from 'react'
 import { toast } from 'sonner'
 interface Words {
@@ -30,6 +30,7 @@ interface DialogUpdateKanjiProps {
 	datas?: Word
 	className?: string
 	word: string
+	currentText: string
 }
 
 interface Word {
@@ -41,7 +42,12 @@ interface Word {
 	ind: number
 }
 
-export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiProps) => {
+export const DialogUpdateKanji = ({
+	word,
+	className,
+	datas,
+	currentText,
+}: DialogUpdateKanjiProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [isLoading, setIsLoading] = useState(false)
 	const { setIsUpdate, currentAi } = useStore()
@@ -100,8 +106,8 @@ export const DialogUpdateKanji = ({ word, className, datas }: DialogUpdateKanjiP
 	}
 	return (
 		<Dialog>
-			<DialogTrigger className={cn(className)}>
-				<Edit />
+			<DialogTrigger asChild>
+				<div className={cn(className)}>{currentText}</div>
 			</DialogTrigger>
 			<DialogContent className='flex flex-col gap-3'>
 				<DialogHeader>
