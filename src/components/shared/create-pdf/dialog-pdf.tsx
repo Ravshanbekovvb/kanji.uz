@@ -209,8 +209,7 @@ export default function DialogPdf({
 									<tbody>
 										{isWords.map((item, index) => (
 											<tr key={index} className='group hover:bg-gray-100 transition-all relative'>
-												<td className='border border-gray-300 px-4 py-2 relative'>
-													{item.kanji}
+												<td className='border border-gray-300  '>
 													<DialogUpdateKanji
 														datas={{
 															example: item.example,
@@ -221,12 +220,11 @@ export default function DialogPdf({
 															ind: index,
 														}}
 														word={item.kanji}
-														className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-gray-500 hover:text-black'
+														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+														currentText={item.kanji}
 													/>
 												</td>
-												<td className='border border-gray-300 px-4 py-2 relative'>
-													{item.transcription}
-
+												<td className='border border-gray-300'>
 													<DialogUpdateKanji
 														datas={{
 															example: item.example,
@@ -237,11 +235,11 @@ export default function DialogPdf({
 															ind: index,
 														}}
 														word={item.transcription}
-														className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-gray-500 hover:text-black'
+														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+														currentText={item.transcription}
 													/>
 												</td>
-												<td className='border border-gray-300 px-4 py-2 relative'>
-													{item.translation}
+												<td className='border border-gray-300'>
 													<DialogUpdateKanji
 														datas={{
 															example: item.example,
@@ -252,11 +250,11 @@ export default function DialogPdf({
 															ind: index,
 														}}
 														word={item.translation}
-														className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-gray-500 hover:text-black'
+														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+														currentText={item.translation}
 													/>
 												</td>
-												<td className='border border-gray-300 px-4 py-2 relative'>
-													{item.example}
+												<td className='border border-gray-300'>
 													<DialogUpdateKanji
 														datas={{
 															example: item.example,
@@ -267,11 +265,11 @@ export default function DialogPdf({
 															ind: index,
 														}}
 														word={item.example}
-														className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-gray-500 hover:text-black'
+														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+														currentText={item.example}
 													/>
 												</td>
-												<td className='border border-gray-300 px-4 py-2 relative'>
-													{item.jlptLevel}
+												<td className='border border-gray-300'>
 													<DialogUpdateKanji
 														datas={{
 															example: item.example,
@@ -282,7 +280,8 @@ export default function DialogPdf({
 															ind: index,
 														}}
 														word={item.jlptLevel}
-														className='absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer text-gray-500 hover:text-black'
+														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+														currentText={item.jlptLevel}
 													/>
 												</td>
 												<td className='border border-gray-300 px-4 text-center'>
@@ -332,8 +331,8 @@ export default function DialogPdf({
 									{createLesson.isPending || addWordsToLesson.isPending
 										? 'Saving...'
 										: existingLessonId
-										? 'Add Words'
-										: 'Save Words'}
+											? 'Add Words'
+											: 'Save Words'}
 								</Button>
 							)}
 						</AlertDialogFooter>
