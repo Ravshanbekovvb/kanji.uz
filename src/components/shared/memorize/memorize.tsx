@@ -152,6 +152,7 @@ export const Memorize: React.FC = () => {
 							'flex flex-col items-center transition-all duration-700 ease-in-out w-full'
 						)}
 					>
+						<div>{currentLessonTitle}</div>
 						<CarouselMemorize
 							words={{ id: '', title: '', user: { userName: '' }, words, createdAt: '' }}
 							currentIndex={currentIndex}
@@ -168,25 +169,27 @@ export const Memorize: React.FC = () => {
 				) : (
 					<div className='space-y-4'>
 						<h2 className='text-xl font-semibold text-gray-800 mt-5'>Select the lesson:</h2>
-						{data.lessons.map((lesson: any, ind: number) => (
-							<div
-								key={ind}
-								className='p-4 rounded-2xl border border-gray-200 shadow-sm bg-white hover:bg-indigo-50 cursor-pointer transition-all duration-200 flex justify-between items-center group'
-								onClick={() => {
-									localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
-									setWords(lesson.words)
-									setCurrentLessonTitle(lesson.title)
-									setCurrentIndex(0)
-								}}
-							>
-								<div className='text-base font-medium text-gray-700 group-hover:text-indigo-600'>
-									{lesson.title}
-								</div>
-								<div className='text-sm font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full group-hover:bg-indigo-200'>
-									{lesson.words.length} words
-								</div>
-							</div>
-						))}
+						{data.lessons.length > 0
+							? data.lessons.map((lesson: any, ind: number) => (
+									<div
+										key={ind}
+										className='p-4 rounded-2xl border border-gray-200 shadow-sm bg-white hover:bg-indigo-50 cursor-pointer transition-all duration-200 flex justify-between items-center group'
+										onClick={() => {
+											localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
+											setWords(lesson.words)
+											setCurrentLessonTitle(lesson.title)
+											setCurrentIndex(0)
+										}}
+									>
+										<div className='text-base font-medium text-gray-700 group-hover:text-indigo-600'>
+											{lesson.title}
+										</div>
+										<div className='text-sm font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full group-hover:bg-indigo-200'>
+											{lesson.words.length} words
+										</div>
+									</div>
+								))
+							: "You haven't created any documents yet."}
 					</div>
 				)}
 			</div>
