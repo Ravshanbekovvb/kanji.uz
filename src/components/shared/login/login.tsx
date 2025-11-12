@@ -1,11 +1,71 @@
 'use client'
+import { Button } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { logoFont } from '@/fonts/font'
+import { Play } from 'lucide-react'
+import { useState } from 'react'
 import { Signin } from './signin'
 import { Signup } from './signup'
 export const Login: React.FC = () => {
+	const [isVideoOpen, setIsVideoOpen] = useState(false)
+
 	return (
 		<div className='relative w-full min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 overflow-hidden'>
+			{/* Video Tutorial Button - Fixed Position */}
+			<Dialog open={isVideoOpen} onOpenChange={setIsVideoOpen}>
+				<DialogTrigger asChild>
+					<Button
+						variant='outline'
+						title='Watch tutorial video about Tsukurou platform'
+						className='fixed top-4 right-4 z-50 bg-white/90 backdrop-blur-lg border-white/20 shadow-lg hover:bg-white transition-all duration-200 group flex items-center gap-2 px-3 py-2 cursor-pointer'
+					>
+						<Play className='h-4 w-4 text-blue-600 group-hover:text-blue-700' />
+						<span className='text-sm font-medium text-blue-600 group-hover:text-blue-700 hidden sm:inline'>
+							Tutorial
+						</span>
+					</Button>
+				</DialogTrigger>
+				<DialogContent className='max-w-2xl w-full p-0 bg-black border-0'>
+					<DialogTitle></DialogTitle>
+					<div className='relative aspect-video w-full'>
+						{/* <Button
+							variant='ghost'
+							size='icon'
+							className='absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-0'
+							onClick={() => setIsVideoOpen(false)}
+						>
+							<X className='h-4 w-4' />
+						</Button> */}
+
+						{/* Local video yuklanadi faqat modal ochilganda */}
+						{isVideoOpen ? (
+							<video
+								src='/tutorial.mp4'
+								className='w-full h-full rounded-lg p-0'
+								controls
+								autoPlay
+								preload='metadata'
+								poster='/working-men-on-laptop.png' // Video yuklanmagan vaqtda ko'rsatiladigan rasm
+								onError={e => console.error('Video yuklanishda xatolik:', e)}
+							>
+								<source src='/tutorial.mp4' type='video/mp4' />
+								Your browser does not support the video tag.
+							</video>
+						) : (
+							<div className='w-full h-full bg-gray-900 rounded-lg flex items-center justify-center'>
+								<div className='text-center text-white'>
+									<Play className='h-16 w-16 mx-auto mb-4 text-blue-400' />
+									<h3 className='text-xl font-semibold mb-2'>Welcome to Tsukurou!</h3>
+									<p className='text-gray-300 max-w-md px-4'>
+										Watch this tutorial to learn how to master Japanese vocabulary with our platform
+									</p>
+								</div>
+							</div>
+						)}
+					</div>
+				</DialogContent>
+			</Dialog>
 			{/* Background decorative elements */}
 			<div className='absolute inset-0 w-full h-full'>
 				<div className='absolute top-10 left-10 w-32 h-32 md:w-72 md:h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-blob'></div>
