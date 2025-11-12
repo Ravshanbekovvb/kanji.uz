@@ -29,16 +29,6 @@ export const Login: React.FC = () => {
 				<DialogContent className='max-w-2xl w-full p-0 bg-black border-0'>
 					<DialogTitle></DialogTitle>
 					<div className='relative aspect-video w-full'>
-						{/* <Button
-							variant='ghost'
-							size='icon'
-							className='absolute top-2 right-2 z-10 bg-black/50 hover:bg-black/70 text-white border-0'
-							onClick={() => setIsVideoOpen(false)}
-						>
-							<X className='h-4 w-4' />
-						</Button> */}
-
-						{/* Local video yuklanadi faqat modal ochilganda */}
 						{isVideoOpen ? (
 							<video
 								src='/tutorial.mp4'
