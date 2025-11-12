@@ -18,7 +18,7 @@ export const Login: React.FC = () => {
 					<Button
 						variant='outline'
 						title='Watch tutorial video about Tsukurou platform'
-						className='fixed top-4 right-4 z-50 bg-white/90 backdrop-blur-lg border-white/20 shadow-lg hover:bg-white transition-all duration-200 group flex items-center gap-2 px-3 py-2 cursor-pointer'
+						className='fixed top-4 left-4 z-50 bg-white/90 backdrop-blur-lg border-white/20 shadow-md hover:bg-white transition-all duration-200 group flex items-center gap-2 px-3 py-2 cursor-pointer'
 					>
 						<Play className='h-4 w-4 text-blue-600 group-hover:text-blue-700' />
 						<span className='text-sm font-medium text-blue-600 group-hover:text-blue-700 hidden sm:inline'>
@@ -79,11 +79,7 @@ export const Login: React.FC = () => {
 					<div className='text-center lg:text-left'>
 						<h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 leading-tight'>
 							Welcome to
-							<span
-								className={`block motion-preset-pulse-sm  text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ${logoFont.className} `}
-							>
-								Tsukurou!
-							</span>
+							<div className={` ${logoFont.className} uppercase`}>Tsukurou</div>
 						</h1>
 						<p className='text-base max-lg:hidden sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 lg:px-0'>
 							Master new languages with our intelligent vocabulary learning platform
