@@ -6,7 +6,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
+  // directUrl = env("DIRECT_URL")
 }
 
 model User {
@@ -22,6 +22,8 @@ model User {
   lesson            Lesson[]                 @relation("user_lesson")
   readNotifications NotificationReadStatus[] @relation("user_notification_reads")
   notification      Notification[]           @relation("user_notification")
+  readingProgress   ReadingProgress[]        @relation("user_reading_progress")
+  readingTests      ReadingTest[]            @relation("user_reading_tests")
   tokens            Token?                   @relation("user_tokens")
 
   @@map("users")
@@ -93,11 +95,61 @@ model SignupRequest {
   createdAt   DateTime @default(now())
   approvedAt  DateTime?
 }
+model ReadingSection {
+  id String @id @default(cuid())
+  title String
+  jlptLevel    jlptLevel  
+  readingTests ReadingTest[] @relation("section_tests")
+  createdAt    DateTime              @default(now())
+}
+model ReadingTest {
+  sectionId    String?               @map("section_id")
+  section      ReadingSection?       @relation("section_tests", fields: [sectionId], references: [id], onDelete: Cascade)
+  id String @id @default(cuid())
+  mainQuestion String
+  text String
+  difficulty testLevel
+  authorId String? @map("author_id")
+  author   User?   @relation("user_reading_tests", fields: [authorId], references: [id],onDelete: SetNull)
+  questions ReadingTestQuestion[]
+  createdAt    DateTime              @default(now())
+}
+model ReadingTestQuestion {
+  id String @id @default(cuid())
+  testId        String       @map("test_id")
+  test          ReadingTest  @relation(fields: [testId], references: [id], onDelete: Cascade)
+  question String
+  options String[]
+  correctAnswer Int
+  createdAt    DateTime              @default(now())
+}
+model ReadingProgress {
+  id String @id @default(cuid())
+  userId String
+  user      User     @relation("user_reading_progress", fields: [userId], references: [id], onDelete: Cascade)       
+  testId String         
+  testLevel testLevel
+  isCorrect Boolean    
+  solvedTime Int    
+  createdAt DateTime @default(now())
+}
 
+enum testLevel {
+  EASY
+  MEDIUM
+  HARD
+}
+enum jlptLevel {
+  N1
+  N2
+  N3
+  N4
+  N5
+}
 enum RequestStatus {
-  PENDING   // admin hali ko‘rmagan
-  APPROVED  // admin tasdiqlagan
-  REJECTED  // rad etilgan
+  PENDING
+  APPROVED
+  REJECTED
 }
 enum UserRole {
   ADMIN
