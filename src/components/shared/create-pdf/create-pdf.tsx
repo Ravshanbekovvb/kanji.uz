@@ -1,17 +1,29 @@
 'use client'
 
+import { Button } from '@/components/ui/button'
+import {
+	DropdownMenu,
+	DropdownMenuContent,
+	DropdownMenuGroup,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuShortcut,
+	DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { translateText } from '@/lib/func/translate'
 import { useStore } from '@/store/store'
+import { BrainCog, EllipsisVertical, RefreshCw } from 'lucide-react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { PageTitle } from '../title'
 import { Carousels } from './carousels'
+import { DialogReset } from './dialog-reset'
+import { DialogSwitchAi } from './dialog-switch-ai'
 import { Form } from './form'
-import { Reset } from './reset'
 
 interface LocalWord {
 	kanji: string
@@ -154,13 +166,62 @@ export const CreatePdf: React.FC = () => {
 			<div className='flex justify-between items-center mb-4'>
 				<div className='flex items-center gap-5'>
 					<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
+
 					{currentAi === 'groq' ? (
-						<Image alt='groq logo' src={'groq.png'} width={80} height={80} className='mt-2' />
+						<Image alt='groq logo' src={'groq.png'} width={80} height={80} />
 					) : (
 						<Image alt='chat-gpt logo' src={'chat-gpt.png'} width={60} height={60} />
 					)}
 				</div>
-				<Reset existingLessonId={existingLessonId} />
+				<DropdownMenu>
+					<DropdownMenuTrigger asChild>
+						<Button variant='outline'>
+							<EllipsisVertical />
+						</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContent
+						className='w-56'
+						align='end'
+						onClick={e => {
+							e.stopPropagation()
+						}}
+					>
+						<DialogSwitchAi
+							triger={
+								<DropdownMenuItem onSelect={e => e.preventDefault()} className='cursor-pointer'>
+									Switch AI
+									<DropdownMenuShortcut>
+										<BrainCog />
+									</DropdownMenuShortcut>
+								</DropdownMenuItem>
+							}
+						/>
+						<DropdownMenuItem className='cursor-pointer'>
+							Bulk at
+							{/* <DropdownMenuShortcut>
+								<ListOrdered />
+							</DropdownMenuShortcut> */}
+							<DropdownMenuShortcut>Tez orada!</DropdownMenuShortcut>
+						</DropdownMenuItem>
+						<DropdownMenuSeparator />
+						<DropdownMenuGroup>
+							<DialogReset
+								existingLessonId={existingLessonId}
+								trigger={
+									<DropdownMenuItem
+										onSelect={e => e.preventDefault()}
+										className='text-amber-700 cursor-pointer'
+									>
+										Refresh
+										<DropdownMenuShortcut>
+											<RefreshCw className='text-amber-700' />
+										</DropdownMenuShortcut>
+									</DropdownMenuItem>
+								}
+							/>
+						</DropdownMenuGroup>
+					</DropdownMenuContent>
+				</DropdownMenu>
 			</div>
 			<div>
 				<input

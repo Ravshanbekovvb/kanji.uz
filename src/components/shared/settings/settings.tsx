@@ -1,7 +1,6 @@
 import { Section } from '@/components/ui/section'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { PageTitle } from '../title'
-import { AiSettings } from './ai-settings'
 import { Profile } from './profile'
 export const Settings: React.FC = () => {
 	return (
@@ -10,14 +9,14 @@ export const Settings: React.FC = () => {
 			<Tabs defaultValue='profile' className='w-full'>
 				<TabsList>
 					<TabsTrigger value='profile'>Profile</TabsTrigger>
-					<TabsTrigger value='ai-setting'>AI settings</TabsTrigger>
+					{/* <TabsTrigger value='ai-setting'>AI settings</TabsTrigger> */}
 				</TabsList>
 				<TabsContent value='profile'>
 					<Profile />
 				</TabsContent>
-				<TabsContent value='ai-setting'>
+				{/* <TabsContent value='ai-setting'>
 					<AiSettings />
-				</TabsContent>
+				</TabsContent> */}
 			</Tabs>
 		</Section>
 	)
