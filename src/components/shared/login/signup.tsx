@@ -4,7 +4,7 @@ import { useCreateSignupRequest } from '@/hooks/useSignupRequests'
 import { FormEvent, useState } from 'react'
 import { toast } from 'sonner'
 import { Loader } from '../loader'
-import { SignupSuccessModal } from '../successModal'
+import { SignupSuccessModal } from './successModal'
 export const Signup: React.FC = () => {
 	const { mutate: createSignupRequest, isPending } = useCreateSignupRequest()
 	const [IsEmail, setEmail] = useState<string>('')

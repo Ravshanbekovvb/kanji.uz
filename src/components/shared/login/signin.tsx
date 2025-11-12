@@ -9,7 +9,7 @@ import { Loader } from '../loader'
 export const Signin: React.FC = () => {
 	const [showPassword, setShowPassword] = useState<boolean>(false)
 
-	const { login, isLoading } = useAuth()
+	const { login, isSignIn } = useAuth()
 	const router = useRouter()
 
 	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -77,7 +77,7 @@ export const Signin: React.FC = () => {
 			</div>
 
 			<div className='pt-2 sm:pt-2'>
-				{isLoading ? (
+				{isSignIn ? (
 					<Loader className='w-full' title='Signing in...' />
 				) : (
 					<Button type='submit' className='w-full '>
