@@ -2,7 +2,7 @@
 
 import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
-import { translateText } from '@/lib/translate'
+import { translateText } from '@/lib/func/translate'
 import { useStore } from '@/store/store'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
@@ -46,7 +46,7 @@ export const CreatePdf: React.FC = () => {
 			// Load existing words from the lesson
 			const existingWords = existingLesson.words || []
 
-			// Convert database words to LocalWord format
+			// Convert database words to LocalWord format (only existing words for display)
 			const localExistingWords = existingWords.map((word: any) => ({
 				kanji: word.kanji,
 				translation: word.translation,
@@ -55,11 +55,11 @@ export const CreatePdf: React.FC = () => {
 				jlptLevel: word.jlptLevel,
 			}))
 
-			// Load new words from localStorage
+			// Load new words from localStorage for display in carousel
 			const storedNewWords = localStorage.getItem('newWords')
 			const newWords = storedNewWords ? JSON.parse(storedNewWords) : []
 
-			// Combine existing words with new words
+			// For carousel display, combine existing words with new words
 			const allWords = [...localExistingWords, ...newWords]
 			setWords(allWords)
 		} else {
@@ -187,7 +187,17 @@ export const CreatePdf: React.FC = () => {
 				isLoading={isLoading}
 				translateFetch={translateFetch}
 				lessonTitle={lessonTitle}
-				words={words}
+				words={
+					existingLessonId
+						? existingLesson?.words?.map((word: any) => ({
+								kanji: word.kanji,
+								translation: word.translation,
+								transcription: word.transcription,
+								example: word.example,
+								jlptLevel: word.jlptLevel,
+							})) || []
+						: words
+				}
 				existingLessonId={existingLessonId}
 			/>
 		</Section>

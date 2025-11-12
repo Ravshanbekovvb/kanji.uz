@@ -9,7 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-import Image from 'next/image'
+import { Trash2 } from 'lucide-react'
 import { ReactNode, useState } from 'react'
 import { Loader } from '../loader'
 interface DeleteDialogProps {
@@ -30,12 +30,14 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 	const [open, setOpen] = useState(false)
 	return (
 		<Dialog open={open} onOpenChange={setOpen}>
-			<DialogTrigger asChild>{triger}</DialogTrigger>
+			<DialogTrigger asChild onClick={e => e.stopPropagation()}>
+				{triger}
+			</DialogTrigger>
 			<DialogContent onClick={e => e.stopPropagation()}>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Image src={'/delete-icon.webp'} alt='delete-icon' width={35} height={35} />
-						{/* <Trash2 size={35} /> */}
+						{/* <Image src={'/delete-icon.webp'} alt='delete-icon' width={35} height={35} /> */}
+						<Trash2 size={35} />
 						Are you absolutely sure?
 					</DialogTitle>
 					<DialogDescription>

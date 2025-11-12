@@ -7,8 +7,8 @@ import {
 	CarouselNext,
 	CarouselPrevious,
 } from '@/components/ui/carousel'
-import { setTextSize } from '@/lib/create-pdf'
-import { cn } from '@/lib/utils'
+import { setTextSize } from '@/lib/func/create-pdf'
+import { cn } from '@/lib/func/utils'
 import { useStore } from '@/store/store'
 import { useEffect, useState } from 'react'
 
@@ -105,16 +105,16 @@ export const Carousel: React.FC<Props> = ({
 										windowWidth > 640
 											? kanjiSize
 											: item.kanji.length >= 10
-											? 'text-xl'
-											: item.kanji.length >= 8
-											? 'text-2xl pt-10'
-											: item.kanji.length >= 6
-											? 'text-4xl pt-7'
-											: item.kanji.length >= 4
-											? 'text-5xl pt-6'
-											: item.kanji.length >= 2
-											? 'text-7xl pt-4'
-											: 'text-7xl pt-5'
+												? 'text-xl'
+												: item.kanji.length >= 8
+													? 'text-2xl pt-10'
+													: item.kanji.length >= 6
+														? 'text-4xl pt-7'
+														: item.kanji.length >= 4
+															? 'text-5xl pt-6'
+															: item.kanji.length >= 2
+																? 'text-7xl pt-4'
+																: 'text-7xl pt-5'
 									)}
 								>
 									{item.kanji}

@@ -1,6 +1,6 @@
 import { SendMailType } from '@/types/types'
 import nodemailer from 'nodemailer'
-import { prisma, PrismaClient } from './prisma'
+import { prisma, PrismaClient } from '../prisma'
 
 class SendMailService {
 	constructor(private readonly prisma: PrismaClient) {}

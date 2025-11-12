@@ -39,7 +39,7 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 			password: String(formData.get('password')),
 			role: (String(formData.get('role')) as UserRole) ?? null,
 			userLang: (String(formData.get('lang')) as UserLang) ?? null,
-			loginCount:currentData.loginCount
+			loginCount: currentData.loginCount,
 		}
 
 		editUser(data, {
@@ -120,11 +120,13 @@ export const EditUserDialog: React.FC<EditUserDialogProps> = ({ trigger, current
 						</div>
 					</div>
 
-					<div className='flex justify-start pt-4'>
+					<div className=' pt-4'>
 						{isPending ? (
-							<Loader variant='default' title='Editing...' />
+							<Loader variant='default' title='Editing...' className='w-full' />
 						) : (
-							<Button type='submit'>Edit</Button>
+							<Button type='submit' className='w-full'>
+								Edit
+							</Button>
 						)}
 					</div>
 				</form>

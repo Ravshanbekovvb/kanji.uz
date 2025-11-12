@@ -51,7 +51,7 @@ export default function MobileNav() {
 						href: '/all-docs',
 						icon: FileText,
 					},
-			  ]
+				]
 			: [
 					{
 						label: 'Memorize',
@@ -68,7 +68,7 @@ export default function MobileNav() {
 						href: '/my-lessons',
 						icon: BookOpen,
 					},
-			  ]),
+				]),
 	]
 
 	const secondaryItems = [
@@ -119,7 +119,7 @@ export default function MobileNav() {
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
 						<div
-							className={`text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${logoFont.className}`}
+							className={`text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${logoFont.className} uppercase`}
 						>
 							Tsukurou
 						</div>

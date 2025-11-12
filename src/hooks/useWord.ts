@@ -1,9 +1,8 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { queryClient } from '@/lib/query-client'
+import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 export function useDeleteWord() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['deleteWord'],
 		mutationFn: async (wordId: string) => {
@@ -34,8 +33,6 @@ export function useDeleteWord() {
 }
 
 export function useUpdateWord() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['updateWord'],
 		mutationFn: async ({

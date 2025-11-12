@@ -11,7 +11,7 @@ import {
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import { useAddWordsToLesson, useCreateLesson } from '@/hooks/useLessons'
-import { createPdf } from '@/lib/create-pdf'
+import { createPdf } from '@/lib/func/create-pdf'
 import { useStore } from '@/store/store'
 import { CircleStop, Download, Trash2 } from 'lucide-react'
 import { useRouter } from 'next/navigation'
@@ -50,8 +50,16 @@ export default function DialogPdf({
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			if (existingLessonId) {
-				setWords(propWords)
+				// For existing lessons, combine existing lesson words (propWords) with new words from localStorage
+				const storedNewWords = localStorage.getItem('newWords')
+				const newWords: LocalWord[] = storedNewWords ? JSON.parse(storedNewWords) : []
+
+				// propWords contains only existing lesson words from database
+				// newWords contains new words that are not yet saved to database
+				const combinedWords = [...propWords, ...newWords]
+				setWords(combinedWords)
 			} else {
+				// For new lessons, get words from localStorage
 				const storegedList = localStorage.getItem('words')
 				const parsedWords: LocalWord[] = storegedList ? JSON.parse(storegedList) : []
 				setWords(parsedWords)
@@ -131,7 +139,7 @@ export default function DialogPdf({
 
 			if (existingLessonId) {
 				setTimeout(() => {
-					router.push(`/my-docs/${existingLessonId}`)
+					router.push(`/my-docs`)
 				}, 1000)
 			}
 		}
@@ -207,92 +215,122 @@ export default function DialogPdf({
 										</tr>
 									</thead>
 									<tbody>
-										{isWords.map((item, index) => (
-											<tr key={index} className='group hover:bg-gray-100 transition-all relative'>
-												<td className='border border-gray-300  '>
-													<DialogUpdateKanji
-														datas={{
-															example: item.example,
-															kanji: item.kanji,
-															transcription: item.transcription,
-															translation: item.translation,
-															type: 'kanji',
-															ind: index,
-														}}
-														word={item.kanji}
-														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
-														currentText={item.kanji}
-													/>
-												</td>
-												<td className='border border-gray-300'>
-													<DialogUpdateKanji
-														datas={{
-															example: item.example,
-															kanji: item.kanji,
-															transcription: item.transcription,
-															translation: item.translation,
-															type: 'transcription',
-															ind: index,
-														}}
-														word={item.transcription}
-														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
-														currentText={item.transcription}
-													/>
-												</td>
-												<td className='border border-gray-300'>
-													<DialogUpdateKanji
-														datas={{
-															example: item.example,
-															kanji: item.kanji,
-															transcription: item.transcription,
-															translation: item.translation,
-															type: 'translation',
-															ind: index,
-														}}
-														word={item.translation}
-														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
-														currentText={item.translation}
-													/>
-												</td>
-												<td className='border border-gray-300'>
-													<DialogUpdateKanji
-														datas={{
-															example: item.example,
-															kanji: item.kanji,
-															transcription: item.transcription,
-															translation: item.translation,
-															type: 'example',
-															ind: index,
-														}}
-														word={item.example}
-														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
-														currentText={item.example}
-													/>
-												</td>
-												<td className='border border-gray-300'>
-													<DialogUpdateKanji
-														datas={{
-															example: item.example,
-															kanji: item.kanji,
-															transcription: item.transcription,
-															translation: item.translation,
-															type: 'jlptLevel',
-															ind: index,
-														}}
-														word={item.jlptLevel}
-														className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
-														currentText={item.jlptLevel}
-													/>
-												</td>
-												<td className='border border-gray-300 px-4 text-center'>
-													<Trash2
-														color='#9a0000'
-														className='cursor-pointer'
-														onClick={() => deleteFromKanjies(item.kanji)}
-													/>
-												</td>
-											</tr>
-										))}
+										{isWords.map((item, index) => {
+											// Calculate correct index for localStorage
+											let storageIndex = index
+											let isNewWord = false
+
+											if (existingLessonId) {
+												// If this word is beyond existing lesson words, it's a new word
+												if (index >= propWords.length) {
+													storageIndex = index - propWords.length
+													isNewWord = true
+												}
+											}
+
+											return (
+												<tr
+													key={index}
+													className={`group hover:bg-gray-100 transition-all relative ${isNewWord ? 'bg-blue-50' : ''}`}
+												>
+													<td className='border border-gray-300  '>
+														{isNewWord && (
+															<span className='text-xs text-blue-600 font-semibold'>NEW</span>
+														)}
+														<DialogUpdateKanji
+															datas={{
+																example: item.example,
+																kanji: item.kanji,
+																transcription: item.transcription,
+																translation: item.translation,
+																type: 'kanji',
+																ind: storageIndex,
+																isNewWord,
+															}}
+															word={item.kanji}
+															className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+															currentText={item.kanji}
+															isNewWord={isNewWord}
+														/>
+													</td>
+													<td className='border border-gray-300'>
+														<DialogUpdateKanji
+															datas={{
+																example: item.example,
+																kanji: item.kanji,
+																transcription: item.transcription,
+																translation: item.translation,
+																type: 'transcription',
+																ind: storageIndex,
+																isNewWord,
+															}}
+															word={item.transcription}
+															className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+															currentText={item.transcription}
+															isNewWord={isNewWord}
+														/>
+													</td>
+													<td className='border border-gray-300'>
+														<DialogUpdateKanji
+															datas={{
+																example: item.example,
+																kanji: item.kanji,
+																transcription: item.transcription,
+																translation: item.translation,
+																type: 'translation',
+																ind: storageIndex,
+																isNewWord,
+															}}
+															word={item.translation}
+															className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+															currentText={item.translation}
+															isNewWord={isNewWord}
+														/>
+													</td>
+													<td className='border border-gray-300'>
+														<DialogUpdateKanji
+															datas={{
+																example: item.example,
+																kanji: item.kanji,
+																transcription: item.transcription,
+																translation: item.translation,
+																type: 'example',
+																ind: storageIndex,
+																isNewWord,
+															}}
+															word={item.example}
+															className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+															currentText={item.example}
+															isNewWord={isNewWord}
+														/>
+													</td>
+													<td className='border border-gray-300'>
+														<DialogUpdateKanji
+															datas={{
+																example: item.example,
+																kanji: item.kanji,
+																transcription: item.transcription,
+																translation: item.translation,
+																type: 'jlptLevel',
+																ind: storageIndex,
+																isNewWord,
+															}}
+															word={item.jlptLevel}
+															className='group-hover:opacity-100 transition-opacity cursor-pointer  hover:bg-gray-200 px-4 py-2'
+															currentText={item.jlptLevel}
+															isNewWord={isNewWord}
+														/>
+													</td>
+													<td className='border border-gray-300 px-4 text-center'>
+														<Trash2
+															color='#9a0000'
+															className='cursor-pointer'
+															onClick={() => deleteFromKanjies(item.kanji)}
+														/>
+													</td>
+												</tr>
+											)
+										})}
 									</tbody>
 								</table>
 							</div>

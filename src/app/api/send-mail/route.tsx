@@ -1,7 +1,7 @@
 // app/api/send/route.ts
 
 import { apiResponse, apiResponseError, isAdmin } from '@/lib'
-import { sendMailService } from '@/lib/send-mail.service'
+import { sendMailService } from '@/lib/services/send-mail.service'
 import { type ApiResponseType, JWTType, SendMailType } from '@/types/types'
 
 import * as jwt from 'jsonwebtoken'

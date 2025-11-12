@@ -1,5 +1,6 @@
 import { NotFoundError } from '@/types/errors'
-import { prisma, PrismaClient, Word } from './prisma'
+import { Word } from '../../../prisma/__generated__'
+import { prisma, PrismaClient } from '../prisma'
 
 class WordService {
 	constructor(private readonly prisma: PrismaClient) {}

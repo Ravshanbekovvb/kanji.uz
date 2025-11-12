@@ -4,13 +4,13 @@ import {
 	CreateUserWithRepeatPasswordRequestType,
 	UserWithTokens,
 } from '@/types/types'
-import { userService, UserServiceType } from './user.service'
 
 import { v4 as uuidv4 } from 'uuid'
 
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
-import { prisma } from './prisma'
+import { prisma } from '../prisma'
+import { userService, UserServiceType } from './user.service'
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET!
 

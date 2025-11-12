@@ -1,5 +1,5 @@
-import { LessonWithWords } from '@/types/types'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryClient } from '@/lib/query-client'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
 
@@ -12,8 +12,6 @@ export function useLessons() {
 }
 
 export function useDeleteLesson() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['delete Lesson'],
 		mutationFn: async (LessonId: string) => {
@@ -87,8 +85,6 @@ export function useFindLessonsByUserId(userId: string | undefined) {
 }
 
 export function useUpdateLessonTitle() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['updateLessonTitle'],
 		mutationFn: async ({ lessonId, title }: { lessonId: string; title: string }) => {
@@ -120,8 +116,6 @@ export function useUpdateLessonTitle() {
 }
 
 export function useCreateLesson() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['createLesson'],
 		mutationFn: async ({
@@ -165,8 +159,6 @@ export function useCreateLesson() {
 }
 
 export function useAddWordsToLesson() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['addWordsToLesson'],
 		mutationFn: async ({

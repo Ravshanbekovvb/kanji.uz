@@ -13,8 +13,8 @@ import {
 	getExampleWithFallback,
 	getLevelWithFallback,
 	getTranscriptionWithFallback,
-} from '@/lib/groqAi'
-import { cn } from '@/lib/utils'
+} from '@/lib/func/groqAi'
+import { cn } from '@/lib/func/utils'
 import { useStore } from '@/store/store'
 import { Loader2, Wand2 } from 'lucide-react'
 import { useRef, useState } from 'react'
@@ -31,6 +31,7 @@ interface DialogUpdateKanjiProps {
 	className?: string
 	word: string
 	currentText: string
+	isNewWord?: boolean
 }
 
 interface Word {
@@ -40,6 +41,7 @@ interface Word {
 	example: string
 	type: 'kanji' | 'transcription' | 'translation' | 'example' | 'jlptLevel'
 	ind: number
+	isNewWord?: boolean
 }
 
 export const DialogUpdateKanji = ({
@@ -47,6 +49,7 @@ export const DialogUpdateKanji = ({
 	className,
 	datas,
 	currentText,
+	isNewWord = false,
 }: DialogUpdateKanjiProps) => {
 	const inputRef = useRef<HTMLInputElement>(null)
 	const [isLoading, setIsLoading] = useState(false)
@@ -91,17 +94,40 @@ export const DialogUpdateKanji = ({
 	}
 
 	const saveChange = () => {
-		const storegedWords = localStorage.getItem('words')
-		const words: Words[] = storegedWords ? JSON.parse(storegedWords) : []
 		const index = datas?.ind
 		const datasType = datas?.type
 		const currentValue = inputRef?.current?.value
 
 		if (typeof index === 'number' && inputRef && datasType && currentValue) {
-			words[index][datasType] = currentValue
-			localStorage.setItem('words', JSON.stringify(words))
-			setIsUpdate(Math.random())
-			toast.success('saved changes ' + currentValue)
+			// Use isNewWord flag or check if datas has isNewWord property
+			const shouldUpdateNewWords = isNewWord || datas?.isNewWord
+
+			if (shouldUpdateNewWords) {
+				// Update newWords localStorage (for new words in existing lessons)
+				const storedNewWords = localStorage.getItem('newWords')
+				const newWords: Words[] = storedNewWords ? JSON.parse(storedNewWords) : []
+
+				if (index < newWords.length) {
+					newWords[index][datasType] = currentValue
+					localStorage.setItem('newWords', JSON.stringify(newWords))
+					setIsUpdate(Math.random())
+					toast.success('saved changes ' + currentValue)
+					return
+				}
+			}
+
+			// Update regular words localStorage (for new lessons or existing lesson words)
+			const storegedWords = localStorage.getItem('words')
+			const words: Words[] = storegedWords ? JSON.parse(storegedWords) : []
+
+			if (index < words.length) {
+				words[index][datasType] = currentValue
+				localStorage.setItem('words', JSON.stringify(words))
+				setIsUpdate(Math.random())
+				toast.success('saved changes ' + currentValue)
+			} else {
+				toast.error('Could not find word to update')
+			}
 		}
 	}
 	return (

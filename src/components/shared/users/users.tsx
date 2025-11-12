@@ -1,7 +1,7 @@
 'use client'
 import { Section } from '@/components/ui/section'
 import { useUsers } from '@/hooks/useUsers'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/func/utils'
 import { LoaderIcon } from 'lucide-react'
 import { columns } from './columns'
 import { DataTable } from './data-table'

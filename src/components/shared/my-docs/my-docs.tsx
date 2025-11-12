@@ -4,14 +4,15 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
 import { LessonWithWords } from '@/types/types'
-import { EllipsisVertical, LoaderIcon } from 'lucide-react'
-import Image from 'next/image'
+import { Brain, Delete, EllipsisVertical, MonitorDown, Pencil } from 'lucide-react'
 import Link from 'next/link'
 import { DeleteDialog } from '../delete-dialog'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
@@ -25,13 +26,10 @@ export const MyDocs: React.FC = () => {
 		return <div className='text-red-500'>Error loading documents: {error.message}</div>
 	}
 
-	if (isPending) {
-		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
-	}
+	// if (isPending) {
+	// 	return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
+	// }
 
-	if (!data || !data.lessons) {
-		return <div>No documents found</div>
-	}
 	return (
 		<Section>
 			<div className='flex items-center justify-between mb-4'>
@@ -40,9 +38,33 @@ export const MyDocs: React.FC = () => {
 					<Button className='w'>Create lesson</Button>
 				</Link>
 			</div>
-			{data.lessons.length > 0 ? (
+			{isPending ? (
+				<>
+					{[...Array(6)].map((_, i) => (
+						<div
+							key={i}
+							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer flex justify-between items-center group mb-3'
+						>
+							<div className='animate-pulse'>
+								<div className='flex items-center gap-3 mb-3'>
+									<div className='w-6 h-6 bg-gray-200 rounded'></div>
+									{/* <div className='h-6 bg-gray-200 rounded w-3/4'></div> */}
+								</div>
+								{/* <div className='space-y-2 mb-4'> 
+									<div className='h-4 bg-gray-200 rounded w-full'></div>
+									<div className='h-4 bg-gray-200 rounded w-2/3'></div>
+								</div> */}
+								<div className='flex justify-between items-center'>
+									<div className='h-4 bg-gray-200 rounded w-20'></div>
+									{/* <div className='h-4 bg-gray-200 rounded w-24'></div> */}
+								</div>
+							</div>
+						</div>
+					))}
+				</>
+			) : data?.lessons.length > 0 ? (
 				<div className='grid gap-4'>
-					{data.lessons.map((lesson: LessonWithWords) => (
+					{data?.lessons.map((lesson: LessonWithWords) => (
 						<Link
 							href={`my-lessons/${lesson.id}`}
 							key={lesson.id}
@@ -57,18 +79,26 @@ export const MyDocs: React.FC = () => {
 
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>
-									<EllipsisVertical className='h-10 w-10 p-2 bg-white group-hover:border border-black rounded-full cursor-default' />
+									<Button variant='outline'>
+										<EllipsisVertical />
+									</Button>
 								</DropdownMenuTrigger>
-								<DropdownMenuContent align='end' onClick={e => e.stopPropagation()}>
+								<DropdownMenuContent
+									align='end'
+									className='w-56'
+									onClick={e => e.stopPropagation()}
+								>
 									<Link href={'/memorize'}>
 										<DropdownMenuItem
-											className='cursor-pointer flex items-center gap-2'
+											className='cursor-pointer'
 											onClick={() => {
 												localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
 											}}
 										>
-											<Image src={'/target-icon.webp'} alt='target-icon' height={8} width={23} />
 											MEMORIZE
+											<DropdownMenuShortcut>
+												<Brain />
+											</DropdownMenuShortcut>
 										</DropdownMenuItem>
 									</Link>
 									<DialogTitleEdit
@@ -76,11 +106,13 @@ export const MyDocs: React.FC = () => {
 										currentTitle={lesson.title}
 										trigger={
 											<DropdownMenuItem
-												className='cursor-pointer flex items-center gap-2'
+												className='cursor-pointer'
 												onSelect={e => e.preventDefault()}
 											>
-												<Image src={'/edit-icon.webp'} alt='target-icon' height={8} width={23} />
 												EDIT TITLE
+												<DropdownMenuShortcut>
+													<Pencil />
+												</DropdownMenuShortcut>
 											</DropdownMenuItem>
 										}
 									/>
@@ -88,31 +120,30 @@ export const MyDocs: React.FC = () => {
 										lesson={lesson}
 										trigger={
 											<DropdownMenuItem
-												className='cursor-pointer flex items-center gap-2'
+												className='cursor-pointer'
 												onSelect={e => e.preventDefault()}
 											>
-												<Image
-													src={'/download-icon.webp'}
-													alt='target-icon'
-													height={8}
-													width={23}
-												/>
 												Download PDF
+												<DropdownMenuShortcut>
+													<MonitorDown />
+												</DropdownMenuShortcut>
 											</DropdownMenuItem>
 										}
 									/>
-
+									<DropdownMenuSeparator />
 									<DeleteDialog
 										isPending={deleteIsPending}
 										deleteItemFn={deleteLessonById}
 										itemId={lesson.id}
 										dialogTrigger={
 											<DropdownMenuItem
-												className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
+												className='cursor-pointer flex items-center gap-2 text-red-400 '
 												onSelect={e => e.preventDefault()}
 											>
-												<Image src={'/delete-icon.webp'} alt='delete-icon' width={20} height={20} />
 												DELETE
+												<DropdownMenuShortcut>
+													<Delete className='text-red-400 ' />
+												</DropdownMenuShortcut>
 											</DropdownMenuItem>
 										}
 									/>

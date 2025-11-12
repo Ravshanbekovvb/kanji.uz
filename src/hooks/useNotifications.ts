@@ -1,5 +1,6 @@
 import { Notification } from '@/lib'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryClient } from '@/lib/query-client'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 interface NotificationAllApiResponse {
@@ -43,8 +44,6 @@ export function useNotificationsPrivate() {
 	return { data: data || [], isPending, error }
 }
 export function useCreateNotification() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['users', 'create'],
 		mutationFn: async (data: {
@@ -77,8 +76,6 @@ export function useCreateNotification() {
 }
 
 export function useDeleteNotification() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['delete Notification'],
 		mutationFn: async (notificationId: string) => {
@@ -99,8 +96,6 @@ export function useDeleteNotification() {
 }
 
 export function useEditNotification() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['notifications', 'edit'],
 		mutationFn: async (data: {
@@ -149,8 +144,6 @@ export function useUserCombinedNotifications() {
 }
 
 export function useMarkAsRead() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['notifications', 'mark-as-read'],
 		mutationFn: async (notificationId: string) => {
@@ -177,8 +170,6 @@ export function useMarkAsRead() {
 }
 
 export function useMarkPublicAsRead() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['notifications', 'mark-public-as-read'],
 		mutationFn: async (notificationId: string) => {
@@ -205,8 +196,6 @@ export function useMarkPublicAsRead() {
 }
 
 export function useMarkAllAsRead() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['notifications', 'mark-all-as-read'],
 		mutationFn: async (userId: string) => {

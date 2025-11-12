@@ -1,6 +1,6 @@
 import { apiResponse, apiResponseError } from '@/lib'
-import { lessonService } from '@/lib/lesson.service'
-import { wordService } from '@/lib/word.service'
+import { lessonService } from '@/lib/services/lesson.service'
+import { wordService } from '@/lib/services/word.service'
 import { ApiResponseType, JWTType } from '@/types/types'
 import * as jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
