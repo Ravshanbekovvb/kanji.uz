@@ -4,6 +4,7 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useDeleteLesson } from '@/hooks/useLessons'
@@ -46,11 +47,14 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					deleteItemFn={handleDeleteUser}
 					dialogTrigger={
 						<DropdownMenuItem
-							className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
+							className='cursor-pointer  text-red-400'
 							onSelect={e => e.preventDefault()}
 						>
-							<Trash2 color='red' />
+							<Trash2 />
 							DELETE
+							<DropdownMenuShortcut>
+								<Trash2 className='text-red-400' />
+							</DropdownMenuShortcut>
 						</DropdownMenuItem>
 					}
 					itemId={row.original.id}
@@ -59,12 +63,12 @@ export const Actions: React.FC<Props> = ({ row }) => {
 				<DialogSelectTypePdf
 					lesson={row.original as any}
 					trigger={
-						<DropdownMenuItem
-							className='cursor-pointer flex items-center gap-2'
-							onSelect={e => e.preventDefault()}
-						>
+						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()}>
 							<Download color='black' />
 							DOWNLOAD
+							<DropdownMenuShortcut>
+								<Download />
+							</DropdownMenuShortcut>
 						</DropdownMenuItem>
 					}
 				/>

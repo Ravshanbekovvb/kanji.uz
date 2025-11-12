@@ -2,9 +2,9 @@
 
 import { logoFont } from '@/fonts/font'
 // import { useTranslations } from 'next-intl'
-import { Navigation } from './navigation'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/func/utils'
 import { useStore } from '@/store/store'
+import { Navigation } from './navigation'
 
 type Props = {
 	className?: string
@@ -25,7 +25,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 				href='/'
 				className={`min-h-[75px] flex justify-center items-center text-2xl font-bold uppercase tracking-widest border-b border-b-black pt-3 text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600 ${logoFont.className}`}
 			>
-				tsukurou!
+				tsukurou
 			</a>
 
 			<Navigation />

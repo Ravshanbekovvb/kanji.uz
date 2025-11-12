@@ -1,4 +1,4 @@
-import { apiResponse, apiResponseError, userService } from '@/lib'
+import { apiResponse, apiResponseError, isAdmin, userService } from '@/lib'
 import {
 	type ApiResponseType,
 	CreateUserWithRepeatPasswordRequestType,
@@ -24,7 +24,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<ApiRespon
 		return apiResponse({ success: false, message: 'Token is expired', data: null }, { status: 401 })
 	}
 	const payload: CreateUserWithRepeatPasswordRequestType = await request.json()
-
+	if (!(await isAdmin(accessToken))) {
+		return apiResponse(
+			{ success: false, message: 'you are not Admin!', data: null },
+			{ status: 401 }
+		)
+	}
 	try {
 		const createdUser = await userService.create(payload)
 

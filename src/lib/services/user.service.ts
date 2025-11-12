@@ -3,10 +3,11 @@ import {
 	CreateUserWithRepeatPasswordRequestType,
 	UserWithTokens,
 } from '@/types/types'
-import { prisma, PrismaClient } from './prisma'
+import { prisma, PrismaClient } from '../prisma'
 
 import { BadRequest, ConflictError, NotFoundError } from '@/types/errors'
 import * as bcrypt from 'bcrypt'
+import { User } from '../../../prisma/__generated__'
 
 class UserService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -102,18 +103,13 @@ class UserService {
 		return updatedUser
 	}
 
-	async deleteById(id: string): Promise<UserWithTokens> {
+	async deleteById(id: string): Promise<User> {
 		const existingUser = await this.findById(id)
-
 		const deletedUser = await this.prisma.user.delete({
 			where: {
 				id: existingUser.id,
 			},
-			include: {
-				tokens: true,
-			},
 		})
-
 		return deletedUser
 	}
 

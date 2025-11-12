@@ -1,7 +1,7 @@
 import { ConflictError, NotFoundError } from '@/types/errors'
 import { SignUpType } from '@/types/types'
-import { generateRotatingPassword } from './password-generate'
-import { prisma, PrismaClient } from './prisma'
+import { generateRotatingPassword } from '../func/password-generate'
+import { prisma, PrismaClient } from '../prisma'
 import { sendMailService } from './send-mail.service'
 import { userService } from './user.service'
 

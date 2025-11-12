@@ -62,10 +62,7 @@ export default function Page() {
 						<span className='font-semibold text-gray-700'>Role:</span>
 						<span className='text-gray-900 capitalize'>{data.role}</span>
 					</div>
-					<div className='flex items-center gap-2'>
-						<span className='font-semibold text-gray-700'>Language:</span>
-						<span className='text-gray-900 uppercase'>{data.userLang}</span>
-					</div>
+
 					<div className='flex items-center gap-2'>
 						<span className='font-semibold text-gray-700'>Created:</span>
 						<span className='text-gray-900'>{new Date(data.createdAt).toLocaleDateString()}</span>

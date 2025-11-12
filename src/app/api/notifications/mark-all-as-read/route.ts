@@ -1,5 +1,5 @@
 import { apiResponse, apiResponseError } from '@/lib'
-import { notificationService } from '@/lib/notification.service'
+import { notificationService } from '@/lib/services/notification.service'
 import { ApiResponseType } from '@/types/types'
 import { NextRequest, NextResponse } from 'next/server'
 

@@ -1,11 +1,12 @@
 'use client'
 import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, defaultNavbar, userNavbar } from '@/lib/db'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/func/utils'
 import {
 	BadgePlusIcon,
 	BellDot,
 	BookHeart,
+	BookOpenText,
 	Brain,
 	ChartColumnDecreasing,
 	ChevronRightIcon,
@@ -33,6 +34,7 @@ export const navbarIconMap = {
 	help: <HelpCircle />,
 	logout: <LogOut />,
 	FileUser: <FileUser />,
+	reading: <BookOpenText />,
 	ChartColumnDecreasing: <ChartColumnDecreasing />,
 } as const
 type NavbarIconKey = keyof typeof navbarIconMap
@@ -50,8 +52,8 @@ export const Navigation: React.FC = () => {
 				menuItem.className && menuItem.title === 'Help'
 					? 'bg-green-500/30'
 					: menuItem.className && menuItem.title === 'Logout'
-					? 'bg-red-500/30'
-					: 'bg-blue-200'
+						? 'bg-red-500/30'
+						: 'bg-blue-200'
 
 			return (
 				<li
@@ -122,8 +124,8 @@ export const Navigation: React.FC = () => {
 				menuItem.className && menuItem.title === 'Help'
 					? 'bg-green-500/30'
 					: menuItem.className && menuItem.title === 'Logout'
-					? 'bg-red-500/30'
-					: 'bg-blue-200'
+						? 'bg-red-500/30'
+						: 'bg-blue-200'
 
 			return (
 				<li
@@ -189,8 +191,8 @@ export const Navigation: React.FC = () => {
 				menuItem.className && menuItem.title === 'Help'
 					? 'bg-green-500/30'
 					: menuItem.className && menuItem.title === 'Logout'
-					? 'bg-red-500/30'
-					: 'bg-blue-200'
+						? 'bg-red-500/30'
+						: 'bg-blue-200'
 
 			return (
 				<li
@@ -256,8 +258,8 @@ export const Navigation: React.FC = () => {
 			menuItem.className && menuItem.title === 'Help'
 				? 'bg-green-500/30'
 				: menuItem.className && menuItem.title === 'Logout'
-				? 'bg-red-500/30'
-				: 'bg-blue-200'
+					? 'bg-red-500/30'
+					: 'bg-blue-200'
 
 		return (
 			<li

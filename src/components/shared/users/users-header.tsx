@@ -3,7 +3,7 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { useSignupRequestCounts } from '@/hooks/useSignupRequests'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/func/utils'
 import { ClipboardList } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect } from 'react'

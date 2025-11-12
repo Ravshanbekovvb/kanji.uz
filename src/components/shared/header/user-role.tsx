@@ -1,6 +1,6 @@
 'use client'
 import { useAuth } from '@/contexts/auth-context'
-import { cn } from '@/lib/utils'
+import { cn } from '@/lib/func/utils'
 
 type UserRoleProps = {
 	className?: string

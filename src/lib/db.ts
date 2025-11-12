@@ -22,6 +22,12 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/my-lessons',
 	},
 	{
+		icon: 'reading',
+		title: 'Readings',
+		link: '/readings',
+		badge: 'NEW!',
+	},
+	{
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',

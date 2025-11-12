@@ -1,5 +1,6 @@
+import { queryClient } from '@/lib/query-client'
 import { CreateUserRequestType, CreateUserWithRepeatPasswordRequestType } from '@/types/types'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
 
@@ -14,18 +15,16 @@ export function useUsers(isEnabled: boolean) {
 }
 
 export function useDeleteUser() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['delete user'],
-		mutationFn: async (email: string) => {
-			const res = await fetch(`/api/users/delete/${email}`, { method: 'DELETE' })
-
+		mutationFn: async (id: string) => {
+			const res = await fetch(`/api/users/delete/${id}`, { method: 'DELETE' })
 			if (!res.ok) throw new Error('Failed to delete user')
 			return res.json()
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['Users'] })
+			toast.success('User deleted succesfully')
 		},
 		onError: (e: any) => {
 			toast.error(e.message)
@@ -34,8 +33,6 @@ export function useDeleteUser() {
 }
 
 export function useCreateUser() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['users', 'create'],
 		mutationFn: async (data: CreateUserWithRepeatPasswordRequestType) => {
@@ -63,8 +60,6 @@ export function useCreateUser() {
 	})
 }
 export function useEditUser(id: string) {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['users', 'edit'],
 		mutationFn: async (data: CreateUserRequestType) => {

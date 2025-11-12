@@ -4,6 +4,8 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useDeleteUser } from '@/hooks/useUsers'
@@ -19,20 +21,6 @@ interface Props {
 export const Actions: React.FC<Props> = ({ row }) => {
 	const { mutate: deleteUser, isPending } = useDeleteUser()
 
-	const handleDeleteUser = (
-		id: string,
-		callbacks?: { onSuccess?: () => void; onError?: (error: any) => void }
-	) => {
-		deleteUser(id, {
-			onSuccess: () => {
-				callbacks?.onSuccess?.()
-			},
-			onError: error => {
-				callbacks?.onError?.(error)
-			},
-		})
-	}
-
 	return (
 		<DropdownMenu>
 			<DropdownMenuTrigger asChild>
@@ -40,31 +28,32 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					<EllipsisVertical className='h-4 w-4' />
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='end' onClick={e => e.stopPropagation()}>
+			<DropdownMenuContent align='end' className='w-56' onClick={e => e.stopPropagation()}>
 				<EditUserDialog
 					currentData={row}
 					trigger={
-						<DropdownMenuItem
-							className='cursor-pointer flex items-center gap-2'
-							onSelect={e => e.preventDefault()}
-						>
-							<Edit color='black' />
+						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()}>
 							EDIT
+							<DropdownMenuShortcut>
+								<Edit />
+							</DropdownMenuShortcut>
 						</DropdownMenuItem>
 					}
-				></EditUserDialog>
-
+				/>
+				<DropdownMenuSeparator />
 				<DeleteDialog
 					isPending={isPending}
-					deleteItemFn={handleDeleteUser}
+					deleteItemFn={deleteUser}
 					itemId={row.id}
 					dialogTrigger={
 						<DropdownMenuItem
-							className='cursor-pointer flex items-center gap-2 text-red-500 hover:text-red-600'
+							className='cursor-pointer text-red-400 '
 							onSelect={e => e.preventDefault()}
 						>
-							<Trash2 color='red' />
 							DELETE
+							<DropdownMenuShortcut>
+								<Trash2 className=' text-red-400 ' />
+							</DropdownMenuShortcut>
 						</DropdownMenuItem>
 					}
 				/>

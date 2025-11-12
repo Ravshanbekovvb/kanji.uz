@@ -108,8 +108,14 @@ export const DialogCreateUser: React.FC<DialogCreateUserProps> = ({ triger }) =>
 						</div>
 					</div>
 
-					<div className='flex justify-start pt-4'>
-						{isPending ? <Loader variant='default' /> : <Button type='submit'>Create</Button>}
+					<div className='mt-4'>
+						{isPending ? (
+							<Loader variant='default' className='w-full' />
+						) : (
+							<Button className='w-full' type='submit'>
+								Create
+							</Button>
+						)}
 					</div>
 				</form>
 			</DialogContent>

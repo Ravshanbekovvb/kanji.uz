@@ -1,6 +1,6 @@
 import { JWTType } from '@/types/types'
 import * as jwt from 'jsonwebtoken'
-import { userService } from './user.service'
+import { userService } from '../services/user.service'
 
 const JWT_SECRET_KEY = process.env.JWT_SECRET!
 

@@ -26,6 +26,7 @@ const COLORS = [
 ]
 
 interface ChartData {
+	id: string
 	name: string
 	loginCount: number
 	role: string
@@ -92,6 +93,7 @@ export const UserLoginChart = () => {
 
 	// Transform data for the chart
 	const chartData: ChartData[] = users.map((user: UserLoginStats) => ({
+		id: user.id,
 		name: user.userName,
 		loginCount: user.loginCount,
 		role: user.role,
@@ -139,7 +141,7 @@ export const UserLoginChart = () => {
 				</div>
 				<div className='mt-4 flex flex-wrap gap-2'>
 					{topUsers.map((user, index) => (
-						<div key={user.name} className='flex items-center space-x-2'>
+						<div key={user.id} className='flex items-center space-x-2'>
 							<div
 								className='w-4 h-4 rounded'
 								style={{ backgroundColor: COLORS[index % COLORS.length] }}

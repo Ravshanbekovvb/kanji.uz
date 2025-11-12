@@ -1,7 +1,7 @@
 'use client'
 import { Card, CardContent } from '@/components/ui/card'
 import { Carousel, CarouselApi, CarouselContent, CarouselItem } from '@/components/ui/carousel'
-import { setTextSize } from '@/lib/create-pdf'
+import { setTextSize } from '@/lib/func/create-pdf'
 import { DarsData } from '@/types/types'
 import clsx from 'clsx'
 import { useEffect, useState } from 'react'

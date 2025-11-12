@@ -1,5 +1,5 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { createContext, useContext, useEffect, useState } from 'react'
 interface Lesson {
 	title: string
@@ -14,6 +14,7 @@ interface User {
 }
 
 interface AuthContextType {
+	isSignIn: boolean
 	user: User | null
 	isLoading: boolean
 	isAuthenticated: boolean
@@ -30,8 +31,10 @@ interface AuthProviderProps {
 
 export function AuthProvider({ children }: AuthProviderProps) {
 	const [user, setUser] = useState<User | null>(null)
-	const [isLoading, setIsLoading] = useState(true)
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [isSignIn, setisSignIn] = useState<boolean>(false)
 	const router = useRouter()
+	const pathname = usePathname()
 
 	const checkAuth = async () => {
 		try {
@@ -64,7 +67,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 		password: string
 	): Promise<{ success: boolean; error?: string }> => {
 		try {
-			setIsLoading(true)
+			setisSignIn(true)
 			const response = await fetch('/api/auth/login', {
 				method: 'POST',
 				headers: {
@@ -88,7 +91,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 			console.error('Login failed:', error)
 			return { success: false, error: 'Network error. Please try again.' }
 		} finally {
-			setIsLoading(false)
+			setisSignIn(false)
 		}
 	}
 
@@ -120,6 +123,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
 		user,
 		isLoading,
 		isAuthenticated: !!user,
+		isSignIn,
 		login,
 		logout,
 		checkAuth,

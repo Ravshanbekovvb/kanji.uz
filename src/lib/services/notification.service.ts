@@ -1,6 +1,7 @@
 import { NotFoundError } from '@/types/errors'
-import { getSearchParams } from './get-search-params'
-import { Notification, prisma, PrismaClient } from './prisma'
+import { Notification } from '../../../prisma/__generated__'
+import { getSearchParams } from '../func/get-search-params'
+import { prisma, PrismaClient } from '../prisma'
 
 class NotificationService {
 	constructor(private readonly prisma: PrismaClient) {}

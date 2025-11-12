@@ -1,4 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { queryClient } from '@/lib/query-client'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 export function useSignupRequests(isEnabled: boolean) {
@@ -20,8 +21,6 @@ export function useSignupRequestCounts() {
 }
 
 export function useDeleteSignupRequest() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['delete SignupRequest'],
 		mutationFn: async (id: string) => {
@@ -40,8 +39,6 @@ export function useDeleteSignupRequest() {
 }
 
 export function useCreateSignupRequest() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['SignupRequest', 'create'],
 		mutationFn: async (data: { note: string; name: string; email: string }) => {
@@ -69,8 +66,6 @@ export function useCreateSignupRequest() {
 	})
 }
 export function useUpdateStatusSignupRequest() {
-	const queryClient = useQueryClient()
-
 	return useMutation({
 		mutationKey: ['SignupRequests', 'update'],
 		mutationFn: async ({ id, status }: { status: 'APPROVED' | 'REJECTED'; id: string }) => {

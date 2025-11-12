@@ -7,7 +7,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
-import { createPdf } from '@/lib/create-pdf'
+import { createPdf } from '@/lib/func/create-pdf'
 import { LessonWithWords } from '@/types/types'
 import { Download } from 'lucide-react'
 import Image from 'next/image'

@@ -1,5 +1,6 @@
 import { NotFoundError } from '@/types/errors'
-import { Lesson, prisma, PrismaClient, User, Word } from './prisma'
+import { Lesson, User, Word } from '../../../prisma/__generated__'
+import { prisma, PrismaClient } from '../prisma'
 
 type LessonWithUser = Lesson & {
 	user: User

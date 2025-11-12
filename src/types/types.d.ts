@@ -63,7 +63,42 @@ type JWTType = JwtPayload & {
 	email: string
 	role: UserRole
 }
+type ReadingType = {
+	title: string
+	jlptLevel: 'N1' | 'N2' | 'N3' | 'N4' | 'N5'
+	id: string
+	createdAt: Date
+	readingTests: Test[]
+}
+type Test = {
+	id: string
+	mainQuestion: string
+	authorId: string
+	author: { userName: string }
+	text: string
+	difficulty: 'MEDIUM' | 'EASY' | 'HARD'
+	questions: Question[]
+}
+type Question = {
+	id: string
+	question: string
+	options: string[]
+	correctAnswer: number
+}
 
+// Client-side types without IDs (for creating new records)
+type CreateTest = {
+	mainQuestion: string
+	authorId: string
+	text: string
+	difficulty: 'MEDIUM' | 'EASY' | 'HARD'
+	questions: CreateQuestion[]
+}
+type CreateQuestion = {
+	question: string
+	options: string[]
+	correctAnswer: number
+}
 interface DarsData {
 	id: string
 	title: string

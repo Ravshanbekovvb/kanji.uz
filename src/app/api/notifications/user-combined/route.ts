@@ -1,5 +1,5 @@
 import { apiResponse, apiResponseError } from '@/lib'
-import { notificationService } from '@/lib/notification.service'
+import { notificationService } from '@/lib/services/notification.service'
 import { ApiResponseType, JWTType } from '@/types/types'
 import * as jwt from 'jsonwebtoken'
 import { NextRequest, NextResponse } from 'next/server'
