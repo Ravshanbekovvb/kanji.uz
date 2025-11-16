@@ -182,7 +182,6 @@ async function seed() {
 	await prisma.readingProgress.create({
 		data: {
 			userId: user2.id,
-			testId: test1.id,
 			testLevel: 'EASY',
 			isCorrect: true,
 			solvedTime: 35,
@@ -192,7 +191,6 @@ async function seed() {
 	await prisma.readingProgress.create({
 		data: {
 			userId: user3.id,
-			testId: test1.id,
 			testLevel: 'EASY',
 			isCorrect: false,
 			solvedTime: 50,
