@@ -119,7 +119,7 @@ export default function MobileNav() {
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
 						<Image
-							src={'/logo-1.png'}
+							src={'/logo.png'}
 							alt='Main logo'
 							height={35}
 							width={35}
