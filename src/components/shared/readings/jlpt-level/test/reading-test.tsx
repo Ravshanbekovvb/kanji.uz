@@ -1,8 +1,10 @@
 'use client'
 import { Loader } from '@/components/shared/loader'
+import { Skleton } from '@/components/shared/loader/skleton'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
-import { useReadingTests } from '@/hooks/useReadings'
+import { useCreateReadingPregress, useReadingTests } from '@/hooks/useReadings'
 import { User } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { BackLink } from '../../../back-link'
@@ -30,6 +32,7 @@ interface TestData {
 }
 
 export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
+	const { mutate: createReadingProgress } = useCreateReadingPregress()
 	const { data, isPending, error } = useReadingTests(testId)
 	const [mounted, setMounted] = useState(false)
 	const [currentQuestion, setCurrentQuestion] = useState(0)
@@ -37,6 +40,7 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 	const [showResults, setShowResults] = useState(false)
 	const [showCountdown, setShowCountdown] = useState(false) // Start as false
 	const [testStarted, setTestStarted] = useState(false)
+	const [startTime, setStartTime] = useState<number>(0)
 	if (error) {
 		return <>error</>
 	}
@@ -54,92 +58,6 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 		)
 	}
 
-	if (isPending) {
-		return (
-			<Section>
-				<BackLink href={`/readings/${level}`} text={`Back to ${level?.toUpperCase() || 'Level'}`} />
-				<div className='animate-pulse'>
-					{/* Timer skeleton */}
-					<div className='mb-6 flex justify-center'>
-						<div className='h-8 bg-gray-200 rounded w-20'></div>
-					</div>
-
-					{/* Reading test skeleton */}
-					<div className='flex flex-col gap-8'>
-						{[...Array(1)].map((_, i) => (
-							<div key={i}>
-								{/* Reading text skeleton */}
-								<div className='bg-gray-50 p-6 rounded-xl mb-5'>
-									{/* Author section */}
-									<div className='flex items-center gap-3 mb-5'>
-										<div className='w-6 h-6 bg-gray-200 rounded'></div>
-										<div className='h-6 bg-gray-200 rounded w-24'></div>
-									</div>
-
-									{/* Problem header */}
-									<div className='mb-5 flex items-center justify-between'>
-										<div className='flex items-center gap-2'>
-											<div className='bg-gray-300 rounded-md w-10 h-10'></div>
-											<div className='h-6 bg-gray-200 rounded w-16'></div>
-											<div className='h-6 bg-gray-200 rounded w-80 ml-5'></div>
-										</div>
-										<div className='h-6 bg-gray-200 rounded w-20'></div>
-									</div>
-
-									{/* Reading text lines */}
-									<div className='space-y-3'>
-										<div className='h-5 bg-gray-200 rounded w-full'></div>
-										<div className='h-5 bg-gray-200 rounded w-11/12'></div>
-										<div className='h-5 bg-gray-200 rounded w-full'></div>
-										<div className='h-5 bg-gray-200 rounded w-10/12'></div>
-										<div className='h-5 bg-gray-200 rounded w-full'></div>
-										<div className='h-5 bg-gray-200 rounded w-9/12'></div>
-									</div>
-								</div>
-
-								{/* Questions skeleton */}
-								{[...Array(2)].map((_, qIndex) => (
-									<div key={qIndex} className='p-6'>
-										{/* Question title */}
-										<div className='h-6 bg-gray-200 rounded w-3/4 mb-4'></div>
-
-										{/* Answer options */}
-										<div className='space-y-3'>
-											{[...Array(4)].map((_, oIndex) => (
-												<div key={oIndex} className='w-full p-4 rounded-lg border border-gray-200'>
-													<div className='flex items-center'>
-														<div className='h-5 bg-gray-200 rounded w-6 mr-3'></div>
-														<div className='h-5 bg-gray-200 rounded w-2/3'></div>
-													</div>
-												</div>
-											))}
-										</div>
-									</div>
-								))}
-							</div>
-						))}
-					</div>
-
-					{/* Finish button skeleton */}
-					<div className='mb-6 text-center'>
-						<div className='h-12 bg-gray-200 rounded w-32 mx-auto'></div>
-					</div>
-				</div>
-			</Section>
-		)
-	}
-
-	// if (!n2TestData) {
-	// 	return (
-	// 		<Section>
-	// 			<BackLink href={`/readings/${level}`} text={`Back to ${level?.toUpperCase() || 'Level'}`} />
-	// 			<div className='text-center py-12'>
-	// 				<div className='text-gray-400 text-lg'>Test not found</div>
-	// 			</div>
-	// 		</Section>
-	// 	)
-	// }
-
 	const handleAnswerSelect = (testIndex: number, questionIndex: number, answerIndex: number) => {
 		// Only allow answer selection after test has started
 		if (!testStarted) {
@@ -155,28 +73,59 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 	const handleCountdownComplete = () => {
 		setShowCountdown(false)
 		setTestStarted(true)
+		setStartTime(Date.now()) // Start timing the test
 	}
 
 	const calculateScore = () => {
 		let correct = 0
 		let totalQuestions = 0
 
-		// n2TestData.forEach((test, testIndex) => {
-		// 	test.questions.forEach((question, questionIndex) => {
-		// 		const globalQuestionIndex = testIndex * 1000 + questionIndex
-		// 		if (selectedAnswers[globalQuestionIndex] === question.correctAnswer) {
-		// 			correct++
-		// 		}
-		// 		totalQuestions++
-		// 	})
-		// })
+		if (!data) {
+			return { correct: 0, totalQuestions: 0 }
+		}
+
+		data.readingTests.forEach((test, testIndex) => {
+			test.questions.forEach((question, questionIndex) => {
+				const globalQuestionIndex = testIndex * 1000 + questionIndex
+				if (selectedAnswers[globalQuestionIndex] === question.correctAnswer) {
+					correct++
+				}
+				totalQuestions++
+			})
+		})
 
 		return { correct, totalQuestions }
 	}
 
+	const handleFinishTest = () => {
+		if (!data) return
+
+		const scoreResult = calculateScore()
+		const { correct, totalQuestions } = scoreResult
+		const solvedTime = Date.now() - startTime
+		const isCorrect = totalQuestions > 0 ? correct / totalQuestions >= 0.7 : false // 70% or higher is considered correct
+
+		// Get the most common difficulty level from the tests
+		const difficulties = data.readingTests.map(test => test.difficulty)
+		const mostCommonDifficulty = difficulties.reduce((a, b, i, arr) =>
+			arr.filter(v => v === a).length >= arr.filter(v => v === b).length ? a : b
+		)
+
+		createReadingProgress({
+			testLevel: mostCommonDifficulty,
+			isCorrect,
+			solvedTime: Math.round(solvedTime / 1000), // Convert to seconds
+		})
+
+		setShowResults(true)
+	}
+
 	if (showResults) {
-		const { correct, totalQuestions } = calculateScore()
-		const percentage = Math.round((correct / totalQuestions) * 100)
+		const scoreResult = calculateScore()
+		if (!scoreResult) return null
+
+		const { correct, totalQuestions } = scoreResult
+		const percentage = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0
 
 		return (
 			<Section>
@@ -188,30 +137,25 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 						<p className='text-xl text-gray-700 mb-2'>
 							You got {correct} out of {totalQuestions} questions correct
 						</p>
-						<div
-							className={`inline-block px-4 py-2 rounded-full text-white font-medium ${
-								percentage >= 80
-									? 'bg-green-500'
-									: percentage >= 60
-										? 'bg-yellow-500'
-										: 'bg-red-500'
-							}`}
+						<Badge
+							variant={percentage >= 80 ? 'approved' : percentage >= 60 ? 'pending' : 'destructive'}
 						>
 							{percentage >= 80 ? 'Excellent!' : percentage >= 60 ? 'Good!' : 'Keep practicing!'}
-						</div>
+						</Badge>
 					</div>
-					<button
+					<Button
 						onClick={() => {
 							setCurrentQuestion(0)
 							setSelectedAnswers([])
 							setShowResults(false)
 							setTestStarted(false)
 							setShowCountdown(true) // Restart countdown
+							setStartTime(0) // Reset start time
 						}}
-						className='bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors'
+						variant={'keyboard_Button_space'}
 					>
 						Try Again
-					</button>
+					</Button>
 				</div>
 			</Section>
 		)
@@ -224,25 +168,42 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 
 			<div>
 				<div className='flex flex-col gap-8'>
-					{/* Reading Text */}
-					{data.readingTests.length > 0
-						? data.readingTests.map((test, index) => (
-								<div key={test.id}>
-									<div className='bg-gray-50 p-6 rounded-xl mb-5'>
-										<div className='flex items-center gap-3 mb-5'>
-											<User />
-											<Badge variant={'outline'}>
-												{typeof test.author === null ? 'Deleted Account' : test.author.userName}
-											</Badge>
-										</div>
-										<div className='mb-5 flex items-center justify-between'>
-											<div className='flex items-center gap-2 font-semibold '>
-												<span className='bg-black rounded-md w-10 h-10'></span>
-												問題 {index + 1}
-												<span className='pl-5'>{test.mainQuestion}</span>
+					{isPending ? (
+						<div className='animate-pulse'>
+							<div className='flex flex-col gap-8'>
+								{[...Array(1)].map((_, i) => (
+									<div key={i}>
+										<Skleton variant='reading-test-text' />
+										{[...Array(2)].map((_, qIndex) => (
+											<div key={qIndex} className='p-6'>
+												<Skleton variant='reading-test-question' />
 											</div>
-											<span
-												className={`
+										))}
+									</div>
+								))}
+							</div>
+							<div className='mb-6 text-center'>
+								<Skleton />
+							</div>
+						</div>
+					) : data && data.readingTests.length > 0 ? (
+						data.readingTests.map((test, index) => (
+							<div key={test.id}>
+								<div className='bg-gray-50 p-6 rounded-xl mb-5'>
+									<div className='flex items-center gap-3 mb-5'>
+										<User />
+										<Badge variant={'outline'}>
+											{!test.author ? 'Deleted Account' : test.author.userName}
+										</Badge>
+									</div>
+									<div className='mb-5 flex items-center justify-between'>
+										<div className='flex items-center gap-2 font-semibold '>
+											<span className='bg-black rounded-md w-10 h-10'></span>
+											問題 {index + 1}
+											<span className='pl-5'>{test.mainQuestion}</span>
+										</div>
+										<span
+											className={`
 											px-3 py-1 text-sm font-semibold rounded-full 
 											${
 												test.difficulty === 'EASY'
@@ -252,61 +213,56 @@ export const ReadingTest: React.FC<ReadingTestProps> = ({ testId, level }) => {
 														: 'bg-red-100 text-red-700'
 											}
 											`}
-											>
-												{test.difficulty}
-											</span>
-										</div>
-
-										<div className='text-gray-700 leading-relaxed whitespace-pre-line'>
-											{test.text}
-										</div>
+										>
+											{test.difficulty}
+										</span>
 									</div>
 
-									{/* Question */}
-									<div>
-										{test.questions.map((item, questionIndex) => (
-											<div key={item.id} className='p-6'>
-												<h3 className='text-lg font-semibold text-gray-900 mb-4'>
-													{item.question}
-												</h3>
-												<div className='space-y-3'>
-													{item.options.map((variant, optionIndex) => {
-														const globalQuestionIndex = index * 1000 + questionIndex
-														return (
-															<button
-																key={variant}
-																onClick={() =>
-																	handleAnswerSelect(index, questionIndex, optionIndex)
-																}
-																disabled={!testStarted && showCountdown}
-																className={`w-full p-4 text-left rounded-lg border transition-all ${
-																	selectedAnswers[globalQuestionIndex] === optionIndex
-																		? 'border-blue-500 bg-blue-50 text-blue-700'
-																		: 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
-																} ${!testStarted ? 'opacity-50 cursor-not-allowed' : ''}`}
-															>
-																<span className='font-medium mr-3'>{optionIndex + 1}.</span>
-																{variant}
-															</button>
-														)
-													})}
-												</div>
-											</div>
-										))}
+									<div className='text-gray-700 leading-relaxed whitespace-pre-line'>
+										{test.text}
 									</div>
 								</div>
-							))
-						: 'xatolik 0 ta test !'}
+
+								{/* Question */}
+								<div>
+									{test.questions.map((item, questionIndex) => (
+										<div key={item.id} className='p-6'>
+											<h3 className='text-lg font-semibold text-gray-900 mb-4'>{item.question}</h3>
+											<div className='space-y-3'>
+												{item.options.map((variant, optionIndex) => {
+													const globalQuestionIndex = index * 1000 + questionIndex
+													return (
+														<button
+															key={variant}
+															onClick={() => handleAnswerSelect(index, questionIndex, optionIndex)}
+															disabled={!testStarted && showCountdown}
+															className={`w-full p-4 text-left rounded-lg border transition-all ${
+																selectedAnswers[globalQuestionIndex] === optionIndex
+																	? 'border-blue-500 bg-blue-50 text-blue-700'
+																	: 'border-gray-200 hover:border-gray-300 hover:bg-gray-50'
+															} ${!testStarted ? 'opacity-50 cursor-not-allowed' : ''}`}
+														>
+															<span className='font-medium mr-3'>{optionIndex + 1}.</span>
+															{variant}
+														</button>
+													)
+												})}
+											</div>
+										</div>
+									))}
+								</div>
+							</div>
+						))
+					) : (
+						<div className='text-center py-8'>
+							<p className='text-gray-500 text-lg'>Bu bo'limda hozircha testlar mavjud emas</p>
+						</div>
+					)}
 				</div>
 			</div>
-			{testStarted && (
+			{testStarted && data && data.readingTests.length > 0 && (
 				<div className='mb-6 text-center'>
-					<button
-						onClick={() => setShowResults(true)}
-						className='bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition-colors'
-					>
-						Finish Test
-					</button>
+					<Button onClick={handleFinishTest}>Finish Test</Button>
 				</div>
 			)}
 		</Section>

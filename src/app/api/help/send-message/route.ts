@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
 		// Format message for Telegram
 		const telegramMessage = `
- *🏛 TSUKUROU*
+ *🏛 KANJI.UZ*
  
 🆘 *Help Request*
 

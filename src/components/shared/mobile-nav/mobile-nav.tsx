@@ -8,7 +8,6 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/contexts/auth-context'
-import { logoFont } from '@/fonts/font'
 import {
 	Bell,
 	BookOpen,
@@ -22,6 +21,7 @@ import {
 	Settings,
 	Users,
 } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 export default function MobileNav() {
@@ -118,11 +118,13 @@ export default function MobileNav() {
 			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 pt-safe'>
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
-						<div
-							className={`text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent ${logoFont.className} uppercase`}
-						>
-							Tsukurou
-						</div>
+						<Image
+							src={'/logo-1.png'}
+							alt='Main logo'
+							height={35}
+							width={35}
+							className='rounded-md'
+						/>
 					</div>
 					<div className='flex items-center gap-2'>
 						{secondaryItems.map(item => {

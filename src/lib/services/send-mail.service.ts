@@ -33,7 +33,7 @@ class SendMailService {
             <!-- Header -->
             <tr>
               <td style="padding:20px 24px;background: linear-gradient(90deg,#4f46e5,#06b6d4);color:#fff;">
-                <h1 style="margin:0;font-size:20px;font-weight:600;">Tsukurou — Profil yaratildi</h1>
+                <h1 style="margin:0;font-size:20px;font-weight:600;">kanji.uz — Profil yaratildi</h1>
               </td>
             </tr>
 
@@ -74,7 +74,7 @@ class SendMailService {
             <tr>
               <td style="padding:18px 24px;background:#fbfbff;border-top:1px solid #eef2f7;">
                 <p style="margin:0;font-size:13px;color:#9aa3b2;">
-                  Tsukurou jamoasi • <a href="${process.env.APP_URL || '#'}" style="color:#4f46e5;text-decoration:none;">${process.env.APP_URL || 'Saytga o`tish'}</a>
+                  kanji.uz jamoasi • <a href="${process.env.APP_URL || '#'}" style="color:#4f46e5;text-decoration:none;">${process.env.APP_URL || 'Saytga o`tish'}</a>
                 </p>
               </td>
             </tr>

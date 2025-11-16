@@ -355,31 +355,34 @@ export const CreateReading: React.FC = () => {
 						<label className='text-sm font-medium text-gray-700'>Section Title</label>
 						{typeof isAddingReading.title === 'string' ? (
 							<Input type='text' value={isAddingReading.title} disabled />
-						) : !isCustomTitle ? (
-							<Select
-								onValueChange={val => {
-									if (val === 'custom') {
-										setIsCustomTitle(true)
-										setSelectedTitle('')
-									} else {
-										const selectedSection = readingSectionTitles?.find(t => t.id === val)
-										setSelectedTitle(selectedSection?.title || val)
-									}
-								}}
-							>
-								<SelectTrigger>
-									<SelectValue placeholder='Select or create section title' />
-								</SelectTrigger>
-								<SelectContent className='w-full'>
-									{readingSectionTitles?.map((t, i) => (
-										<SelectItem key={i} value={t.id}>
-											{t.title}
-										</SelectItem>
-									))}
-									<SelectItem value='custom'>+ New Title...</SelectItem>
-								</SelectContent>
-							</Select>
 						) : (
+							// ):
+							// ) : !isCustomTitle ? (
+							// 	<Select
+							// 		onValueChange={val => {
+							// 			if (val === 'custom') {
+							// 				setIsCustomTitle(true)
+							// 				setSelectedTitle('')
+							// 			} else {
+							// 				const selectedSection = readingSectionTitles?.find(t => t.id === val)
+							// 				setSelectedTitle(selectedSection?.title || val)
+							// 			}
+							// 		}}
+							// 	>
+							// 		<SelectTrigger>
+							// 			<SelectValue placeholder='Select or create section title' />
+							// 		</SelectTrigger>
+							// 		<SelectContent className='w-full'>
+							// 			{/* {readingSectionTitles &&
+							// 				readingSectionTitles.length > 0 &&
+							// 				readingSectionTitles.map((t, i) => (
+							// 					<SelectItem key={i} value={t.id}>
+							// 						{t.title}
+							// 					</SelectItem>
+							// 				))} */}
+							// 			<SelectItem value='custom'>+ New Title...</SelectItem>
+							// 		</SelectContent>
+							// 	</Select>
 							<div className='flex items-center gap-2 w-[520px]'>
 								<Input
 									value={selectedTitle}
@@ -387,9 +390,9 @@ export const CreateReading: React.FC = () => {
 									placeholder='Enter new section title...'
 									className='w-full'
 								/>
-								<Button type='button' variant='outline' onClick={() => setIsCustomTitle(false)}>
+								{/* <Button type='button' variant='outline' onClick={() => setIsCustomTitle(false)}>
 									Cancel
-								</Button>
+								</Button> */}
 							</div>
 						)}
 					</div>

@@ -1,7 +1,9 @@
 'use client'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
 import { useReadingAll, useReadingSectionByJlptLevelPrefetch } from '@/hooks/useReadings'
+import { ChartNoAxesCombined } from 'lucide-react'
 import Link from 'next/link'
 import { PageTitle } from '../title'
 import { ButtonVisibleForRole } from './button-visible-for-role'
@@ -20,11 +22,18 @@ export const Reading: React.FC = () => {
 		<Section>
 			<div className='flex items-center justify-between'>
 				<PageTitle title='Readings' />
-				<ButtonVisibleForRole
-					title='+ Add Reading'
-					visibleRole='TEACHER'
-					href='/readings/create-reading'
-				/>
+				<div className='flex items-center gap-3'>
+					<ButtonVisibleForRole
+						title='+ Add Reading'
+						visibleRole='TEACHER'
+						href='/readings/create-reading'
+					/>
+					<Link href={'readings/reading-progress'}>
+						<Button variant={'outline'}>
+							<ChartNoAxesCombined />
+						</Button>
+					</Link>
+				</div>
 			</div>
 			<div className='mt-6'>
 				<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5'>

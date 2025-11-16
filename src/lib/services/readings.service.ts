@@ -1,8 +1,8 @@
-import { ReadingType } from '@/types/types'
+import { CreateReadingProgress, ReadingType } from '@/types/types'
 import { prisma, PrismaClient } from '../prisma'
 
 import { ConflictError, NotFoundError } from '@/types/errors'
-import { ReadingSection } from '../../../prisma/__generated__'
+import { ReadingProgress, ReadingSection } from '../../../prisma/__generated__'
 
 class ReadingsService {
 	constructor(private readonly prisma: PrismaClient) {}
@@ -211,25 +211,6 @@ class ReadingsService {
 			},
 		]
 
-		// const existingReadingSections = await this.prisma.readingSection.findMany({
-		// 	include: {
-		// 		_count: {
-		// 			select: { readingTests: true },
-		// 		},
-		// 		readingTests: {
-		// 			include: {
-		// 				author: {
-		// 					select: {
-		// 						userName: true,
-		// 						id: true,
-		// 					},
-		// 				},
-		// 				questions: true,
-		// 			},
-		// 		},
-		// 	},
-		// })
-
 		return data
 	}
 
@@ -287,6 +268,32 @@ class ReadingsService {
 				},
 			})
 		})
+	}
+	async createReadingProgress(
+		payload: CreateReadingProgress & { userId: string }
+	): Promise<ReadingProgress> {
+		const res = await prisma.readingProgress.create({
+			data: {
+				isCorrect: payload.isCorrect,
+				solvedTime: payload.solvedTime,
+				testLevel: payload.testLevel,
+				userId: payload.userId,
+			},
+		})
+		return res
+	}
+	async getReadingProgressByUserId(id: string): Promise<ReadingProgress[]> {
+		const res = await prisma.user.findUnique({
+			where: {
+				id,
+			},
+			include: {
+				readingProgress: true,
+			},
+		})
+
+		if (!res) throw new NotFoundError(`There is no Reading progress with this user ID: #${id}`)
+		return res.readingProgress
 	}
 }
 
