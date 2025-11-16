@@ -28,7 +28,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 				href='/'
 				className={`min-h-[50px] flex justify-center items-center  border-b border-gray-400 gap-2 hover:bg-gray-50 pt-1 ${logoFont.className}`}
 			>
-				<Image src={'/logo-1.png'} alt='Main logo' height={35} width={35} className='rounded-md' />
+				<Image src={'/logo.png'} alt='Main logo' height={35} width={35} className='rounded-md' />
 				<span className='text-2xl font-bold uppercase tracking-wide text-[#1F2E4F] pt-1'>
 					kanji.uz
 				</span>
