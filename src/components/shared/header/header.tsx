@@ -9,10 +9,10 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({ className }) => {
 	return (
 		<header
-			className={`flex justify-between gap-3 items-center px-10 max-sm:px-6 py-4 border-b border-b-black sticky top-0 z-10 bg-white min-h-[75px] ${className}`}
+			className={`flex justify-between items-center px-5 border-b border-gray-400 sticky top-0 z-10 bg-white min-h-[50px] ${className}`}
 		>
 			<NavbarButton />
-			<div className='flex gap-4 items-center'>
+			<div className='flex gap-3 items-center'>
 				<NotificationBadge />
 				{/* <LocaleSwitcher /> */}
 				<UserRole />

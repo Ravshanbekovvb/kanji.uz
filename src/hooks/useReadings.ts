@@ -1,8 +1,8 @@
 import { queryClient } from '@/lib/query-client'
-import { ReadingType } from '@/types/types'
+import { CreateReadingProgress, ReadingType } from '@/types/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { ReadingSection } from '../../prisma/__generated__'
+import { ReadingProgress, ReadingSection } from '../../prisma/__generated__'
 type ReadingSectionWithCount = ReadingSection & {
 	_count: { readingTests: number }
 }
@@ -55,6 +55,7 @@ export function useReadingAll() {
 		// select: data => data.data,
 	})
 }
+
 export function useReadingSections() {
 	return useQuery({
 		queryKey: ['readingSections'],
@@ -269,6 +270,50 @@ export function useCreateReadingSectionWithReadingTests() {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['readingSections'] })
 			queryClient.invalidateQueries({ queryKey: ['reading-sections-by-jlpt'] })
+		},
+		onError: (error: Error) => {
+			toast.error(error.message)
+		},
+	})
+}
+export function useReadingProgress(userId: string) {
+	return useQuery({
+		queryKey: ['reading-progress', userId],
+		queryFn: async (): Promise<{ data: ReadingProgress[] }> => {
+			const res = await fetch(`/api/readings/progress/${userId}`)
+			const responseData = await res.json()
+			console.log('responseData from hook', responseData)
+
+			if (!responseData.success) {
+				throw new Error(responseData.message || 'Failed to fetch reading progress!')
+			}
+			return responseData
+		},
+		select: data => data.data,
+		enabled: !!userId,
+	})
+}
+export function useCreateReadingPregress() {
+	return useMutation({
+		mutationKey: ['create-reading-progress'],
+		mutationFn: async (data: CreateReadingProgress) => {
+			const res = await fetch(`/api/readings/progress`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(data),
+			})
+			const responseData = await res.json()
+
+			if (!responseData.success) {
+				throw new Error(responseData?.message || 'Failed to create reading progress')
+			}
+
+			return responseData
+		},
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['reading-progress'] })
 		},
 		onError: (error: Error) => {
 			toast.error(error.message)

@@ -62,14 +62,14 @@ export const Timer: React.FC<TimerProps> = ({ shouldStart }) => {
 
 	if (!mounted) {
 		return (
-			<div className='fixed z-40 top-5 right-1/2 translate-x-1/2 font-mono text-2xl md:text-3xl font-semibold'>
+			<div className='fixed z-40 top-1 right-1/2 translate-x-1/2 font-mono text-2xl md:text-3xl font-semibold'>
 				00:00.00
 			</div>
 		)
 	}
 
 	return (
-		<div className='fixed z-40 top-5 right-1/2 translate-x-1/2  font-mono text-2xl md:text-3xl font-semibold'>
+		<div className='fixed z-40 top-1 right-1/2 translate-x-1/2  font-mono text-2xl md:text-3xl font-semibold'>
 			{display}
 		</div>
 	)

@@ -12,7 +12,7 @@ const openai = new OpenAI({
 	dangerouslyAllowBrowser: true,
 	defaultHeaders: {
 		'HTTP-Referer': 'https://words-pdf-2.vercel.app/', // Optional. Site URL for rankings on openrouter.ai.
-		'X-Title': 'TSUKUROU', // Optional. Site title for rankings on openrouter.ai.
+		'X-Title': 'kanji.uz', // Optional. Site title for rankings on openrouter.ai.
 	},
 })
 

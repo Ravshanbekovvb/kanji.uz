@@ -17,7 +17,7 @@ export const Login: React.FC = () => {
 				<DialogTrigger asChild>
 					<Button
 						variant='outline'
-						title='Watch tutorial video about Tsukurou platform'
+						title='Watch tutorial video about KANJI.UZ platform'
 						className='fixed top-4 left-4 z-50 bg-white/90 backdrop-blur-lg border-white/20 shadow-md hover:bg-white transition-all duration-200 group flex items-center gap-2 px-3 py-2 cursor-pointer'
 					>
 						<Play className='h-4 w-4 text-blue-600 group-hover:text-blue-700' />
@@ -46,7 +46,7 @@ export const Login: React.FC = () => {
 							<div className='w-full h-full bg-gray-900 rounded-lg flex items-center justify-center'>
 								<div className='text-center text-white'>
 									<Play className='h-16 w-16 mx-auto mb-4 text-blue-400' />
-									<h3 className='text-xl font-semibold mb-2'>Welcome to Tsukurou!</h3>
+									<h3 className='text-xl font-semibold mb-2'>Welcome to kanji.uz!</h3>
 									<p className='text-gray-300 max-w-md px-4'>
 										Watch this tutorial to learn how to master Japanese vocabulary with our platform
 									</p>
@@ -69,7 +69,7 @@ export const Login: React.FC = () => {
 					<div className='text-center lg:text-left'>
 						<h1 className='text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-4 leading-tight'>
 							Welcome to
-							<div className={` ${logoFont.className} uppercase`}>Tsukurou</div>
+							<div className={` ${logoFont.className} uppercase`}>kanji.uz</div>
 						</h1>
 						<p className='text-base max-lg:hidden sm:text-lg md:text-xl text-gray-600 leading-relaxed px-4 lg:px-0'>
 							Master new languages with our intelligent vocabulary learning platform

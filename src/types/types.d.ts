@@ -86,7 +86,7 @@ type Question = {
 	correctAnswer: number
 }
 
-// Client-side types without IDs (for creating new records)
+type CreateReadingProgress = Omit<ReadingProgress, 'id' | 'createdAt' | 'updatedAt'>
 type CreateTest = {
 	mainQuestion: string
 	authorId: string

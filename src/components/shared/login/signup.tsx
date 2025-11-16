@@ -71,7 +71,7 @@ export const Signup: React.FC = () => {
 					required
 					autoComplete='off'
 					type='text'
-					placeholder='I want to use Tsukurou to memorize words.'
+					placeholder='I want to use kanji.uz to memorize words.'
 					name='note'
 					className='w-full p-3 border-2 border-gray-200 sm:rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-200 text-sm sm:text-base'
 				/>

@@ -127,7 +127,7 @@ model ReadingProgress {
   id String @id @default(cuid())
   userId String
   user      User     @relation("user_reading_progress", fields: [userId], references: [id], onDelete: Cascade)       
-  testId String         
+  // testId String         
   testLevel testLevel
   isCorrect Boolean    
   solvedTime Int    

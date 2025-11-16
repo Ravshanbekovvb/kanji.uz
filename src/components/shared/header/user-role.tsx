@@ -30,13 +30,13 @@ export const UserRole: React.FC<UserRoleProps> = ({ className }: UserRoleProps) 
 			<img
 				src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt08ADSBsRRxQ2xzvxjADA0SCVuwEwY6gASg&s'
 				alt='User avatar'
-				width={40}
-				height={40}
+				width={30}
+				height={30}
 				className='rounded-full'
 			/>
 			<div className='flex flex-col'>
-				<div className='font-bold capitalize'>{user.userName}</div>
-				<div className='text-black/50 text-[12px] capitalize'>{user.role}</div>
+				<div className='font-bold capitalize text-[12px]'>{user.userName}</div>
+				<div className='text-black/50 text-[10px] capitalize'>{user.role}</div>
 			</div>
 		</div>
 	)
