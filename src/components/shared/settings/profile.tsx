@@ -10,7 +10,7 @@ import { toast } from 'sonner'
 import { Loader } from '../loader'
 
 export const Profile: React.FC = () => {
-	const { user, checkAuth } = useAuth()
+	const { user, refetchUser } = useAuth()
 	const { isPending: UserEditIsPending, mutate: editUser } = useEditUser(user?.id as string)
 	const { data, error, isPending } = useFindUserById(user?.id as string)
 	if (isPending) return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
@@ -34,7 +34,7 @@ export const Profile: React.FC = () => {
 			{
 				onSuccess: () => {
 					toast.success('Edited successfully!')
-					checkAuth()
+					refetchUser()
 				},
 				onError: (error: Error) => {
 					toast.error(error?.message)

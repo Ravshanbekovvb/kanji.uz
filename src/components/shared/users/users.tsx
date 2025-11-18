@@ -7,7 +7,7 @@ import { columns } from './columns'
 import { DataTable } from './data-table'
 import { UsersHeader } from './users-header'
 export default function Users() {
-	const { data, isPending, error } = useUsers(true)
+	const { data, isPending, error } = useUsers()
 
 	if (isPending) {
 		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
