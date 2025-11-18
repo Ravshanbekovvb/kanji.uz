@@ -28,12 +28,18 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 				className
 			)}
 		>
-			<div className='px-6 py-2 border-b '>
+			<div className='px-6 py-[10px] border-b '>
 				<a href='/' className={`flex items-center gap-3 transition-opacity ${logoFont.className}`}>
 					<div className='relative'>
 						<div className='absolute inset-0 bg-blue-500/20 rounded-xl blur-sm'></div>
-						<div className='relative bg-white rounded-xl p-2 border'>
-							<Image src={'/logo.png'} alt='Main logo' height={28} width={28} />
+						<div className='relative'>
+							<Image
+								src={'/logo.png'}
+								alt='Main logo'
+								height={43}
+								width={43}
+								className='min-h-9 min-w-9'
+							/>
 						</div>
 					</div>
 					<div className='flex flex-col'>
