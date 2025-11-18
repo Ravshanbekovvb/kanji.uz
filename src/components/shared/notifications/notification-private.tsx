@@ -41,7 +41,7 @@ import { NotificationEditDialog } from './notification-edit-dialog'
 export const NotificationPrivate: React.FC = () => {
 	const { user: me } = useAuth()
 	const { data, error, isPending } = useNotificationsPrivate()
-	const { data: userData, isPending: userIsPending, error: userError } = useUsers(true)
+	const { data: userData, isPending: userIsPending, error: userError } = useUsers()
 	const { mutate: createNotificationPrivate, isPending: notificationIsPending } =
 		useCreateNotification()
 	const { mutate: deleteNotification, isPending: deleteNotificationIsPanding } =
