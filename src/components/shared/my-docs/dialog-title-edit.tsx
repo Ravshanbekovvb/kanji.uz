@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useUpdateLessonTitle } from '@/hooks/useLessons'
-import Image from 'next/image'
+import { Pencil } from 'lucide-react'
 import { ReactNode, useState } from 'react'
 
 interface DialogTitleEditProps {
@@ -50,12 +50,11 @@ export const DialogTitleEdit: React.FC<DialogTitleEditProps> = ({
 			<DialogContent>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Image src={'/edit-icon.webp'} alt='edit-icon' height={35} width={35} />
-						{/* <Edit color='black' /> */}
-						Edit
+						<Pencil />
+						Update
 					</DialogTitle>
 
-					<DialogDescription>Edit title</DialogDescription>
+					<DialogDescription>Update title</DialogDescription>
 					<form onSubmit={handleSubmit} className='flex flex-col gap-3'>
 						<Input
 							type='text'

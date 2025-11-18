@@ -1,6 +1,7 @@
 'use client'
 import { useAuth } from '@/contexts/auth-context'
 import { cn } from '@/lib/func/utils'
+import Image from 'next/image'
 
 type UserRoleProps = {
 	className?: string
@@ -11,9 +12,9 @@ export const UserRole: React.FC<UserRoleProps> = ({ className }: UserRoleProps) 
 
 	if (isLoading) {
 		return (
-			<div className={cn('flex items-center gap-2', className)}>
-				<div className='w-10 h-10 bg-gray-200 rounded-full animate-pulse' />
-				<div className='flex flex-col gap-1'>
+			<div className={cn('flex items-center gap-3 px-4 py-3 border-t h-[66px]', className)}>
+				<div className='w-[30px] h-[30px] bg-gray-200 rounded-full animate-pulse' />
+				<div className='flex flex-col gap-2'>
 					<div className='h-4 w-16 bg-gray-200 rounded animate-pulse' />
 					<div className='h-3 w-12 bg-gray-200 rounded animate-pulse' />
 				</div>
@@ -26,8 +27,8 @@ export const UserRole: React.FC<UserRoleProps> = ({ className }: UserRoleProps) 
 	}
 
 	return (
-		<div className={cn('flex items-center gap-2', className)}>
-			<img
+		<div className={cn('flex items-center gap-3 px-4 py-3 border-t h-[66px]', className)}>
+			<Image
 				src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt08ADSBsRRxQ2xzvxjADA0SCVuwEwY6gASg&s'
 				alt='User avatar'
 				width={30}
@@ -35,8 +36,8 @@ export const UserRole: React.FC<UserRoleProps> = ({ className }: UserRoleProps) 
 				className='rounded-full'
 			/>
 			<div className='flex flex-col'>
-				<div className='font-bold capitalize text-[12px]'>{user.userName}</div>
-				<div className='text-black/50 text-[10px] capitalize'>{user.role}</div>
+				<div className='font-medium  truncate capitalize'>{user.userName}</div>
+				<div className=' text-[10px] capitalize text-xs text-slate-400 truncate'>{user.role}</div>
 			</div>
 		</div>
 	)

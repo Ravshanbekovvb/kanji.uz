@@ -1,6 +1,6 @@
 import localFont from 'next/font/local'
 
 export const logoFont = localFont({
-	src: '../fonts/PressStart2P-Regular.ttf',
+	src: './Rowdies-Bold.ttf',
 	display: 'swap',
 })

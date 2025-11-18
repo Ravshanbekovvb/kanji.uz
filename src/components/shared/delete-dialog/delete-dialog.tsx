@@ -36,7 +36,6 @@ export const DeleteDialog: React.FC<DeleteDialogProps> = ({
 			<DialogContent onClick={e => e.stopPropagation()}>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						{/* <Image src={'/delete-icon.webp'} alt='delete-icon' width={35} height={35} /> */}
 						<Trash2 size={35} />
 						Are you absolutely sure?
 					</DialogTitle>

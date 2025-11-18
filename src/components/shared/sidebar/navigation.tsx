@@ -101,7 +101,7 @@ export const Navigation: React.FC = () => {
 		})
 
 		return (
-			<nav className='flex flex-col py-5 px-3 h-full w-full'>
+			<nav className='flex flex-col py-3 px-3 h-full w-full'>
 				<ul className='flex flex-col flex-1 gap-1 w-full'>{renderedMenu}</ul>
 			</nav>
 		)
@@ -178,7 +178,7 @@ export const Navigation: React.FC = () => {
 		})
 
 		return (
-			<nav className='flex flex-col py-5 px-3 h-full w-full'>
+			<nav className='flex flex-col py-3 px-3 h-full w-full'>
 				<ul className='flex flex-col flex-1 gap-1 w-full'>{renderedMenu}</ul>
 			</nav>
 		)
@@ -245,7 +245,7 @@ export const Navigation: React.FC = () => {
 		})
 
 		return (
-			<nav className='flex flex-col py-5 px-3 h-full w-full'>
+			<nav className='flex flex-col py-3 px-3 h-full w-full'>
 				<ul className='flex flex-col flex-1 gap-1 w-full'>{renderedMenu}</ul>
 			</nav>
 		)
@@ -307,7 +307,7 @@ export const Navigation: React.FC = () => {
 	})
 
 	return (
-		<nav className='flex flex-col py-5 px-3 h-full w-full'>
+		<nav className='flex flex-col py-3 px-3 h-full w-full'>
 			<ul className='flex flex-col flex-1 gap-1 w-full'>{renderedMenu}</ul>
 		</nav>
 	)

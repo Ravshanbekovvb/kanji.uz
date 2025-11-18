@@ -20,7 +20,7 @@ export default function Home({ children }: Readonly<{ children: React.ReactNode 
 						<Header className='max-md:hidden' />
 
 						{/* Content with mobile padding */}
-						<div className='flex-1 overflow-y-auto sm:shadow-[inset_0px_0px_10px_rgba(0,0,0,0.4)]'>
+						<div className='flex-1 overflow-y-auto sm:shadow-[inset_0px_0px_10px_rgba(0,0,0,0.2)]'>
 							{children}
 						</div>
 					</main>
