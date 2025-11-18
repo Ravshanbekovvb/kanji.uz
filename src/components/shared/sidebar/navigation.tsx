@@ -2,6 +2,7 @@
 import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, defaultNavbar, userNavbar } from '@/lib/db'
 import { cn } from '@/lib/func/utils'
+import { NavbarIconKey } from '@/types/types'
 import {
 	BadgePlusIcon,
 	BellDot,
@@ -37,7 +38,6 @@ export const navbarIconMap = {
 	reading: <BookOpenText />,
 	ChartColumnDecreasing: <ChartColumnDecreasing />,
 } as const
-type NavbarIconKey = keyof typeof navbarIconMap
 
 export const Navigation: React.FC = () => {
 	const { user, logout, isLoading } = useAuth()

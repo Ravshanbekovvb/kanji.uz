@@ -8,6 +8,7 @@ import { LoaderIcon } from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
 import { Loader } from '../loader'
+import { ReqiredStar } from '../reqiredStar'
 
 export const Profile: React.FC = () => {
 	const { user, refetchUser } = useAuth()
@@ -54,7 +55,9 @@ export const Profile: React.FC = () => {
 					<Input type='text' name='name' defaultValue={data.userName} />
 				</div>
 				<div>
-					<div>New Password *</div>
+					<div>
+						New Password <ReqiredStar />
+					</div>
 					<Input type='text' name='password' required />
 				</div>
 

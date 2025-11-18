@@ -15,7 +15,7 @@ type NavbarMenuType = {
 	className?: string
 	badge?: string
 }
-
+export type NavbarIconKey = keyof typeof navbarIconMap
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
 type CreateUserWithRepeatPasswordRequestType = CreateUserRequestType & { repeatPassword: string }
 type SignUpType = {

@@ -5,133 +5,95 @@ import {
 	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
+	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/contexts/auth-context'
-import {
-	Bell,
-	BookOpen,
-	Brain,
-	ChartColumnDecreasing,
-	FileText,
-	HelpCircle,
-	Home,
-	LogOut,
-	Plus,
-	Settings,
-	Users,
-} from 'lucide-react'
+import { AdminNavbar, defaultNavbar, userNavbar } from '@/lib/db'
+import { NavbarIconKey, NavbarMenuType } from '@/types/types'
+import { HelpCircle, Home, LogOut } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { navbarIconMap } from '../sidebar/navigation'
+
 export default function MobileNav() {
 	const pathname = usePathname()
 	const { user, logout } = useAuth()
 
-	const navItems = [
-		{
-			label: 'Home',
-			href: '/',
-			icon: Home,
-		},
-		...(user?.role === 'ADMIN'
-			? [
-					{
-						label: 'Users',
-						href: '/users',
-						icon: Users,
-					},
-					{
-						label: 'Diagnostics',
-						href: '/diagnostics',
-						icon: ChartColumnDecreasing,
-					},
-					{
-						label: 'All Docs',
-						href: '/all-lessons',
-						icon: FileText,
-					},
-				]
-			: [
-					{
-						label: 'Memorize',
-						href: '/memorize',
-						icon: Brain,
-					},
-					{
-						label: 'Create',
-						href: '/create-lesson',
-						icon: Plus,
-					},
-					{
-						label: 'My Docs',
-						href: '/my-lessons',
-						icon: BookOpen,
-					},
-				]),
-	]
+	const navItems: NavbarMenuType[] = (() => {
+		switch (user?.role) {
+			case 'ADMIN':
+				return AdminNavbar
 
-	const secondaryItems = [
-		{
-			label: 'Notifications',
-			href: '/notifications',
-			icon: Bell,
-		},
-		{
-			label: 'Settings',
-			href: '/settings',
-			icon: Settings,
-		},
-	]
+			case 'USER':
+				return userNavbar
+			case 'TEACHER':
+				return userNavbar
+			case 'STUDENT':
+				return userNavbar
 
+			default:
+				return []
+		}
+	})()
+
+	const arr: NavbarMenuType[] = [
+		{ icon: 'bell', link: '/notifications', title: 'notification' },
+		...defaultNavbar.filter(item => item.title.toLowerCase() === 'settings'),
+	]
 	return (
 		<div className='md:hidden'>
 			{/* Bottom Navigation */}
 			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 pb-safe'>
-				<div
-					className={`grid gap-1 px-2 py-2 ${
-						user?.role === 'ADMIN' ? 'grid-cols-4' : 'grid-cols-4'
-					}`}
-				>
-					{navItems.map(item => {
-						const Icon = item.icon
-						const isActive = pathname === item.href
-						return (
-							<Link key={item.href} href={item.href}>
-								<div
-									className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all duration-200 active:scale-95 ${
-										isActive
-											? 'bg-blue-100 text-blue-600'
-											: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
-									}`}
-								>
-									<Icon size={20} />
-									<span className='text-xs font-medium mt-1'>{item.label}</span>
-								</div>
-							</Link>
-						)
-					})}
+				<div className={`grid gap-1 px-2 py-2 grid-cols-4`}>
+					{navItems &&
+						navItems.length > 0 &&
+						navItems
+							.filter(
+								item =>
+									item.title.toLowerCase() !== 'home' &&
+									item.title.toLowerCase() !== 'logout' &&
+									item.title.toLowerCase() !== 'help' &&
+									item.title.toLowerCase() !== 'settings'
+							)
+							.map(item => {
+								const isActive = pathname === item.link
+								return (
+									<Link key={item.title} href={item.link}>
+										<div
+											className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all duration-200 active:scale-95 ${
+												isActive
+													? 'bg-blue-100 text-blue-600'
+													: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+											}`}
+										>
+											{navbarIconMap[item.icon as NavbarIconKey]}
+											<span className='text-xs font-medium mt-1 truncate'>{item.title}</span>
+										</div>
+									</Link>
+								)
+							})}
 				</div>
 			</div>
 
 			{/* Top Mobile Header */}
-			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 pt-safe'>
+			<div className='fixed top-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-b border-gray-200 z-40 pt-safe max-h-[59px]'>
 				<div className='flex items-center justify-between px-4 py-3'>
 					<div className='flex items-center gap-3'>
 						<Image
 							src={'/logo.png'}
 							alt='Main logo'
-							height={35}
-							width={35}
+							height={40}
+							width={40}
 							className='rounded-md'
 						/>
 					</div>
 					<div className='flex items-center gap-2'>
-						{secondaryItems.map(item => {
-							const Icon = item.icon
-							const isActive = pathname === item.href
+						{arr.map(item => {
+							const isActive = pathname === item.link
 							return (
-								<Link key={item.href} href={item.href}>
+								<Link key={item.title} href={item.link}>
 									<div
 										className={`p-2 rounded-lg transition-all duration-200 active:scale-95 ${
 											isActive
@@ -139,7 +101,7 @@ export default function MobileNav() {
 												: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
 										}`}
 									>
-										<Icon size={18} />
+										{navbarIconMap[item.icon as NavbarIconKey]}
 									</div>
 								</Link>
 							)
@@ -153,18 +115,34 @@ export default function MobileNav() {
 										</span>
 									</div>
 								</DropdownMenuTrigger>
-								<DropdownMenuContent>
-									<DropdownMenuLabel>{user.email}</DropdownMenuLabel>
+								<DropdownMenuContent className='w-56'>
+									<DropdownMenuLabel className='flex flex-col'>
+										<span className='font-bold'>{user.userName}</span>
+										<span className='font-light text-sm'>{user.email}</span>
+									</DropdownMenuLabel>
+
 									<DropdownMenuSeparator />
-									<Link href={'/help'} className='flex items-center'>
+									<Link href={'/'}>
 										<DropdownMenuItem className='text-gray-500 '>
-											<HelpCircle />
-											Help
+											Home
+											<DropdownMenuShortcut>
+												<Home />
+											</DropdownMenuShortcut>
 										</DropdownMenuItem>
 									</Link>
-									<DropdownMenuItem className='flex items-center text-red-500 ' onClick={logout}>
-										<LogOut color='red' />
+									<Link href={'/help'}>
+										<DropdownMenuItem className='text-gray-500 '>
+											Help
+											<DropdownMenuShortcut>
+												<HelpCircle />
+											</DropdownMenuShortcut>
+										</DropdownMenuItem>
+									</Link>
+									<DropdownMenuItem className='text-red-500 ' onClick={logout}>
 										Logout
+										<DropdownMenuShortcut>
+											<LogOut color='red' />
+										</DropdownMenuShortcut>
 									</DropdownMenuItem>
 								</DropdownMenuContent>
 							</DropdownMenu>
