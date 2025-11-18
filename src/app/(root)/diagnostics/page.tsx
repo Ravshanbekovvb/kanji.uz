@@ -3,18 +3,20 @@
 import { UserLoginChart } from '@/components/shared/charts/user-login-chart'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Section } from '@/components/ui/section'
-import { useUserLoginStats } from '@/hooks/useUserLoginStats'
+
+import { useUsers } from '@/hooks/useUsers'
 import { Activity, BarChart3, TrendingUp, Users } from 'lucide-react'
 
 export default function AdminDashboard() {
-	const { data: users } = useUserLoginStats()
-
+	// const { data: users } = useUserLoginStats()
+	const { data: users } = useUsers()
 	const totalUsers = users?.length || 0
 	const totalLogins = users?.reduce((sum, user) => sum + user.loginCount, 0) || 0
 	const averageLogins = totalUsers > 0 ? Math.round(totalLogins / totalUsers) : 0
 	const mostActiveUser = users?.find(
 		user => user.loginCount === Math.max(...users.map(u => u.loginCount))
 	)
+	console.log(users)
 
 	return (
 		<Section className=' space-y-6'>

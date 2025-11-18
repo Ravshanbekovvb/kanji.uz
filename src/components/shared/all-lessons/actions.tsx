@@ -42,7 +42,7 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					<EllipsisVertical className='h-4 w-4' />
 				</Button>
 			</DropdownMenuTrigger>
-			<DropdownMenuContent align='end' onClick={e => e.stopPropagation()}>
+			<DropdownMenuContent align='end' className='w-56' onClick={e => e.stopPropagation()}>
 				<DeleteDialog
 					deleteItemFn={handleDeleteUser}
 					dialogTrigger={
@@ -50,7 +50,7 @@ export const Actions: React.FC<Props> = ({ row }) => {
 							className='cursor-pointer  text-red-400'
 							onSelect={e => e.preventDefault()}
 						>
-							<Trash2 />
+							{/* <Trash2 /> */}
 							DELETE
 							<DropdownMenuShortcut>
 								<Trash2 className='text-red-400' />
@@ -64,7 +64,7 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					lesson={row.original as any}
 					trigger={
 						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()}>
-							<Download color='black' />
+							{/* <Download color='black' /> */}
 							DOWNLOAD
 							<DropdownMenuShortcut>
 								<Download />

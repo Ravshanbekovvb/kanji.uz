@@ -1,5 +1,5 @@
-import { MyDocs } from '@/components/shared/my-docs/my-docs'
+import { MyLessons } from '@/components/shared/my-lessons/my-lessons'
 
 export default function Page() {
-	return <MyDocs />
+	return <MyLessons />
 }

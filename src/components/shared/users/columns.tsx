@@ -23,7 +23,22 @@ export const columns: ColumnDef<User>[] = [
 	{
 		accessorKey: 'role',
 		header: 'Role',
-		cell: ({ row }) => row.getValue('role'),
+		cell: ({ row }) => {
+			const role = row.getValue('role')
+			return (
+				<span
+					className={`px-2 py-1 rounded-full text-xs font-medium ${
+						role === 'ADMIN'
+							? 'bg-red-100 text-red-800'
+							: role === 'TEACHER'
+								? 'bg-blue-100 text-blue-800'
+								: 'bg-gray-100 text-gray-800'
+					}`}
+				>
+					{role as string}
+				</span>
+			)
+		},
 	},
 	{
 		accessorKey: 'userLang',

@@ -21,7 +21,7 @@ interface Word {
 export default function Page() {
 	const { mutate: DeleteWord, isPending: deleteWordIsPending } = useDeleteWord()
 	const params = useParams()
-	if (!params.doc) {
+	if (!params.lessonId) {
 		return 'loading..'
 	}
 	const { data, error, isPending } = useFindLessonById(params.doc)
