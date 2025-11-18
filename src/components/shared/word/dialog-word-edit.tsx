@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { useUpdateWord } from '@/hooks/useWord'
-import Image from 'next/image'
+import { Pencil } from 'lucide-react'
 import { ReactNode, useState } from 'react'
 
 interface DialogWordEditProps {
@@ -82,10 +82,10 @@ export const DialogWordEdit: React.FC<DialogWordEditProps> = ({ trigger, word })
 			<DialogContent className='max-w-md'>
 				<DialogHeader>
 					<DialogTitle className='flex items-center gap-2'>
-						<Image src={'/edit-icon.webp'} alt='edit-icon' height={35} width={35} />
-						Edit Word
+						<Pencil />
+						Update Word
 					</DialogTitle>
-					<DialogDescription>Edit the word details below</DialogDescription>
+					<DialogDescription>Update the word details below</DialogDescription>
 				</DialogHeader>
 
 				<form onSubmit={handleSubmit} className='space-y-4'>
