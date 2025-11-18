@@ -18,7 +18,7 @@ import { DeleteDialog } from '../delete-dialog'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { PageTitle } from '../title'
 import { DialogTitleEdit } from './dialog-title-edit'
-export const MyDocs: React.FC = () => {
+export const MyLessons: React.FC = () => {
 	const { user } = useAuth()
 	const { data, error, isPending } = useFindLessonsByUserId(user?.id)
 	const { mutate: deleteLessonById, isPending: deleteIsPending } = useDeleteLesson()

@@ -5,7 +5,7 @@ import { LoaderIcon } from 'lucide-react'
 import { PageTitle } from '../title'
 import { columns } from './columns'
 import { DataTable } from './data-table'
-export default function AllDocs() {
+export default function AllLessons() {
 	const { data, error, isPending } = useLessons()
 
 	if (isPending) {

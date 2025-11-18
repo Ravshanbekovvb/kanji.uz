@@ -48,7 +48,7 @@ export default function MobileNav() {
 					},
 					{
 						label: 'All Docs',
-						href: '/all-docs',
+						href: '/all-lessons',
 						icon: FileText,
 					},
 				]

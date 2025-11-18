@@ -1,17 +1,16 @@
+import { User } from '@/lib'
 import { queryClient } from '@/lib/query-client'
 import { CreateUserRequestType, CreateUserWithRepeatPasswordRequestType } from '@/types/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
 
-export function useUsers(isEnabled: boolean) {
-	const { isPending, error, data } = useQuery({
+export function useUsers() {
+	return useQuery({
 		queryKey: ['Users'],
-		queryFn: () => fetch('/api/users/find').then(res => res.json()),
+		queryFn: (): Promise<{ data: User[] }> => fetch('/api/users/find').then(res => res.json()),
 		select: data => data.data,
-		enabled: isEnabled,
 	})
-	return { data, isPending, error }
 }
 
 export function useDeleteUser() {

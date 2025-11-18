@@ -1,7 +1,8 @@
 'use client'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { UserLoginStats, useUserLoginStats } from '@/hooks/useUserLoginStats'
+import { useUsers } from '@/hooks/useUsers'
+import { User } from '@/lib'
 import { LoaderIcon } from 'lucide-react'
 import {
 	Bar,
@@ -47,7 +48,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 }
 
 export const UserLoginChart = () => {
-	const { data: users, isLoading, error } = useUserLoginStats()
+	const { data: users, isLoading, error } = useUsers()
 
 	if (isLoading) {
 		return (
@@ -92,15 +93,15 @@ export const UserLoginChart = () => {
 	}
 
 	// Transform data for the chart
-	const chartData: ChartData[] = users.map((user: UserLoginStats) => ({
+	const chartData: ChartData[] = users.map((user: User) => ({
 		id: user.id,
 		name: user.userName,
-		loginCount: user.loginCount,
-		role: user.role,
+		loginCount: user.loginCount || 0,
+		role: user.role || 'undefined',
 	}))
 
-	// Take top 10 users for better readability
-	const topUsers = chartData.slice(0, 10)
+	// Sort by login count and take top 10 users for better readability
+	const topUsers = chartData.sort((a, b) => b.loginCount - a.loginCount).slice(0, 10)
 
 	return (
 		<Card className='w-full'>
@@ -109,7 +110,7 @@ export const UserLoginChart = () => {
 				<CardDescription>Number of logins per user (Top 10)</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<div className='w-full h-96'>
+				<div className='w-full h-80 md:h-96'>
 					<ResponsiveContainer width='100%' height='100%'>
 						<BarChart
 							data={topUsers}
@@ -117,21 +118,22 @@ export const UserLoginChart = () => {
 								top: 20,
 								right: 30,
 								left: 20,
-								bottom: 60,
+								bottom: 80,
 							}}
 						>
-							<CartesianGrid strokeDasharray='3 3' />
+							<CartesianGrid strokeDasharray='3 3' stroke='#e2e8f0' />
 							<XAxis
 								dataKey='name'
 								angle={-45}
 								textAnchor='end'
 								height={80}
 								interval={0}
-								fontSize={12}
+								fontSize={11}
+								stroke='#64748b'
 							/>
-							<YAxis />
+							<YAxis stroke='#64748b' fontSize={12} />
 							<Tooltip content={<CustomTooltip />} />
-							<Bar dataKey='loginCount' radius={[4, 4, 0, 0]}>
+							<Bar dataKey='loginCount' radius={[4, 4, 0, 0]} opacity={0.8}>
 								{topUsers.map((entry, index) => (
 									<Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
 								))}

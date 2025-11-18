@@ -96,7 +96,7 @@ export const AdminNavbar: NavbarMenuType[] = [
 	{
 		icon: 'listCheck',
 		title: 'All Lessons',
-		link: '/all-docs',
+		link: '/all-lessons',
 	},
 	{
 		icon: 'ChartColumnDecreasing',

@@ -17,33 +17,77 @@ export async function middleware(request: NextRequest) {
 	const { pathname } = request.nextUrl
 	const accessToken = request.cookies.get('accessToken')?.value
 
-	if (!accessToken) {
+	// Define public routes that don't require authentication
+	const publicRoutes = ['/login', '/register', '/forgot-password']
+	const isPublicRoute = publicRoutes.includes(pathname)
+
+	// If no token and trying to access protected route, redirect to login
+	if (!accessToken && !isPublicRoute) {
 		return NextResponse.redirect(new URL('/login', request.url))
 	}
 
+	// If token exists but accessing login page, redirect to dashboard
+	if (accessToken && pathname === '/login') {
+		return NextResponse.redirect(new URL('/', request.url))
+	}
+
+	// If no token and accessing public route, allow access
+	if (!accessToken && isPublicRoute) {
+		return NextResponse.next()
+	}
+
 	try {
-		const { payload } = await jwtVerify(accessToken, getJWTSecretKey())
+		const { payload } = await jwtVerify(accessToken!, getJWTSecretKey())
 		const decoded = payload as unknown as JWTPayload
 		const userRole = decoded.role
 
-		const adminOnlyRoutes = ['/users', '/all-docs', '/diagnostics']
-		const userOnlyRoutes = ['/my-docs', '/create-lesson', '/memorize']
+		// Define role-based route access
+		const adminOnlyRoutes = ['/users', '/all-lessons', '/diagnostics']
+		const userOnlyRoutes = ['/my-lessons', '/create-lesson', '/memorize']
+		const teacherOnlyRoutes = ['/create-reading']
 		const commonRoutes = ['/settings', '/notifications']
 
-		if (userRole === 'ADMIN' && userOnlyRoutes.some(route => pathname.startsWith(route))) {
-			return NextResponse.redirect(new URL('/', request.url))
-		}
+		// Check if current path matches any restricted routes
+		const isAdminRoute = adminOnlyRoutes.some(route => pathname.startsWith(route))
+		const isUserRoute = userOnlyRoutes.some(route => pathname.startsWith(route))
+		const isTeacherRoute = teacherOnlyRoutes.some(route => pathname.startsWith(route))
+		const isCommonRoute = commonRoutes.some(route => pathname.startsWith(route))
 
-		if (
-			(userRole === 'USER' || userRole === 'TEACHER' || userRole === 'STUDENT') &&
-			adminOnlyRoutes.some(route => pathname.startsWith(route))
-		) {
-			return NextResponse.redirect(new URL('/', request.url))
+		// Role-based access control
+		switch (userRole) {
+			case 'ADMIN':
+				// Admin can access admin routes and common routes, but not user-specific routes
+				if (isUserRoute) {
+					return NextResponse.redirect(new URL('/', request.url))
+				}
+				break
+
+			case 'TEACHER':
+				// Teacher can access teacher routes and common routes, but not admin or user routes
+				if (isAdminRoute || isUserRoute) {
+					return NextResponse.redirect(new URL('/', request.url))
+				}
+				break
+
+			case 'USER':
+			case 'STUDENT':
+				// User/Student can access user routes and common routes, but not admin or teacher routes
+				if (isAdminRoute || isTeacherRoute) {
+					return NextResponse.redirect(new URL('/', request.url))
+				}
+				break
+
+			default:
+				// Unknown role, redirect to login
+				return NextResponse.redirect(new URL('/login', request.url))
 		}
 
 		return NextResponse.next()
 	} catch (error) {
-		return NextResponse.redirect(new URL('/login', request.url))
+		// Invalid token, clear cookie and redirect to login
+		const response = NextResponse.redirect(new URL('/login', request.url))
+		response.cookies.delete('accessToken')
+		return response
 	}
 }
 

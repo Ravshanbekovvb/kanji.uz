@@ -1,17 +1,9 @@
 'use client'
-import { usePathname, useRouter } from 'next/navigation'
-import { createContext, useContext, useEffect, useState } from 'react'
-interface Lesson {
-	title: string
-	userId: string
-}
-interface User {
-	id: string
-	email: string
-	userName: string
-	lesson: Lesson[]
-	role: string
-}
+import { useLogin, useLogout } from '@/hooks/useAuth'
+import { User } from '@/lib'
+import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation'
+import { createContext, useContext } from 'react'
 
 interface AuthContextType {
 	isSignIn: boolean
@@ -20,7 +12,7 @@ interface AuthContextType {
 	isAuthenticated: boolean
 	login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>
 	logout: () => void
-	checkAuth: () => Promise<void>
+	refetchUser: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -28,105 +20,69 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 interface AuthProviderProps {
 	children: React.ReactNode
 }
-
 export function AuthProvider({ children }: AuthProviderProps) {
-	const [user, setUser] = useState<User | null>(null)
-	const [isLoading, setIsLoading] = useState<boolean>(true)
-	const [isSignIn, setisSignIn] = useState<boolean>(false)
-	const router = useRouter()
-	const pathname = usePathname()
-
-	const checkAuth = async () => {
-		try {
-			setIsLoading(true)
+	const route = useRouter()
+	// Use React Query for auth check
+	const {
+		data: userData,
+		isLoading,
+		refetch: refetchUser,
+	} = useQuery({
+		queryKey: ['auth', 'user'],
+		queryFn: async (): Promise<User | null> => {
 			const response = await fetch('/api/auth/me', {
 				method: 'GET',
 				credentials: 'include',
 			})
 
-			if (response.ok) {
-				const result = await response.json()
-				if (result.success) {
-					setUser(result.data)
-				} else {
-					setUser(null)
-				}
-			} else {
-				setUser(null)
+			if (!response.ok) {
+				return null
 			}
-		} catch (error) {
-			console.error('Auth check failed:', error)
-			setUser(null)
-		} finally {
-			setIsLoading(false)
-		}
-	}
+
+			const result = await response.json()
+			if (result.success) {
+				return result.data
+			}
+			return null
+		},
+		retry: false,
+		refetchOnWindowFocus: false,
+		staleTime: 5 * 60 * 1000, // 5 minutes
+	})
+
+	// Login mutation
+	const LoginData = useLogin()
+
+	// Logout mutation
+	const LogoutData = useLogout()
 
 	const login = async (
 		email: string,
 		password: string
 	): Promise<{ success: boolean; error?: string }> => {
 		try {
-			setisSignIn(true)
-			const response = await fetch('/api/auth/login', {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-				},
-				credentials: 'include',
-				body: JSON.stringify({ email, password }),
-			})
-
-			const result = await response.json()
-
-			if (response.ok && result.success) {
-				setUser(result.data)
-				// Recheck auth to ensure everything is in sync
-				await checkAuth()
-				return { success: true }
-			} else {
-				return { success: false, error: result.message || 'Login failed' }
-			}
+			await LoginData.mutateAsync({ email, password })
+			return { success: true }
 		} catch (error) {
-			console.error('Login failed:', error)
-			return { success: false, error: 'Network error. Please try again.' }
+			const errorMessage = error instanceof Error ? error.message : 'Login failed'
+			return { success: false, error: errorMessage }
 		} finally {
-			setisSignIn(false)
 		}
 	}
 
-	const logout = async () => {
-		try {
-			const response = await fetch('/api/auth/logout', {
-				method: 'POST',
-				credentials: 'include',
-			})
-
-			if (response.ok) {
-				router.push('/login')
-				setTimeout(() => {
-					setUser(null)
-				}, 1000)
-			}
-		} catch (error) {
-			router.push('/login')
-			console.error('Logout failed:', error)
-			setUser(null)
-		}
+	const logout = () => {
+		LogoutData.mutate()
+		route.push('/login')
 	}
-
-	useEffect(() => {
-		checkAuth()
-	}, [])
 
 	const value: AuthContextType = {
-		user,
+		user: (userData as User) || null,
 		isLoading,
-		isAuthenticated: !!user,
-		isSignIn,
+		isAuthenticated: !!userData,
+		isSignIn: LoginData.isPending,
 		login,
 		logout,
-		checkAuth,
+		refetchUser,
 	}
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>

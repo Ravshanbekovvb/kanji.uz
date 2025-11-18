@@ -4,10 +4,9 @@ import { PageTitle } from '@/components/shared/title'
 import { Button } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
-import { ArrowLeft, Download, LoaderIcon } from 'lucide-react'
-import Link from 'next/link'
+import { Download, LoaderIcon } from 'lucide-react'
 import { useParams } from 'next/navigation'
-import { useState } from 'react'
+import { BackLink } from '../../back-link'
 interface Word {
 	id: string
 	kanji: string
@@ -16,49 +15,41 @@ interface Word {
 	example: string
 	jlptLevel: string
 }
-export default function Page() {
-	const [pdfType, setPdfType] = useState<'table' | 'card'>('table')
-	const [isDownloading, setIsDownloading] = useState<boolean>(false)
-	const [isOpen, setIsOpen] = useState<boolean>(false)
+export const LessonId = () => {
 	const params = useParams()
-	if (!params.doc) {
+	if (!params.LessonId) {
 		return 'loading..'
 	}
-	const { data, error, isPending } = useFindLessonById(params.doc)
+	const { data, error, isPending } = useFindLessonById(params.LessonId)
 	if (isPending) {
 		return (
-			<div className='text-center flex items-center gap-5'>
+			<Section className='text-center flex items-center gap-5'>
 				<LoaderIcon className='rotate-right' size={40} />
 				Loading document...
-			</div>
+			</Section>
 		)
 	}
 
 	if (error) {
 		return (
-			<div className='p-6'>
+			<Section className='p-6'>
 				<div className='text-center text-red-500'>Error loading user profile</div>
-			</div>
+			</Section>
 		)
 	}
 
 	if (!data) {
 		return (
-			<div className='p-6'>
+			<Section className='p-6'>
 				<div className='text-center'>lesson not found</div>
-			</div>
+			</Section>
 		)
 	}
 
 	return (
 		<Section>
-			<Link
-				href='/all-docs'
-				className='flex items-center gap-2 text-sm text-gray-600 hover:text-gray-900 transition-colors mb-4'
-			>
-				<ArrowLeft size={18} />
-				<span>Back to All documents</span>
-			</Link>
+			<BackLink href='/all-lessons' text='Back to All documents' />
+
 			<PageTitle title={data.title} className='mb-4' />
 			<div className='max-h-89 overflow-y-auto'>
 				<table className='min-w-full border border-gray-800 rounded-md text-left text-sm'>

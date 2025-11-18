@@ -1,3 +1,4 @@
+import { Providers } from '@/providers/providers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Roboto_Mono } from 'next/font/google'
@@ -52,7 +53,7 @@ export default function RootLayout({
 				<meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
 			</head>
 			<body className={`${roboto.className} antialiased min-h-screen`} suppressHydrationWarning>
-				{children}
+				<Providers>{children}</Providers>
 				<Toaster position='top-right' richColors />
 				<SpeedInsights />
 			</body>
