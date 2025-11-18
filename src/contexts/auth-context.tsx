@@ -66,7 +66,6 @@ export function AuthProvider({ children }: AuthProviderProps) {
 		} catch (error) {
 			const errorMessage = error instanceof Error ? error.message : 'Login failed'
 			return { success: false, error: errorMessage }
-		} finally {
 		}
 	}
 

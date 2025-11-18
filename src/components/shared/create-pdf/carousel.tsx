@@ -53,7 +53,6 @@ export const Carousel: React.FC<Props> = ({
 	useEffect(() => {
 		if (emblaApi) emblaApi.scrollTo(activeIndex)
 	}, [activeIndex, emblaApi])
-	const windowWidth = window.innerWidth
 	return (
 		<div className='p-10 select-none max-xl:p-5'>
 			<CarouselBlock
@@ -99,26 +98,7 @@ export const Carousel: React.FC<Props> = ({
 									<div>N{item.jlptLevel}</div>
 								</div>
 
-								<div
-									className={cn(
-										'font-semibold text-center',
-										windowWidth > 640
-											? kanjiSize
-											: item.kanji.length >= 10
-												? 'text-xl'
-												: item.kanji.length >= 8
-													? 'text-2xl pt-10'
-													: item.kanji.length >= 6
-														? 'text-4xl pt-7'
-														: item.kanji.length >= 4
-															? 'text-5xl pt-6'
-															: item.kanji.length >= 2
-																? 'text-7xl pt-4'
-																: 'text-7xl pt-5'
-									)}
-								>
-									{item.kanji}
-								</div>
+								<div className={cn('font-semibold text-center', kanjiSize)}>{item.kanji}</div>
 							</div>
 						)
 

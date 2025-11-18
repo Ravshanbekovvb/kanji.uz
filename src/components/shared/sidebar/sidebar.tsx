@@ -47,7 +47,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 				</a>
 			</div>
 
-			<div className='flex-1 overflow-y-auto'>
+			<div className='flex-1 overflow-y-auto overflow-x-hidden'>
 				<Navigation />
 			</div>
 

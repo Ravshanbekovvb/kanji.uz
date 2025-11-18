@@ -64,7 +64,7 @@ export async function middleware(request: NextRequest) {
 
 			case 'TEACHER':
 				// Teacher can access teacher routes and common routes, but not admin or user routes
-				if (isAdminRoute || isUserRoute) {
+				if (isAdminRoute) {
 					return NextResponse.redirect(new URL('/', request.url))
 				}
 				break
