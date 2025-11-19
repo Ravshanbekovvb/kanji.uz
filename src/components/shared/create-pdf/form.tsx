@@ -2,16 +2,9 @@ import { Button } from '@/components/ui/button'
 import { SendHorizontal } from 'lucide-react'
 import { FormEvent } from 'react'
 import { Loader } from '../loader/loader'
-import DialogPdf from './dialog-pdf'
+import DialogPdf, { LocalWord } from './dialog-pdf'
 
 // Local word interface for localStorage (without id and lessonId)
-interface LocalWord {
-	kanji: string
-	translation: string
-	transcription: string
-	example: string
-	jlptLevel: string
-}
 
 type Props = {
 	isLoading: boolean

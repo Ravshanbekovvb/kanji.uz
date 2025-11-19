@@ -4,7 +4,6 @@ import { Input } from '@/components/ui/input'
 import { useAuth } from '@/contexts/auth-context'
 import { useEditUser, useFindUserById } from '@/hooks/useUsers'
 import { UserRole } from '@/lib'
-import { LoaderIcon } from 'lucide-react'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
 import { Loader } from '../loader'
@@ -14,7 +13,7 @@ export const Profile: React.FC = () => {
 	const { user, refetchUser } = useAuth()
 	const { isPending: UserEditIsPending, mutate: editUser } = useEditUser(user?.id as string)
 	const { data, error, isPending } = useFindUserById(user?.id as string)
-	if (isPending) return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
+	if (isPending) return <Loader className='inset-0 absolute' title='' variant='ghost' />
 	if (error) return <div>Error loading user</div>
 	if (!data) return <div>data not found</div>
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {

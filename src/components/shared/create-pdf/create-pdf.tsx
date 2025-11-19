@@ -14,13 +14,14 @@ import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { translateText } from '@/lib/func/translate'
 import { useStore } from '@/store/store'
-import { BrainCog, EllipsisVertical, RefreshCw } from 'lucide-react'
+import { Boxes, BrainCog, EllipsisVertical, RefreshCw } from 'lucide-react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { PageTitle } from '../title'
 import { Carousels } from './carousels'
+import { DialogBulkAt } from './dialog-bulk-at'
 import { DialogReset } from './dialog-reset'
 import { DialogSwitchAi } from './dialog-switch-ai'
 import { Form } from './form'
@@ -45,9 +46,7 @@ export const CreatePdf: React.FC = () => {
 	const lessonId = searchParams.get('lessonId')
 
 	// Fetch existing lesson if lessonId is provided
-	const { data: existingLesson, isPending: isLoadingLesson } = useFindLessonById(
-		lessonId || undefined
-	)
+	const { data: existingLesson } = useFindLessonById(lessonId || undefined)
 
 	useEffect(() => {
 		if (lessonId && existingLesson) {
@@ -196,13 +195,18 @@ export const CreatePdf: React.FC = () => {
 								</DropdownMenuItem>
 							}
 						/>
-						<DropdownMenuItem className='cursor-pointer'>
-							Bulk at
-							{/* <DropdownMenuShortcut>
-								<ListOrdered />
-							</DropdownMenuShortcut> */}
-							<DropdownMenuShortcut>Tez orada!</DropdownMenuShortcut>
-						</DropdownMenuItem>
+						<DialogBulkAt
+							triger={
+								<DropdownMenuItem onSelect={e => e.preventDefault()} className='cursor-pointer'>
+									Bulk at
+									<DropdownMenuShortcut>
+										<Boxes />
+									</DropdownMenuShortcut>
+								</DropdownMenuItem>
+							}
+							lessonId={lessonId}
+						/>
+
 						<DropdownMenuSeparator />
 						<DropdownMenuGroup>
 							<DialogReset
@@ -210,11 +214,11 @@ export const CreatePdf: React.FC = () => {
 								trigger={
 									<DropdownMenuItem
 										onSelect={e => e.preventDefault()}
-										className='text-amber-700 cursor-pointer'
+										className='text-gray-400 cursor-pointer'
 									>
 										Refresh
 										<DropdownMenuShortcut>
-											<RefreshCw className='text-amber-700' />
+											<RefreshCw />
 										</DropdownMenuShortcut>
 									</DropdownMenuItem>
 								}

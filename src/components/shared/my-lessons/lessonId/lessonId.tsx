@@ -28,10 +28,10 @@ export const LessonId = () => {
 	const { data, error, isPending } = useFindLessonById(params.lessonId)
 	if (isPending) {
 		return (
-			<div className='text-center flex items-center gap-5'>
+			<Section className='text-center flex items-center gap-5'>
 				<LoaderIcon className='rotate-right' size={40} />
 				Loading Lesson words...
-			</div>
+			</Section>
 		)
 	}
 
@@ -57,7 +57,7 @@ export const LessonId = () => {
 
 			<div className='mb-4 flex items-center justify-between '>
 				<h2 className='mb-4 text-4xl font-semibold'>{data.title}</h2>
-				<Link href={`/create-lesson?lessonId=${params.doc}`}>
+				<Link href={`/create-lesson?lessonId=${params.lessonId}`}>
 					<Button variant={'outline'}> + Add Word</Button>
 				</Link>
 			</div>

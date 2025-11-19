@@ -10,6 +10,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { useStore } from '@/store/store'
+import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 import { toast } from 'sonner'
 type ResetProps = {
@@ -18,18 +19,20 @@ type ResetProps = {
 }
 
 export const DialogReset: React.FC<ResetProps> = ({ existingLessonId, trigger }) => {
+	const route = useRouter()
 	const { setIsUpdate } = useStore()
 	const reset = (): void => {
+		localStorage.removeItem('lessonTitle')
 		if (existingLessonId) {
-			// Only clear new words when adding to existing lesson
+			// Clear new words and lesson title when adding to existing lesson
 			localStorage.removeItem('newWords')
 		} else {
 			// Clear all when creating new lesson
 			localStorage.removeItem('words')
-			localStorage.removeItem('lessonTitle')
 		}
+		route.replace('/create-lesson')
 		setIsUpdate(Math.random())
-		toast.success('Reset successful')
+		toast.success('Reset successful!')
 	}
 	return (
 		<Dialog>
