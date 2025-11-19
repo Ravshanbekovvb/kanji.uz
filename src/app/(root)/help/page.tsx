@@ -1,5 +1,6 @@
 'use client'
 
+import { ReqiredStar } from '@/components/shared/reqiredStar'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -140,7 +141,7 @@ export default function Page() {
 							</div>
 							<div>
 								<label htmlFor='message' className='block text-sm font-medium text-gray-700 mb-2'>
-									Message *
+									Message <ReqiredStar />
 								</label>
 								<textarea
 									id='message'
