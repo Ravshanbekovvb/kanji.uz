@@ -1,4 +1,6 @@
 'use client'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardHeader, CardTitle } from '@/components/ui/card'
 import { CarouselApi } from '@/components/ui/carousel'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
@@ -167,13 +169,13 @@ export const Memorize: React.FC = () => {
 						/>
 					</div>
 				) : (
-					<div className='space-y-4'>
+					<div className='grid gap-3'>
 						<h2 className='text-xl font-semibold text-gray-800 mt-5'>Select the lesson:</h2>
 						{data.lessons.length > 0
 							? data.lessons.map((lesson: any, ind: number) => (
-									<div
+									<Card
+										className='hover:bg-gray-100/60 mb-4'
 										key={ind}
-										className='p-4 rounded-2xl border border-gray-200 shadow-sm bg-white hover:bg-indigo-50 cursor-pointer transition-all duration-200 flex justify-between items-center group'
 										onClick={() => {
 											localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
 											setWords(lesson.words)
@@ -181,13 +183,23 @@ export const Memorize: React.FC = () => {
 											setCurrentIndex(0)
 										}}
 									>
-										<div className='text-base font-medium text-gray-700 group-hover:text-indigo-600'>
-											{lesson.title}
-										</div>
-										<div className='text-sm font-semibold text-indigo-600 bg-indigo-100 px-3 py-1 rounded-full group-hover:bg-indigo-200'>
-											{lesson.words.length} words
-										</div>
-									</div>
+										<CardHeader className='flex flex-row items-center justify-between p-4'>
+											<div>
+												<CardTitle>{lesson.title}</CardTitle>
+											</div>
+											<Badge
+												variant={
+													lesson.words.length < 10
+														? 'destructive'
+														: lesson.words.length < 20
+															? 'pending'
+															: 'approved'
+												}
+											>
+												{lesson.words.length} words
+											</Badge>
+										</CardHeader>
+									</Card>
 								))
 							: "You haven't created any documents yet."}
 					</div>

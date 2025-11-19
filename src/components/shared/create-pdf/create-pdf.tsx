@@ -198,7 +198,7 @@ export const CreatePdf: React.FC = () => {
 						<DialogBulkAt
 							triger={
 								<DropdownMenuItem onSelect={e => e.preventDefault()} className='cursor-pointer'>
-									Bulk at
+									Bulk add
 									<DropdownMenuShortcut>
 										<Boxes />
 									</DropdownMenuShortcut>
