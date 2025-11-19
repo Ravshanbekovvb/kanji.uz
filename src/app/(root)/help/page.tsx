@@ -91,7 +91,7 @@ export default function Page() {
 			image_url: '/telegram-icon.webp',
 			title: 'Live Chat',
 			description: 'Get instant help through our support chat',
-			action: 'https://t.me/Ravshanbekovb',
+			action: 'https://t.me/+WFMxQyBvsu8xOTRi',
 		},
 		{
 			icon: Mail,
@@ -107,7 +107,7 @@ export default function Page() {
 		},
 	]
 	return (
-		<Section className='bg-gradient-to-br from-blue-50 to-indigo-100 relative'>
+		<Section className='bg-gradient-to-br from-blue-50 to-indigo-100 relative h-full'>
 			<div className='space-y-6'>
 				{/* Header Section */}
 				<div className='flex items-center gap-5'>
@@ -147,7 +147,7 @@ export default function Page() {
 									name='message'
 									value={formData.message}
 									onChange={handleInputChange}
-									rows={4}
+									rows={7}
 									className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
 									placeholder='How can we help you?'
 									required

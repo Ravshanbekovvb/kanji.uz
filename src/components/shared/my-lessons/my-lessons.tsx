@@ -1,5 +1,6 @@
 'use client'
 import { Button } from '@/components/ui/button'
+import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -40,7 +41,7 @@ export const MyLessons: React.FC = () => {
 			</div>
 			{isPending ? (
 				<>
-					{[...Array(6)].map((_, i) => (
+					{[...Array(4)].map((_, i) => (
 						<div
 							key={i}
 							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer flex justify-between items-center group mb-3'
@@ -65,90 +66,91 @@ export const MyLessons: React.FC = () => {
 			) : data?.lessons.length > 0 ? (
 				<div className='grid gap-4'>
 					{data?.lessons.map((lesson: LessonWithWords) => (
-						<Link
-							href={`my-lessons/${lesson.id}`}
-							key={lesson.id}
-							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-200 cursor-pointer flex justify-between items-center group'
-						>
-							<div>
-								<h3 className='text-xl font-medium relative'>{lesson.title} </h3>
-								<p className='text-sm font-semibold text-purple-600 bg-indigo-100 px-3 py-1 rounded-full group-hover:bg-indigo-200'>
-									Words: {lesson.words?.length || 0}
-								</p>
-							</div>
-
-							<DropdownMenu>
-								<DropdownMenuTrigger asChild>
-									<Button variant='outline'>
-										<EllipsisVertical />
-									</Button>
-								</DropdownMenuTrigger>
-								<DropdownMenuContent
-									align='end'
-									className='w-56'
-									onClick={e => e.stopPropagation()}
-								>
-									<Link href={'/memorize'}>
-										<DropdownMenuItem
-											className='cursor-pointer'
-											onClick={() => {
-												localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
-											}}
-										>
-											MEMORIZE
-											<DropdownMenuShortcut>
-												<Brain />
-											</DropdownMenuShortcut>
-										</DropdownMenuItem>
-									</Link>
-									<DialogTitleEdit
-										lessonId={lesson.id}
-										currentTitle={lesson.title}
-										trigger={
-											<DropdownMenuItem
-												className='cursor-pointer'
-												onSelect={e => e.preventDefault()}
+						<Link href={`my-lessons/${lesson.id}`} key={lesson.id}>
+							<Card className='hover:bg-gray-100/60'>
+								<CardHeader className='flex flex-row items-center justify-between'>
+									<div>
+										<CardTitle className='mb-2'>{lesson.title}</CardTitle>
+										<CardDescription>Words: {lesson.words.length}</CardDescription>
+									</div>
+									<div>
+										<DropdownMenu>
+											<DropdownMenuTrigger asChild>
+												<Button variant='outline'>
+													<EllipsisVertical />
+												</Button>
+											</DropdownMenuTrigger>
+											<DropdownMenuContent
+												align='end'
+												className='w-56'
+												onClick={e => e.stopPropagation()}
 											>
-												EDIT TITLE
-												<DropdownMenuShortcut>
-													<Pencil />
-												</DropdownMenuShortcut>
-											</DropdownMenuItem>
-										}
-									/>
-									<DialogSelectTypePdf
-										lesson={lesson}
-										trigger={
-											<DropdownMenuItem
-												className='cursor-pointer'
-												onSelect={e => e.preventDefault()}
-											>
-												Download PDF
-												<DropdownMenuShortcut>
-													<MonitorDown />
-												</DropdownMenuShortcut>
-											</DropdownMenuItem>
-										}
-									/>
-									<DropdownMenuSeparator />
-									<DeleteDialog
-										isPending={deleteIsPending}
-										deleteItemFn={deleteLessonById}
-										itemId={lesson.id}
-										dialogTrigger={
-											<DropdownMenuItem
-												className='cursor-pointer flex items-center gap-2 text-red-400 '
-												onSelect={e => e.preventDefault()}
-											>
-												DELETE
-												<DropdownMenuShortcut>
-													<Delete className='text-red-400 ' />
-												</DropdownMenuShortcut>
-											</DropdownMenuItem>
-										}
-									/>
-								</DropdownMenuContent>
-							</DropdownMenu>
+												<Link href={'/memorize'}>
+													<DropdownMenuItem
+														className='cursor-pointer'
+														onClick={() => {
+															localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
+														}}
+													>
+														Memorize
+														<DropdownMenuShortcut>
+															<Brain />
+														</DropdownMenuShortcut>
+													</DropdownMenuItem>
+												</Link>
+												<DialogTitleEdit
+													lessonId={lesson.id}
+													currentTitle={lesson.title}
+													trigger={
+														<DropdownMenuItem
+															className='cursor-pointer'
+															onSelect={e => e.preventDefault()}
+														>
+															Update Title
+															<DropdownMenuShortcut>
+																<Pencil />
+															</DropdownMenuShortcut>
+														</DropdownMenuItem>
+													}
+												/>
+												<DialogSelectTypePdf
+													lesson={lesson}
+													trigger={
+														<DropdownMenuItem
+															className='cursor-pointer'
+															onSelect={e => e.preventDefault()}
+														>
+															Download PDF
+															<DropdownMenuShortcut>
+																<MonitorDown />
+															</DropdownMenuShortcut>
+														</DropdownMenuItem>
+													}
+												/>
+												<DropdownMenuSeparator />
+												<DeleteDialog
+													isPending={deleteIsPending}
+													deleteItemFn={deleteLessonById}
+													itemId={lesson.id}
+													dialogTrigger={
+														<DropdownMenuItem
+															className='cursor-pointer flex items-center gap-2 text-red-400 '
+															onSelect={e => e.preventDefault()}
+														>
+															DELETE
+															<DropdownMenuShortcut>
+																<Delete className='text-red-400 ' />
+															</DropdownMenuShortcut>
+														</DropdownMenuItem>
+													}
+												/>
+											</DropdownMenuContent>
+										</DropdownMenu>
+									</div>
+								</CardHeader>
+								{/* <CardContent></CardContent>
+								<CardFooter></CardFooter>  */}
+							</Card>
 						</Link>
 					))}
 				</div>

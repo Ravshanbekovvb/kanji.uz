@@ -56,9 +56,7 @@ function Button({
 				className={cn(buttonVariants({ variant, size, className }), 'faq-button')}
 				{...props}
 			/>
-			{tooltip && (
-				<span className='tooltip group-hover:opacity-100 group-hover:top-[-40px]'>{tooltip}</span>
-			)}
+			{tooltip && <span className='tooltip'>{tooltip}</span>}
 		</div>
 	)
 }

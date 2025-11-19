@@ -152,7 +152,7 @@ export const Memorize: React.FC = () => {
 							'flex flex-col items-center transition-all duration-700 ease-in-out w-full'
 						)}
 					>
-						<div>{currentLessonTitle}</div>
+						<div className='font-bold'>{currentLessonTitle}</div>
 						<CarouselMemorize
 							words={{ id: '', title: '', user: { userName: '' }, words, createdAt: '' }}
 							currentIndex={currentIndex}

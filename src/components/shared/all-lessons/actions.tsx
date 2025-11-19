@@ -4,6 +4,7 @@ import {
 	DropdownMenu,
 	DropdownMenuContent,
 	DropdownMenuItem,
+	DropdownMenuSeparator,
 	DropdownMenuShortcut,
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
@@ -43,6 +44,19 @@ export const Actions: React.FC<Props> = ({ row }) => {
 				</Button>
 			</DropdownMenuTrigger>
 			<DropdownMenuContent align='end' className='w-56' onClick={e => e.stopPropagation()}>
+				<DialogSelectTypePdf
+					lesson={row.original as any}
+					trigger={
+						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()}>
+							{/* <Download color='black' /> */}
+							DOWNLOAD
+							<DropdownMenuShortcut>
+								<Download />
+							</DropdownMenuShortcut>
+						</DropdownMenuItem>
+					}
+				/>
+				<DropdownMenuSeparator />
 				<DeleteDialog
 					deleteItemFn={handleDeleteUser}
 					dialogTrigger={
@@ -59,18 +73,6 @@ export const Actions: React.FC<Props> = ({ row }) => {
 					}
 					itemId={row.original.id}
 					isPending={isPending}
-				/>
-				<DialogSelectTypePdf
-					lesson={row.original as any}
-					trigger={
-						<DropdownMenuItem className='cursor-pointer' onSelect={e => e.preventDefault()}>
-							{/* <Download color='black' /> */}
-							DOWNLOAD
-							<DropdownMenuShortcut>
-								<Download />
-							</DropdownMenuShortcut>
-						</DropdownMenuItem>
-					}
 				/>
 			</DropdownMenuContent>
 		</DropdownMenu>
