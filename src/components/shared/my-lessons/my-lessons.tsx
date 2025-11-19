@@ -13,7 +13,7 @@ import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
 import { LessonWithWords } from '@/types/types'
-import { Brain, Delete, EllipsisVertical, MonitorDown, Pencil } from 'lucide-react'
+import { Brain, Delete, EllipsisVertical, MonitorDown, Pencil, Plus } from 'lucide-react'
 import Link from 'next/link'
 import { DeleteDialog } from '../delete-dialog'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
@@ -95,6 +95,19 @@ export const MyLessons: React.FC = () => {
 														Memorize
 														<DropdownMenuShortcut>
 															<Brain />
+														</DropdownMenuShortcut>
+													</DropdownMenuItem>
+												</Link>
+												<Link href={`/create-lesson?lessonId=${lesson.id}`}>
+													<DropdownMenuItem
+														className='cursor-pointer'
+														onClick={() => {
+															localStorage.setItem('words-for-memorize', JSON.stringify(lesson))
+														}}
+													>
+														Add Word
+														<DropdownMenuShortcut>
+															<Plus />
 														</DropdownMenuShortcut>
 													</DropdownMenuItem>
 												</Link>

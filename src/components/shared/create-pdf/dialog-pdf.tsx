@@ -21,12 +21,13 @@ import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-typ
 import { DialogUpdateKanji } from './dialog-update-word'
 
 // Local word interface for localStorage (without id and lessonId)
-interface LocalWord {
+export interface LocalWord {
 	kanji: string
 	translation: string
 	transcription: string
 	example: string
 	jlptLevel: string
+	isBulkAtWord: true
 }
 
 type DialogPdfProps = {
@@ -42,7 +43,7 @@ export default function DialogPdf({
 }: DialogPdfProps) {
 	const [isDownload, setIsDownload] = useState<boolean>(true)
 	const [isWords, setWords] = useState<LocalWord[]>([])
-	const { isUpdate, setIsUpdate, isKanjiCardTitle } = useStore()
+	const { isUpdate, setIsUpdate } = useStore()
 	const createLesson = useCreateLesson()
 	const addWordsToLesson = useAddWordsToLesson()
 	const router = useRouter()
@@ -122,7 +123,7 @@ export default function DialogPdf({
 				toast.success(message)
 				if (existingLessonId) {
 					setTimeout(() => {
-						router.push(`/my-docs/${existingLessonId}`)
+						router.push(`/my-lessons/${existingLessonId}`)
 					}, 1000)
 				}
 			}
@@ -139,7 +140,7 @@ export default function DialogPdf({
 
 			if (existingLessonId) {
 				setTimeout(() => {
-					router.push(`/my-docs`)
+					router.push(`/my-lessons`)
 				}, 1000)
 			}
 		}
@@ -210,7 +211,9 @@ export default function DialogPdf({
 											<th className='border border-gray-300 px-4 py-2'>Transcription</th>
 											<th className='border border-gray-300 px-4 py-2'>Translation</th>
 											<th className='border border-gray-300 px-4 py-2'>Example</th>
-											<th className='border border-gray-300 px-4 py-2'>JLPT level</th>
+											<th className='border border-gray-300 px-4 py-2 w-25 whitespace-nowrap'>
+												JLPT level
+											</th>
 											<th className='border border-gray-300 px-4 py-2 w-5 text-center'>*</th>
 										</tr>
 									</thead>
@@ -235,7 +238,14 @@ export default function DialogPdf({
 												>
 													<td className='border border-gray-300  '>
 														{isNewWord && (
-															<span className='text-xs text-blue-600 font-semibold'>NEW</span>
+															<span className='text-[8px] text-blue-600 font-semibold absolute left-0 top-2'>
+																NEW
+															</span>
+														)}
+														{item.isBulkAtWord && (
+															<span className='text-[8px] text-green-600 font-semibold absolute left-0 top-0'>
+																Bulk
+															</span>
 														)}
 														<DialogUpdateKanji
 															datas={{
@@ -304,7 +314,7 @@ export default function DialogPdf({
 															isNewWord={isNewWord}
 														/>
 													</td>
-													<td className='border border-gray-300'>
+													<td className='border border-gray-300 text-center'>
 														<DialogUpdateKanji
 															datas={{
 																example: item.example,

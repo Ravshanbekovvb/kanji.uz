@@ -50,6 +50,7 @@ export function useFindLessonById(LessonId: ParamValue) {
 			words: data.data.words,
 			title: data.data.title[0],
 		}),
+		enabled: !!LessonId,
 	})
 
 	return { data, isPending, error }

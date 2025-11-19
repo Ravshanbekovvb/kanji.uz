@@ -95,7 +95,7 @@ export const Carousel: React.FC<Props> = ({
 											<div className='underline text-red-500'>ENTER LESSON TITLE</div>
 										)}
 									</div>
-									<div>N{item.jlptLevel}</div>
+									<div>{item.jlptLevel}</div>
 								</div>
 
 								<div className={cn('font-semibold text-center', kanjiSize)}>{item.kanji}</div>
