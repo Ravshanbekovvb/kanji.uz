@@ -1,6 +1,5 @@
 import { User } from '@/lib'
-import { queryClient } from '@/lib/query-client'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 interface LoginCredentials {
 	email: string
@@ -68,6 +67,8 @@ export function useCheckAuth() {
 }
 
 export function useLogin() {
+	const queryClient = useQueryClient()
+
 	return useMutation({
 		mutationFn: authAPI.login,
 		onSuccess: userData => {
@@ -81,6 +82,8 @@ export function useLogin() {
 }
 
 export function useLogout() {
+	const queryClient = useQueryClient()
+
 	return useMutation({
 		mutationFn: authAPI.logout,
 		onSuccess: () => {

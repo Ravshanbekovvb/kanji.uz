@@ -17,10 +17,12 @@ interface Word {
 }
 export const LessonId = () => {
 	const params = useParams()
-	if (!params.LessonId) {
+	if (!params.lessonId) {
 		return 'loading..'
 	}
-	const { data, error, isPending } = useFindLessonById(params.LessonId)
+	console.log(params.lessonId)
+
+	const { data, error, isPending } = useFindLessonById(params.lessonId)
 	if (isPending) {
 		return (
 			<Section className='text-center flex items-center gap-5'>
@@ -33,7 +35,7 @@ export const LessonId = () => {
 	if (error) {
 		return (
 			<Section className='p-6'>
-				<div className='text-center text-red-500'>Error loading user profile</div>
+				<div className='text-center text-red-500'>Error loading words...</div>
 			</Section>
 		)
 	}

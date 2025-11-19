@@ -21,12 +21,7 @@ export const MemorizeHeader: React.FC<Props> = ({
 		<div className='flex items-center gap-5 justify-between'>
 			<PageTitle title='Memorize' />
 
-			<div
-				className={clsx(
-					'flex items-center gap-5 max-sm:justify-center max-sm:w-full',
-					wordsLength ? '' : 'hidden'
-				)}
-			>
+			<div className={clsx('flex items-center justify-end gap-3  ', wordsLength ? '' : 'hidden')}>
 				<Button
 					variant={'outline'}
 					className='cursor-pointer'

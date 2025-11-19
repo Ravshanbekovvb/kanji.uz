@@ -1,7 +1,6 @@
 'use client'
-import { useLogin, useLogout } from '@/hooks/useAuth'
+import { useCheckAuth, useLogin, useLogout } from '@/hooks/useAuth'
 import { User } from '@/lib'
-import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { createContext, useContext } from 'react'
 
@@ -21,34 +20,10 @@ interface AuthProviderProps {
 	children: React.ReactNode
 }
 export function AuthProvider({ children }: AuthProviderProps) {
-	const route = useRouter()
-	// Use React Query for auth check
-	const {
-		data: userData,
-		isLoading,
-		refetch: refetchUser,
-	} = useQuery({
-		queryKey: ['auth', 'user'],
-		queryFn: async (): Promise<User | null> => {
-			const response = await fetch('/api/auth/me', {
-				method: 'GET',
-				credentials: 'include',
-			})
+	const router = useRouter()
 
-			if (!response.ok) {
-				return null
-			}
-
-			const result = await response.json()
-			if (result.success) {
-				return result.data
-			}
-			return null
-		},
-		retry: false,
-		refetchOnWindowFocus: false,
-		staleTime: 5 * 60 * 1000, // 5 minutes
-	})
+	// Use the custom hook instead of duplicating API logic
+	const { data: userData, isLoading, refetch: refetchUser } = useCheckAuth()
 
 	// Login mutation
 	const LoginData = useLogin()
@@ -70,8 +45,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
 	}
 
 	const logout = () => {
-		LogoutData.mutate()
-		route.push('/login')
+		LogoutData.mutate(undefined, {
+			onSuccess: () => {
+				router.push('/login')
+			},
+			onError: () => {
+				// Even on error, redirect to login
+				router.push('/login')
+			},
+		})
 	}
 
 	const value: AuthContextType = {
