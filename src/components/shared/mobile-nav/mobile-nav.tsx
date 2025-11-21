@@ -9,7 +9,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/contexts/auth-context'
-import { AdminNavbar, defaultNavbar, userNavbar } from '@/lib/db'
+import { AdminNavbar, userNavbar } from '@/lib/db'
 import { NavbarIconKey, NavbarMenuType } from '@/types/types'
 import { HelpCircle, Home, LogOut } from 'lucide-react'
 import Image from 'next/image'
@@ -38,10 +38,6 @@ export default function MobileNav() {
 		}
 	})()
 
-	const arr: NavbarMenuType[] = [
-		{ icon: 'bell', link: '/notifications', title: 'notification' },
-		...defaultNavbar.filter(item => item.title.toLowerCase() === 'settings'),
-	]
 	return (
 		<div className='md:hidden'>
 			{/* Bottom Navigation */}
@@ -50,13 +46,7 @@ export default function MobileNav() {
 					{navItems &&
 						navItems.length > 0 &&
 						navItems
-							.filter(
-								item =>
-									item.title.toLowerCase() !== 'home' &&
-									item.title.toLowerCase() !== 'logout' &&
-									item.title.toLowerCase() !== 'help' &&
-									item.title.toLowerCase() !== 'settings'
-							)
+							.filter(item => item.isViewInMobile === true)
 							.map(item => {
 								const isActive = pathname === item.link
 								return (
@@ -90,22 +80,24 @@ export default function MobileNav() {
 						/>
 					</div>
 					<div className='flex items-center gap-2'>
-						{arr.map(item => {
-							const isActive = pathname === item.link
-							return (
-								<Link key={item.title} href={item.link}>
-									<div
-										className={`p-2 rounded-lg transition-all duration-200 active:scale-95 ${
-											isActive
-												? 'bg-blue-100 text-blue-600'
-												: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
-										}`}
-									>
-										{navbarIconMap[item.icon as NavbarIconKey]}
-									</div>
-								</Link>
-							)
-						})}
+						{navItems
+							.filter(item => item.isViewInMobile === false)
+							.map(item => {
+								const isActive = pathname === item.link
+								return (
+									<Link key={item.title} href={item.link}>
+										<div
+											className={`p-2 rounded-lg transition-all duration-200 active:scale-95 ${
+												isActive
+													? 'bg-blue-100 text-blue-600'
+													: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+											}`}
+										>
+											{navbarIconMap[item.icon as NavbarIconKey]}
+										</div>
+									</Link>
+								)
+							})}
 						{user && (
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>

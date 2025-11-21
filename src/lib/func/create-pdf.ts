@@ -79,36 +79,36 @@ export const setKanjiTextSize = (kanji: string) => {
 		length === 1
 			? 50
 			: length === 2
-			? 48
-			: length === 3
-			? 46
-			: length === 4
-			? 44
-			: length === 5
-			? 40
-			: length === 6
-			? 32
-			: length === 7
-			? 28
-			: length === 8
-			? 25
-			: length === 9
-			? 22
-			: length === 10
-			? 18
-			: length === 11
-			? 18
-			: length === 12
-			? 16
-			: length === 13
-			? 15
-			: length === 14
-			? 13
-			: length === 15
-			? 12
-			: length === 16
-			? 11
-			: 10
+				? 48
+				: length === 3
+					? 46
+					: length === 4
+						? 44
+						: length === 5
+							? 40
+							: length === 6
+								? 32
+								: length === 7
+									? 28
+									: length === 8
+										? 25
+										: length === 9
+											? 22
+											: length === 10
+												? 18
+												: length === 11
+													? 18
+													: length === 12
+														? 16
+														: length === 13
+															? 15
+															: length === 14
+																? 13
+																: length === 15
+																	? 12
+																	: length === 16
+																		? 11
+																		: 10
 	return result
 }
 
@@ -432,7 +432,7 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 			)
 			// JLPT level ong tomonda
 			doc.text(
-				`N${currentPageWords[i].jlptLevel}`,
+				`${currentPageWords[i].jlptLevel}`,
 				(col + 1) * widths - 0.2, // o‘ngdan biroz ichkariga
 				row * height + height / 7,
 				{

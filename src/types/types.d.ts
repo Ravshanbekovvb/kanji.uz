@@ -14,6 +14,7 @@ type NavbarMenuType = {
 	link: string
 	className?: string
 	badge?: string
+	isViewInMobile: boolean
 }
 export type NavbarIconKey = keyof typeof navbarIconMap
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>

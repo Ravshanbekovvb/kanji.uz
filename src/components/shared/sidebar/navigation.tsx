@@ -24,19 +24,19 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export const navbarIconMap = {
-	brain: <Brain />,
-	home: <House />,
-	badge: <BadgePlusIcon />,
-	bookHeart: <BookHeart />,
-	listCheck: <ListCheck />,
-	users: <Users />,
-	bell: <BellDot />,
-	settings: <Settings />,
-	help: <HelpCircle />,
-	logout: <LogOut />,
-	FileUser: <FileUser />,
-	reading: <BookOpenText />,
-	ChartColumnDecreasing: <ChartColumnDecreasing />,
+	brain: <Brain className={'max-sm:size-5'} />,
+	home: <House className={'max-sm:size-5'} />,
+	badge: <BadgePlusIcon className={'max-sm:size-5'} />,
+	bookHeart: <BookHeart className={'max-sm:size-5'} />,
+	listCheck: <ListCheck className={'max-sm:size-5'} />,
+	users: <Users className={'max-sm:size-5'} />,
+	bell: <BellDot className={'max-sm:size-5'} />,
+	settings: <Settings className={'max-sm:size-5'} />,
+	help: <HelpCircle className={'max-sm:size-5'} />,
+	logout: <LogOut className={'max-sm:size-5'} />,
+	FileUser: <FileUser className={'max-sm:size-5'} />,
+	reading: <BookOpenText className={'max-sm:size-5'} />,
+	ChartColumnDecreasing: <ChartColumnDecreasing className={'max-sm:size-5'} />,
 } as const
 
 export const Navigation: React.FC = () => {
