@@ -80,24 +80,23 @@ export default function MobileNav() {
 						/>
 					</div>
 					<div className='flex items-center gap-2'>
-						{navItems
-							.filter(item => item.isViewInMobile === false)
-							.map(item => {
-								const isActive = pathname === item.link
-								return (
-									<Link key={item.title} href={item.link}>
-										<div
-											className={`p-2 rounded-lg transition-all duration-200 active:scale-95 ${
-												isActive
-													? 'bg-blue-100 text-blue-600'
-													: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
-											}`}
-										>
-											{navbarIconMap[item.icon as NavbarIconKey]}
-										</div>
-									</Link>
-								)
-							})}
+						{navItems.map(item => {
+							const isActive = pathname === item.link
+							return (
+								<Link key={item.title} href={item.link}>
+									<div
+										className={`p-2 rounded-lg transition-all duration-200 active:scale-95 ${
+											isActive
+												? 'bg-blue-100 text-blue-600'
+												: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+										}`}
+									>
+										{navbarIconMap[item.icon as NavbarIconKey]}
+									</div>
+								</Link>
+							)
+						})}
+
 						{user && (
 							<DropdownMenu>
 								<DropdownMenuTrigger asChild>

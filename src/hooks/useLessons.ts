@@ -4,16 +4,15 @@ import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
 
 export function useLessons() {
-	const { isPending, error, data } = useQuery({
+	return useQuery({
 		queryKey: ['lessons'],
 		queryFn: () => fetch('/api/lessons/find').then(res => res.json()),
 	})
-	return { data, isPending, error }
 }
 
 export function useDeleteLesson() {
 	return useMutation({
-		mutationKey: ['delete Lesson'],
+		mutationKey: ['deleteLesson'],
 		mutationFn: async (LessonId: string) => {
 			const res = await fetch(`/api/lessons/delete/${LessonId}`, { method: 'DELETE' })
 
@@ -29,7 +28,7 @@ export function useDeleteLesson() {
 	})
 }
 export function useFindLessonById(LessonId: ParamValue) {
-	const { isPending, error, data } = useQuery({
+	return useQuery({
 		queryKey: ['lessons', 'lesson', LessonId],
 		queryFn: async () => {
 			const res = await fetch(`/api/lessons/find/${LessonId}`, {
@@ -52,12 +51,10 @@ export function useFindLessonById(LessonId: ParamValue) {
 		}),
 		enabled: !!LessonId,
 	})
-
-	return { data, isPending, error }
 }
 export function useFindLessonsByUserId(userId: string | undefined) {
 	const { isPending, error, data } = useQuery({
-		queryKey: ['lessons', 'user', userId],
+		queryKey: ['lessons', userId],
 		queryFn: async () => {
 			if (!userId) throw new Error('User ID is required')
 
@@ -85,10 +82,10 @@ export function useFindLessonsByUserId(userId: string | undefined) {
 	return { data, isPending, error }
 }
 
-export function useUpdateLessonTitle() {
+export function useUpdateLessonTitle(lessonId: string) {
 	return useMutation({
 		mutationKey: ['updateLessonTitle'],
-		mutationFn: async ({ lessonId, title }: { lessonId: string; title: string }) => {
+		mutationFn: async ({ title }: { title: string }) => {
 			const res = await fetch(`/api/lessons/update/${lessonId}`, {
 				method: 'PUT',
 				headers: {
@@ -108,6 +105,7 @@ export function useUpdateLessonTitle() {
 		onSuccess: () => {
 			// Invalidate related queries to refetch updated data
 			queryClient.invalidateQueries({ queryKey: ['lessons'] })
+			queryClient.invalidateQueries({ queryKey: [lessonId] })
 			toast.success('Lesson title updated successfully')
 		},
 		onError: (error: any) => {
