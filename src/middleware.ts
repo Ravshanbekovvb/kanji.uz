@@ -56,11 +56,11 @@ export async function middleware(request: NextRequest) {
 		// Role-based access control
 		switch (userRole) {
 			case 'ADMIN':
-				// Admin can access admin routes and common routes, but not user-specific routes
-				if (isUserRoute) {
-					return NextResponse.redirect(new URL('/', request.url))
-				}
-				break
+			// Admin can access admin routes and common routes, but not user-specific routes
+			// if (isUserRoute) {
+			// 	return NextResponse.redirect(new URL('/', request.url))
+			// }
+			// break
 
 			case 'TEACHER':
 				// Teacher can access teacher routes and common routes, but not admin or user routes
@@ -70,6 +70,9 @@ export async function middleware(request: NextRequest) {
 				break
 
 			case 'USER':
+				if (isAdminRoute || isTeacherRoute) {
+					return NextResponse.redirect(new URL('/', request.url))
+				}
 			case 'STUDENT':
 				// User/Student can access user routes and common routes, but not admin or teacher routes
 				if (isAdminRoute || isTeacherRoute) {

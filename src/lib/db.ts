@@ -114,9 +114,43 @@ export const AdminNavbar: NavbarMenuType[] = [
 		isViewInMobile: true,
 	},
 	{
+		icon: 'bookHeart',
+		title: 'My Lessons',
+		link: '/my-lessons',
+		isViewInMobile: true,
+	},
+	{
 		icon: 'ChartColumnDecreasing',
 		title: 'Diagnostics',
 		link: '/diagnostics',
+		isViewInMobile: true,
+	},
+
+	// {
+	// 	icon: 'FileUser',
+	// 	title: 'Resume builder',
+	// 	link: '/kasbnoma.uz',
+	// 	badge: 'NEW!',
+	// },
+
+	{
+		icon: 'brain',
+		title: 'Memorize',
+		link: '/memorize',
+		isViewInMobile: true,
+	},
+	{
+		icon: 'badge',
+		title: 'Create Lesson',
+		link: '/create-lesson',
+		isViewInMobile: true,
+	},
+
+	{
+		icon: 'reading',
+		title: 'Readings',
+		link: '/readings',
+		badge: 'NEW!',
 		isViewInMobile: true,
 	},
 	{
@@ -125,12 +159,6 @@ export const AdminNavbar: NavbarMenuType[] = [
 		link: '/settings',
 		isViewInMobile: false,
 	},
-	// {
-	// 	icon: 'FileUser',
-	// 	title: 'Resume builder',
-	// 	link: '/kasbnoma.uz',
-	// 	badge: 'NEW!',
-	// },
 	{
 		icon: 'logout',
 		title: 'Logout',
