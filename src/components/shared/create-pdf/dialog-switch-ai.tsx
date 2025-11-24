@@ -9,6 +9,7 @@ import {
 	DialogTrigger,
 } from '@/components/ui/dialog'
 import { useStore } from '@/store/store'
+import Image from 'next/image'
 import { ReactNode } from 'react'
 interface DialogSwitchAiProps {
 	triger: ReactNode
@@ -48,10 +49,12 @@ export const DialogSwitchAi: React.FC<DialogSwitchAiProps> = ({ triger }) => {
 									currentAi === ai.key ? 'bg-white shadow-sm' : 'bg-gray-50 group-hover:bg-gray-100'
 								}`}
 							>
-								<img
+								<Image
 									src={ai.image}
 									alt={ai.name}
 									className={`${ai.name === 'Groq' ? 'w-15 h-8' : 'w-8 h-8'}`}
+									height={'32'}
+									width={'15'}
 								/>
 							</div>
 							<span

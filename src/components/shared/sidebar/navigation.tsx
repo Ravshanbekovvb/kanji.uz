@@ -203,7 +203,7 @@ export const Navigation: React.FC = () => {
 					)}
 				>
 					{menuItem.badge && (
-						<span className='absolute  right-8 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs font-extrabold px-2 py-1 rounded-full shadow-lg animate-pulse border-2 border-white transform  z-10'>
+						<span className='absolute right-8 bg-gradient-to-r from-orange-500 to-yellow-500 text-white text-xs font-extrabold px-2 py-1 rounded-full shadow-lg animate-pulse border-2 border-white transform z-10 max-lg:right-0 max-lg:animate-none'>
 							{menuItem.badge}
 						</span>
 					)}

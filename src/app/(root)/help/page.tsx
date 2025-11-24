@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
-import { ArrowRight, Globe, HelpCircle, Loader2, Mail, MessageSquare, Send } from 'lucide-react'
+import { ArrowRight, HelpCircle, Loader2, Mail, MessageSquare, Send } from 'lucide-react'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
@@ -100,12 +100,12 @@ export default function Page() {
 			description: 'Send us detailed questions via email',
 			action: 'https://mailto:ravshanbekovbehruz79@gmail.com',
 		},
-		{
-			icon: Globe,
-			title: 'Official Website',
-			description: 'Visit our official website for more information',
-			action: 'https://ravshanbekov.uz',
-		},
+		// {
+		// 	icon: Globe,
+		// 	title: 'Official Website',
+		// 	description: 'Visit our official website for more information',
+		// 	action: 'https://ravshanbekov.uz',
+		// },
 	]
 	return (
 		<Section className='bg-gradient-to-br from-blue-50 to-indigo-100 relative h-full'>
