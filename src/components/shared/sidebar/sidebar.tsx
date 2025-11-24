@@ -21,7 +21,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 	return (
 		<aside
 			className={cn(
-				'sticky top-0 min-w-[230px] w-[280px] h-screen border-r  flex flex-col transition-all duration-300 ease-in-out overflow-hidden',
+				'sticky top-0  w-[280px] h-screen border-r  flex flex-col transition-all duration-300 ease-in-out overflow-hidden',
 				isOpened
 					? 'translate-x-0 opacity-100'
 					: '-translate-x-full lg:translate-x-0 lg:w-0 lg:opacity-0',

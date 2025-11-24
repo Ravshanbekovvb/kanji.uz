@@ -1,4 +1,5 @@
 'use client'
+import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import {
@@ -26,11 +27,6 @@ export const MyLessons: React.FC = () => {
 	if (error) {
 		return <div className='text-red-500'>Error loading documents: {error.message}</div>
 	}
-
-	// if (isPending) {
-	// 	return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
-	// }
-
 	return (
 		<Section>
 			<div className='flex items-center justify-between mb-4'>
@@ -41,26 +37,18 @@ export const MyLessons: React.FC = () => {
 			</div>
 			{isPending ? (
 				<>
-					{[...Array(4)].map((_, i) => (
-						<div
-							key={i}
-							className='p-4 border border-gray-300 rounded-lg hover:bg-gray-100 cursor-pointer flex justify-between items-center group mb-3'
-						>
-							<div className='animate-pulse'>
-								<div className='flex items-center gap-3 mb-3'>
-									<div className='w-6 h-6 bg-gray-200 rounded'></div>
-									{/* <div className='h-6 bg-gray-200 rounded w-3/4'></div> */}
+					{[...Array(5)].map((_, i) => (
+						<Card className='hover:bg-gray-100/60 mb-4' key={i}>
+							<CardHeader className='flex flex-row items-center justify-between p-4'>
+								<div>
+									<CardTitle className='w-6 h-6 bg-gray-200 rounded mb-2' />
+									<CardDescription className='h-4 bg-gray-200 rounded w-20' />
 								</div>
-								{/* <div className='space-y-2 mb-4'> 
-									<div className='h-4 bg-gray-200 rounded w-full'></div>
-									<div className='h-4 bg-gray-200 rounded w-2/3'></div>
-								</div> */}
 								<div className='flex justify-between items-center'>
-									<div className='h-4 bg-gray-200 rounded w-20'></div>
-									{/* <div className='h-4 bg-gray-200 rounded w-24'></div> */}
+									<div className='h-10 bg-gray-200 rounded w-10'></div>
 								</div>
-							</div>
-						</div>
+							</CardHeader>
+						</Card>
 					))}
 				</>
 			) : data?.lessons.length > 0 ? (
@@ -68,10 +56,22 @@ export const MyLessons: React.FC = () => {
 					{data?.lessons.map((lesson: LessonWithWords) => (
 						<Link href={`my-lessons/${lesson.id}`} key={lesson.id}>
 							<Card className='hover:bg-gray-100/60'>
-								<CardHeader className='flex flex-row items-center justify-between'>
+								<CardHeader className='flex flex-row items-center justify-between p-4'>
 									<div>
 										<CardTitle className='mb-2'>{lesson.title}</CardTitle>
-										<CardDescription>Words: {lesson.words.length}</CardDescription>
+										<CardDescription>
+											<Badge
+												variant={
+													lesson.words.length < 10
+														? 'destructive'
+														: lesson.words.length < 20
+															? 'pending'
+															: 'approved'
+												}
+											>
+												{lesson.words.length} words
+											</Badge>
+										</CardDescription>
 									</div>
 									<div>
 										<DropdownMenu>

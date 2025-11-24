@@ -23,19 +23,20 @@ export const DialogTitleEdit: React.FC<DialogTitleEditProps> = ({
 	currentTitle,
 	lessonId,
 }) => {
-	const [title, setTitle] = useState(currentTitle)
 	const [open, setOpen] = useState<boolean>(false)
-	const updateLessonTitle = useUpdateLessonTitle()
+	const { mutate: updateLessonTitle, isPending } = useUpdateLessonTitle(lessonId)
 
-	const handleSubmit = async (e: React.FormEvent) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-
-		if (!title.trim()) {
+		const form = e.currentTarget
+		const formData = new FormData(form)
+		const title = formData.get('title') as string
+		if (title && !title.trim()) {
 			return
 		}
 
-		updateLessonTitle.mutate(
-			{ lessonId, title: title.trim() },
+		updateLessonTitle(
+			{ title: title.trim() },
 			{
 				onSuccess: () => {
 					setOpen(false)
@@ -57,15 +58,15 @@ export const DialogTitleEdit: React.FC<DialogTitleEditProps> = ({
 					<DialogDescription>Update title</DialogDescription>
 					<form onSubmit={handleSubmit} className='flex flex-col gap-3'>
 						<Input
+							name='title'
 							type='text'
-							value={title}
-							onChange={e => setTitle(e.target.value)}
 							placeholder='Enter lesson title'
 							required
+							defaultValue={currentTitle}
 						/>
 						<div className='flex items-center gap-5'>
-							<Button type='submit' disabled={updateLessonTitle.isPending}>
-								{updateLessonTitle.isPending ? 'SAVING...' : 'SAVE'}
+							<Button type='submit' disabled={isPending}>
+								{isPending ? 'SAVING...' : 'SAVE'}
 							</Button>
 							<DialogClose asChild>
 								<Button type='button' variant={'outline'}>

@@ -12,6 +12,8 @@ export const NavbarButton: React.FC<NavbarButtonProps> = ({ className }) => {
 	const { isOpen: isOpened, setIsOpen } = useStore()
 
 	const handleNavbar = (width: string) => {
+		console.log(width)
+
 		if (width === 'lg') {
 			setIsOpen(!isOpened)
 		} else if (width === 'md') {
