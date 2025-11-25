@@ -6,24 +6,28 @@ export const userNavbar: NavbarMenuType[] = [
 		title: 'Home',
 		link: '/',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'brain',
 		title: 'Memorize',
 		link: '/memorize',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'badge',
 		title: 'Create Lesson',
 		link: '/create-lesson',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'bookHeart',
 		title: 'My Lessons',
 		link: '/my-lessons',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'reading',
@@ -31,12 +35,14 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/readings',
 		badge: 'NEW!',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',
 		isViewInMobile: false,
+		isViewInHeaderMobile: true,
 	},
 	// {
 	// 	icon: 'FileUser',
@@ -50,6 +56,7 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'logout',
@@ -57,6 +64,7 @@ export const userNavbar: NavbarMenuType[] = [
 		link: '/login',
 		className: 'hover:bg-red-500/30',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 ]
 export const defaultNavbar: NavbarMenuType[] = [
@@ -65,12 +73,14 @@ export const defaultNavbar: NavbarMenuType[] = [
 		title: 'Home',
 		link: '/',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'help',
@@ -78,6 +88,7 @@ export const defaultNavbar: NavbarMenuType[] = [
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	// {
 	// 	icon: 'FileUser',
@@ -91,6 +102,7 @@ export const defaultNavbar: NavbarMenuType[] = [
 		link: '/login',
 		className: 'hover:bg-red-500/30',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 ]
 
@@ -99,31 +111,36 @@ export const AdminNavbar: NavbarMenuType[] = [
 		icon: 'home',
 		title: 'Home',
 		link: '/',
-		isViewInMobile: true,
+		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'users',
 		title: 'Users',
 		link: '/users',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'listCheck',
 		title: 'All Lessons',
 		link: '/all-lessons',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'bookHeart',
 		title: 'My Lessons',
 		link: '/my-lessons',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'ChartColumnDecreasing',
 		title: 'Diagnostics',
 		link: '/diagnostics',
 		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 
 	// {
@@ -137,13 +154,15 @@ export const AdminNavbar: NavbarMenuType[] = [
 		icon: 'brain',
 		title: 'Memorize',
 		link: '/memorize',
-		isViewInMobile: true,
+		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'badge',
 		title: 'Create Lesson',
 		link: '/create-lesson',
-		isViewInMobile: true,
+		isViewInMobile: false,
+		isViewInHeaderMobile: true,
 	},
 
 	{
@@ -151,13 +170,15 @@ export const AdminNavbar: NavbarMenuType[] = [
 		title: 'Readings',
 		link: '/readings',
 		badge: 'NEW!',
-		isViewInMobile: true,
+		isViewInMobile: false,
+		isViewInHeaderMobile: true,
 	},
 	{
 		icon: 'settings',
 		title: 'Settings',
 		link: '/settings',
 		isViewInMobile: false,
+		isViewInHeaderMobile: true,
 	},
 	{
 		icon: 'logout',
@@ -165,5 +186,6 @@ export const AdminNavbar: NavbarMenuType[] = [
 		link: '/login',
 		className: 'hover:bg-red-500/30',
 		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
 ]
