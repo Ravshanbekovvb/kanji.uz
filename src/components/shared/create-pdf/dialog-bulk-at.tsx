@@ -215,7 +215,7 @@ export const DialogBulkAt: React.FC<DialogBulkAtProps> = ({ triger, lessonId }) 
 					<DialogTitle>Bulk Add Kanji</DialogTitle>
 					<DialogDescription>Birdaniga 100 talab so`z qoshing!</DialogDescription>
 				</DialogHeader>
-				<div className='flex-1 overflow-hidden'>
+				<div className=''>
 					{/* AI Prompt Helper */}
 					<div className='my-2 p-3 bg-blue-50 border border-blue-200 rounded-lg'>
 						<div className='flex items-center justify-between'>
@@ -299,7 +299,7 @@ export const DialogBulkAt: React.FC<DialogBulkAtProps> = ({ triger, lessonId }) 
 						</div>
 					)}
 
-					<div className='flex gap-4 h-[58vh]'>
+					<div className='flex gap-4 h-[58vh] max-md:flex-col'>
 						{/* Input Area */}
 						<div className='flex-1 px-2 py-5'>
 							<Textarea
@@ -314,7 +314,7 @@ export const DialogBulkAt: React.FC<DialogBulkAtProps> = ({ triger, lessonId }) 
 
 						{/* Error Display */}
 						{parseResult && parseResult.hasErrors && (
-							<div className='w-80 border-l pl-4'>
+							<div className='w-80 max-md:w-full'>
 								<h3 className='font-medium text-red-700 mb-2'>Errors:</h3>
 								<div className='space-y-2 max-h-full overflow-y-auto'>
 									{parseResult.words
@@ -336,9 +336,11 @@ export const DialogBulkAt: React.FC<DialogBulkAtProps> = ({ triger, lessonId }) 
 						)}
 					</div>
 				</div>
-				<DialogFooter>
+				<DialogFooter className='max-md:mt-5'>
 					<DialogClose asChild>
-						<Button variant='outline'>Cancel</Button>
+						<Button variant='outline' className='max-md:w-full'>
+							Cancel
+						</Button>
 					</DialogClose>
 					<Button
 						type='submit'
@@ -346,7 +348,7 @@ export const DialogBulkAt: React.FC<DialogBulkAtProps> = ({ triger, lessonId }) 
 						onClick={() => {
 							handleSubmit()
 						}}
-						// className='bg-blue-600 hover:bg-blue-700'
+						className='max-md:w-full'
 					>
 						Add {parseResult?.validLines || 0} Entries
 					</Button>
