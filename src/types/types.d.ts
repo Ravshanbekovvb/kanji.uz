@@ -20,7 +20,7 @@ type NavbarMenuType = {
 export type NavbarIconKey = keyof typeof navbarIconMap
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
 type UpdateRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'> & {
-	currentPassword: string
+	currentPassword?: string
 }
 type CreateUserWithRepeatPasswordRequestType = CreateUserRequestType & { repeatPassword: string }
 type SignUpType = {
