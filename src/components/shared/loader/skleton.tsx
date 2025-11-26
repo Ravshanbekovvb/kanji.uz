@@ -53,5 +53,62 @@ export const Skleton: React.FC<SkletonProps> = ({ variant }) => {
 			</>
 		)
 	}
+	if (variant === 'profile') {
+		return (
+			<div className='space-y-6'>
+				{/* Profile Header Card */}
+				<div className='flex flex-col md:flex-row items-center gap-8'>
+					{/* Avatar Section */}
+					<div className=''>
+						<div className='w-16 h-16 bg-gray-200 rounded-full shadow-xl border-4 border-white animate-pulse'></div>
+						<div className='absolute bottom-2 right-2 max-md:hidden'>
+							<div className='w-8 h-8 bg-gray-200 rounded-full animate-pulse'></div>
+						</div>
+					</div>
+
+					{/* User Info */}
+					<div className='flex-1 text-center md:text-left space-y-2'>
+						<div className='h-6 bg-gray-200 rounded w-20 animate-pulse'></div>
+						<div className='h-5 bg-gray-200 rounded w-32 animate-pulse'></div>
+					</div>
+				</div>
+
+				{/* Joined date */}
+				<div className='h-5 bg-gray-200 rounded w-40 animate-pulse'></div>
+
+				{/* Form Fields */}
+				<div className='grid grid-cols-2 grid-rows-2 max-lg:grid-cols-1 gap-5'>
+					{/* Email Field */}
+					<div className='space-y-2 w-full'>
+						<div className='h-5 bg-gray-200 rounded w-16 animate-pulse'></div>
+						<div className='h-12 bg-gray-200 rounded animate-pulse'></div>
+					</div>
+
+					{/* Username Field */}
+					<div className='space-y-2'>
+						<div className='h-5 bg-gray-200 rounded w-20 animate-pulse'></div>
+						<div className='h-12 bg-gray-200 rounded animate-pulse'></div>
+					</div>
+
+					{/* Current Password Field */}
+					<div className='space-y-2'>
+						<div className='h-5 bg-gray-200 rounded w-32 animate-pulse'></div>
+						<div className='h-12 bg-gray-200 rounded animate-pulse'></div>
+					</div>
+
+					{/* New Password Field */}
+					<div className='space-y-2'>
+						<div className='h-5 bg-gray-200 rounded w-28 animate-pulse'></div>
+						<div className='h-12 bg-gray-200 rounded animate-pulse'></div>
+					</div>
+				</div>
+
+				{/* Submit Button */}
+				<div className='my-4'>
+					<div className='h-12 bg-gray-200 rounded max-lg:w-full w-40 animate-pulse'></div>
+				</div>
+			</div>
+		)
+	}
 	return <div className='h-12 bg-gray-200 rounded w-32 mx-auto'></div>
 }
