@@ -84,10 +84,14 @@ class UserService {
 
 	async update(id: string, payload: UpdateRequestType): Promise<UserWithTokens> {
 		const existingUser = await this.findById(id)
+		if (payload.currentPassword) {
+			const isPasswordsMatching = await bcrypt.compare(
+				payload.currentPassword,
+				existingUser.password
+			)
+			if (!isPasswordsMatching) throw new ConflictError('Incorrect current password !')
+		}
 
-		const isPasswordsMatching = await bcrypt.compare(payload.currentPassword, existingUser.password)
-
-		if (!isPasswordsMatching) throw new ConflictError('Incorrect current password !')
 		if (payload.currentPassword === payload.password) throw new ConflictError('Passwords match.')
 		const hashedPassword = await bcrypt.hash(payload.password, 10)
 		const { currentPassword, ...rest } = payload

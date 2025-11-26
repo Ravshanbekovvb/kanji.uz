@@ -45,7 +45,7 @@ export async function middleware(request: NextRequest) {
 		const adminOnlyRoutes = ['/users', '/all-lessons', '/diagnostics']
 		const userOnlyRoutes = ['/my-lessons', '/create-lesson', '/memorize']
 		const teacherOnlyRoutes = ['/create-reading']
-		const commonRoutes = ['/settings', '/notifications']
+		const commonRoutes = ['/notifications']
 
 		// Check if current path matches any restricted routes
 		const isAdminRoute = adminOnlyRoutes.some(route => pathname.startsWith(route))
