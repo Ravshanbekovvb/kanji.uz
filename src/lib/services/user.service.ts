@@ -1,6 +1,6 @@
 import {
-	CreateUserRequestType,
 	CreateUserWithRepeatPasswordRequestType,
+	UpdateRequestType,
 	UserWithTokens,
 } from '@/types/types'
 import { prisma, PrismaClient } from '../prisma'
@@ -82,17 +82,22 @@ class UserService {
 		return createdUser
 	}
 
-	async update(id: string, payload: CreateUserRequestType): Promise<UserWithTokens> {
+	async update(id: string, payload: UpdateRequestType): Promise<UserWithTokens> {
 		const existingUser = await this.findById(id)
 
+		const isPasswordsMatching = await bcrypt.compare(payload.currentPassword, existingUser.password)
+
+		if (!isPasswordsMatching) throw new ConflictError('Incorrect current password !')
+		if (payload.currentPassword === payload.password) throw new ConflictError('Passwords match.')
 		const hashedPassword = await bcrypt.hash(payload.password, 10)
+		const { currentPassword, ...rest } = payload
 
 		const updatedUser = await this.prisma.user.update({
 			where: {
 				id: existingUser.id,
 			},
 			data: {
-				...payload,
+				...rest,
 				password: hashedPassword,
 			},
 			include: {

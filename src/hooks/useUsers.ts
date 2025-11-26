@@ -1,6 +1,6 @@
 import { User } from '@/lib'
 import { queryClient } from '@/lib/query-client'
-import { CreateUserRequestType, CreateUserWithRepeatPasswordRequestType } from '@/types/types'
+import { CreateUserWithRepeatPasswordRequestType, UpdateRequestType } from '@/types/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { ParamValue } from 'next/dist/server/request/params'
 import { toast } from 'sonner'
@@ -61,7 +61,7 @@ export function useCreateUser() {
 export function useEditUser(id: string) {
 	return useMutation({
 		mutationKey: ['users', 'edit'],
-		mutationFn: async (data: CreateUserRequestType) => {
+		mutationFn: async (data: UpdateRequestType) => {
 			const res = await fetch(`/api/users/update/${id}`, {
 				method: 'PATCH',
 				headers: {

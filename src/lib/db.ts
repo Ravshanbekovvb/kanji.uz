@@ -37,13 +37,13 @@ export const userNavbar: NavbarMenuType[] = [
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
-	{
-		icon: 'settings',
-		title: 'Settings',
-		link: '/settings',
-		isViewInMobile: false,
-		isViewInHeaderMobile: true,
-	},
+	// {
+	// 	icon: 'settings',
+	// 	title: 'Settings',
+	// 	link: '/settings',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: true,
+	// },
 	// {
 	// 	icon: 'FileUser',
 	// 	title: 'Resume builder',
@@ -75,13 +75,13 @@ export const defaultNavbar: NavbarMenuType[] = [
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
 	},
-	{
-		icon: 'settings',
-		title: 'Settings',
-		link: '/settings',
-		isViewInMobile: false,
-		isViewInHeaderMobile: false,
-	},
+	// {
+	// 	icon: 'settings',
+	// 	title: 'Settings',
+	// 	link: '/settings',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: false,
+	// },
 	{
 		icon: 'help',
 		title: 'Help',
@@ -173,13 +173,13 @@ export const AdminNavbar: NavbarMenuType[] = [
 		isViewInMobile: false,
 		isViewInHeaderMobile: true,
 	},
-	{
-		icon: 'settings',
-		title: 'Settings',
-		link: '/settings',
-		isViewInMobile: false,
-		isViewInHeaderMobile: true,
-	},
+	// {
+	// 	icon: 'settings',
+	// 	title: 'Settings',
+	// 	link: '/settings',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: true,
+	// },
 	{
 		icon: 'logout',
 		title: 'Logout',
