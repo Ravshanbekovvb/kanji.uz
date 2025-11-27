@@ -11,7 +11,7 @@ import {
 import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, userNavbar } from '@/lib/db'
 import { NavbarIconKey, NavbarMenuType } from '@/types/types'
-import { HelpCircle, Home, LogOut } from 'lucide-react'
+import { HelpCircle, LogOut, UserCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -115,11 +115,19 @@ export default function MobileNav() {
 									</DropdownMenuLabel>
 
 									<DropdownMenuSeparator />
-									<Link href={'/'}>
+									{/* <Link href={'/'}>
 										<DropdownMenuItem className='text-gray-500 '>
 											Home
 											<DropdownMenuShortcut>
 												<Home />
+											</DropdownMenuShortcut>
+										</DropdownMenuItem>
+									</Link> */}
+									<Link href={'/profile'}>
+										<DropdownMenuItem className='text-gray-500 '>
+											Profile
+											<DropdownMenuShortcut>
+												<UserCircle2 />
 											</DropdownMenuShortcut>
 										</DropdownMenuItem>
 									</Link>
