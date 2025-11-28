@@ -10,60 +10,47 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, userNavbar } from '@/lib/db'
-import { NavbarIconKey, NavbarMenuType } from '@/types/types'
 import { HelpCircle, LogOut, UserCircle2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { navbarIconMap } from '../sidebar/navigation'
+import { navbarIconMap } from '../sidebar/navIconMap'
 
 export default function MobileNav() {
 	const pathname = usePathname()
 	const { user, logout } = useAuth()
 
-	const navItems: NavbarMenuType[] = (() => {
-		switch (user?.role) {
-			case 'ADMIN':
-				return AdminNavbar
-
-			case 'USER':
-				return userNavbar
-			case 'TEACHER':
-				return userNavbar
-			case 'STUDENT':
-				return userNavbar
-
-			default:
-				return []
-		}
-	})()
+	const Menu =
+		user?.role === 'ADMIN'
+			? AdminNavbar
+			: ['USER', 'STUDENT', 'TEACHER'].includes(user?.role as string)
+				? userNavbar
+				: []
 
 	return (
 		<div className='md:hidden'>
 			{/* Bottom Navigation */}
 			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 pb-safe'>
 				<div className={`grid gap-1 px-2 py-2 grid-cols-4`}>
-					{navItems &&
-						navItems.length > 0 &&
-						navItems
-							.filter(item => item.isViewInMobile === true)
-							.map(item => {
-								const isActive = pathname === item.link
-								return (
-									<Link key={item.title} href={item.link}>
-										<div
-											className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all duration-200 active:scale-95 ${
-												isActive
-													? 'bg-blue-100 text-blue-600'
-													: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
-											}`}
-										>
-											{navbarIconMap[item.icon as NavbarIconKey]}
-											<span className='text-xs font-medium mt-1 truncate'>{item.title}</span>
-										</div>
-									</Link>
-								)
-							})}
+					{Menu &&
+						Menu.length > 0 &&
+						Menu.filter(item => item.isViewInMobile === true).map(item => {
+							const isActive = pathname === item.link
+							return (
+								<Link key={item.title} href={item.link}>
+									<div
+										className={`flex flex-col items-center justify-center py-2 px-1 rounded-lg transition-all duration-200 active:scale-95 ${
+											isActive
+												? 'bg-blue-100 text-blue-600'
+												: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
+										}`}
+									>
+										{navbarIconMap[item.icon as keyof typeof navbarIconMap]}
+										<span className='text-xs font-medium mt-1 truncate'>{item.title}</span>
+									</div>
+								</Link>
+							)
+						})}
 				</div>
 			</div>
 
@@ -80,7 +67,7 @@ export default function MobileNav() {
 						/>
 					</div>
 					<div className='flex items-center gap-2'>
-						{navItems.map(item => {
+						{Menu.map(item => {
 							const isActive = pathname === item.link
 							if (item.isViewInHeaderMobile) {
 								return (
@@ -92,7 +79,7 @@ export default function MobileNav() {
 													: 'text-gray-600 hover:text-blue-600 hover:bg-gray-100'
 											}`}
 										>
-											{navbarIconMap[item.icon as NavbarIconKey]}
+											{navbarIconMap[item.icon as keyof typeof navbarIconMap]}
 										</div>
 									</Link>
 								)

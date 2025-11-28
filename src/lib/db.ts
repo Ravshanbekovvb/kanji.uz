@@ -1,6 +1,6 @@
-import { NavbarMenuType } from '@/types/types'
+import { MenuItem } from '@/types/types'
 
-export const userNavbar: NavbarMenuType[] = [
+export const userNavbar: MenuItem[] = [
 	{
 		icon: 'home',
 		title: 'Home',
@@ -58,16 +58,16 @@ export const userNavbar: NavbarMenuType[] = [
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
 	},
-	{
-		icon: 'logout',
-		title: 'Logout',
-		link: '/login',
-		className: 'hover:bg-red-500/30',
-		isViewInMobile: false,
-		isViewInHeaderMobile: false,
-	},
+	// {
+	// 	icon: 'logout',
+	// 	title: 'Logout',
+	// 	link: '/login',
+	// 	className: 'hover:bg-red-500/30',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: false,
+	// },
 ]
-export const defaultNavbar: NavbarMenuType[] = [
+export const defaultNavbar: MenuItem[] = [
 	{
 		icon: 'home',
 		title: 'Home',
@@ -96,17 +96,9 @@ export const defaultNavbar: NavbarMenuType[] = [
 	// 	link: '/kasbnoma.uz',
 	// 	badge: 'NEW!',
 	// },
-	{
-		icon: 'logout',
-		title: 'Logout',
-		link: '/login',
-		className: 'hover:bg-red-500/30',
-		isViewInMobile: false,
-		isViewInHeaderMobile: false,
-	},
 ]
 
-export const AdminNavbar: NavbarMenuType[] = [
+export const AdminNavbar: MenuItem[] = [
 	{
 		icon: 'home',
 		title: 'Home',
@@ -173,6 +165,14 @@ export const AdminNavbar: NavbarMenuType[] = [
 		isViewInMobile: false,
 		isViewInHeaderMobile: true,
 	},
+	{
+		icon: 'help',
+		title: 'Help',
+		link: '/help',
+		className: 'hover:bg-green-500/30',
+		isViewInMobile: false,
+		isViewInHeaderMobile: false,
+	},
 	// {
 	// 	icon: 'settings',
 	// 	title: 'Settings',
@@ -180,12 +180,4 @@ export const AdminNavbar: NavbarMenuType[] = [
 	// 	isViewInMobile: false,
 	// 	isViewInHeaderMobile: true,
 	// },
-	{
-		icon: 'logout',
-		title: 'Logout',
-		link: '/login',
-		className: 'hover:bg-red-500/30',
-		isViewInMobile: false,
-		isViewInHeaderMobile: false,
-	},
 ]

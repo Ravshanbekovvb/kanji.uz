@@ -6,7 +6,7 @@ import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useEditUser, useFindUserById } from '@/hooks/useUsers'
 import { UserRole } from '@/lib'
-import { Camera, Lock, Mail, User } from 'lucide-react'
+import { Camera, Lock, LogOut, Mail, User } from 'lucide-react'
 import Image from 'next/image'
 import { FormEvent } from 'react'
 import { toast } from 'sonner'
@@ -15,7 +15,7 @@ import { Skleton } from '../loader/skleton'
 import { ReqiredStar } from '../reqiredStar'
 
 export const Profile: React.FC = () => {
-	const { user, refetchUser } = useAuth()
+	const { user, refetchUser, logout } = useAuth()
 	const { isPending: UserEditIsPending, mutate: editUser } = useEditUser(user?.id as string)
 	const { data, error, isPending } = useFindUserById(user?.id as string)
 	if (isPending)
@@ -94,6 +94,18 @@ export const Profile: React.FC = () => {
 						<div className='flex items-center justify-center md:justify-start gap-2 text-gray-600'>
 							Login Count:<span className='text-lg text-blue-700'>{data.loginCount}</span>
 						</div>
+					</div>
+
+					{/* Logout Button */}
+					<div className='flex justify-center md:justify-end'>
+						<Button
+							onClick={logout}
+							variant='outline'
+							className='h-10 px-4 border-red-300 text-red-600 hover:bg-red-50 hover:text-red-700 hover:border-red-400 transition-colors'
+						>
+							<LogOut className='w-4 h-4 mr-2' />
+							Logout
+						</Button>
 					</div>
 				</div>
 				<div>
