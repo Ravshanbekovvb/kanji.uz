@@ -1,23 +1,16 @@
-import { navbarIconMap } from '@/components/shared/sidebar/navigation'
 import { Lesson, Token, User, UserRole, Word } from '@/lib'
 import { JwtPayload } from 'jsonwebtoken'
 import { ReactNode } from 'react'
 
-type NavbarType = {
-	top: navbarMenuType[]
-	bottom: navbarMenuType[]
-}
-
-type NavbarMenuType = {
-	icon: keyof typeof navbarIconMap
+type MenuItem = {
 	title: string
 	link: string
-	className?: string
+	icon: keyof typeof navbarIconMap
 	badge?: string
+	className?: string
 	isViewInMobile: boolean
 	isViewInHeaderMobile: boolean
 }
-export type NavbarIconKey = keyof typeof navbarIconMap
 type CreateUserRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'>
 type UpdateRequestType = Omit<User, 'id' | 'createdAt' | 'updatedAt'> & {
 	currentPassword?: string
