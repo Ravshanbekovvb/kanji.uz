@@ -430,6 +430,16 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 					baseline: 'middle',
 				}
 			)
+			// kanji.uz chap tomonda pastda
+			doc.text(
+				`kanji.uz`,
+				col * widths + 0.2, // chapdan biroz ichkariga
+				row * height + height - 0.4,
+				{
+					align: 'left',
+					baseline: 'middle',
+				}
+			)
 			// JLPT level ong tomonda
 			doc.text(
 				`${currentPageWords[i].jlptLevel}`,
