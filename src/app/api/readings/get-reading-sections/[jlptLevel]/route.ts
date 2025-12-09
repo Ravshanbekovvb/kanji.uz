@@ -6,7 +6,7 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET!
 
 export async function GET(
 	request: NextRequest,
-	{ params }: { params: Promise<{ jlptLevel: 'N1' | 'N2' | 'N3' | 'N4' | 'N5' }> }
+	{ params }: { params: Promise<{ jlptLevel: string }> }
 ): Promise<NextResponse<ApiResponseType>> {
 	const accessToken = request.cookies.get('accessToken')?.value
 
@@ -25,8 +25,9 @@ export async function GET(
 	const { jlptLevel } = await params
 
 	try {
-		const ReadingSectionByJlptLevel =
-			await readingsService.findReadingSectionTitlesByJlptLevel(jlptLevel)
+		const ReadingSectionByJlptLevel = await readingsService.findReadingSectionTitlesByJlptLevel(
+			jlptLevel as 'N1' | 'N2' | 'N3' | 'N4' | 'N5'
+		)
 
 		return apiResponse({
 			success: true,
