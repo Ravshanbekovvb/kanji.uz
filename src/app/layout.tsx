@@ -1,5 +1,4 @@
 import { Providers } from '@/providers/providers'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import type { Metadata } from 'next'
 import { Roboto_Mono } from 'next/font/google'
 import { Toaster } from 'sonner'
@@ -47,7 +46,7 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='en' suppressHydrationWarning>
 			<meta name='google-site-verification' content='eoTkLD9BkXvY8XVLcSG1bzBr8wMwK9Z84TE4tJactUY' />
 			<head>
 				<meta name='viewport' content='width=device-width, initial-scale=1.0, viewport-fit=cover' />
@@ -55,7 +54,6 @@ export default function RootLayout({
 			<body className={`${roboto.className} antialiased min-h-screen`} suppressHydrationWarning>
 				<Providers>{children}</Providers>
 				<Toaster position='top-right' richColors />
-				<SpeedInsights />
 			</body>
 		</html>
 	)

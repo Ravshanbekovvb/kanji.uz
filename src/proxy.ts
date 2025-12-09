@@ -13,7 +13,7 @@ interface JWTPayload {
 	exp: number
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
 	const { pathname } = request.nextUrl
 	const accessToken = request.cookies.get('accessToken')?.value
 

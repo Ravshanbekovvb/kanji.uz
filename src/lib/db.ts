@@ -37,6 +37,14 @@ export const userNavbar: MenuItem[] = [
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
+	{
+		icon: 'books',
+		title: 'Books',
+		link: '/books',
+		badge: 'NEW!',
+		isViewInMobile: false,
+		isViewInHeaderMobile: true,
+	},
 	// {
 	// 	icon: 'settings',
 	// 	title: 'Settings',
@@ -126,6 +134,14 @@ export const AdminNavbar: MenuItem[] = [
 		link: '/my-lessons',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
+	},
+	{
+		icon: 'books',
+		title: 'Books',
+		link: '/books',
+		badge: 'NEW!',
+		isViewInMobile: false,
+		isViewInHeaderMobile: true,
 	},
 	{
 		icon: 'ChartColumnDecreasing',
