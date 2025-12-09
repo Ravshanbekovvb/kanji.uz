@@ -15,7 +15,6 @@ export const userNavbar: MenuItem[] = [
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
-
 	{
 		icon: 'books',
 		title: 'Books',
