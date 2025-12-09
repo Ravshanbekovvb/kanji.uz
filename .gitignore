@@ -44,7 +44,7 @@ next-env.d.ts
 prisma/__generated__/
 
 #
-public/books/
-*.pdf
+# public/books/
+# # *.pdf
 
 
