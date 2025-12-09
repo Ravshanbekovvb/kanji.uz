@@ -1,0 +1,10 @@
+{
+	"functions": {
+		"src/app/api/**/*": {
+			"runtime": "",
+			"memory": 1024,
+			"maxDuration": 10,
+			"excludeFiles": "public/books/**"
+		}
+	}
+}
