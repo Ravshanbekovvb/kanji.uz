@@ -1,6 +1,7 @@
 {
 	"functions": {
-		"api/**/*": {
+		"src/app/api/**/*": {
+			"runtime": "nodejs18.x",
 			"excludeFiles": "public/books/**"
 		}
 	}
