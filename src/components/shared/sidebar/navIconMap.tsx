@@ -1,6 +1,7 @@
 import {
 	BadgePlusIcon,
 	BellDot,
+	BookCopy,
 	BookHeart,
 	BookOpenText,
 	Brain,
@@ -15,6 +16,7 @@ import {
 } from 'lucide-react'
 
 export const navbarIconMap = {
+	books: <BookCopy className={'max-sm:size-5'} />,
 	brain: <Brain className={'max-sm:size-5'} />,
 	home: <House className={'max-sm:size-5'} />,
 	badge: <BadgePlusIcon className={'max-sm:size-5'} />,
