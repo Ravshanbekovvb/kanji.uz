@@ -24,19 +24,32 @@ export const userNavbar: MenuItem[] = [
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Words',
-		link: '/my-docs',
+		title: 'My Lessons',
+		link: '/my-lessons',
+		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
-		icon: 'settings',
-		title: 'Settings',
-		link: '/settings',
+		icon: 'reading',
+		title: 'Readings',
+		link: '/readings',
+		badge: 'NEW!',
+		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
-	{
-		icon: 'bell',
-		title: 'Notifications',
-		link: '/notifications',
-	},
+	// {
+	// 	icon: 'settings',
+	// 	title: 'Settings',
+	// 	link: '/settings',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: true,
+	// },
+	// {
+	// 	icon: 'FileUser',
+	// 	title: 'Resume builder',
+	// 	link: '/kasbnoma',
+	// 	badge: 'NEW!',
+	// },
 	{
 		icon: 'help',
 		title: 'Help',
@@ -45,12 +58,44 @@ export const userNavbar: MenuItem[] = [
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
 	},
+	// {
+	// 	icon: 'logout',
+	// 	title: 'Logout',
+	// 	link: '/login',
+	// 	className: 'hover:bg-red-500/30',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: false,
+	// },
+]
+export const defaultNavbar: MenuItem[] = [
 	{
-		icon: 'logout',
-		title: 'Logout',
-		link: '/login',
-		className: 'hover:bg-red-500/30',
+		icon: 'home',
+		title: 'Home',
+		link: '/',
+		isViewInMobile: false,
+		isViewInHeaderMobile: false,
 	},
+	// {
+	// 	icon: 'settings',
+	// 	title: 'Settings',
+	// 	link: '/settings',
+	// 	isViewInMobile: false,
+	// 	isViewInHeaderMobile: false,
+	// },
+	{
+		icon: 'help',
+		title: 'Help',
+		link: '/help',
+		className: 'hover:bg-green-500/30',
+		isViewInMobile: false,
+		isViewInHeaderMobile: false,
+	},
+	// {
+	// 	icon: 'FileUser',
+	// 	title: 'Resume builder',
+	// 	link: '/kasbnoma.uz',
+	// 	badge: 'NEW!',
+	// },
 ]
 
 export const AdminNavbar: MenuItem[] = [
@@ -76,9 +121,11 @@ export const AdminNavbar: MenuItem[] = [
 		isViewInHeaderMobile: false,
 	},
 	{
-		icon: 'bell',
-		title: 'Notifications',
-		link: '/notifications',
+		icon: 'bookHeart',
+		title: 'My Lessons',
+		link: '/my-lessons',
+		isViewInMobile: true,
+		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'ChartColumnDecreasing',
