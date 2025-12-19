@@ -3,21 +3,22 @@
 import { User } from '@/lib'
 import { ColumnDef } from '@tanstack/react-table'
 import { Actions } from './actions'
+import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<User>[] = [
 	{
 		accessorKey: 'id',
-		header: 'Id',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Id' />,
 		cell: ({ row }) => row.index + 1,
 	},
 	{
 		accessorKey: 'email',
-		header: 'Email',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Email' />,
 		cell: ({ row }) => row.getValue('email'),
 	},
 	{
 		accessorKey: 'userName',
-		header: 'Name',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Name' />,
 		cell: ({ row }) => row.getValue('userName'),
 	},
 	{

@@ -15,14 +15,14 @@ export const userNavbar: MenuItem[] = [
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
-	{
-		icon: 'books',
-		title: 'Books',
-		link: '/books',
-		isViewInMobile: false,
-		badge: 'NEW!',
-		isViewInHeaderMobile: true,
-	},
+	// {
+	// 	icon: 'books',
+	// 	title: 'Books',
+	// 	link: '/books',
+	// 	isViewInMobile: false,
+	// 	badge: 'NEW!',
+	// 	isViewInHeaderMobile: true,
+	// },
 	{
 		icon: 'badge',
 		title: 'Create Lesson',
