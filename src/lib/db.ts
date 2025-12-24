@@ -3,14 +3,14 @@ import { MenuItem } from '@/types/types'
 export const userNavbar: MenuItem[] = [
 	{
 		icon: 'home',
-		title: 'Home',
+		title: 'home',
 		link: '/',
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'brain',
-		title: 'Memorize',
+		title: 'memorize',
 		link: '/memorize',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
@@ -25,14 +25,14 @@ export const userNavbar: MenuItem[] = [
 	// },
 	{
 		icon: 'badge',
-		title: 'Create Lesson',
+		title: 'createLesson',
 		link: '/create-lesson',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Lessons',
+		title: 'myLessons',
 		link: '/my-lessons',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
@@ -60,7 +60,7 @@ export const userNavbar: MenuItem[] = [
 	// },
 	{
 		icon: 'help',
-		title: 'Help',
+		title: 'help',
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 		isViewInMobile: false,
@@ -78,7 +78,7 @@ export const userNavbar: MenuItem[] = [
 export const defaultNavbar: MenuItem[] = [
 	{
 		icon: 'home',
-		title: 'Home',
+		title: 'home',
 		link: '/',
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
@@ -92,7 +92,7 @@ export const defaultNavbar: MenuItem[] = [
 	// },
 	{
 		icon: 'help',
-		title: 'Help',
+		title: 'help',
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 		isViewInMobile: false,
@@ -109,35 +109,35 @@ export const defaultNavbar: MenuItem[] = [
 export const AdminNavbar: MenuItem[] = [
 	{
 		icon: 'home',
-		title: 'Home',
+		title: 'home',
 		link: '/',
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'users',
-		title: 'Users',
+		title: 'users',
 		link: '/users',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'listCheck',
-		title: 'All Lessons',
+		title: 'allLessons',
 		link: '/all-lessons',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'bookHeart',
-		title: 'My Lessons',
+		title: 'myLessons',
 		link: '/my-lessons',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
 	},
 	{
 		icon: 'ChartColumnDecreasing',
-		title: 'Diagnostics',
+		title: 'diagnostics',
 		link: '/diagnostics',
 		isViewInMobile: true,
 		isViewInHeaderMobile: false,
@@ -152,7 +152,7 @@ export const AdminNavbar: MenuItem[] = [
 
 	{
 		icon: 'brain',
-		title: 'Memorize',
+		title: 'memorize',
 		link: '/memorize',
 		isViewInMobile: false,
 		isViewInHeaderMobile: false,
@@ -160,7 +160,7 @@ export const AdminNavbar: MenuItem[] = [
 
 	{
 		icon: 'books',
-		title: 'Books',
+		title: 'books',
 		link: '/books',
 		isViewInMobile: false,
 		badge: 'NEW!',
@@ -169,7 +169,7 @@ export const AdminNavbar: MenuItem[] = [
 
 	{
 		icon: 'badge',
-		title: 'Create Lesson',
+		title: 'createLesson',
 		link: '/create-lesson',
 		isViewInMobile: false,
 		isViewInHeaderMobile: true,
@@ -177,7 +177,7 @@ export const AdminNavbar: MenuItem[] = [
 
 	{
 		icon: 'reading',
-		title: 'Readings',
+		title: 'readings',
 		link: '/readings',
 		badge: 'NEW!',
 		isViewInMobile: false,
@@ -185,7 +185,7 @@ export const AdminNavbar: MenuItem[] = [
 	},
 	{
 		icon: 'help',
-		title: 'Help',
+		title: 'help',
 		link: '/help',
 		className: 'hover:bg-green-500/30',
 		isViewInMobile: false,

@@ -1,4 +1,5 @@
 'use client'
+import { Button } from '@/components/ui/button'
 import {
 	Select,
 	SelectContent,
@@ -6,53 +7,67 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '@/components/ui/select'
+import { UZ, JP, RU, US } from 'country-flag-icons/react/3x2'
 // import { getDataFromToken } from '@/services/getDatafromToken'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import ja from '../../../../public/ja.png'
-import ru from '../../../../public/ru.png'
-import en from '../../../../public/usa.png'
-import uz from '../../../../public/uz.png'
-
+const languages = [
+	{
+		code: 'uz',
+		label: 'UZ',
+		flag: UZ,
+	},
+	{
+		code: 'ja',
+		label: 'JA',
+		flag: JP,
+	},
+	{
+		code: 'ru',
+		label: 'RU',
+		flag: RU,
+	},
+	{
+		code: 'us',
+		label: 'US',
+		flag: US,
+	},
+]
 export const LocaleSwitcher: React.FC = () => {
 	const router = useRouter()
-	const [localLang, setLocalLang] = useState<string>('RU') // Track selected language
+	const [localLang, setLocalLang] = useState<string>('uz') // Track selected language
 
 	const changeLang = async (e: string) => {
-		const lang = e.toLowerCase()
-		document.cookie = `NEXT_LOCALE=${lang}; path=/; max-age=31536000; SameSite=Lax;`
-		setLocalLang(e) // Update localLang state to re-render the component
-		router.refresh() // Trigger a refresh to apply the language change
+		console.log(e)
+		document.cookie = `locale=${e}; path=/; max-age=31536000; SameSite=Lax;`
+		setLocalLang(e)
+		// Force reload to update messages
+		router.refresh()
 	}
 
-	useEffect(() => {
-		const getLocaleFromCookies = async () => {
-			// const user = getDataFromToken()
-			// const language = user?.language || 'UZ' // Ensure default to 'UZ' if not found
-			// setLocalLang(language as string) // Set the initial language based on user data
-		}
-
-		getLocaleFromCookies() // Call the async function to fetch the language
-	}, [])
+	const selectedLanguage = languages.find(lang => lang.code === localLang)
 
 	return (
 		<Select onValueChange={changeLang} value={localLang}>
-			<SelectTrigger className='w-[70px]'>
-				<SelectValue placeholder='language' />
+			<SelectTrigger className='w-[95px] border-2 focus:ring-0'>
+				<SelectValue>
+					{selectedLanguage && (
+						<div className='flex items-center gap-2'>
+							<selectedLanguage.flag className='w-6 h-4' />
+							<span className='text-sm font-medium'>{selectedLanguage.label}</span>
+						</div>
+					)}
+				</SelectValue>
 			</SelectTrigger>
-			<SelectContent className='min-w-[70px]'>
-				<SelectItem value='UZ'>
-					<img src={uz.src} alt='Uzbek flag' className='rounded-full w-5 h-5 border' />
-				</SelectItem>
-				<SelectItem value='JA'>
-					<img src={ja.src} alt='Japanese flag' className='rounded-full w-5 h-5 border' />
-				</SelectItem>
-				<SelectItem value='RU'>
-					<img src={ru.src} alt='Russian flag' className='rounded-full w-5 h-5 border' />
-				</SelectItem>
-				<SelectItem value='EN'>
-					<img src={en.src} alt='English flag' className='rounded-full w-5 h-5 border' />
-				</SelectItem>
+			<SelectContent className='min-w-[95px]'>
+				{languages.map(language => (
+					<SelectItem key={language.code} value={language.code}>
+						<div className='flex items-center gap-2'>
+							<language.flag className='w-6 h-4' />
+							<span className='text-sm'>{language.label}</span>
+						</div>
+					</SelectItem>
+				))}
 			</SelectContent>
 		</Select>
 	)

@@ -3,6 +3,7 @@ import { SendHorizontal } from 'lucide-react'
 import { FormEvent } from 'react'
 import { Loader } from '../loader/loader'
 import DialogPdf, { LocalWord } from './dialog-pdf'
+import { useTranslations } from 'next-intl'
 
 // Local word interface for localStorage (without id and lessonId)
 
@@ -21,6 +22,7 @@ export const Form: React.FC<Props> = ({
 	words,
 	existingLessonId,
 }) => {
+	const t = useTranslations('createLesson')
 	return (
 		<form
 			className='w-full flex justify-center items-center gap-4 mt-auto max-xl:flex-col'
@@ -34,7 +36,7 @@ export const Form: React.FC<Props> = ({
 			<input
 				type='text'
 				name='kanji'
-				placeholder='Enter your kanji...'
+				placeholder={t('enterYourKanji')}
 				className='border-2 border-gray-300 focus:border-blue-500 rounded-lg px-4 py-3 text-base transition-all focus:ring-2 focus:ring-blue-300 outline-none w-full'
 				required
 			/>
@@ -44,7 +46,7 @@ export const Form: React.FC<Props> = ({
 					<Loader className='py-6 w-full' title='Adding...' />
 				) : (
 					<Button type='submit' className='p-6'>
-						<span className='whitespace-nowrap'>Add Word</span>
+						<span className='whitespace-nowrap'>{t('addWord')}</span>
 						<SendHorizontal size={20} />
 					</Button>
 				)}

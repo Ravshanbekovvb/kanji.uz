@@ -3,11 +3,12 @@
 import { DarsData } from '@/types/types'
 import { ColumnDef } from '@tanstack/react-table'
 import { Actions } from './actions'
+import { DataTableColumnHeader } from './data-table-column-header'
 
 export const columns: ColumnDef<DarsData>[] = [
 	{
 		accessorKey: 'title',
-		header: 'Title',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='Title' />,
 	},
 	{
 		accessorFn: row => row.words.length,
@@ -28,7 +29,7 @@ export const columns: ColumnDef<DarsData>[] = [
 	},
 	{
 		accessorFn: row => row.user.userName,
-		header: 'User',
+		header: ({ column }) => <DataTableColumnHeader column={column} title='User Name' />,
 		id: 'userName',
 	},
 	{

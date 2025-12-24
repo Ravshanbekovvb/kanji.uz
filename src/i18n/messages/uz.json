@@ -1,0 +1,64 @@
+{
+	"homePage": {
+		"title": "Yapon tilini <gradient>osonlik</gradient> bilan o'rganing va rivojlantiring",
+		"description": "Chiroyli PDF darsliklar yarating, o'z rivojlanishingizni kuzatib boring va AI yordamida yaponcha lug'atni oshiring.",
+		"startCreating": "Yaratishni boshlang",
+		"myLessons": "Mening darslarim",
+		"aiTranslation": "AI Tarjimasi",
+		"aiTranslationDescription": "Kontekst bilan birga darhol yaponchadan o'zbekcha/ruscha/inglizchaga tarjimalar.",
+		"pdfExport": "PDF Export",
+		"pdfExportDescription": "Chiroyli PDF darsliklar jadval yoki karta formatida oflayn o'rganish uchun.",
+		"progressTrack": "Rivojlanishni kuzatish",
+		"progressTrackDescription": "O'qish jarayoningizni batafsil tahlillar bilan kuzatib boring.",
+		"jlptReady": "JLPT tayyorgarlik",
+		"jlptReadyDescription": "JLPT darajalari bo'yicha tartiblangan tuzilgan o'quv yo'li.",
+		"wordLearned": "So'z o'rganildi",
+		"lessonsCreated": "Yaratilgan darslar",
+		"aiSupport": "AI yordami",
+		"welcomeBack": "xush kelibsiz!"
+	},
+	"navbar": {
+		"home": "Asosiy",
+		"users": "Foydalanuvchilar",
+		"allLessons": "Barcha darslar",
+		"myLessons": "Mening darslarim",
+		"diagnostics": "Diagnostika",
+		"memorize": "So'zlarni yodlash",
+		"books": "Kitoblar",
+		"createLesson": "Dars yaratish",
+		"readings": "O'qish",
+		"help": "Yordam"
+	},
+	"myLessons": {
+		"myLessons": "Mening darslarim",
+		"createLesson": "Dars yaratish"
+	},
+	"createLesson": {
+		"createLesson": "Dars yaratish",
+		"enterLessonTitle": "Dars nomini kiriting",
+		"enterYourKanji": "Kanji kiriting",
+		"addWord": "So'z qo'shish",
+		"checkEverything": "Hammasini tekshirish",
+		"totalWords": "Jami so'zlar",
+		"downloadImmediate": "Darhol yuklab olish",
+		"cancel": "Bekor qilish",
+		"saveAndDownload": "Saqlash va yuklab olish",
+		"saveWord": "So'zni saqlash",
+		"title": "Dars nomi"
+	},
+	"help": {
+		"title": "Yordam va qo'llab-quvvatlash",
+		"formTitle": "Bizga xabar yuboring",
+		"sendUsMessage": "Bizga xabar yuboring",
+		"phoneNumber": "Telefon raqami",
+		"message": "Xabar",
+		"howCanWeHelp": "Qanday yordam bera olamiz?",
+		"sending": "Yuborilmoqda...",
+		"sendMessage": "Bizga xabar yuboring",
+		"other": "Boshqa bog'lanish usullari",
+		"liveChat": "Jonli chat",
+		"liveChatDescription": "Qo'llab-quvvatlash chatimiz orqali darhol yordam oling",
+		"mailSupport": "Elektron pochta orqali yordam",
+		"mailSupportDescription": "Elektron pochta orqali batafsil savollarni yuboring"
+	}
+}

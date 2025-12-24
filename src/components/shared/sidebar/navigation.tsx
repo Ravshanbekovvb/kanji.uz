@@ -7,8 +7,10 @@ import { ChevronRightIcon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { navbarIconMap } from './navIconMap'
+import { useTranslations } from 'next-intl'
 
 export const Navigation: React.FC = () => {
+	const t = useTranslations('navbar')
 	const { user, isLoading } = useAuth()
 	const pathname = usePathname()
 	const activePath = '/' + (pathname.split('/')[1] || '')
@@ -33,7 +35,8 @@ export const Navigation: React.FC = () => {
 										)}
 									>
 										<span className='flex justify-center items-center gap-2 text-base'>
-											{navbarIconMap[menuItem.icon as keyof typeof navbarIconMap]} {menuItem.title}
+											{navbarIconMap[menuItem.icon as keyof typeof navbarIconMap]}{' '}
+											{t(menuItem.title)}
 										</span>
 										<ChevronRightIcon
 											className={cn(
@@ -86,7 +89,7 @@ export const Navigation: React.FC = () => {
 									)}
 								>
 									<span className='flex justify-center items-center gap-2 text-base'>
-										{navbarIconMap[menuItem.icon as keyof typeof navbarIconMap]} {menuItem.title}
+										{navbarIconMap[menuItem.icon as keyof typeof navbarIconMap]} {t(menuItem.title)}
 									</span>
 									<ChevronRightIcon
 										className={cn(

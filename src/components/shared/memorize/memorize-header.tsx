@@ -2,7 +2,7 @@ import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { PopoverClose } from '@radix-ui/react-popover'
 import clsx from 'clsx'
-import { Check, Eye, HelpCircle, RefreshCcw, X } from 'lucide-react'
+import { Check, Eye, HelpCircle, LayoutGrid, List, RefreshCcw, X } from 'lucide-react'
 import { Dispatch, SetStateAction } from 'react'
 import { PageTitle } from '../title'
 interface Props {
@@ -10,16 +10,31 @@ interface Props {
 	setNeedHelp: Dispatch<SetStateAction<boolean>>
 	wordsLength: boolean
 	setWords: Dispatch<SetStateAction<any[]>>
+	isGridView: boolean
+	setIsGridView: Dispatch<SetStateAction<boolean>>
 }
 export const MemorizeHeader: React.FC<Props> = ({
 	needHelp,
 	setNeedHelp,
 	wordsLength,
 	setWords,
+	isGridView,
+	setIsGridView,
 }) => {
 	return (
 		<div className='flex items-center gap-5 justify-between'>
-			<PageTitle title='Memorize' />
+			<div className='flex items-center justify-between w-full'>
+				<PageTitle title='Memorize' />
+				<Button
+					variant='outline'
+					onClick={() => {
+						setIsGridView(!isGridView)
+					}}
+					className={wordsLength ? 'hidden' : ''}
+				>
+					{isGridView ? <List /> : <LayoutGrid />}
+				</Button>
+			</div>
 
 			<div className={clsx('flex items-center justify-end gap-3  ', wordsLength ? '' : 'hidden')}>
 				<Button

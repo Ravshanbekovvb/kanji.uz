@@ -7,6 +7,7 @@ import {
 	DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
+import { DataTablePagination } from '@/components/ui/pagination'
 import {
 	Table,
 	TableBody,
@@ -30,7 +31,6 @@ import {
 import { Eye } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { DataTablePagination } from './data-table-pagination'
 interface DataTableProps<TData, TValue> {
 	columns: ColumnDef<TData, TValue>[]
 	data: TData[]
@@ -64,7 +64,6 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 					placeholder='Filter names...'
 					value={(table.getColumn('userName')?.getFilterValue() as string) ?? ''}
 					onChange={event => table.getColumn('userName')?.setFilterValue(event.target.value)}
-					className='max-w-sm'
 				/>
 				<DropdownMenu>
 					<DropdownMenuTrigger asChild>
@@ -137,9 +136,7 @@ export function DataTable<TData, TValue>({ columns, data }: DataTableProps<TData
 				</Table>
 			</div>
 
-			<div className='mt-5'>
-				<DataTablePagination table={table} />
-			</div>
+			<DataTablePagination className='mt-5' table={table} />
 		</div>
 	)
 }

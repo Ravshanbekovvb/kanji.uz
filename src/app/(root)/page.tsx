@@ -3,9 +3,10 @@ import { Button } from '@/components/ui/button'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { Award, BookOpen, FileText, Plus, TrendingUp, Zap } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
-
 export default function Page() {
+	const t = useTranslations('homePage')
 	const { user } = useAuth()
 
 	return (
@@ -16,23 +17,22 @@ export default function Page() {
 				<div className='absolute top-40 left-1/2 w-96 h-96 bg-pink-400 rounded-full mix-blend-multiply filter blur-xl opacity-20 animate-pulse delay-2000'></div>
 			</div>
 			{/* Hero Section */}
-			<div className='relative flex items-center justify-center '>
+			<div className='relative flex items-center jusstify-center '>
 				<div className='w-full grid lg:grid-cols-2 gap-8 lg:gap-8 items-center'>
 					{/* Left Content */}
 					<div className='text-center lg:text-left space-y-4 md:space-y-6 order-1 lg:order-1'>
 						<div className='space-y-2 md:space-y-3'>
 							<h1 className='text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight'>
-								Master
-								<span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'>
-									{' '}
-									Japanese
-								</span>
-								<br />
-								Words Effortlessly
+								{t.rich('title', {
+									gradient: chunks => (
+										<span className='text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'>
+											{chunks}
+										</span>
+									),
+								})}
 							</h1>
 							<p className='text-base md:text-lg text-gray-600 max-w-lg mx-auto lg:mx-0'>
-								Create beautiful PDF lessons, track your progress, and build your Japanese
-								vocabulary with AI-powered translations.
+								{t('description')}
 							</p>
 						</div>
 
@@ -44,7 +44,7 @@ export default function Page() {
 									className='w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300'
 								>
 									<Plus className='mr-2' size={18} />
-									Start Creating
+									{t('startCreating')}
 								</Button>
 							</Link>
 							<Link href='/my-lessons'>
@@ -54,7 +54,7 @@ export default function Page() {
 									className='w-full sm:w-auto border-2 border-gray-300 hover:border-blue-500 px-6 py-3 rounded-xl font-semibold transition-all duration-300'
 								>
 									<BookOpen className='mr-2' size={18} />
-									My Lessons
+									{t('myLessons')}
 								</Button>
 							</Link>
 						</div>
@@ -63,15 +63,15 @@ export default function Page() {
 						<div className='grid grid-cols-3 gap-3 md:gap-4 pt-4 md:pt-6'>
 							<div className='text-center'>
 								<div className='text-xl md:text-2xl font-bold text-blue-600'>1000+</div>
-								<div className='text-xs text-gray-500 font-medium'>Words Learned</div>
+								<div className='text-xs text-gray-500 font-medium'>{t('wordLearned')}</div>
 							</div>
 							<div className='text-center'>
 								<div className='text-xl md:text-2xl font-bold text-purple-600'>50+</div>
-								<div className='text-xs text-gray-500 font-medium'>Lessons Created</div>
+								<div className='text-xs text-gray-500 font-medium'>{t('lessonsCreated')}</div>
 							</div>
 							<div className='text-center'>
 								<div className='text-xl md:text-2xl font-bold text-pink-600'>24/7</div>
-								<div className='text-xs text-gray-500 font-medium'>AI Support</div>
+								<div className='text-xs text-gray-500 font-medium'> {t('aiSupport')}</div>
 							</div>
 						</div>
 					</div>
@@ -84,10 +84,10 @@ export default function Page() {
 								<Zap className='text-blue-600' size={16} />
 							</div>
 							<h3 className='font-semibold text-gray-900 mb-1 md:mb-2 text-xs md:text-sm'>
-								AI Translation
+								{t('aiTranslation')}
 							</h3>
 							<p className='text-[10px] md:text-xs text-gray-600'>
-								Instant Japanese to Uzbek/Russian/English translations with context.
+								{t('aiTranslationDescription')}
 							</p>
 						</div>
 
@@ -97,11 +97,9 @@ export default function Page() {
 								<FileText className='text-purple-600' size={16} />
 							</div>
 							<h3 className='font-semibold text-gray-900 mb-1 md:mb-2 text-xs md:text-sm'>
-								PDF Export
+								{t('pdfExport')}
 							</h3>
-							<p className='text-[10px] md:text-xs text-gray-600'>
-								Beautiful PDF lessons in table or card format for offline study.
-							</p>
+							<p className='text-[10px] md:text-xs text-gray-600'>{t('pdfExportDescription')}</p>
 						</div>
 
 						{/* Feature Card 3 */}
@@ -110,10 +108,10 @@ export default function Page() {
 								<TrendingUp className='text-green-600' size={16} />
 							</div>
 							<h3 className='font-semibold text-gray-900 mb-1 md:mb-2 text-xs md:text-sm'>
-								Progress Track
+								{t('progressTrack')}
 							</h3>
 							<p className='text-[10px] md:text-xs text-gray-600'>
-								Monitor your learning journey with detailed analytics.
+								{t('progressTrackDescription')}
 							</p>
 						</div>
 
@@ -123,11 +121,9 @@ export default function Page() {
 								<Award className='text-orange-600' size={16} />
 							</div>
 							<h3 className='font-semibold text-gray-900 mb-1 md:mb-2 text-xs md:text-sm'>
-								JLPT Ready
+								{t('jlptReady')}
 							</h3>
-							<p className='text-[10px] md:text-xs text-gray-600'>
-								Organized by JLPT levels for structured learning path.
-							</p>
+							<p className='text-[10px] md:text-xs text-gray-600'>{t('jlptReadyDescription')}</p>
 						</div>
 					</div>
 				</div>
@@ -143,7 +139,7 @@ export default function Page() {
 							</span>
 						</div>
 						<div>
-							<p className='font-medium text-gray-900'>Welcome back!</p>
+							<p className='font-medium text-gray-900'>{t('welcomeBack')}</p>
 							<p className='text-sm text-gray-600'>{user.userName}</p>
 						</div>
 					</div>

@@ -1,0 +1,64 @@
+{
+	"homePage": {
+		"title": "日本語を<gradient>簡単に</gradient> 学習しましょう",
+		"description": "美しいPDFレッスンを作成し、進捗を追跡し、AI翻訳で日本語の語彙を増やしましょう。",
+		"startCreating": "作成を始める",
+		"myLessons": "私のレッスン",
+		"aiTranslation": "AI翻訳",
+		"aiTranslationDescription": "日本語からウズベク語/ロシア語/英語へのコンテキスト付き即時翻訳。",
+		"pdfExport": "PDFエクスポート",
+		"pdfExportDescription": "オフライン学習のための表形式またはカード形式の美しいPDFレッスン。",
+		"progressTrack": "進捗追跡",
+		"progressTrackDescription": "詳細な分析で学習の進行状況を監視します。",
+		"jlptReady": "JLPT準備完了",
+		"jlptReadyDescription": "JLPTレベル別に整理された構造化された学習パス。",
+		"wordLearned": "習得した単語",
+		"lessonsCreated": "作成したレッスン",
+		"aiSupport": "AIサポート",
+		"welcomeBack": "お帰りなさい！"
+	},
+	"navbar": {
+		"home": "ホーム",
+		"users": "ユーザー",
+		"allLessons": "すべてのレッスン",
+		"myLessons": "私のレッスン",
+		"diagnostics": "診断",
+		"memorize": "単語を覚える",
+		"books": "本",
+		"createLesson": "レッスンを作成",
+		"readings": "読書",
+		"help": "ヘルプ"
+	},
+	"myLessons": {
+		"myLessons": "私のレッスン",
+		"createLesson": "レッスンを作成"
+	},
+	"createLesson": {
+		"createLesson": "レッスンを作成",
+		"enterLessonTitle": "レッスンタイトルを入力",
+		"enterYourKanji": "漢字を入力",
+		"addWord": "単語を追加",
+		"checkEverything": "すべてを確認",
+		"totalWords": "合計単語数",
+		"downloadImmediate": "すぐにダウンロード",
+		"cancel": "キャンセル",
+		"saveAndDownload": "保存してダウンロード",
+		"saveWord": "単語を保存",
+		"title": "レッスンタイトル"
+	},
+	"help": {
+		"title": "ヘルプとサポート",
+		"formTitle": "メッセージを送る",
+		"sendUsMessage": "メッセージを送る",
+		"phoneNumber": "電話番号",
+		"message": "メッセージ",
+		"howCanWeHelp": "どのようにお手伝いできますか？",
+		"sending": "送信中...",
+		"sendMessage": "メッセージを送る",
+		"other": "他の連絡方法",
+		"liveChat": "ライブチャット",
+		"liveChatDescription": "サポートチャットで即時のヘルプを受ける",
+		"mailSupport": "メールサポート",
+		"mailSupportDescription": "メールで詳細な質問を送ってください"
+	}
+}

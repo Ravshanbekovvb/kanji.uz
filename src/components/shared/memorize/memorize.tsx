@@ -13,7 +13,9 @@ import { Congratulations } from '../congratulations/congratulations'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
 import { MemorizeHeader } from './memorize-header'
+import { cn } from '@/lib/func/utils'
 export const Memorize: React.FC = () => {
+	const [isGridView, setIsGridView] = useState<boolean>(true)
 	const [needHelp, setNeedHelp] = useState<boolean>(false)
 	const [words, setWords] = useState<any[]>([])
 	const [currentIndex, setCurrentIndex] = useState(0)
@@ -145,6 +147,8 @@ export const Memorize: React.FC = () => {
 				setNeedHelp={setNeedHelp}
 				wordsLength={words.length > 0}
 				setWords={setWords}
+				isGridView={isGridView}
+				setIsGridView={setIsGridView}
 			/>
 			{/* MAIN CONTENT */}
 			<div className='relative'>
@@ -169,8 +173,14 @@ export const Memorize: React.FC = () => {
 						/>
 					</div>
 				) : (
-					<div className='grid gap-3'>
-						<h2 className='text-xl font-semibold text-gray-800 mt-5'>Select the lesson:</h2>
+					<div
+						className={cn(
+							'mt-5',
+							isGridView
+								? 'grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+								: 'flex flex-col gap-4'
+						)}
+					>
 						{data.lessons.length > 0
 							? data.lessons.map((lesson: any, ind: number) => (
 									<Card

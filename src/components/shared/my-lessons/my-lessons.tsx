@@ -14,13 +14,26 @@ import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useDeleteLesson, useFindLessonsByUserId } from '@/hooks/useLessons'
 import { LessonWithWords } from '@/types/types'
-import { Brain, Delete, EllipsisVertical, MonitorDown, Pencil, Plus } from 'lucide-react'
+import {
+	Brain,
+	Delete,
+	EllipsisVertical,
+	LayoutGrid,
+	MonitorDown,
+	Pencil,
+	List,
+	Plus,
+} from 'lucide-react'
 import Link from 'next/link'
 import { DeleteDialog } from '../delete-dialog'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { PageTitle } from '../title'
 import { DialogTitleEdit } from './dialog-title-edit'
+import { useState } from 'react'
+import { useTranslations } from 'next-intl'
 export const MyLessons: React.FC = () => {
+	const t = useTranslations('myLessons')
+	const [isGridView, setIsGridView] = useState<boolean>(true)
 	const { user } = useAuth()
 	const { data, error, isPending } = useFindLessonsByUserId(user?.id)
 	const { mutate: deleteLessonById, isPending: deleteIsPending } = useDeleteLesson()
@@ -30,10 +43,20 @@ export const MyLessons: React.FC = () => {
 	return (
 		<Section>
 			<div className='flex items-center justify-between mb-4'>
-				<PageTitle title='My Lessons' />
-				<Link href={'/create-lesson'}>
-					<Button className='w'>Create lesson</Button>
-				</Link>
+				<PageTitle title={t('myLessons')} />
+				<div className='flex items-center gap-5'>
+					<Link href={'/create-lesson'}>
+						<Button className='w'>{t('createLesson')}</Button>
+					</Link>
+					<Button
+						variant='outline'
+						onClick={() => {
+							setIsGridView(!isGridView)
+						}}
+					>
+						{isGridView ? <List /> : <LayoutGrid />}
+					</Button>
+				</div>
 			</div>
 			{isPending ? (
 				<>
@@ -52,7 +75,13 @@ export const MyLessons: React.FC = () => {
 					))}
 				</>
 			) : data?.lessons.length > 0 ? (
-				<div className='grid gap-4'>
+				<div
+					className={
+						isGridView
+							? 'grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+							: 'flex flex-col gap-4'
+					}
+				>
 					{data?.lessons.map((lesson: LessonWithWords) => (
 						<Link href={`my-lessons/${lesson.id}`} key={lesson.id}>
 							<Card className='hover:bg-gray-100/60'>

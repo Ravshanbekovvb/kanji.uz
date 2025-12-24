@@ -25,6 +25,7 @@ import { DialogBulkAt } from './dialog-bulk-at'
 import { DialogReset } from './dialog-reset'
 import { DialogSwitchAi } from './dialog-switch-ai'
 import { Form } from './form'
+import { useTranslations } from 'next-intl'
 
 interface LocalWord {
 	kanji: string
@@ -35,6 +36,7 @@ interface LocalWord {
 }
 
 export const CreatePdf: React.FC = () => {
+	const t = useTranslations('createLesson')
 	const [wordsLength, setWordsLength] = useState(0)
 	const [words, setWords] = useState<LocalWord[]>([])
 	const [lessonTitle, setLessonTitle] = useState<string>('')
@@ -164,7 +166,9 @@ export const CreatePdf: React.FC = () => {
 		<Section className='overflow-x-hidden'>
 			<div className='flex justify-between items-center mb-4'>
 				<div className='flex items-center gap-5'>
-					<PageTitle title={existingLessonId ? `Add Words to: ${lessonTitle}` : 'Create PDF'} />
+					<PageTitle
+						title={existingLessonId ? `Add Words to: ${lessonTitle}` : t('createLesson')}
+					/>
 
 					{currentAi === 'groq' ? (
 						<Image alt='groq logo' src={'groq.png'} width={80} height={80} />
@@ -232,7 +236,7 @@ export const CreatePdf: React.FC = () => {
 					type='text'
 					value={lessonTitle}
 					onChange={e => handleTitleChange(e.target.value)}
-					placeholder='Enter lesson title...'
+					placeholder={t('enterLessonTitle')}
 					disabled={!!existingLessonId}
 					className={`w-full border-2 rounded-lg px-4 py-2 text-lg transition-all outline-none ${
 						existingLessonId

@@ -7,11 +7,13 @@ import { Input } from '@/components/ui/input'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { ArrowRight, HelpCircle, Loader2, Mail, MessageSquare, Send } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
 export default function Page() {
+	const t = useTranslations('help')
 	const { user } = useAuth()
 	const [formData, setFormData] = useState({
 		phone: '',
@@ -64,40 +66,17 @@ export default function Page() {
 		}
 	}
 
-	const faqItems = [
-		{
-			question: 'How do I start memorizing words?',
-			answer:
-				"Go to the 'Memorize' section, select a lesson, and use the keyboard shortcuts (Space, Enter, Ctrl) to interact with the flashcards.",
-		},
-		{
-			question: 'How can I create my own lesson?',
-			answer:
-				"Navigate to 'Create Lesson' where you can add words, translations, and organize them into custom lessons.",
-		},
-		{
-			question: 'What are the keyboard shortcuts?',
-			answer:
-				'Space - Show word details, Enter - Mark as memorized, Ctrl - Move to next word without memorizing.',
-		},
-		{
-			question: 'How do I track my progress?',
-			answer:
-				"Visit the 'My Lessons' section to see your learning statistics and completed lessons.",
-		},
-	]
-
 	const contactMethods = [
 		{
 			image_url: '/telegram-icon.webp',
-			title: 'Live Chat',
-			description: 'Get instant help through our support chat',
+			title: 'liveChat',
+			description: 'liveChatDescription',
 			action: 'https://t.me/+WFMxQyBvsu8xOTRi',
 		},
 		{
 			icon: Mail,
-			title: 'Email Support',
-			description: 'Send us detailed questions via email',
+			title: 'mailSupport',
+			description: 'mailSupportDescription',
 			action: 'https://mailto:ravshanbekovbehruz79@gmail.com',
 		},
 		// {
@@ -115,7 +94,7 @@ export default function Page() {
 					<div className='inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full'>
 						<HelpCircle className='h-10 w-10 text-white' />
 					</div>
-					<h1 className='text-4xl md:text-5xl font-bold text-gray-900'>Help & Support</h1>
+					<h1 className='text-4xl md:text-5xl font-bold text-gray-900'>{t('title')}</h1>
 				</div>
 
 				{/* Contact Form */}
@@ -123,12 +102,12 @@ export default function Page() {
 					<Card className='p-4'>
 						<h2 className='text-2xl font-bold text-gray-900 mb-6 flex items-center gap-3'>
 							<MessageSquare className='h-6 w-6 text-blue-600' />
-							Send us a Message
+							{t('formTitle')}
 						</h2>
 						<form onSubmit={handleSubmit} className='space-y-6'>
 							<div>
 								<label htmlFor='phone' className='block text-sm font-medium text-gray-700 mb-2'>
-									Phone Number
+									{t('phoneNumber')}
 								</label>
 								<Input
 									type='tel'
@@ -141,7 +120,7 @@ export default function Page() {
 							</div>
 							<div>
 								<label htmlFor='message' className='block text-sm font-medium text-gray-700 mb-2'>
-									Message <ReqiredStar />
+									{t('message')} <ReqiredStar />
 								</label>
 								<textarea
 									id='message'
@@ -150,7 +129,7 @@ export default function Page() {
 									onChange={handleInputChange}
 									rows={7}
 									className='w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500'
-									placeholder='How can we help you?'
+									placeholder={t('howCanWeHelp')}
 									required
 								/>
 							</div>
@@ -158,12 +137,12 @@ export default function Page() {
 								{isSubmitting ? (
 									<>
 										<Loader2 className='h-4 w-4 animate-spin mr-2' />
-										Sending...
+										{t('sending')}
 									</>
 								) : (
 									<>
 										<Send className='h-4 w-4 mr-2' />
-										Send Message
+										{t('sendMessage')}
 									</>
 								)}
 							</Button>
@@ -172,7 +151,7 @@ export default function Page() {
 
 					{/* Contact Methods */}
 					<div className='space-y-6'>
-						<h2 className='text-2xl font-bold text-gray-900'>Other Ways to Reach Us</h2>
+						<h2 className='text-2xl font-bold text-gray-900'>{t('other')}</h2>
 
 						{contactMethods.map((method, index) => (
 							<Card key={index} className='p-4'>
@@ -184,15 +163,15 @@ export default function Page() {
 										)}
 									</div>
 									<div className='flex-1'>
-										<h3 className='font-semibold text-gray-900 mb-1'>{method.title}</h3>
-										<p className='text-gray-600 mb-2'>{method.description}</p>
+										<h3 className='font-semibold text-gray-900 mb-1'>{t(method.title)}</h3>
+										<p className='text-gray-600 mb-2'>{t(method.description)}</p>
 										<a
 											target='_blank'
 											rel='noopener noreferrer'
 											href={method.action}
 											className='text-blue-600 font-medium wrap-anywhere underline flex items-center gap-5'
 										>
-											{method.title} <ArrowRight />
+											{t(method.title)} <ArrowRight />
 										</a>
 									</div>
 								</div>

@@ -19,6 +19,7 @@ import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { DialogUpdateKanji } from './dialog-update-word'
+import { useTranslations } from 'next-intl'
 
 // Local word interface for localStorage (without id and lessonId)
 export interface LocalWord {
@@ -47,7 +48,7 @@ export default function DialogPdf({
 	const createLesson = useCreateLesson()
 	const addWordsToLesson = useAddWordsToLesson()
 	const router = useRouter()
-
+	const t = useTranslations('createLesson')
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			if (existingLessonId) {
@@ -184,12 +185,11 @@ export default function DialogPdf({
 							<AlertDialogTitle>
 								{existingLessonId
 									? 'Check new words before adding to lesson. Adding words to existing lesson'
-									: 'Check everything before saving.'}
+									: t('checkEverything')}
 							</AlertDialogTitle>
 							<AlertDialogDescription>
-								Total words: <span className='font-black'>{isWords.length}</span> {'   '}
-								Title: <span className='font-black'> {lessonTitle}</span>
-								{'  '}
+								{t('totalWords')}: <span className='font-black'>{isWords.length}</span> {'   '}
+								{t('title')}: <span className='font-black'> {lessonTitle}</span>
 								{existingLessonId && (
 									<span className='text-sm text-blue-600 mt-1'>
 										Adding words to existing lesson
@@ -354,10 +354,10 @@ export default function DialogPdf({
 									setIsDownload(!isDownload)
 								}}
 							/>
-							<div>Download immediately</div>
+							<div>{t('downloadImmediate')}</div>
 						</div>
 						<AlertDialogFooter>
-							<AlertDialogCancel>Cancel</AlertDialogCancel>
+							<AlertDialogCancel>{t('cancel')}</AlertDialogCancel>
 							{isDownload ? (
 								<DialogSelectTypePdf
 									customWords={words}
@@ -366,7 +366,7 @@ export default function DialogPdf({
 									trigger={
 										<Button>
 											<Download />
-											Save and Download
+											{t('saveAndDownload')}
 										</Button>
 									}
 								/>
