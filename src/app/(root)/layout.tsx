@@ -1,6 +1,5 @@
 'use client'
 import { Header, MobileNav, Sidebar } from '@/components/shared'
-
 export default function Home({ children }: Readonly<{ children: React.ReactNode }>) {
 	return (
 		<div className='flex'>

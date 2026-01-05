@@ -158,14 +158,14 @@ export const AdminNavbar: MenuItem[] = [
 		isViewInHeaderMobile: false,
 	},
 
-	{
-		icon: 'books',
-		title: 'books',
-		link: '/books',
-		isViewInMobile: false,
-		badge: 'NEW!',
-		isViewInHeaderMobile: true,
-	},
+	// {
+	// 	icon: 'books',
+	// 	title: 'books',
+	// 	link: '/books',
+	// 	isViewInMobile: false,
+	// 	badge: 'NEW!',
+	// 	isViewInHeaderMobile: true,
+	// },
 
 	{
 		icon: 'badge',

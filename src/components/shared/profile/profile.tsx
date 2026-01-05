@@ -168,7 +168,7 @@ export const Profile: React.FC = () => {
 								id='currentPassword'
 								type='text'
 								name='currentPassword'
-								placeholder='Enter your new password'
+								placeholder='Enter your current password'
 								className='h-12 px-4 text-base border-gray-300 focus:border-blue-500 focus:ring-blue-500'
 								required
 							/>
