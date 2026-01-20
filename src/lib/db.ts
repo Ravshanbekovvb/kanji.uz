@@ -39,7 +39,7 @@ export const userNavbar: MenuItem[] = [
 	},
 	{
 		icon: 'reading',
-		title: 'Readings',
+		title: 'readings',
 		link: '/readings',
 		badge: 'NEW!',
 		isViewInMobile: true,

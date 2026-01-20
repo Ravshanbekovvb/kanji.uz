@@ -25,7 +25,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 				isOpened
 					? 'translate-x-0 opacity-100'
 					: '-translate-x-full lg:translate-x-0 w-0 lg:opacity-0',
-				className
+				className,
 			)}
 		>
 			<div className='px-6 py-[10px] border-b '>
@@ -46,9 +46,7 @@ export const Sidebar: React.FC<Props> = ({ className }) => {
 						<span className='text-xl font-bold uppercase tracking-wider text-[#1E2F4F]'>
 							kanji.uz
 						</span>
-						<span className='text-xs text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600'>
-							Learning Platform
-						</span>
+						<span className='text-xs text-[#2263bd]'>Learning Platform</span>
 					</div>
 				</a>
 			</div>

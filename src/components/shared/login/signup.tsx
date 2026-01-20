@@ -29,7 +29,7 @@ export const Signup: React.FC = () => {
 						form.reset()
 						setShowModal(true)
 					},
-				}
+				},
 			)
 		} catch (err) {
 			toast.error('An unexpected error occurred')
@@ -86,10 +86,7 @@ export const Signup: React.FC = () => {
 				{isPending ? (
 					<Loader className='w-full' title='Submitting request...' />
 				) : (
-					<Button
-						type='submit'
-						className='w-full bg-gradient-to-r from-sky-600 border-t-violet-600 hover:from-sky-700 hover:to-blue-700 duration-100 transition'
-					>
+					<Button type='submit' className='w-full duration-100 transition'>
 						Request Access
 					</Button>
 				)}

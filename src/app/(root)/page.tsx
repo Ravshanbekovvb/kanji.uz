@@ -41,7 +41,7 @@ export default function Page() {
 							<Link href='/create-lesson'>
 								<Button
 									size='lg'
-									className='w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300'
+									className='w-full sm:w-auto px-6 py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300'
 								>
 									<Plus className='mr-2' size={18} />
 									{t('startCreating')}
@@ -133,7 +133,7 @@ export default function Page() {
 			{user && (
 				<div className='hidden lg:block absolute bottom-8 right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-gray-200'>
 					<div className='flex items-center gap-3'>
-						<div className='w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center'>
+						<div className='w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 rounded-full flex items-center justify-center'>
 							<span className='text-white font-semibold text-sm'>
 								{user.userName?.charAt(0).toUpperCase()}
 							</span>
