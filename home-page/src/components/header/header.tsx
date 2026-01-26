@@ -24,9 +24,7 @@ export const Header = () => {
 				</ul>
 			</nav>
 			<div className='flex items-center gap-5'>
-				<Button className='cursor-pointer'>
-					<ToggleTheme className='cursor-pointer' />
-				</Button>
+				<ToggleTheme className='cursor-pointer' />
 				<a href='https://dashboard.kanji.uz/login' target='_blank'>
 					<Button variant='secondary' className='cursor-pointer'>
 						Register
