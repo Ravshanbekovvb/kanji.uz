@@ -1,7 +1,5 @@
 {
 	"outputDirectory": "dist",
-	"scripts": {
-		"build": "npm run build",
-		"dev": "vite"
-	}
+	"buildCommand": "npm run build",
+	"devCommand": "npm run dev"
 }
