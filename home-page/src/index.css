@@ -1,1 +1,6 @@
 @import 'tailwindcss';
+@plugin 'lightswind/plugin';
+
+::-webkit-scrollbar {
+	display: none;
+}

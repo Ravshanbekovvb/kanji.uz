@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { NotFound } from './components/not-found/not-found'
 import './index.css'
 import { HomeLayout } from './layouts/main-layout/main-layout'
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
 	<StrictMode>
 		<BrowserRouter>
 			<Routes>
