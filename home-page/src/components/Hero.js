@@ -41,7 +41,7 @@ const Hero = ({ t }) => {
 				<h1 dangerouslySetInnerHTML={{ __html: t('home-title') }} className='font-bold' />
 
 				<div className='btnhome font-semibold'>
-					<a href='#footer'>{t('home-more')}</a>
+					<a href='#'>{t('home-more')}</a>
 					<a href='#'>{t('home-contact')}</a>
 				</div>
 			</div>

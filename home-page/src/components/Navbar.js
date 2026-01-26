@@ -40,20 +40,14 @@ const Navbar = ({ t, currentLang, onLangChange }) => {
 					<a href='#about'>{t('menu-about')}</a>
 				</li>
 				<li>
-					<a href='#'>{t('menu-login')}</a>
+					<a href='#menu-login'>{t('menu-login')}</a>
 				</li>
 				<li className='btn'>
-					<a href='#'>{t('menu-register')}</a>
+					<a href='#menu-register'>{t('menu-register')}</a>
 				</li>
 			</ul>
 
-			<div
-				className='lang-dropdown'
-				ref={dropdownRef}
-				onClick={() => {
-					console.log(Flag)
-				}}
-			>
+			<div className='lang-dropdown' ref={dropdownRef}>
 				<button
 					className='lang-btn'
 					onClick={() => {
