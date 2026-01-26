@@ -1,0 +1,617 @@
+/* RESET */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background: transparent;
+	overscroll-behavior-y: none;
+	scroll-behavior: smooth;
+}
+
+/* HEADER BACKGROUND */
+
+.hero {
+	scroll-behavior: smooth;
+	min-height: 100vh;
+	background-image: url('./home.png');
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center -300px;
+	position: relative;
+	padding-top: 100px; /* navbar joyi */
+	overflow: hidden; /* bulut tashqariga chiqmasin */
+}
+
+.clouds {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.cloud {
+	position: absolute;
+	left: -300px;
+	width: 200px;
+	opacity: 0.7;
+
+	animation-name: cloudMoveUp;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+}
+/* Tez-tez chiqishi uchun davomiylik qisqaroq */
+.cloud1 {
+	animation-duration: 22s;
+}
+.cloud2 {
+	animation-duration: 26s;
+	width: 240px;
+	opacity: 0.6;
+}
+.cloud3 {
+	animation-duration: 30s;
+	width: 280px;
+	opacity: 0.5;
+}
+
+@keyframes cloudMoveUp {
+	from {
+		transform: translate(0, 0);
+	}
+	to {
+		transform: translate(140vw, -120px); /* 👉 o‘ngga + tepaga */
+	}
+}
+
+/* NAVBAR */
+.navbar {
+	position: fixed; /* MUHIM */
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: 999;
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 25px 100px;
+
+	background: rgba(15, 118, 110, 0.4);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+}
+
+/* language-css */
+.lang-dropdown {
+	position: relative;
+	display: inline-block;
+	font-family: sans-serif;
+}
+
+/* Button */
+.lang-btn {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 12px;
+	border-radius: 12px;
+	border: 2px solid #e5e7eb;
+	background: white;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.3s ease;
+}
+
+.lang-btn:hover {
+	background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+	color: white;
+	border-color: #0ea5e9;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(14, 165, 233, 0.3);
+}
+
+.arrow {
+	margin-left: 6px;
+	color: #64748b;
+	transition: transform 0.3s ease;
+}
+
+.lang-btn:hover .arrow {
+	transform: rotateZ(180deg);
+}
+
+/* Dropdown */
+.lang-menu {
+	list-style: none;
+	padding: 8px 0;
+	margin: 10px 0 0;
+	background: linear-gradient(135deg, #e0f2fe, #f0f9ff);
+	border-radius: 14px;
+	box-shadow: 0 20px 40px rgba(14, 165, 233, 0.15);
+	position: absolute;
+	right: 0;
+	width: 180px;
+	display: none;
+	animation: slideDown 0.3s ease;
+	border: 1px solid rgba(14, 165, 233, 0.3);
+}
+
+@keyframes slideDown {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Item */
+.lang-menu li {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 12px 16px;
+	cursor: pointer;
+	font-weight: 600;
+	transition: all 0.2s ease;
+	position: relative;
+}
+
+.lang-menu li:hover {
+	background: linear-gradient(90deg, rgba(14, 165, 233, 0.1), rgba(6, 182, 212, 0.1));
+	padding-left: 20px;
+}
+
+.lang-menu li:hover::before {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 3px;
+	background: linear-gradient(180deg, #0ea5e9, #06b6d4);
+	border-radius: 0 3px 3px 0;
+}
+
+/* Flag */
+.lang-menu img {
+	width: 5px;
+	transition: transform 0.2s ease;
+}
+
+.lang-menu li:hover .dot {
+	transform: scale(1.2);
+}
+
+/* Check icon */
+.check {
+	margin-left: auto;
+	color: #0ea5e9;
+	font-weight: 700;
+	animation: checkPulse 0.3s ease;
+}
+
+@keyframes checkPulse {
+	0% {
+		transform: scale(0.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+/* LOGO */
+.logo-box {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	text-decoration: none;
+}
+.logo-box:hover {
+	text-decoration: none;
+}
+
+.logo {
+	width: 60px;
+	height: auto;
+}
+
+.logo-text {
+	font-size: 22px;
+	font-weight: bold;
+	color: white;
+}
+
+.logo-text span {
+	color: #99f6e4;
+}
+
+/* MENU */
+.menu {
+	list-style: none;
+	display: flex;
+	align-items: center;
+	gap: 40px;
+}
+
+.menu li a {
+	text-decoration: none;
+	color: white;
+	font-weight: 600;
+	transition: 0.3s;
+}
+
+.menu li a:hover {
+	text-decoration: underline;
+}
+
+/* BUTTON MENU */
+.menu .btn a {
+	background: white;
+	color: #0f766e;
+	padding: 10px 18px;
+	border-radius: 6px;
+}
+
+/* HERO CONTENT */
+.home {
+	margin-top: 150px;
+	margin-left: auto; /* MUHIM */
+	margin-right: 100px; /* o‘ngdan masofa */
+	max-width: 500px;
+
+	color: white;
+}
+
+.home h1 {
+	font-size: 42px;
+	line-height: 1.3;
+	margin-bottom: 30px;
+
+	opacity: 0;
+	animation: fadeInUp 1s ease forwards;
+}
+
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/*  BUTTONS */
+.btnhome {
+	display: flex;
+	gap: 20px;
+
+	opacity: 0;
+	animation: fadeInUp 1s ease 0.3s forwards;
+}
+
+.btnhome a {
+	text-decoration: none;
+	color: white;
+	border: 2px solid white;
+	padding: 10px 22px;
+	border-radius: 6px;
+	transition: all 0.3s ease;
+}
+
+.btnhome a:hover {
+	background: white;
+	color: #0f766e;
+	transform: translateY(-3px);
+	box-shadow: 0 10px 25px rgba(255, 255, 255, 0.3);
+}
+
+.Review {
+	height: auto; /* 100vh o‘rniga */
+	background-color: #0ea5e9;
+
+	clip-path: polygon(0 12%, 100% 0, 100% 100%, 0 100%);
+
+	margin-top: -110px;
+
+	display: flex;
+	flex-direction: column; /* 👈 MUHIM */
+	align-items: center;
+	gap: 40px; /* cardlar orasidagi masofa */
+
+	padding-top: 180px;
+	padding-bottom: 120px;
+}
+
+.card {
+	position: relative;
+	display: flex;
+	gap: 20px;
+
+	width: 900px;
+	padding: 40px;
+	background-color: rgba(255, 255, 255, 0.15);
+
+	border-radius: 16px;
+	color: #fff;
+
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+	backdrop-filter: blur(6px);
+
+	transition: all 0.3s ease;
+	border: 2px solid transparent;
+}
+
+.card:hover {
+	transform: translateX(10px);
+	background-color: rgba(255, 255, 255, 0.25);
+	border-color: rgba(255, 255, 255, 0.3);
+	box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+.reviews-list {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+
+	max-height: 600px; /* 👈 shu joyda scroll bo‘ladi */
+	overflow-y: auto;
+	padding-right: 10px;
+}
+
+/* Scroll chiroyli bo‘lsin */
+.reviews-list::-webkit-scrollbar {
+	width: 6px;
+}
+.reviews-list::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.4);
+	border-radius: 10px;
+}
+
+/* Dastlab yashirin otzivlar */
+.hidden {
+	display: none;
+}
+
+/* Ko‘proq tugma */
+.more-btn {
+	margin-top: 40px;
+	padding: 12px 30px;
+
+	background: white;
+	color: #0ea5e9;
+	font-weight: 600;
+	border: none;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(1.05);
+	}
+}
+
+.more-btn:hover {
+	background: linear-gradient(135deg, #0ea5e9, #06b6d4);
+	color: white;
+	transform: scale(1.1);
+	box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+	animation: none;
+}
+/* ------------------------------------------------------------------ */
+/* ================= ABOUT SECTION ================= */
+
+#about {
+	min-height: 100vh;
+	padding: 80px 20px;
+	text-align: center;
+}
+
+/* Sarlavha */
+
+#about h1 {
+	font-size: 52px;
+	margin-bottom: 10px;
+}
+
+#about > p {
+	font-size: 22px;
+	margin-bottom: 60px;
+	opacity: 0.8;
+}
+
+/* GRID */
+
+.about-grid {
+	display: grid; /* 🔥 MUHIM */
+	grid-template-columns: repeat(6, 1fr); /* 6 ustun */
+	gap: 40px;
+
+	max-width: 1200px;
+	width: 100%;
+	margin: 0 auto;
+
+	justify-items: center; /* cardlar center */
+}
+
+/* CARD */
+
+.cardAboutUs {
+	max-width: 360px;
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+
+	opacity: 0;
+	animation: slideUp 0.6s ease forwards;
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
+	padding: 30px;
+	border-radius: 16px;
+}
+
+.cardAboutUs:nth-child(1) {
+	animation-delay: 0.1s;
+}
+.cardAboutUs:nth-child(2) {
+	animation-delay: 0.2s;
+}
+.cardAboutUs:nth-child(3) {
+	animation-delay: 0.3s;
+}
+.cardAboutUs:nth-child(4) {
+	animation-delay: 0.4s;
+}
+.cardAboutUs:nth-child(5) {
+	animation-delay: 0.5s;
+}
+
+@keyframes slideUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.cardAboutUs:hover {
+	transform: translateY(-10px) scale(1.02);
+	box-shadow: 0 20px 40px rgba(14, 165, 233, 0.2);
+	background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(6, 182, 212, 0.05));
+}
+
+.cardAboutUs h3 {
+	font-size: 24px;
+	margin-bottom: 10px;
+}
+
+.cardAboutUs p {
+	font-size: 18px;
+	line-height: 1.6;
+}
+
+/* ICON */
+
+.cardAboutUs img {
+	width: 80px;
+	margin-bottom: 16px;
+	transition: transform 0.3s ease;
+}
+
+.cardAboutUs:hover img {
+	transform: scale(1.15) rotate(5deg);
+}
+
+/* Tepada 2 ta */
+
+.about-grid .cardAboutUs:nth-child(1),
+.about-grid .cardAboutUs:nth-child(2) {
+	grid-column: span 3;
+}
+
+/* Pastda 3 ta */
+
+.about-grid .cardAboutUs:nth-child(3),
+.about-grid .cardAboutUs:nth-child(4),
+.about-grid .cardAboutUs:nth-child(5) {
+	grid-column: span 2;
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+	.about-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.cardAboutUs {
+		grid-column: span 1 !important;
+	}
+}
+
+@media (max-width: 480px) {
+	.about-grid {
+		grid-template-columns: 1fr;
+	}
+}
+/* Footer */
+.footer {
+	background: #ffffff;
+	color: #0f172a;
+	padding: 60px 20px;
+	text-align: center;
+	border-top: 2px solid #0ea5e9;
+}
+
+/* Sarlavha */
+.footer h1 {
+	font-size: 32px;
+	margin-bottom: 12px;
+	font-weight: 700;
+	color: #0f172a;
+}
+
+/* Matn */
+.footer p {
+	font-size: 18px;
+	margin-bottom: 35px;
+	color: #334155;
+}
+
+/* Linklar qatori */
+.footer-links {
+	display: flex;
+	justify-content: center;
+	gap: 18px;
+	flex-wrap: wrap;
+}
+
+/* Umumiy link */
+.footer a {
+	text-decoration: none;
+	padding: 14px 30px;
+	border-radius: 999px;
+	font-weight: 600;
+	transition: all 0.25s ease;
+}
+
+/* Asosiy tugma */
+.footer a:first-child {
+	background: #0ea5e9;
+	color: #ffffff;
+}
+
+/* Ikkinchi tugma */
+.footer a:last-child {
+	border: 2px solid #0ea5e9;
+	color: #0ea5e9;
+	background: #ffffff;
+}
+
+/* Hover effekt */
+.footer a:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 8px 20px rgba(14, 165, 233, 0.35);
+}
