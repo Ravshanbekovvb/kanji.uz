@@ -1,15 +1,15 @@
 import { Button } from '@/components/ui/button'
 import { SendHorizontal } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { FormEvent } from 'react'
 import { Loader } from '../loader/loader'
 import DialogPdf, { LocalWord } from './dialog-pdf'
-import { useTranslations } from 'next-intl'
 
 // Local word interface for localStorage (without id and lessonId)
 
 type Props = {
 	isLoading: boolean
-	translateFetch: (word: string, to: 'uz' | 'ru' | 'en', e: FormEvent<HTMLFormElement>) => void
+	translateFetch: (word: string, e: FormEvent<HTMLFormElement>) => void
 	lessonTitle: string
 	words: LocalWord[]
 	existingLessonId?: string | null
@@ -30,7 +30,7 @@ export const Form: React.FC<Props> = ({
 				e.preventDefault()
 				const formData = new FormData(e.currentTarget)
 				const word = formData.get('kanji') as string
-				translateFetch(word, 'uz', e)
+				translateFetch(word, e)
 			}}
 		>
 			<input

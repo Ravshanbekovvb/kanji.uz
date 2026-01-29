@@ -114,3 +114,4 @@ interface DarsData {
 }
 
 export type ApiResponseType<T = unknown> = SuccessResponseType<T> | ErrorResponseType
+export type languagesType = 'uz' | 'ru' | 'en' | 'ko' | 'tr' | 'zh'

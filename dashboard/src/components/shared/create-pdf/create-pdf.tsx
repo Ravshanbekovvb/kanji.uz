@@ -14,7 +14,9 @@ import { Section } from '@/components/ui/section'
 import { useFindLessonById } from '@/hooks/useLessons'
 import { translateText } from '@/lib/func/translate'
 import { useStore } from '@/store/store'
+import { languagesType } from '@/types/types'
 import { Boxes, BrainCog, EllipsisVertical, RefreshCw } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import { FormEvent, useEffect, useState } from 'react'
@@ -25,7 +27,7 @@ import { DialogBulkAt } from './dialog-bulk-at'
 import { DialogReset } from './dialog-reset'
 import { DialogSwitchAi } from './dialog-switch-ai'
 import { Form } from './form'
-import { useTranslations } from 'next-intl'
+import { SelectLanguages } from './select-languages'
 
 interface LocalWord {
 	kanji: string
@@ -37,6 +39,7 @@ interface LocalWord {
 
 export const CreatePdf: React.FC = () => {
 	const t = useTranslations('createLesson')
+	const [translateToLanguage, setTranslateToLanguage] = useState<languagesType>('uz')
 	const [wordsLength, setWordsLength] = useState(0)
 	const [words, setWords] = useState<LocalWord[]>([])
 	const [lessonTitle, setLessonTitle] = useState<string>('')
@@ -86,12 +89,7 @@ export const CreatePdf: React.FC = () => {
 		}
 	}, [lessonId, existingLesson, isUpdate])
 
-	const translateFetch = async (
-		word: string,
-		to: 'uz' | 'ru' | 'en',
-		e: FormEvent<HTMLFormElement>,
-		from = 'ja'
-	) => {
+	const translateFetch = async (word: string, e: FormEvent<HTMLFormElement>, from = 'ja') => {
 		e.preventDefault()
 		const form = e.currentTarget
 
@@ -115,7 +113,7 @@ export const CreatePdf: React.FC = () => {
 
 		setIsLoading(true)
 
-		await translateText(word, to, from, currentAi)
+		await translateText(word, translateToLanguage, from, currentAi)
 			.then(({ translatedWord, transcription, example, jlptLevel }) => {
 				const newWord: LocalWord = {
 					kanji: word,
@@ -250,7 +248,10 @@ export const CreatePdf: React.FC = () => {
 					</p>
 				)}
 			</div>
-
+			<SelectLanguages
+				translateToLanguage={translateToLanguage}
+				setTranslateToLanguage={setTranslateToLanguage}
+			/>
 			<Carousels existingLessonId={existingLessonId} allWords={words} lessonTitle={lessonTitle} />
 			<Form
 				isLoading={isLoading}
