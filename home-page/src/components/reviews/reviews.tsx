@@ -45,26 +45,27 @@ const reviews: Review[] = [
 
 export const Reviews = () => {
 	return (
-		<ThreeDScrollTriggerContainer className='reviews-container -mt-45 w-full max-w-full space-y-10 overflow-x-hidden bg-blue-400 py-20 pt-50'>
-			<ThreeDScrollTriggerRow baseVelocity={4} direction={1}>
+		<ThreeDScrollTriggerContainer className='-mt-45 w-full max-w-full space-y-10 overflow-x-hidden bg-blue-500 py-60 pt-50 [clip-path:polygon(0_0,100%_15%,100%_100%,0_100%)]'>
+			<h2 className='mb-20 text-center text-5xl font-extrabold md:text-6xl'>Reviewlar </h2>
+			<ThreeDScrollTriggerRow baseVelocity={2} direction={1}>
 				{[...reviews, ...reviews].map((r, i) => (
 					<div
 						key={i}
-						className='mx-3 w-[320px] shrink-0 rounded-2xl border p-5 shadow-sm'
+						className='mx-3 w-115 shrink-0 rounded-2xl border border-blue-300 p-5'
 					>
 						<div className='mb-3 flex items-center gap-3'>
 							<img
 								src={r.avatar}
 								alt={r.name}
-								className='h-10 w-10 rounded-full object-cover'
+								className='h-12 w-12 rounded-full object-cover'
 							/>
 							<div>
-								<p className='text-md font-semibold'>{r.name}</p>
-								<p className='text-sm'>{r.role}</p>
+								<p className='text-2xl font-bold'>{r.name}</p>
+								<p className='text-lg font-bold'>{r.role}</p>
 							</div>
 						</div>
 
-						<p className='text-sm whitespace-normal'>“{r.text}”</p>
+						<p className='text-lg font-semibold whitespace-normal'>“{r.text}”</p>
 					</div>
 				))}
 			</ThreeDScrollTriggerRow>
@@ -72,21 +73,21 @@ export const Reviews = () => {
 				{[...reviews, ...reviews].map((r, i) => (
 					<div
 						key={i}
-						className='mx-3 w-[320px] shrink-0 rounded-2xl border p-5 shadow-sm'
+						className='mx-3 w-115 shrink-0 rounded-2xl border border-blue-300 p-5'
 					>
 						<div className='mb-3 flex items-center gap-3'>
 							<img
 								src={r.avatar}
 								alt={r.name}
-								className='h-10 w-10 rounded-full object-cover'
+								className='h-12 w-12 rounded-full object-cover'
 							/>
 							<div>
-								<p className='text-md font-semibold'>{r.name}</p>
-								<p className='text-sm'>{r.role}</p>
+								<p className='text-2xl font-bold'>{r.name}</p>
+								<p className='text-lg font-bold'>{r.role}</p>
 							</div>
 						</div>
 
-						<p className='text-sm whitespace-normal'>“{r.text}”</p>
+						<p className='text-lg font-semibold whitespace-normal'>“{r.text}”</p>
 					</div>
 				))}
 			</ThreeDScrollTriggerRow>
@@ -94,21 +95,21 @@ export const Reviews = () => {
 				{[...reviews, ...reviews].map((r, i) => (
 					<div
 						key={i}
-						className='mx-3 w-[320px] shrink-0 rounded-2xl border p-5 shadow-sm'
+						className='mx-3 w-115 shrink-0 rounded-2xl border border-blue-300 p-5'
 					>
 						<div className='mb-3 flex items-center gap-3'>
 							<img
 								src={r.avatar}
 								alt={r.name}
-								className='h-10 w-10 rounded-full object-cover'
+								className='h-12 w-12 rounded-full object-cover'
 							/>
 							<div>
-								<p className='text-md font-semibold'>{r.name}</p>
-								<p className='text-sm'>{r.role}</p>
+								<p className='text-2xl font-bold'>{r.name}</p>
+								<p className='text-lg font-bold'>{r.role}</p>
 							</div>
 						</div>
 
-						<p className='text-sm whitespace-normal'>“{r.text}”</p>
+						<p className='text-lg font-semibold whitespace-normal'>“{r.text}”</p>
 					</div>
 				))}
 			</ThreeDScrollTriggerRow>
