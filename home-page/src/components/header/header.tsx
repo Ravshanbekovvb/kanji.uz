@@ -10,17 +10,17 @@ import {
 	SheetFooter,
 	SheetHeader,
 	SheetTitle,
-	SheetTrigger,
+	SheetTrigger
 } from '../../components/lightswind/sheet'
 export const Header = () => {
 	return (
-		<header className='flex items-center justify-between bg-white/20 container mx-auto p-3 fixed top-0 z-50'>
-			<a href='/' className='flex items-center gap-5 '>
+		<header className='fixed z-5 flex w-full items-center justify-between px-5 py-3'>
+			<a href='/' className='flex items-center gap-5'>
 				<img src='/logo.png' alt='Kanji.uz Logo' className='max-w-15' />
-				<b className='hidden sm:block'> Kanji.uz</b>
+				<b className='hidden text-xl font-bold sm:block'>Kanji.uz</b>
 			</a>
 			<nav className='hidden sm:block'>
-				<ul className='flex items-center justify-center gap-10'>
+				<ul className='flex items-center justify-center gap-10 font-semibold'>
 					<li>
 						<a href='#'>Home</a>
 					</li>
@@ -35,10 +35,10 @@ export const Header = () => {
 					</li>
 				</ul>
 			</nav>
-			<div className='items-center gap-5 sm:flex hidden'>
+			<div className='hidden items-center gap-5 sm:flex'>
 				<ToggleTheme className='cursor-pointer' />
 				<a href='https://dashboard.kanji.uz/login' target='_blank'>
-					<Button variant='secondary' className='cursor-pointer'>
+					<Button variant='secondary' className='cursor-pointer' size='sm'>
 						Register
 					</Button>
 				</a>
@@ -46,7 +46,7 @@ export const Header = () => {
 			{/* mobile menu */}
 			<Sheet>
 				<SheetTrigger asChild>
-					<Menu className='text-white size-8 sm:hidden' />
+					<Menu className='size-8 text-white sm:hidden' />
 				</SheetTrigger>
 				<SheetContent className='w-full'>
 					<SheetHeader>
