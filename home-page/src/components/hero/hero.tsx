@@ -21,7 +21,7 @@ export const Hero = () => {
 			<div className='container mx-auto flex min-h-screen flex-col items-center justify-center px-6 text-center xl:items-start xl:text-left'>
 				<MorphingText
 					texts={['Japanese.', 'JLPT N5.', 'Vocabulary.', 'JLPT N2.', 'Grammar.']}
-					className='text-white lg:text-[5rem]'
+					className='text-white md:text-left lg:text-[5rem]'
 				/>
 				<div className='-mt-6 max-w-2xl space-y-4'>
 					<ScrollReveal
