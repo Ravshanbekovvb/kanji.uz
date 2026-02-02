@@ -45,7 +45,7 @@ const reviews: Review[] = [
 
 export const Reviews = () => {
 	return (
-		<ThreeDScrollTriggerContainer className='-mt-50 w-full max-w-full space-y-10 overflow-x-hidden bg-blue-500 py-60 [clip-path:polygon(0_0,100%_15%,100%_100%,0_100%)]'>
+		<ThreeDScrollTriggerContainer className='-mt-60 w-full max-w-full space-y-10 overflow-x-hidden bg-blue-500 py-80 [clip-path:polygon(0_0,100%_15%,100%_100%,0_100%)]'>
 			<h2 className='mb-20 text-center text-5xl font-extrabold md:text-6xl'>Reviewlar </h2>
 			<ThreeDScrollTriggerRow baseVelocity={2} direction={1}>
 				{[...reviews, ...reviews].map((r, i) => (

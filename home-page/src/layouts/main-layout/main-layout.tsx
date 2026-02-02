@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 
 import { Footer } from '@/components/footer/footer'
+import { MobileDesktopViews } from '@/components/mobile-desktop-views/mobile-desktop-views'
 import { Pointer } from '@/components/ui/pointer'
 
 import { Header } from '../../components/header/header'
@@ -75,6 +76,7 @@ export const HomeLayout = () => {
 			<VideoTutorial />
 			<Reviews />
 			<OurTarget />
+			<MobileDesktopViews />
 			<Footer />
 		</div>
 	)

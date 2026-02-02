@@ -2,7 +2,7 @@ import Globe from '../lightswind/globe'
 
 export const OurTarget: React.FC = () => {
 	return (
-		<section className='relative -mt-40 overflow-hidden bg-blue-400 bg-gradient-to-b py-40 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)]'>
+		<section className='relative -mt-50 overflow-hidden bg-blue-400 py-80 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)]'>
 			<div className='relative mx-auto max-w-7xl px-6'>
 				{/* Title */}
 				<h2 className='mb-20 text-center text-5xl font-extrabold text-white md:text-6xl'>
