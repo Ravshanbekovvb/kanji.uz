@@ -1,14 +1,18 @@
-import { Pointer } from '@/components/ui/pointer'
 import { motion } from 'motion/react'
+
+import { Footer } from '@/components/footer/footer'
+import { Pointer } from '@/components/ui/pointer'
+
 import { Header } from '../../components/header/header'
 import { Hero } from '../../components/hero/hero'
 import { OurTarget } from '../../components/our-target/our-target'
 import { Reviews } from '../../components/reviews/reviews'
 import { VideoTutorial } from '../../components/video-tutorial/video-tutorial'
+
 export const HomeLayout = () => {
 	return (
 		<div
-			className='h-screen overflow-x-hidden overflow-y-auto'
+			className='h-screen overflow-x-hidden overflow-y-auto text-white'
 			onScroll={e => {
 				if (e.currentTarget.scrollTop > 84) {
 					document
@@ -23,7 +27,13 @@ export const HomeLayout = () => {
 				} else {
 					document
 						.querySelector('header')
-						?.classList.remove('bg-white/20', 'backdrop-blur-md', 'shadow-md')
+						?.classList.remove(
+							'bg-white/20',
+							'backdrop-blur-md',
+							'shadow-md',
+							'duration-500',
+							'ease-in-out'
+						)
 				}
 			}}
 		>
@@ -65,6 +75,7 @@ export const HomeLayout = () => {
 			<VideoTutorial />
 			<Reviews />
 			<OurTarget />
+			<Footer />
 		</div>
 	)
 }

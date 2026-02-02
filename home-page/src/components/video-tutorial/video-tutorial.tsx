@@ -9,10 +9,10 @@ export const VideoTutorial: React.FC = () => {
 	]
 
 	return (
-		<div className='relative -mt-70 w-full overflow-hidden bg-blue-400 px-5 py-80 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)] md:px-20'>
+		<div className='relative -mt-60 w-full overflow-hidden bg-blue-400 px-5 py-80 [clip-path:polygon(0_15%,100%_0,100%_100%,0_100%)] md:px-20'>
 			<div className='max-w-8xl mx-auto'>
 				<h2 className='mb-20 text-center text-5xl font-extrabold md:text-6xl'>
-					Platformadan qanday foydalanish ?
+					Platformadan foydalanish bo'yicha video qo'llanma
 				</h2>
 
 				<div className='group relative overflow-hidden rounded-2xl shadow-2xl'>

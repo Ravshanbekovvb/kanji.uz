@@ -19,8 +19,8 @@ export const Header = () => {
 				<img src='/logo.png' alt='Kanji.uz Logo' className='max-w-15' />
 				<b className='hidden text-3xl font-bold sm:block'>Kanji.uz</b>
 			</a>
-			<nav className='hidden sm:block'>
-				<ul className='flex items-center justify-center gap-10 font-semibold'>
+			<nav className='hidden md:block'>
+				<ul className='flex items-center justify-center gap-10 text-xl font-bold'>
 					<li>
 						<a href='#'>Home</a>
 					</li>
@@ -35,7 +35,7 @@ export const Header = () => {
 					</li>
 				</ul>
 			</nav>
-			<div className='hidden items-center gap-5 sm:flex'>
+			<div className='hidden items-center gap-5 md:flex'>
 				<a href='https://dashboard.kanji.uz/login' target='_blank'>
 					<Button variant='secondary' className='cursor-pointer' size='sm'>
 						Register
@@ -45,19 +45,75 @@ export const Header = () => {
 			{/* mobile menu */}
 			<Sheet>
 				<SheetTrigger asChild>
-					<Menu className='size-8 text-white sm:hidden' />
+					<Menu className='size-8 stroke-2 text-white md:hidden' />
 				</SheetTrigger>
-				<SheetContent className='w-full'>
-					<SheetHeader>
-						<SheetTitle>Edit Profile</SheetTitle>
-						<SheetDescription>
-							Make changes to your profile here. Click save when you're done.
+				<SheetContent className='w-full bg-blue-400 text-white'>
+					<SheetHeader className='mb-8'>
+						<div className='flex items-center gap-3'>
+							<img src='/logo.png' alt='Kanji.uz Logo' className='max-w-12' />
+							<SheetTitle className='text-3xl font-extrabold text-white'>
+								Kanji.uz
+							</SheetTitle>
+						</div>
+						<SheetDescription className='text-left text-lg font-semibold text-white/80'>
+							Yapon tilini o'rganish platformasi
 						</SheetDescription>
 					</SheetHeader>
-					<div className='grid gap-4 py-4'>{/* Form content here */}</div>
-					<SheetFooter>
+
+					<nav className='space-y-2'>
+						<ul className='space-y-2'>
+							<li>
+								<SheetClose>
+									<a
+										href='#'
+										className='block rounded-lg border border-blue-300 px-5 py-4 text-xl font-bold transition-all hover:bg-white hover:text-blue-500'
+									>
+										Home
+									</a>
+								</SheetClose>
+							</li>
+							<li>
+								<SheetClose>
+									<a
+										href='#'
+										className='block rounded-lg border border-blue-300 px-5 py-4 text-xl font-bold transition-all hover:bg-white hover:text-blue-500'
+									>
+										About Us
+									</a>
+								</SheetClose>
+							</li>
+							<li>
+								<SheetClose>
+									<a
+										href='#'
+										className='block rounded-lg border border-blue-300 px-5 py-4 text-xl font-bold transition-all hover:bg-white hover:text-blue-500'
+									>
+										Contacts
+									</a>
+								</SheetClose>
+							</li>
+							<li>
+								<SheetClose>
+									<a
+										href='#'
+										className='block rounded-lg border border-blue-300 px-5 py-4 text-xl font-bold transition-all hover:bg-white hover:text-blue-500'
+									>
+										Blogs
+									</a>
+								</SheetClose>
+							</li>
+						</ul>
+					</nav>
+
+					<SheetFooter className='mt-8'>
 						<SheetClose>
-							<Button>Save changes</Button>
+							<a
+								href='https://dashboard.kanji.uz/login'
+								target='_blank'
+								className='w-full'
+							>
+								<Button className='w-full text-lg font-bold'>Register</Button>
+							</a>
 						</SheetClose>
 					</SheetFooter>
 				</SheetContent>
