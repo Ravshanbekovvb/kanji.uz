@@ -11,12 +11,14 @@ import {
 import { useAuth } from '@/contexts/auth-context'
 import { AdminNavbar, userNavbar } from '@/lib/db'
 import { HelpCircle, LogOut, UserCircle2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { navbarIconMap } from '../sidebar/navIconMap'
 
 export default function MobileNav() {
+	const t = useTranslations('navbar')
 	const pathname = usePathname()
 	const { user, logout } = useAuth()
 
@@ -46,7 +48,9 @@ export default function MobileNav() {
 										}`}
 									>
 										{navbarIconMap[item.icon as keyof typeof navbarIconMap]}
-										<span className='text-xs font-medium mt-1 truncate'>{item.title}</span>
+										<span className='text-xs font-medium mt-1 truncate w-18 text-center'>
+											{t(item.title)}
+										</span>
 									</div>
 								</Link>
 							)
@@ -102,14 +106,6 @@ export default function MobileNav() {
 									</DropdownMenuLabel>
 
 									<DropdownMenuSeparator />
-									{/* <Link href={'/'}>
-										<DropdownMenuItem className='text-gray-500 '>
-											Home
-											<DropdownMenuShortcut>
-												<Home />
-											</DropdownMenuShortcut>
-										</DropdownMenuItem>
-									</Link> */}
 									<Link href={'/profile'}>
 										<DropdownMenuItem className='text-gray-500 '>
 											Profile

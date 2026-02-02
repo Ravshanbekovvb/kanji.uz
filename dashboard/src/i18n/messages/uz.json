@@ -20,8 +20,8 @@
 	"navbar": {
 		"home": "Asosiy",
 		"users": "Foydalanuvchilar",
-		"allLessons": "Barcha darslar",
-		"myLessons": "Mening darslarim",
+		"allLessons": "Darslar",
+		"myLessons": "Darslarim",
 		"diagnostics": "Diagnostika",
 		"memorize": "So'z yodlash",
 		"books": "Kitoblar",
