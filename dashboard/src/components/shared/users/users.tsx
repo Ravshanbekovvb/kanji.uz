@@ -13,11 +13,11 @@ export default function Users() {
 		return <LoaderIcon className='rotate-right min-h-[560px] mx-auto' size={40} />
 	}
 	if (error) {
-		return 'error..'
+		return 'Network error. Please try again later.'
 	}
 
 	return (
-		<Section className={cn('flex flex-col gap-5')}>
+		<Section className={cn('flex flex-col gap-2')}>
 			<UsersHeader />
 			<DataTable columns={columns} data={data} />
 		</Section>

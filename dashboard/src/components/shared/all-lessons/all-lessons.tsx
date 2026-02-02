@@ -17,7 +17,7 @@ export default function AllLessons() {
 
 	return (
 		<Section>
-			<PageTitle title='All Lessons' className='mb-4' />
+			<PageTitle title='All Lessons' className='mb-2' />
 			<DataTable columns={columns} data={data.data} />
 		</Section>
 	)

@@ -19,18 +19,19 @@ import {
 	Delete,
 	EllipsisVertical,
 	LayoutGrid,
+	List,
 	MonitorDown,
 	Pencil,
-	List,
 	Plus,
+	PlusCircle,
 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
+import { useState } from 'react'
 import { DeleteDialog } from '../delete-dialog'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { PageTitle } from '../title'
 import { DialogTitleEdit } from './dialog-title-edit'
-import { useState } from 'react'
-import { useTranslations } from 'next-intl'
 export const MyLessons: React.FC = () => {
 	const t = useTranslations('myLessons')
 	const [isGridView, setIsGridView] = useState<boolean>(true)
@@ -46,7 +47,11 @@ export const MyLessons: React.FC = () => {
 				<PageTitle title={t('myLessons')} />
 				<div className='flex items-center gap-5'>
 					<Link href={'/create-lesson'}>
-						<Button className='w'>{t('createLesson')}</Button>
+						<Button>
+							<PlusCircle />
+
+							{t('createLesson')}
+						</Button>
 					</Link>
 					<Button
 						variant='outline'
