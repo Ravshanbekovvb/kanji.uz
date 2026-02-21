@@ -14,12 +14,12 @@ import { useAddWordsToLesson, useCreateLesson } from '@/hooks/useLessons'
 import { createPdf } from '@/lib/func/create-pdf'
 import { useStore } from '@/store/store'
 import { CircleStop, Download, Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 import { DialogSelectTypePdf } from '../dialog-select-type-pdf/dialog-select-type-pdf'
 import { DialogUpdateKanji } from './dialog-update-word'
-import { useTranslations } from 'next-intl'
 
 // Local word interface for localStorage (without id and lessonId)
 export interface LocalWord {
@@ -113,7 +113,7 @@ export default function DialogPdf({
 		}
 	}
 
-	const savePdf = async (pdfType: 'table' | 'card') => {
+	const savePdf = async (pdfType: 'table' | 'card' | 'beginner') => {
 		const create_pdf = await createPdf({ words: words, title: lessonTitle, type: pdfType })
 		if (create_pdf) {
 			const savedToDb = await saveToDatabase()
@@ -160,7 +160,7 @@ export default function DialogPdf({
 				toast.success(`Deleted ${kanji}`)
 			} else {
 				toast.warning(
-					`Cannot delete existing word "${kanji}". You can only delete newly added words.`
+					`Cannot delete existing word "${kanji}". You can only delete newly added words.`,
 				)
 			}
 		} else {
