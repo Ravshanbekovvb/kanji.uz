@@ -44,7 +44,12 @@
 		"cancel": "Cancel",
 		"saveAndDownload": "Save and Download",
 		"saveWord": "Save Word",
-		"title": "Lesson Title"
+		"title": "Lesson Title",
+		"selectPdfType": "Select the type of PDF",
+		"tableFormat": "Table Format",
+		"cardFormat": "Card Format",
+		"beginnerFormat": "Beginner Format",
+		"downloadPdf": "Download PDF"
 	},
 	"help": {
 		"title": "Help & Support",

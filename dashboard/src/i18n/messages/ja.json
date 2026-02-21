@@ -44,7 +44,12 @@
 		"cancel": "キャンセル",
 		"saveAndDownload": "保存してダウンロード",
 		"saveWord": "単語を保存",
-		"title": "レッスンタイトル"
+		"title": "レッスンタイトル",
+		"selectPdfType": "PDFタイプを選択",
+		"tableFormat": "テーブル形式",
+		"cardFormat": "カード形式",
+		"beginnerFormat": "初心者向け形式",
+		"downloadPdf": "PDFをダウンロード"
 	},
 	"help": {
 		"title": "ヘルプとサポート",

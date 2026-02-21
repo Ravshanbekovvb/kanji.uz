@@ -44,7 +44,12 @@
 		"cancel": "Bekor qilish",
 		"saveAndDownload": "Saqlash va yuklab olish",
 		"saveWord": "So'zni saqlash",
-		"title": "Dars nomi"
+		"title": "Dars nomi",
+		"selectPdfType": "PDF turini tanlang",
+		"tableFormat": "Jadval formati",
+		"cardFormat": "Karta formati",
+		"beginnerFormat": "Boshlang'ich format",
+		"downloadPdf": "PDF yuklab olish"
 	},
 	"help": {
 		"title": "Yordam va qo'llab-quvvatlash",

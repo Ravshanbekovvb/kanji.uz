@@ -6,7 +6,13 @@ type Props = {
 	transcription?: boolean
 	example?: boolean
 }
-
+const setBeginnerKanjiSize = (kanji: string) => {
+	const length = kanji.length
+	if (length === 1) return 140
+	if (length === 2) return 110
+	if (length === 3) return 90
+	return 70
+}
 export const setTextSize = ({ word, translation, transcription, example }: Props): string => {
 	const length = word.length
 
@@ -223,7 +229,7 @@ interface Word {
 interface createPdf {
 	words: Word[]
 	title: string
-	type?: 'table' | 'card'
+	type?: 'table' | 'card' | 'beginner'
 }
 
 export function createPdf({ words, title, type = 'card' }: createPdf) {
@@ -241,6 +247,8 @@ export function createPdf({ words, title, type = 'card' }: createPdf) {
 
 	if (type === 'table') {
 		createTableFormat(doc, words, title)
+	} else if (type === 'beginner') {
+		createBeginnerFormat(doc, words, title)
 	} else {
 		createCardFormat(doc, words, title)
 	}
@@ -428,7 +436,7 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 				{
 					align: 'left',
 					baseline: 'middle',
-				}
+				},
 			)
 			// kanji.uz chap tomonda pastda
 			doc.text(
@@ -438,7 +446,7 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 				{
 					align: 'left',
 					baseline: 'middle',
-				}
+				},
 			)
 			// JLPT level ong tomonda
 			doc.text(
@@ -448,7 +456,7 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 				{
 					align: 'right',
 					baseline: 'middle',
-				}
+				},
 			)
 
 			// Kanji
@@ -562,5 +570,81 @@ function createCardFormat(doc: jsPDF, words: Word[], title: string) {
 				}
 			}
 		}
+	}
+}
+function createBeginnerFormat(doc: jsPDF, words: Word[], title: string) {
+	const pageWidth = 21 // A4 width in cm
+	const pageHeight = 29.7 // A4 height in cm
+	const halfHeight = pageHeight / 2
+
+	for (let i = 0; i < words.length; i += 2) {
+		const pageWords = words.slice(i, i + 2)
+
+		// --- OLD TOMONI (KANJI) ---
+		if (i > 0) {
+			doc.addPage('p')
+		}
+
+		// O'rtadagi bo'lish chizig'i (nuqtali)
+		doc.setLineDashPattern([0.2, 0.2], 0)
+		doc.line(0, halfHeight, pageWidth, halfHeight)
+		doc.setLineDashPattern([], 0)
+
+		pageWords.forEach((word, index) => {
+			const yOffset = index * halfHeight
+
+			// Sarlavhalar va Brending
+			doc.setFont('NotoSansJP-Thin')
+			doc.setFontSize(12)
+			doc.text(title, 1, yOffset + 1)
+			doc.text(`kanji.uz`, pageWidth - 1, yOffset + 1, { align: 'right' })
+			doc.text(`JLPT ${word.jlptLevel}`, pageWidth - 1, yOffset + halfHeight - 1, {
+				align: 'right',
+			})
+
+			// Asosiy Kanji (Maksimal darajada katta)
+			doc.setFont('NotoSansJP')
+			doc.setFontSize(setBeginnerKanjiSize(word.kanji))
+			doc.text(word.kanji, pageWidth / 2, yOffset + halfHeight / 2, {
+				align: 'center',
+				baseline: 'middle',
+			})
+		})
+
+		// --- ORQA TOMONI (TARJIMALAR) ---
+		doc.addPage('p')
+
+		// Orqa tomonda so'zlar teskari tartibda bo'lishi kerak (buklanganda to'g'ri tushishi uchun)
+		const backPageWords = [...pageWords].reverse()
+
+		doc.setLineDashPattern([0.2, 0.2], 0)
+		doc.line(0, halfHeight, pageWidth, halfHeight)
+		doc.setLineDashPattern([], 0)
+
+		backPageWords.forEach((word, index) => {
+			const yOffset = index * halfHeight
+			const centerX = pageWidth / 2
+
+			// Transkripsiya (Yaqinroq ko'rinishi uchun kattaroq)
+			doc.setFont('NotoSansJP-Thin')
+			doc.setFontSize(24)
+			doc.text(word.transcription, centerX, yOffset + halfHeight * 0.25, { align: 'center' })
+
+			// Tarjima
+			doc.setFont('NotoSansJP')
+			doc.setFontSize(35)
+			doc.text(word.translation, centerX, yOffset + halfHeight * 0.5, {
+				align: 'center',
+				baseline: 'middle',
+			})
+
+			// Misol (Pastki qismda)
+			doc.setFont('NotoSansJP-Thin')
+			doc.setFontSize(16)
+			const exampleLines = splitTextIntoLines(word.example, 35)
+			exampleLines.forEach((line, lIdx) => {
+				doc.text(line, centerX, yOffset + halfHeight * 0.75 + lIdx * 1, { align: 'center' })
+			})
+		})
 	}
 }
