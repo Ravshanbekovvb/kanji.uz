@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>KANJI.UZ - Afzalliklar va Xulosa</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body,
+			html {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #f7f9fb;
+				font-family: 'Montserrat', sans-serif;
+				overflow: hidden;
+			}
+
+			.slide-container {
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				position: relative;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			/* Background Blobs - Responsive sizes */
+			.blob {
+				position: absolute;
+				border-radius: 50%;
+				z-index: 1;
+			}
+			.blob-1 {
+				width: 50vw;
+				height: 50vw;
+				background-color: #dcfce7;
+				top: -15vw;
+				left: -15vw;
+				opacity: 0.6;
+			}
+			.blob-2 {
+				width: 40vw;
+				height: 40vw;
+				background-color: #e0f2fe;
+				bottom: -15vw;
+				right: -10vw;
+				opacity: 0.6;
+			}
+
+			/* Layout: Split Screen with Responsive Flex */
+			.left-section {
+				flex: 1;
+				z-index: 2;
+				padding: 5vh 0px;
+				margin-left: 150px;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: flex-start;
+			}
+
+			.right-section {
+				flex: 1.2;
+				z-index: 2;
+				padding: 5vh 5vw 5vh 2vw;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+			}
+
+			/* Typography */
+			h1 {
+				font-size: clamp(32px, 5vw, 64px);
+				font-weight: 900;
+				color: #3c3c3c;
+				margin: 0 0 2vh 0;
+				line-height: 1.1;
+			}
+
+			.highlight {
+				color: #58cc02;
+			}
+
+			p.subtitle {
+				font-size: clamp(16px, 2vh, 24px);
+				color: #888;
+				margin-top: 10px;
+				font-weight: 600;
+			}
+
+			/* CTA Button */
+			.cta-container {
+				margin-top: 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 2vh;
+			}
+
+			.cta-button {
+				background-color: #58cc02;
+				color: white;
+				font-size: clamp(18px, 2.5vh, 26px);
+				font-weight: 800;
+				padding: 2vh 4vw;
+				border-radius: 20px;
+				text-decoration: none;
+				display: flex;
+				align-items: center;
+				gap: 15px;
+				box-shadow: 0 8px 0 #46a302;
+				transition:
+					transform 0.1s,
+					box-shadow 0.1s;
+			}
+
+			.cta-button:hover {
+				background-color: #61e002;
+				transform: translateY(-2px);
+				box-shadow: 0 10px 0 #46a302;
+			}
+
+			.cta-button:active {
+				transform: translateY(4px);
+				box-shadow: 0 4px 0 #46a302;
+			}
+
+			.link-text {
+				font-size: clamp(16px, 2vh, 20px);
+				font-weight: 700;
+				color: #3c3c3c;
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				margin-left: 10px;
+			}
+
+			.link-text i {
+				color: #1cb0f6;
+			}
+
+			/* Benefits List */
+			.benefits-list {
+				display: flex;
+				flex-direction: column;
+				gap: 2vh;
+			}
+
+			.benefit-item {
+				background-color: #fff;
+				border: 3px solid #f0f0f0;
+				border-radius: 20px;
+				padding: 20px;
+				display: flex;
+				align-items: center;
+				gap: 1.5vw;
+				box-shadow: 0 6px 0 rgba(0, 0, 0, 0.03);
+				transition:
+					transform 0.2s,
+					border-color 0.2s;
+			}
+
+			.benefit-item:hover {
+				transform: translateX(10px);
+				border-color: #e5e5e5;
+			}
+
+			.b-icon {
+				width: clamp(45px, 6vh, 65px);
+				height: clamp(45px, 6vh, 65px);
+				border-radius: 14px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: clamp(18px, 2.5vh, 28px);
+				color: white;
+				flex-shrink: 0;
+			}
+
+			.b-text {
+				font-size: clamp(16px, 2.1vh, 20px);
+				font-weight: 800;
+				color: #4b4b4b;
+			}
+
+			/* Icon Colors */
+			.icon-time {
+				background-color: #ff9600;
+				box-shadow: 0 4px 0 #e58700;
+			}
+			.icon-lang {
+				background-color: #1cb0f6;
+				box-shadow: 0 4px 0 #1899d6;
+			}
+			.icon-mobile {
+				background-color: #ce82ff;
+				box-shadow: 0 4px 0 #b370de;
+			}
+			.icon-all {
+				background-color: #ff4b4b;
+				box-shadow: 0 4px 0 #d63e3e;
+			}
+			.icon-auto {
+				background-color: #58cc02;
+				box-shadow: 0 4px 0 #46a302;
+			}
+
+			/* Mascot Decorative Icon */
+			.mascot-icon {
+				position: absolute;
+				bottom: 2vh;
+				left: 2vw;
+				font-size: 15vh;
+				color: #58cc02;
+				opacity: 0.05;
+				z-index: 1;
+				transform: rotate(-15deg);
+				pointer-events: none;
+			}
+			.description {
+				font-size: clamp(18px, 2vw, 24px);
+				color: #777;
+				line-height: 1.5;
+				font-weight: 500;
+				margin-bottom: 20px;
+			}
+
+			/* Mobile view adjustment */
+			@media (max-width: 768px) {
+				.slide-container {
+					flex-direction: column;
+					overflow-y: auto;
+				}
+				.left-section,
+				.right-section {
+					flex: none;
+					width: 100%;
+					padding: 40px 20px;
+				}
+				body {
+					overflow-y: auto;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slide-container">
+			<div class="blob blob-1"></div>
+			<div class="blob blob-2"></div>
+			<i class="fa-solid fa-check-circle mascot-icon"></i>
+
+			<div class="left-section">
+				<h1>Nega aynan <br /><span class="highlight">KANJI.UZ?</span></h1>
+				<p class="description">
+					Yapon tilini o'rganishda vaqtingizni tejang va samaradorlikni oshiring.
+				</p>
+				<div class="cta-container">
+					<a class="cta-button" href="https://kanji.uz" target="_blank">
+						Boshlash
+						<i class="fa-solid fa-arrow-right"></i>
+					</a>
+				</div>
+			</div>
+
+			<div class="right-section">
+				<div class="benefits-list">
+					<div class="benefit-item">
+						<div class="b-icon icon-time"><i class="fa-solid fa-bolt"></i></div>
+						<div class="b-text">Vaqtni tejaydi</div>
+					</div>
+					<div class="benefit-item">
+						<div class="b-icon icon-lang"><i class="fa-solid fa-globe"></i></div>
+						<div class="b-text">Ko'p tilli qo'llab-quvvatlash</div>
+					</div>
+					<div class="benefit-item">
+						<div class="b-icon icon-mobile"><i class="fa-solid fa-mobile-screen"></i></div>
+						<div class="b-text">Mobilda juda qulay</div>
+					</div>
+					<div class="benefit-item">
+						<div class="b-icon icon-all"><i class="fa-solid fa-cubes-stacked"></i></div>
+						<div class="b-text">O'qish + Test + Yodlash (3 in 1)</div>
+					</div>
+					<div class="benefit-item">
+						<div class="b-icon icon-auto"><i class="fa-solid fa-hand-holding-heart"></i></div>
+						<div class="b-text">Qo'lda ro'yxat tuzish shart emas</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

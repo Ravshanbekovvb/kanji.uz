@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>KANJI.UZ - Maqsadli Auditoriya</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body,
+			html {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #fffbf0;
+				font-family: 'Montserrat', sans-serif;
+				overflow: hidden; /* Scroll chiqishini oldini oladi */
+			}
+
+			.slide-container {
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				flex-direction: column;
+				position: relative;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			/* Background Blobs - Ekran o'lchamiga qarab foizda */
+			.blob {
+				position: absolute;
+				border-radius: 50%;
+				z-index: 1;
+			}
+			.blob-1 {
+				width: 40vw;
+				height: 40vw;
+				background-color: #fff4cc;
+				top: -15vw;
+				right: -10vw;
+				opacity: 0.6;
+			}
+			.blob-2 {
+				width: 35vw;
+				height: 35vw;
+				background-color: #e0f2fe;
+				bottom: -15vw;
+				left: -10vw;
+				opacity: 0.6;
+			}
+
+			/* Header Section */
+			.header {
+				z-index: 2;
+				padding: 5vh 20px 0 20px;
+				text-align: center;
+			}
+
+			h1 {
+				font-size: clamp(32px, 5vh, 52px);
+				font-weight: 900;
+				color: #3c3c3c;
+				margin: 0;
+				text-transform: uppercase;
+				letter-spacing: -1px;
+			}
+
+			.subtitle {
+				font-size: clamp(16px, 2vh, 24px);
+				color: #888;
+				margin-top: 10px;
+				font-weight: 600;
+			}
+
+			/* Cards Container - Grid holatiga o'tkazish */
+			.personas-container {
+				flex: 1;
+				z-index: 2;
+				display: grid; /* Flex o'rniga Grid */
+				grid-template-columns: repeat(2, 1fr); /* 2 ta teng ustun */
+				grid-template-rows: repeat(2, auto); /* 2 ta qator */
+				gap: 3vw; /* Qatorlar va ustunlar orasidagi masofa */
+				padding: 2vh 15vw; /* Yon tomondan bo'shliq */
+				align-content: center; /* Gridni vertikal markazlash */
+				justify-items: center; /* Cardlarni gorizontal markazlash */
+			}
+
+			/* Persona Card - Balandlikni moslashtirish */
+			.persona-card {
+				width: 100%; /* Ustun kengligini to'liq egallash uchun */
+				max-width: 450px; /* Card juda kengayib ketmasligi uchun */
+				height: auto; /* Kontentga qarab o'sishi uchun */
+				min-height: 220px;
+				background-color: #fff;
+				border-radius: 24px;
+				border: 3px solid #e5e5e5;
+				display: flex;
+				flex-direction: column;
+				align-items: start;
+				padding: 1vh 2vw;
+				box-shadow: 0 8px 0 #e5e5e5;
+				transition:
+					transform 0.2s,
+					box-shadow 0.2s;
+				position: relative;
+				overflow: hidden;
+				text-align: center;
+			}
+
+			.persona-card:hover {
+				transform: translateY(-8px);
+			}
+
+			/* Avatar/Icon Circle */
+			.avatar-circle {
+				width: clamp(60px, 10vh, 100px);
+				height: clamp(60px, 10vh, 100px);
+				border-radius: 50%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin-bottom: 2vh;
+				font-size: clamp(24px, 4vh, 40px);
+				color: white;
+				box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+				border: 4px solid #fff;
+				flex-shrink: 0;
+			}
+
+			/* Card Text */
+			h3 {
+				font-size: clamp(16px, 2.2vh, 20px);
+				font-weight: 800;
+				color: #4b4b4b;
+				margin: 0 0 1.5vh 0;
+				line-height: 1.2;
+				min-height: 2.4em;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			}
+
+			p {
+				font-size: clamp(13px, 1.6vh, 15px);
+				color: #777;
+				margin: 0;
+				line-height: 1.4;
+				font-weight: 500;
+			}
+
+			/* Color Variations */
+			.card-teacher {
+				border-color: #1cb0f6;
+				box-shadow: 0 8px 0 #1899d6;
+			}
+			.card-teacher .avatar-circle {
+				background-color: #1cb0f6;
+				box-shadow: 0 6px 0 #1480b3;
+			}
+			.card-teacher:hover {
+				box-shadow: 0 12px 0 #1899d6;
+			}
+
+			.card-student {
+				border-color: #58cc02;
+				box-shadow: 0 8px 0 #46a302;
+			}
+			.card-student .avatar-circle {
+				background-color: #58cc02;
+				box-shadow: 0 6px 0 #46a302;
+			}
+			.card-student:hover {
+				box-shadow: 0 12px 0 #46a302;
+			}
+
+			.card-center {
+				border-color: #ff9600;
+				box-shadow: 0 8px 0 #e58700;
+			}
+			.card-center .avatar-circle {
+				background-color: #ff9600;
+				box-shadow: 0 6px 0 #e58700;
+			}
+			.card-center:hover {
+				box-shadow: 0 12px 0 #e58700;
+			}
+
+			.card-jlpt {
+				border-color: #ff4b4b;
+				box-shadow: 0 8px 0 #d63e3e;
+			}
+			.card-jlpt .avatar-circle {
+				background-color: #ff4b4b;
+				box-shadow: 0 6px 0 #d63e3e;
+			}
+			.card-jlpt:hover {
+				box-shadow: 0 12px 0 #d63e3e;
+			}
+
+			/* Bottom Deco */
+			.bottom-deco {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				height: 8px;
+			}
+			.card-teacher .bottom-deco {
+				background-color: #1cb0f6;
+			}
+			.card-student .bottom-deco {
+				background-color: #58cc02;
+			}
+			.card-center .bottom-deco {
+				background-color: #ff9600;
+			}
+			.card-jlpt .bottom-deco {
+				background-color: #ff4b4b;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slide-container">
+			<div class="blob blob-1"></div>
+			<div class="blob blob-2"></div>
+
+			<div class="header">
+				<h1>Kimlar uchun?</h1>
+				<div class="subtitle">Platformadan kimlar foydalanishi mumkin.</div>
+			</div>
+
+			<div class="personas-container">
+				<div class="persona-card card-teacher">
+					<div class="avatar-circle"><i class="fa-solid fa-chalkboard-user"></i></div>
+					<h3 style="text-align: left">Yapon tili o'qituvchilari</h3>
+					<p style="text-align: left">
+						Dars tayyorlash vaqtini tejash va o'quv materiallarini tezda yaratish uchun.
+					</p>
+				</div>
+
+				<div class="persona-card card-student">
+					<div class="avatar-circle"><i class="fa-solid fa-user-graduate"></i></div>
+					<h3 style="text-align: left">Talabalar va mustaqil o'rganuvchilar</h3>
+					<p style="text-align: left">
+						Qiyin kanjilarni oson o'rganish va so'z boyligini oshirish uchun.
+					</p>
+				</div>
+
+				<div class="persona-card card-center">
+					<div class="avatar-circle"><i class="fa-solid fa-school"></i></div>
+					<h3 style="text-align: left">Til o'rganish markazlari</h3>
+					<p style="text-align: left">
+						O'quv jarayonini avtomatlashtirish va zamonaviy usullarni joriy etish uchun.
+					</p>
+				</div>
+
+				<div class="persona-card card-jlpt">
+					<div class="avatar-circle"><i class="fa-solid fa-certificate"></i></div>
+					<h3 style="text-align: left">JLPT nomzodlari</h3>
+					<p style="text-align: left">
+						N5 dan N1 gacha bo'lgan darajalarga maxsus testlar orqali tayyorlanish uchun.
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

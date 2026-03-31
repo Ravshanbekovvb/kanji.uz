@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="uz">
+	<head>
+		<meta charset="utf-8" />
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>KANJI.UZ - Memorize Function</title>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&amp;family=Noto+Sans+JP:wght@400;700;900&amp;display=swap"
+			rel="stylesheet"
+		/>
+		<link
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+			rel="stylesheet"
+		/>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body,
+			html {
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				background-color: #f3e5ff;
+				font-family: 'Montserrat', sans-serif;
+				overflow: hidden; /* Scroll butkul yo'qoladi */
+			}
+
+			.slide-container {
+				width: 100%;
+				height: 100vh;
+				display: flex;
+				position: relative;
+				background-color: #ffffff;
+				overflow: hidden;
+			}
+
+			/* Decorative Background Elements */
+			.blob {
+				position: absolute;
+				border-radius: 50%;
+				z-index: 1;
+			}
+
+			.blob-1 {
+				width: 50vw;
+				height: 50vw;
+				background-color: #f3e5ff;
+				top: -15vw;
+				right: -10vw;
+				opacity: 1;
+			}
+
+			.blob-2 {
+				width: 30vw;
+				height: 30vw;
+				background-color: #ce82ff;
+				bottom: -10vw;
+				left: -5vw;
+				opacity: 0.15;
+			}
+
+			/* Layout */
+			.left-panel {
+				margin-left: 150px;
+				flex: 1;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				z-index: 2;
+				padding: 20px;
+			}
+
+			.right-panel {
+				max-width: 700px;
+				flex: 1.2;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				padding: 0 11vw 0 2vw;
+				z-index: 2;
+			}
+
+			/* Phone Mockup - Ekran balandligiga moslashadi */
+			.phone-mockup {
+				width: min(280px, 25vw);
+				height: min(560px, 80vh);
+				background-color: #fff;
+				border: 10px solid #3c3c3c;
+				border-radius: 35px;
+				position: relative;
+				box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+				overflow: hidden;
+				display: flex;
+				flex-direction: column;
+			}
+
+			.phone-notch {
+				position: absolute;
+				top: 0;
+				left: 50%;
+				transform: translateX(-50%);
+				width: 100px;
+				height: 20px;
+				background-color: #3c3c3c;
+				border-bottom-left-radius: 12px;
+				border-bottom-right-radius: 12px;
+				z-index: 3;
+			}
+
+			.screen-header {
+				background-color: #ce82ff;
+				height: 60px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				color: white;
+				font-weight: 800;
+				font-size: 16px;
+				padding-top: 10px;
+			}
+
+			.progress-bar {
+				height: 5px;
+				background-color: #e5e5e5;
+				margin: 15px;
+				border-radius: 3px;
+				overflow: hidden;
+			}
+
+			.progress-fill {
+				height: 100%;
+				width: 60%;
+				background-color: #58cc02;
+			}
+
+			.card-area {
+				flex: 1;
+				padding: 10px 20px;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.kanji-big {
+				font-family: 'Noto Sans JP', sans-serif;
+				font-size: clamp(40px, 8vh, 65px);
+				color: #3c3c3c;
+				font-weight: 900;
+				margin: 10px 0;
+				background-color: #f7f7f7;
+				width: 100%;
+				height: 25%;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				border-radius: 15px;
+				border: 1px solid #eee;
+			}
+
+			.question-text {
+				color: #777;
+				font-weight: 600;
+				font-size: 13px;
+				margin-bottom: 15px;
+			}
+
+			.option-btn {
+				width: 100%;
+				padding: 10px;
+				margin-bottom: 8px;
+				border: 2px solid #e5e5e5;
+				border-radius: 10px;
+				background: white;
+				color: #4b4b4b;
+				font-weight: 700;
+				font-size: 12px;
+				text-align: center;
+				box-shadow: 0 3px 0 #e5e5e5;
+			}
+
+			.option-btn.correct {
+				background-color: #dcfce7;
+				border-color: #58cc02;
+				color: #58cc02;
+				box-shadow: 0 3px 0 #58cc02;
+			}
+
+			/* Right Panel Typography */
+			.tag-pill {
+				max-width: fit-content;
+				background-color: #ce82ff;
+				color: white;
+				padding: 6px 16px;
+				border-radius: 20px;
+				font-weight: 800;
+				text-transform: uppercase;
+				font-size: 14px;
+				display: inline-block;
+				margin-bottom: 2vh;
+				box-shadow: 0 4px 0 #a661d1;
+			}
+
+			h1 {
+				font-size: clamp(36px, 5vh, 58px);
+				font-weight: 900;
+				color: #3c3c3c;
+				margin: 0;
+				line-height: 1.1;
+			}
+
+			.sub-heading {
+				font-size: clamp(18px, 2.5vh, 26px);
+				color: #ce82ff;
+				font-weight: 700;
+				margin-bottom: 4vh;
+			}
+
+			.feature-list {
+				display: flex;
+				flex-direction: column;
+				gap: 2vh;
+			}
+
+			.feature-item {
+				border: solid 3px #e5e5e5;
+				display: flex;
+				align-items: center;
+				gap: 20px;
+				background-color: rgba(255, 255, 255, 0.5);
+				border-radius: 16px;
+				padding: 18px;
+			}
+
+			.f-icon {
+				width: clamp(50px, 6vh, 65px);
+				height: clamp(50px, 6vh, 65px);
+				background-color: #fff;
+				border-radius: 15px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 24px;
+				flex-shrink: 0;
+				border: 2px solid #f3e5ff;
+				box-shadow: 0 4px 0 #e0c4f5;
+			}
+
+			.f-text h3 {
+				margin: 0;
+				font-size: clamp(16px, 2vh, 22px);
+				font-weight: 800;
+				color: #4b4b4b;
+			}
+
+			.f-text p {
+				margin: 2px 0 0 0;
+				font-size: clamp(14px, 1.6vh, 17px);
+				color: #777;
+				font-weight: 500;
+			}
+
+			.icon-mobile {
+				color: #1cb0f6;
+				border-color: #e0f2fe;
+				box-shadow: 0 4px 0 #bde0fe;
+			}
+			.icon-bus {
+				color: #ff9600;
+				border-color: #fff3d0;
+				box-shadow: 0 4px 0 #ffe08a;
+			}
+			.icon-test {
+				color: #ff4b4b;
+				border-color: #ffe0e0;
+				box-shadow: 0 4px 0 #ffc2c2;
+			}
+
+			/* Bottom Nav Mockup */
+			.bottom-nav {
+				height: 50px;
+				border-top: 1px solid #eee;
+				display: flex;
+				justify-content: space-around;
+				align-items: center;
+				color: #ccc;
+				font-size: 18px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="slide-container">
+			<div class="blob blob-1"></div>
+			<div class="blob blob-2"></div>
+
+			<div class="left-panel">
+				<div class="phone-mockup">
+					<div class="phone-notch"></div>
+					<div class="screen-header">Memorize Mode</div>
+					<div class="progress-bar"><div class="progress-fill"></div></div>
+					<div class="card-area">
+						<div class="kanji-big">勉強</div>
+						<div class="question-text">Ushbu so'z qanday o'qiladi?</div>
+						<div class="option-btn">Gakko (Maktab)</div>
+						<div class="option-btn correct">Benkyo (O'qish) <i class="fa-solid fa-check"></i></div>
+						<div class="option-btn">Sensei (O'qituvchi)</div>
+						<div class="option-btn">Taberu (Yemoq)</div>
+					</div>
+					<div class="bottom-nav">
+						<i class="fa-solid fa-house"></i>
+						<i class="fa-solid fa-layer-group" style="color: #ce82ff"></i>
+						<i class="fa-solid fa-user"></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="right-panel">
+				<div class="tag-pill">Yangi funksiya</div>
+				<h1>Memorize <span style="font-weight: 400">rejimi</span></h1>
+				<div class="sub-heading">Talabalar uchun maxsus yechim</div>
+
+				<div class="feature-list">
+					<div class="feature-item">
+						<div class="f-icon icon-mobile"><i class="fa-solid fa-mobile-screen-button"></i></div>
+						<div class="f-text">
+							<h3>Smartfonda o'rganing</h3>
+							<p>Printersiz, qog'ozsiz. Darslar doim yoningizda.</p>
+						</div>
+					</div>
+					<div class="feature-item">
+						<div class="f-icon icon-bus"><i class="fa-solid fa-bus"></i></div>
+						<div class="f-text">
+							<h3>Istalgan joyda</h3>
+							<p>Avtobus, metro yoki kutish vaqtida samarali foydalaning.</p>
+						</div>
+					</div>
+					<div class="feature-item">
+						<div class="f-icon icon-test"><i class="fa-solid fa-clipboard-check"></i></div>
+						<div class="f-text">
+							<h3>Test va Natijalar</h3>
+							<p>O'qish testlarini ishlang va JLPT ga tayyorlaning.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
