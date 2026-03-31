@@ -104,6 +104,7 @@
 
 			#presentation {
 				display: none;
+				height: calc(100dvh - 92px);
 			}
 
 			.stage {
@@ -111,14 +112,22 @@
 				border-radius: 14px;
 				padding: 12px;
 				box-shadow: 0 12px 28px rgba(15, 23, 42, 0.25);
+				height: 100%;
 			}
 
 			.stage-shell,
 			.slide-shell {
 				position: relative;
 				width: 100%;
-				height: 100%;
 				overflow: hidden;
+			}
+
+			.stage-shell {
+				height: 100%;
+			}
+
+			.slide-shell {
+				aspect-ratio: 16 / 9;
 			}
 
 			.stage-frame {
@@ -128,7 +137,10 @@
 				border-radius: 10px;
 				display: block;
 				background: #fff;
-				transform-origin: top left;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform-origin: center center;
 			}
 
 			.stage-frame.anim-next {
@@ -188,7 +200,10 @@
 				border: 0;
 				display: block;
 				border-radius: 10px;
-				transform-origin: top left;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform-origin: center center;
 			}
 
 			@media (max-width: 1320px) {
@@ -204,6 +219,23 @@
 			}
 
 			@media (max-width: 768px) {
+				.toolbar {
+					display: none;
+				}
+
+				#presentation {
+					height: 100dvh;
+				}
+
+				.stage {
+					padding: 0;
+					border-radius: 0;
+				}
+
+				.help {
+					display: none;
+				}
+
 				#previewBtn,
 				#presentationBtn,
 				#fullscreenBtn,
@@ -287,7 +319,7 @@
 					}
 
 					const scale = Math.min(shellWidth / SLIDE_WIDTH, shellHeight / SLIDE_HEIGHT)
-					$iframe.css('transform', 'scale(' + scale + ')')
+					$iframe.css('transform', 'translate(-50%, -50%) scale(' + scale + ')')
 				}
 
 				function fitAllFrames() {
@@ -360,7 +392,7 @@
 				for (let i = 1; i <= totalSlides; i += 1) {
 					const fileName = i + '.html'
 					const $section = $('<section>', { class: 'slide-section', id: 'slide-' + i })
-					const $label = $('<p>', { class: 'slide-label', text: 'Slide ' + i + ' - ' + fileName })
+					const $label = $('<p>', { class: 'slide-label', text: 'Slide ' + i })
 					const $shell = $('<div>', { class: 'slide-shell' })
 					const $frame = $('<iframe>', {
 						class: 'slide-frame',
