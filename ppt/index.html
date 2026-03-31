@@ -113,13 +113,22 @@
 				box-shadow: 0 12px 28px rgba(15, 23, 42, 0.25);
 			}
 
-			.stage-frame {
+			.stage-shell,
+			.slide-shell {
+				position: relative;
 				width: 100%;
+				height: 100%;
+				overflow: hidden;
+			}
+
+			.stage-frame {
+				width: var(--slide-width);
 				height: var(--slide-height);
 				border: 0;
 				border-radius: 10px;
 				display: block;
 				background: #fff;
+				transform-origin: top left;
 			}
 
 			.stage-frame.anim-next {
@@ -132,23 +141,19 @@
 
 			@keyframes slideInFromRight {
 				from {
-					opacity: 0.3;
-					transform: translateX(44px) scale(0.985);
+					opacity: 0.35;
 				}
 				to {
 					opacity: 1;
-					transform: translateX(0) scale(1);
 				}
 			}
 
 			@keyframes slideInFromLeft {
 				from {
-					opacity: 0.3;
-					transform: translateX(-44px) scale(0.985);
+					opacity: 0.35;
 				}
 				to {
 					opacity: 1;
-					transform: translateX(0) scale(1);
 				}
 			}
 
@@ -178,11 +183,12 @@
 			}
 
 			.slide-frame {
-				width: 100%;
+				width: var(--slide-width);
 				height: var(--slide-height);
 				border: 0;
 				display: block;
 				border-radius: 10px;
+				transform-origin: top left;
 			}
 
 			@media (max-width: 1320px) {
@@ -190,16 +196,28 @@
 					max-width: 100%;
 				}
 				.slide-section {
-					overflow-x: auto;
-				}
-				.slide-frame {
-					width: var(--slide-width);
+					overflow: hidden;
 				}
 				.stage {
-					overflow-x: auto;
+					overflow: hidden;
 				}
-				.stage-frame {
-					width: var(--slide-width);
+			}
+
+			@media (max-width: 768px) {
+				#previewBtn,
+				#presentationBtn,
+				#fullscreenBtn,
+				#prevBtn,
+				#nextBtn {
+					display: none;
+				}
+
+				.toolbar {
+					justify-content: flex-end;
+				}
+
+				.app {
+					padding: 12px 8px 24px;
 				}
 			}
 		</style>
@@ -225,12 +243,14 @@
 
 			<div id="presentation">
 				<div class="stage" id="stageContainer">
-					<iframe
-						class="stage-frame"
-						id="stageFrame"
-						src="1.html"
-						title="Presentation slide"
-					></iframe>
+					<div class="stage-shell" id="stageShell">
+						<iframe
+							class="stage-frame"
+							id="stageFrame"
+							src="1.html"
+							title="Presentation slide"
+						></iframe>
+					</div>
 				</div>
 				<p class="help">
 					Keyboard: ← oldingi, → keyingi, Home birinchi, End oxirgi, F fullscreen, Esc chiqish.
@@ -248,8 +268,35 @@
 				const $frame = $('#stageFrame')
 				const $counter = $('#counter')
 				const $stage = $('#stageContainer')
+				const SLIDE_WIDTH = 1280
+				const SLIDE_HEIGHT = 720
 				let currentIndex = 1
 				let isPresentationMode = false
+
+				function fitFrame($shell, $iframe) {
+					if ($shell.length === 0 || $iframe.length === 0) {
+						return
+					}
+
+					const shellEl = $shell.get(0)
+					const shellWidth = shellEl.clientWidth
+					const shellHeight = shellEl.clientHeight
+
+					if (!shellWidth || !shellHeight) {
+						return
+					}
+
+					const scale = Math.min(shellWidth / SLIDE_WIDTH, shellHeight / SLIDE_HEIGHT)
+					$iframe.css('transform', 'scale(' + scale + ')')
+				}
+
+				function fitAllFrames() {
+					fitFrame($('#stageShell'), $('#stageFrame'))
+					$('.slide-shell').each(function () {
+						const $shell = $(this)
+						fitFrame($shell, $shell.find('.slide-frame'))
+					})
+				}
 
 				function updateCounter() {
 					$counter.text(currentIndex + ' / ' + totalSlides)
@@ -265,6 +312,7 @@
 					}
 					$frame.attr('src', currentIndex + '.html')
 					updateCounter()
+					fitAllFrames()
 					setTimeout(function () {
 						$frame.removeClass('anim-next anim-prev')
 					}, 450)
@@ -276,9 +324,11 @@
 						$preview.hide()
 						$presentation.show()
 						renderStage()
+						fitAllFrames()
 					} else {
 						$presentation.hide()
 						$preview.show()
+						fitAllFrames()
 					}
 				}
 
@@ -311,6 +361,7 @@
 					const fileName = i + '.html'
 					const $section = $('<section>', { class: 'slide-section', id: 'slide-' + i })
 					const $label = $('<p>', { class: 'slide-label', text: 'Slide ' + i + ' - ' + fileName })
+					const $shell = $('<div>', { class: 'slide-shell' })
 					const $frame = $('<iframe>', {
 						class: 'slide-frame',
 						src: fileName,
@@ -321,7 +372,8 @@
 						setMode(true)
 					})
 
-					$section.append($label, $frame)
+					$shell.append($frame)
+					$section.append($label, $shell)
 					$slides.append($section)
 				}
 
@@ -389,8 +441,13 @@
 					}
 				})
 
+				$(window).on('resize', function () {
+					fitAllFrames()
+				})
+
 				setMode(false)
 				updateCounter()
+				fitAllFrames()
 			})
 		</script>
 	</body>
