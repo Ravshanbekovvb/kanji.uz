@@ -157,7 +157,7 @@ export default function RankingPage() {
 								<div className='flex items-center justify-between'>
 									<CardTitle className='flex items-center gap-2 text-base font-medium'>
 										<Trophy className='h-4 w-4 text-amber-600' />
-										{t('top10')}
+										{t('top5')}
 									</CardTitle>
 									<span className='rounded-full border border-slate-200 bg-slate-50 px-3 py-0.5 text-xs text-slate-500'>
 										{t('total')}: {data?.totalUsers || 0} {t('people')}

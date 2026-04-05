@@ -92,7 +92,7 @@ export async function GET(request: NextRequest): Promise<NextResponse<ApiRespons
 			}))
 
 		const payload: RankingPayload = {
-			topUsers: rankedUsers.slice(0, 10),
+			topUsers: rankedUsers.slice(0, 5),
 			currentUser: rankedUsers.find(user => user.id === userId) || null,
 			totalUsers: rankedUsers.length,
 		}
