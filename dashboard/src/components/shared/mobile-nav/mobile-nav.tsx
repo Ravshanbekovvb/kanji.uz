@@ -33,7 +33,7 @@ export default function MobileNav() {
 		<div className='md:hidden'>
 			{/* Bottom Navigation */}
 			<div className='fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t border-gray-200 z-50 pb-safe'>
-				<div className={`grid gap-1 px-2 py-2 grid-cols-4`}>
+				<div className={`grid gap-1 px-2 py-2 grid-cols-5`}>
 					{Menu &&
 						Menu.length > 0 &&
 						Menu.filter(item => item.isViewInMobile === true).map(item => {

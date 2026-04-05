@@ -26,6 +26,7 @@
 		"memorize": "単語を覚える",
 		"books": "本",
 		"createLesson": "レッスンを作成",
+		"ranking": "ランキング",
 		"readings": "読書",
 		"help": "ヘルプ"
 	},
@@ -65,5 +66,18 @@
 		"liveChatDescription": "サポートチャットで即時のヘルプを受ける",
 		"mailSupport": "メールサポート",
 		"mailSupportDescription": "メールで詳細な質問を送ってください"
+	},
+	"ranking": {
+		"myRank": "あなたの順位",
+		"podium": "表彰台",
+		"top10": "トップ10ユーザー",
+		"total": "合計",
+		"people": "人",
+		"lessons": "レッスン",
+		"words": "単語",
+		"lessonUnit": "レッスン",
+		"wordUnit": "単語",
+		"you": "あなた",
+		"error": "ランキングの読み込みに失敗しました。もう一度お試しください。"
 	}
 }

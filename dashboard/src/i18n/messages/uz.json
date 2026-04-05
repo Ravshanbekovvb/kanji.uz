@@ -26,6 +26,7 @@
 		"memorize": "So'z yodlash",
 		"books": "Kitoblar",
 		"createLesson": "Dars yaratish",
+		"ranking": "Reyting",
 		"readings": "O'qish",
 		"help": "Yordam"
 	},
@@ -65,5 +66,18 @@
 		"liveChatDescription": "Qo'llab-quvvatlash chatimiz orqali darhol yordam oling",
 		"mailSupport": "Elektron pochta orqali yordam",
 		"mailSupportDescription": "Elektron pochta orqali batafsil savollarni yuboring"
+	},
+	"ranking": {
+		"myRank": "Sizning o'rningiz",
+		"podium": "Podium",
+		"top10": "Top 10 foydalanuvchi",
+		"total": "Jami",
+		"people": "ta",
+		"lessons": "Darslar",
+		"words": "So'zlar",
+		"lessonUnit": "ta dars",
+		"wordUnit": "ta so'z",
+		"you": "Siz",
+		"error": "Reytingni yuklashda xatolik yuz berdi. Iltimos, qayta urinib ko'ring."
 	}
 }

@@ -26,6 +26,7 @@
 		"memorize": "Memorize Words",
 		"books": "Books",
 		"createLesson": "Create Lesson",
+		"ranking": "Ranking",
 		"readings": "Readings",
 		"help": "Help"
 	},
@@ -65,5 +66,18 @@
 		"liveChatDescription": "Get instant help through our support chat",
 		"mailSupport": "Mail Support",
 		"mailSupportDescription": "Send us detailed questions via email"
+	},
+	"ranking": {
+		"myRank": "Your rank",
+		"podium": "Podium",
+		"top10": "Top 10 users",
+		"total": "Total",
+		"people": "users",
+		"lessons": "Lessons",
+		"words": "Words",
+		"lessonUnit": "lessons",
+		"wordUnit": "words",
+		"you": "You",
+		"error": "Failed to load ranking. Please try again."
 	}
 }

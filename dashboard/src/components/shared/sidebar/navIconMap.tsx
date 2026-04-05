@@ -12,6 +12,7 @@ import {
 	ListCheck,
 	LogOut,
 	Settings,
+	Trophy,
 	Users,
 } from 'lucide-react'
 
@@ -30,4 +31,5 @@ export const navbarIconMap = {
 	FileUser: <FileUser className={'max-sm:size-5'} />,
 	reading: <BookOpenText className={'max-sm:size-5'} />,
 	ChartColumnDecreasing: <ChartColumnDecreasing className={'max-sm:size-5'} />,
+	trophy: <Trophy className={'max-sm:size-5'} />,
 } as const
