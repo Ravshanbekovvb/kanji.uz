@@ -30,6 +30,8 @@
 				min-height: 100vh;
 				display: flex;
 				flex-direction: column;
+				align-items: center;
+				justify-content: center;
 				position: relative;
 				background-color: #ffffff;
 				overflow: hidden;
@@ -266,64 +268,74 @@
 		</style>
 	</head>
 	<body>
-		<div class="slide-container">
+		<div class="slide-container" style="height: 100%">
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
-			<div class="header">
-				<div class="badge">Yechim</div>
-				<h1>Barcha ma'lumotlar — <span class="highlight">avtomatik</span></h1>
-			</div>
+			<div
+				style="
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					height: 100%;
+					justify-content: center;
+				"
+			>
+				<div class="header">
+					<div class="badge">Yechim</div>
+					<h1>Barcha ma'lumotlar — <span class="highlight">avtomatik</span></h1>
+				</div>
 
-			<div class="diagram-container">
-				<div class="input-section">
-					<div style="color: #afafaf; font-weight: 700; font-size: 14px">SIZ KIRITASIZ</div>
-					<div class="kanji-display">先生</div>
-					<div style="background: #f7f7f7; padding: 5px; border-radius: 8px; font-size: 12px">
-						Faqat iyerogliflar
+				<div class="diagram-container">
+					<div class="input-section">
+						<div style="color: #afafaf; font-weight: 700; font-size: 14px">SIZ KIRITASIZ</div>
+						<div class="kanji-display">先生</div>
+						<div style="background: #f7f7f7; padding: 5px; border-radius: 8px; font-size: 12px">
+							Faqat iyerogliflar
+						</div>
+					</div>
+
+					<div class="magic-arrow">
+						<i class="fa-solid fa-wand-magic-sparkles"></i>
+						<div class="arrow-line"><div class="arrow-head"></div></div>
+					</div>
+
+					<div class="output-section">
+						<div class="result-card card-blue">
+							<div class="card-icon"><i class="fa-solid fa-language"></i></div>
+							<div class="card-content">
+								<h3>Tarjima</h3>
+								<p>O'qituvchi</p>
+							</div>
+						</div>
+						<div class="result-card card-orange">
+							<div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div>
+							<div class="card-content">
+								<h3>O'qilishi</h3>
+								<p>せんせい</p>
+							</div>
+						</div>
+						<div class="result-card card-red">
+							<div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
+							<div class="card-content">
+								<h3>JLPT</h3>
+								<p>N5</p>
+							</div>
+						</div>
+						<div class="result-card card-purple">
+							<div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
+							<div class="card-content">
+								<h3>Misollar</h3>
+								<p style="font-family: 'Noto Sans JP'">先生は...</p>
+							</div>
+						</div>
 					</div>
 				</div>
 
-				<div class="magic-arrow">
-					<i class="fa-solid fa-wand-magic-sparkles"></i>
-					<div class="arrow-line"><div class="arrow-head"></div></div>
+				<div class="footer-banner">
+					<i class="fa-solid fa-check-circle"></i>
+					Ortiqcha qo'l mehnatiga hojat yo'q!
 				</div>
-
-				<div class="output-section">
-					<div class="result-card card-blue">
-						<div class="card-icon"><i class="fa-solid fa-language"></i></div>
-						<div class="card-content">
-							<h3>Tarjima</h3>
-							<p>O'qituvchi</p>
-						</div>
-					</div>
-					<div class="result-card card-orange">
-						<div class="card-icon"><i class="fa-solid fa-microphone-lines"></i></div>
-						<div class="card-content">
-							<h3>O'qilishi</h3>
-							<p>せんせい</p>
-						</div>
-					</div>
-					<div class="result-card card-red">
-						<div class="card-icon"><i class="fa-solid fa-layer-group"></i></div>
-						<div class="card-content">
-							<h3>JLPT</h3>
-							<p>N5</p>
-						</div>
-					</div>
-					<div class="result-card card-purple">
-						<div class="card-icon"><i class="fa-solid fa-lightbulb"></i></div>
-						<div class="card-content">
-							<h3>Misollar</h3>
-							<p style="font-family: 'Noto Sans JP'">先生は...</p>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="footer-banner">
-				<i class="fa-solid fa-check-circle"></i>
-				Ortiqcha qo'l mehnatiga hojat yo'q!
 			</div>
 		</div>
 	</body>

@@ -3,484 +3,222 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>KANJI.UZ - Barcha slaydlar</title>
+		<title>KANJI.UZ PPT Player</title>
 		<style>
 			:root {
-				--slide-width: 1280px;
-				--slide-height: 720px;
-				--gap: 28px;
-				--bg: #eef2f7;
-				--card: #ffffff;
-				--text: #1f2937;
-				--muted: #6b7280;
-				--line: #dbe3ee;
-				--brand: #2563eb;
+				color-scheme: light;
 			}
 
 			* {
 				box-sizing: border-box;
 			}
 
+			html,
 			body {
-				margin: 0;
-				font-family: 'Segoe UI', Tahoma, sans-serif;
-				background: radial-gradient(circle at top left, #f7fbff, var(--bg) 45%);
-				color: var(--text);
-			}
-
-			.app {
-				max-width: calc(var(--slide-width) + 64px);
-				margin: 0 auto;
-				padding: 18px 16px 40px;
-			}
-
-			.toolbar {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				gap: 10px;
-				margin-bottom: 18px;
-				flex-wrap: wrap;
-			}
-
-			.toolbar-left {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				flex-wrap: wrap;
-			}
-
-			.btn {
-				border: 1px solid #c9d5e5;
-				background: #fff;
-				color: #1f2937;
-				padding: 10px 14px;
-				border-radius: 10px;
-				font-size: 14px;
-				font-weight: 600;
-				cursor: pointer;
-			}
-
-			.btn:hover {
-				background: #f8fbff;
-			}
-
-			.btn-primary {
-				background: var(--brand);
-				color: #fff;
-				border-color: #1d4ed8;
-			}
-
-			.btn-primary:hover {
-				background: #1d4ed8;
-			}
-
-			.counter {
-				font-size: 14px;
-				color: var(--muted);
-				font-weight: 600;
-			}
-
-			.page {
-				display: block;
-			}
-
-			h1 {
-				margin: 0 0 8px;
-				font-size: 28px;
-			}
-
-			.subtitle {
-				margin: 0 0 24px;
-				font-size: 15px;
-				color: var(--muted);
-			}
-
-			#slides {
-				display: flex;
-				flex-direction: column;
-				gap: var(--gap);
-			}
-
-			#presentation {
-				display: none;
-				height: calc(100dvh - 92px);
-			}
-
-			.stage {
-				background: #0f172a;
-				border-radius: 14px;
-				padding: 12px;
-				box-shadow: 0 12px 28px rgba(15, 23, 42, 0.25);
-				height: 100%;
-			}
-
-			.stage-shell,
-			.slide-shell {
-				position: relative;
 				width: 100%;
+				height: 100%;
+				margin: 0;
+				padding: 0;
+				background: #0b1020;
+				font-family:
+					Montserrat,
+					Segoe UI,
+					Arial,
+					sans-serif;
 				overflow: hidden;
 			}
 
-			.stage-shell {
+			.viewer {
+				position: relative;
+				width: 100vw;
+				height: 100vh;
+			}
+
+			#slideFrame {
+				width: 100%;
 				height: 100%;
-			}
-
-			.slide-shell {
-				aspect-ratio: 16 / 9;
-			}
-
-			.stage-frame {
-				width: var(--slide-width);
-				height: var(--slide-height);
 				border: 0;
-				border-radius: 10px;
-				display: block;
-				background: #fff;
-				position: absolute;
-				top: 50%;
+				background: #111827;
+			}
+
+			.controls {
+				position: fixed;
 				left: 50%;
-				transform-origin: center center;
-			}
-
-			.stage-frame.anim-next {
-				animation: slideInFromRight 0.42s ease;
-			}
-
-			.stage-frame.anim-prev {
-				animation: slideInFromLeft 0.42s ease;
-			}
-
-			@keyframes slideInFromRight {
-				from {
-					opacity: 0.35;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-
-			@keyframes slideInFromLeft {
-				from {
-					opacity: 0.35;
-				}
-				to {
-					opacity: 1;
-				}
-			}
-
-			.help {
-				margin-top: 12px;
-				font-size: 13px;
-				color: #7b8798;
-			}
-
-			.slide-section {
-				background: var(--card);
-				border: 1px solid var(--line);
-				border-radius: 14px;
-				padding: 12px;
-				box-shadow: 0 10px 24px rgba(25, 40, 62, 0.08);
-			}
-
-			.slide-label {
-				display: inline-block;
-				margin: 0 0 10px;
-				padding: 4px 10px;
+				bottom: 16px;
+				transform: translateX(-50%);
+				display: flex;
+				align-items: center;
+				gap: 10px;
+				padding: 10px 12px;
 				border-radius: 999px;
-				background: #f1f5f9;
-				color: #334155;
+				background: rgba(15, 23, 42, 0.78);
+				backdrop-filter: blur(8px);
+				color: #e5e7eb;
+				z-index: 10;
+			}
+
+			.btn {
+				appearance: none;
+				border: 0;
+				border-radius: 999px;
+				padding: 8px 12px;
+				font-size: 13px;
+				font-weight: 700;
+				cursor: pointer;
+				background: #1f2937;
+				color: #f9fafb;
+			}
+
+			.btn:hover {
+				background: #374151;
+			}
+
+			.counter {
+				min-width: 86px;
+				text-align: center;
 				font-size: 13px;
 				font-weight: 700;
 			}
 
-			.slide-frame {
-				width: var(--slide-width);
-				height: var(--slide-height);
-				border: 0;
-				display: block;
-				border-radius: 10px;
-				position: absolute;
-				top: 50%;
+			.hint {
+				position: fixed;
+				top: 12px;
 				left: 50%;
-				transform-origin: center center;
+				transform: translateX(-50%);
+				padding: 6px 10px;
+				border-radius: 8px;
+				font-size: 12px;
+				font-weight: 600;
+				color: #d1d5db;
+				background: rgba(17, 24, 39, 0.7);
+				z-index: 10;
 			}
 
-			@media (max-width: 1320px) {
-				.app {
-					max-width: 100%;
-				}
-				.slide-section {
-					overflow: hidden;
-				}
-				.stage {
-					overflow: hidden;
-				}
-			}
-
-			@media (max-width: 768px) {
-				.toolbar {
-					display: none;
-				}
-
-				#presentation {
-					height: 100dvh;
-				}
-
-				.stage {
-					padding: 0;
-					border-radius: 0;
-				}
-
-				.help {
-					display: none;
-				}
-
-				#previewBtn,
-				#presentationBtn,
-				#fullscreenBtn,
-				#prevBtn,
-				#nextBtn {
-					display: none;
-				}
-
-				.toolbar {
-					justify-content: flex-end;
-				}
-
-				.app {
-					padding: 12px 8px 24px;
-				}
+			.is-fullscreen .hint,
+			.is-fullscreen .controls {
+				display: none;
 			}
 		</style>
 	</head>
 	<body>
-		<div class="app">
-			<div class="toolbar">
-				<div class="toolbar-left">
-					<button class="btn" id="previewBtn" type="button">Oddiy Preview</button>
-					<button class="btn btn-primary" id="presentationBtn" type="button">
-						View Presentation
-					</button>
-					<button class="btn" id="fullscreenBtn" type="button">Fullscreen</button>
-					<button class="btn" id="prevBtn" type="button">← Oldingi</button>
-					<button class="btn" id="nextBtn" type="button">Keyingi →</button>
-				</div>
-				<div class="counter" id="counter">1 / 11</div>
-			</div>
-
-			<div class="page" id="preview">
-				<div id="slides"></div>
-			</div>
-
-			<div id="presentation">
-				<div class="stage" id="stageContainer">
-					<div class="stage-shell" id="stageShell">
-						<iframe
-							class="stage-frame"
-							id="stageFrame"
-							src="1.html"
-							title="Presentation slide"
-						></iframe>
-					</div>
-				</div>
-				<p class="help">
-					Keyboard: ← oldingi, → keyingi, Home birinchi, End oxirgi, F fullscreen, Esc chiqish.
-				</p>
-			</div>
+		<div class="viewer">
+			<iframe id="slideFrame" title="PPT Slide" allowfullscreen></iframe>
 		</div>
 
-		<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+		<div class="hint">Keyboard: Left/Right, Space, Home/End, F fullscreen, Esc exit</div>
+
+		<div class="controls">
+			<button class="btn" id="prevBtn" type="button">Prev</button>
+			<div class="counter" id="counter">1 / 10</div>
+			<button class="btn" id="nextBtn" type="button">Next</button>
+			<button class="btn" id="fsBtn" type="button">Fullscreen</button>
+		</div>
+
 		<script>
-			$(function () {
-				const totalSlides = 11
-				const $slides = $('#slides')
-				const $preview = $('#preview')
-				const $presentation = $('#presentation')
-				const $frame = $('#stageFrame')
-				const $counter = $('#counter')
-				const $stage = $('#stageContainer')
-				const SLIDE_WIDTH = 1280
-				const SLIDE_HEIGHT = 720
-				let currentIndex = 1
-				let isPresentationMode = false
+			const slides = Array.from({ length: 10 }, (_, i) => `${i + 1}.html`)
 
-				function fitFrame($shell, $iframe) {
-					if ($shell.length === 0 || $iframe.length === 0) {
-						return
-					}
+			const slideFrame = document.getElementById('slideFrame')
+			const counter = document.getElementById('counter')
+			const prevBtn = document.getElementById('prevBtn')
+			const nextBtn = document.getElementById('nextBtn')
+			const fsBtn = document.getElementById('fsBtn')
 
-					const shellEl = $shell.get(0)
-					const shellWidth = shellEl.clientWidth
-					const shellHeight = shellEl.clientHeight
+			let currentIndex = 0
 
-					if (!shellWidth || !shellHeight) {
-						return
-					}
+			const clamp = n => Math.min(Math.max(n, 0), slides.length - 1)
 
-					const scale = Math.min(shellWidth / SLIDE_WIDTH, shellHeight / SLIDE_HEIGHT)
-					$iframe.css('transform', 'translate(-50%, -50%) scale(' + scale + ')')
+			const updateHash = () => {
+				history.replaceState(null, '', `#${currentIndex + 1}`)
+			}
+
+			const render = () => {
+				slideFrame.src = slides[currentIndex]
+				counter.textContent = `${currentIndex + 1} / ${slides.length}`
+				prevBtn.disabled = currentIndex === 0
+				nextBtn.disabled = currentIndex === slides.length - 1
+				updateHash()
+			}
+
+			const goTo = index => {
+				currentIndex = clamp(index)
+				render()
+			}
+
+			const next = () => goTo(currentIndex + 1)
+			const prev = () => goTo(currentIndex - 1)
+
+			const toggleFullscreen = async () => {
+				if (!document.fullscreenElement) {
+					await document.documentElement.requestFullscreen()
+					fsBtn.textContent = 'Exit Fullscreen'
+				} else {
+					await document.exitFullscreen()
+					fsBtn.textContent = 'Fullscreen'
 				}
+			}
 
-				function fitAllFrames() {
-					fitFrame($('#stageShell'), $('#stageFrame'))
-					$('.slide-shell').each(function () {
-						const $shell = $(this)
-						fitFrame($shell, $shell.find('.slide-frame'))
-					})
-				}
+			prevBtn.addEventListener('click', prev)
+			nextBtn.addEventListener('click', next)
+			fsBtn.addEventListener('click', toggleFullscreen)
 
-				function updateCounter() {
-					$counter.text(currentIndex + ' / ' + totalSlides)
-				}
-
-				function renderStage(direction) {
-					$frame.removeClass('anim-next anim-prev')
-					if (direction === 'next') {
-						$frame.addClass('anim-next')
-					}
-					if (direction === 'prev') {
-						$frame.addClass('anim-prev')
-					}
-					$frame.attr('src', currentIndex + '.html')
-					updateCounter()
-					fitAllFrames()
-					setTimeout(function () {
-						$frame.removeClass('anim-next anim-prev')
-					}, 450)
-				}
-
-				function setMode(presentation) {
-					isPresentationMode = presentation
-					if (presentation) {
-						$preview.hide()
-						$presentation.show()
-						renderStage()
-						fitAllFrames()
-					} else {
-						$presentation.hide()
-						$preview.show()
-						fitAllFrames()
-					}
-				}
-
-				function goNext() {
-					if (currentIndex < totalSlides) {
-						currentIndex += 1
-						renderStage('next')
-					}
-				}
-
-				function goPrev() {
-					if (currentIndex > 1) {
-						currentIndex -= 1
-						renderStage('prev')
-					}
-				}
-
-				function toggleFullscreen() {
-					const root = $stage.get(0)
-					if (!document.fullscreenElement) {
-						if (root.requestFullscreen) {
-							root.requestFullscreen()
-						}
-					} else if (document.exitFullscreen) {
-						document.exitFullscreen()
-					}
-				}
-
-				for (let i = 1; i <= totalSlides; i += 1) {
-					const fileName = i + '.html'
-					const $section = $('<section>', { class: 'slide-section', id: 'slide-' + i })
-					const $label = $('<p>', { class: 'slide-label', text: 'Slide ' + i })
-					const $shell = $('<div>', { class: 'slide-shell' })
-					const $frame = $('<iframe>', {
-						class: 'slide-frame',
-						src: fileName,
-					})
-
-					$section.on('dblclick', function () {
-						currentIndex = i
-						setMode(true)
-					})
-
-					$shell.append($frame)
-					$section.append($label, $shell)
-					$slides.append($section)
-				}
-
-				$('#previewBtn').on('click', function () {
-					setMode(false)
-				})
-
-				$('#presentationBtn').on('click', function () {
-					setMode(true)
-				})
-
-				$('#fullscreenBtn').on('click', function () {
-					if (!isPresentationMode) {
-						setMode(true)
-					}
-					toggleFullscreen()
-				})
-
-				$('#nextBtn').on('click', goNext)
-				$('#prevBtn').on('click', goPrev)
-
-				$(document).on('keydown', function (event) {
-					if (event.key === 'ArrowRight') {
-						if (!isPresentationMode) {
-							setMode(true)
-						}
-						goNext()
-					}
-
-					if (event.key === 'ArrowLeft') {
-						if (!isPresentationMode) {
-							setMode(true)
-						}
-						goPrev()
-					}
-
-					if (event.key === 'Home') {
-						if (!isPresentationMode) {
-							setMode(true)
-						}
-						currentIndex = 1
-						renderStage('prev')
-					}
-
-					if (event.key === 'End') {
-						if (!isPresentationMode) {
-							setMode(true)
-						}
-						currentIndex = totalSlides
-						renderStage('next')
-					}
-
-					if (event.key.toLowerCase() === 'f') {
-						if (!isPresentationMode) {
-							setMode(true)
-						}
-						toggleFullscreen()
-					}
-
-					if (event.key === 'Escape') {
-						if (document.fullscreenElement && document.exitFullscreen) {
-							document.exitFullscreen()
-						}
-						setMode(false)
-					}
-				})
-
-				$(window).on('resize', function () {
-					fitAllFrames()
-				})
-
-				setMode(false)
-				updateCounter()
-				fitAllFrames()
+			document.addEventListener('fullscreenchange', () => {
+				document.body.classList.toggle('is-fullscreen', Boolean(document.fullscreenElement))
+				fsBtn.textContent = document.fullscreenElement ? 'Exit Fullscreen' : 'Fullscreen'
 			})
+
+			document.addEventListener('keydown', e => {
+				const tag = (e.target && e.target.tagName) || ''
+				if (tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable) {
+					return
+				}
+
+				switch (e.key) {
+					case 'ArrowRight':
+					case 'PageDown':
+					case ' ':
+						e.preventDefault()
+						next()
+						break
+					case 'ArrowLeft':
+					case 'PageUp':
+						e.preventDefault()
+						prev()
+						break
+					case 'Home':
+						e.preventDefault()
+						goTo(0)
+						break
+					case 'End':
+						e.preventDefault()
+						goTo(slides.length - 1)
+						break
+					case 'f':
+					case 'F':
+						e.preventDefault()
+						toggleFullscreen()
+						break
+					default:
+						break
+				}
+			})
+
+			window.addEventListener('hashchange', () => {
+				const n = Number(window.location.hash.replace('#', ''))
+				if (Number.isFinite(n) && n >= 1 && n <= slides.length) {
+					goTo(n - 1)
+				}
+			})
+
+			const initialFromHash = Number(window.location.hash.replace('#', ''))
+			if (
+				Number.isFinite(initialFromHash) &&
+				initialFromHash >= 1 &&
+				initialFromHash <= slides.length
+			) {
+				currentIndex = initialFromHash - 1
+			}
+
+			render()
 		</script>
 	</body>
 </html>

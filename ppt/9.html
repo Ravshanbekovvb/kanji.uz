@@ -2,39 +2,43 @@
 <html lang="uz">
 	<head>
 		<meta charset="utf-8" />
-		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-		<title>KANJI.UZ - CRM Boshqaruv Paneli</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>KANJI.UZ - The Ask</title>
+
 		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			rel="stylesheet"
 		/>
-		<style>
-			* {
-				box-sizing: border-box;
-			}
 
-			html,
+		<style>
 			body {
 				margin: 0;
 				padding: 0;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
+				height: 100vh;
+				background-color: #f4f6fb;
 				font-family: 'Montserrat', sans-serif;
-				background: #f5f8fc;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				overflow: hidden;
 			}
 
 			.slide-container {
 				width: 100%;
 				height: 100vh;
-				padding: 24px;
 				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #ffffff;
 				overflow: hidden;
-				background: #ffffff;
+				padding: 40px;
+				text-align: center;
+				box-sizing: border-box;
 			}
 
 			.blob {
@@ -44,432 +48,114 @@
 			}
 
 			.blob-1 {
-				width: 380px;
-				height: 380px;
-				background: #e0f2fe;
-				top: -130px;
-				right: -90px;
-				opacity: 0.55;
+				width: 500px;
+				height: 500px;
+				background: #ff4b4b;
+				top: -150px;
+				right: -150px;
+				opacity: 0.08;
 			}
 
 			.blob-2 {
-				width: 360px;
-				height: 360px;
-				background: #dcfce7;
-				bottom: -150px;
-				left: -90px;
-				opacity: 0.7;
+				width: 400px;
+				height: 400px;
+				background: #ff9600;
+				bottom: -100px;
+				left: -100px;
+				opacity: 0.08;
 			}
 
-			.app {
-				position: relative;
+			.content {
 				z-index: 2;
-				height: 100%;
-				display: flex;
-				flex-direction: column;
-				gap: 16px;
+				max-width: 900px;
 			}
 
-			.topbar {
-				height: 70px;
-				border-radius: 18px;
-				background: #ffffff;
-				border: 2px solid #ebf1f8;
-				box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				padding: 0 22px;
-			}
-
-			.brand {
-				display: flex;
-				align-items: center;
-				gap: 12px;
+			.badge {
+				background-color: #ff4b4b;
+				color: white;
+				padding: 10px 20px;
+				border-radius: 12px;
 				font-weight: 800;
-				color: #1f2937;
-			}
-
-			.brand-icon {
-				width: 40px;
-				height: 40px;
-				border-radius: 12px;
-				background: linear-gradient(135deg, #58cc02, #1cb0f6);
-				color: #fff;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-size: 18px;
-				box-shadow: 0 4px 0 rgba(17, 24, 39, 0.12);
-			}
-
-			.top-actions {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-			}
-
-			.icon-btn {
-				width: 42px;
-				height: 42px;
-				border-radius: 12px;
-				border: 2px solid #e7edf6;
-				background: #fff;
-				color: #4b5563;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-size: 16px;
-			}
-
-			.profile {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				padding: 7px 12px;
-				border-radius: 12px;
-				border: 2px solid #e7edf6;
-				font-size: 13px;
-				font-weight: 700;
-				color: #374151;
-			}
-
-			.avatar {
-				width: 28px;
-				height: 28px;
-				border-radius: 50%;
-				background: #1cb0f6;
-				color: #fff;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				font-size: 12px;
-			}
-
-			.layout {
-				flex: 1;
-				display: grid;
-				grid-template-columns: 240px 1fr;
-				gap: 16px;
-				min-height: 0;
-			}
-
-			.sidebar {
-				background: #fff;
-				border: 2px solid #ebf1f8;
-				border-radius: 18px;
-				box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
-				padding: 16px 14px;
-				display: flex;
-				flex-direction: column;
-				gap: 8px;
-			}
-
-			.menu-item {
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				padding: 10px 12px;
-				border-radius: 12px;
-				font-size: 13px;
-				font-weight: 700;
-				color: #4b5563;
-			}
-
-			.menu-item.active {
-				background: #ecfdf5;
-				color: #15803d;
-				border: 2px solid #bbf7d0;
-			}
-
-			.main {
-				display: grid;
-				grid-template-rows: auto 1fr;
-				gap: 14px;
-				min-height: 0;
-			}
-
-			.stats-grid {
-				display: grid;
-				grid-template-columns: repeat(4, minmax(0, 1fr));
-				gap: 12px;
-			}
-
-			.stat-card {
-				background: #fff;
-				border-radius: 16px;
-				border: 2px solid #ebf1f8;
-				box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
-				padding: 12px 14px;
-			}
-
-			.stat-label {
-				font-size: 11px;
-				color: #6b7280;
-				font-weight: 700;
-				text-transform: uppercase;
-				letter-spacing: 0.3px;
-			}
-
-			.stat-value {
-				margin-top: 8px;
-				font-size: 24px;
-				font-weight: 900;
-				color: #111827;
-			}
-
-			.stat-meta {
-				margin-top: 6px;
-				font-size: 11px;
-				font-weight: 700;
-			}
-
-			.positive {
-				color: #16a34a;
-			}
-
-			.content-grid {
-				display: grid;
-				grid-template-columns: 1.3fr 1fr;
-				gap: 12px;
-				min-height: 0;
-			}
-
-			.panel {
-				background: #fff;
-				border-radius: 16px;
-				border: 2px solid #ebf1f8;
-				box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
-				padding: 12px;
-				display: flex;
-				flex-direction: column;
-				gap: 10px;
-			}
-
-			.panel-title {
-				font-size: 13px;
-				font-weight: 800;
-				color: #1f2937;
-			}
-
-			.schedule {
-				display: grid;
-				grid-template-columns: 86px repeat(5, 1fr);
-				gap: 6px;
-			}
-
-			.cell {
-				border-radius: 10px;
-				padding: 8px;
-				font-size: 10px;
-				font-weight: 700;
-				text-align: center;
-				background: #f8fbff;
-				border: 1px solid #e7edf6;
-				color: #4b5563;
-			}
-
-			.cell.head {
-				background: #f3f9ff;
-				color: #0f172a;
-			}
-
-			.cell.class {
-				background: #ecfeff;
-				border-color: #bae6fd;
-				color: #0369a1;
-			}
-
-			.right-stack {
-				display: grid;
-				grid-template-rows: 1fr 1fr;
-				gap: 12px;
-				min-height: 0;
-			}
-
-			.perf-row,
-			.activity-row {
-				display: grid;
-				grid-template-columns: 1.3fr 0.7fr 0.8fr;
-				gap: 8px;
-				font-size: 11px;
-				align-items: center;
-			}
-
-			.activity-row {
-				grid-template-columns: 1.8fr 0.7fr;
-			}
-
-			.row {
-				padding: 8px;
-				border-radius: 10px;
-				background: #f8fbff;
-				border: 1px solid #e7edf6;
-				font-weight: 700;
-				color: #374151;
-			}
-
-			.pill {
-				display: inline-block;
-				padding: 4px 8px;
-				border-radius: 999px;
-				font-size: 10px;
-				font-weight: 800;
-			}
-
-			.pill-green {
-				background: #dcfce7;
-				color: #15803d;
-			}
-
-			.pill-blue {
-				background: #dbeafe;
-				color: #1d4ed8;
-			}
-			.logo-icon {
-				height: fit-content;
-				color: #58cc02;
-				background-color: #fff;
-				border-radius: 27px;
+				font-size: 14px;
 				margin-bottom: 20px;
-				box-shadow:
-					0 6px 0 #404d36,
-					0 10px 20px rgba(0, 0, 0, 0.1);
+				display: inline-block;
+				box-shadow: 0 4px 0 #cc0000;
+			}
+
+			h1 {
+				font-size: clamp(32px, 6vw, 60px);
+				font-weight: 900;
+				color: #3c3c3c;
+				margin-bottom: 20px;
+			}
+
+			.description {
+				font-size: clamp(18px, 2.5vw, 26px);
+				color: #666;
+				line-height: 1.6;
+				font-weight: 600;
+				margin-bottom: 30px;
+			}
+
+			.use-boxes {
+				display: flex;
+				flex-wrap: wrap;
+				justify-content: center;
+				gap: 20px;
+				margin-top: 20px;
+			}
+
+			.use-box {
+				background: #fff;
+				border: 2px solid #f0f0f0;
+				border-radius: 20px;
+				padding: 20px;
+				min-width: 220px;
+				box-shadow: 0 6px 0 #f0f0f0;
+				font-weight: 700;
+				color: #444;
+			}
+
+			.use-box i {
+				display: block;
+				font-size: 30px;
+				margin-bottom: 10px;
+				color: #ff4b4b;
 			}
 		</style>
 	</head>
+
 	<body>
 		<div class="slide-container">
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
-			<div class="app">
-				<div class="topbar">
-					<div class="brand">
-						<img
-							src="https://ravshanbekovvb.github.io/kanji.uz/ppt/logo.png"
-							alt=""
-							style="width: 40px"
-							class="logo-icon"
-						/>
-						<span>Til CRM</span>
-					</div>
-					<div class="top-actions">
-						<div class="icon-btn"><i class="fa-regular fa-bell"></i></div>
-						<div class="profile">
-							<div class="avatar">AM</div>
-							<span>Admin Menejer <i class="fa-solid fa-angle-down"></i></span>
-						</div>
-					</div>
+			<div class="content">
+				<div class="badge">The Ask</div>
+
+				<h1>Bizga investitsiya kerak</h1>
+
+				<div class="description">
+					Bizga kuchli server infratuzilmasi va AI integratsiyalarni kengaytirish uchun investitsiya
+					kerak. Bu orqali foydalanuvchi tajribasini sezilarli darajada yaxshilaymiz va platformani
+					kengaytiramiz.
 				</div>
 
-				<div class="layout">
-					<aside class="sidebar">
-						<div class="menu-item active"><i class="fa-solid fa-house"></i> Boshqaruv</div>
-						<div class="menu-item"><i class="fa-solid fa-user-graduate"></i> Talabalar</div>
-						<div class="menu-item"><i class="fa-solid fa-chalkboard-user"></i> O'qituvchilar</div>
-						<div class="menu-item"><i class="fa-solid fa-users-rectangle"></i> Guruhlar</div>
-						<div class="menu-item"><i class="fa-regular fa-calendar"></i> Kalendar</div>
-						<div class="menu-item"><i class="fa-solid fa-chart-line"></i> Analitika</div>
-						<div class="menu-item"><i class="fa-solid fa-gear"></i> Sozlamalar</div>
-					</aside>
+				<div class="use-boxes">
+					<div class="use-box">
+						<i class="fa-solid fa-server"></i>
+						Kuchli server infratuzilmasi
+					</div>
 
-					<main class="main">
-						<section class="stats-grid">
-							<div class="stat-card">
-								<div class="stat-label">Jami Talabalar</div>
-								<div class="stat-value">1,248</div>
-								<div class="stat-meta positive">Bu oy +8.4%</div>
-							</div>
-							<div class="stat-card">
-								<div class="stat-label">Jami O'qituvchilar</div>
-								<div class="stat-value">74</div>
-								<div class="stat-meta positive">Bu oy +4 ta yangi</div>
-							</div>
-							<div class="stat-card">
-								<div class="stat-label">Faol Guruhlar</div>
-								<div class="stat-value">53</div>
-								<div class="stat-meta positive">92% qatnashuv</div>
-							</div>
-							<div class="stat-card">
-								<div class="stat-label">Oylik O'sish</div>
-								<div class="stat-value">+18%</div>
-								<div class="stat-meta positive">Reja oshirib bajarildi</div>
-							</div>
-						</section>
+					<div class="use-box">
+						<i class="fa-solid fa-brain"></i>
+						AI integratsiyalarni kengaytirish
+					</div>
 
-						<section class="content-grid">
-							<div class="panel">
-								<div class="panel-title">Haftalik Dars Jadvali</div>
-								<div class="schedule">
-									<div class="cell head">Vaqt</div>
-									<div class="cell head">Dush</div>
-									<div class="cell head">Sesh</div>
-									<div class="cell head">Chor</div>
-									<div class="cell head">Pay</div>
-									<div class="cell head">Juma</div>
-
-									<div class="cell head">09:00</div>
-									<div class="cell class">IELTS A2</div>
-									<div class="cell"></div>
-									<div class="cell class">JLPT N4</div>
-									<div class="cell"></div>
-									<div class="cell class">IELTS B1</div>
-
-									<div class="cell head">11:00</div>
-									<div class="cell"></div>
-									<div class="cell class">Speaking Laboratoriya</div>
-									<div class="cell"></div>
-									<div class="cell class">JLPT N3</div>
-									<div class="cell"></div>
-
-									<div class="cell head">14:00</div>
-									<div class="cell class">Grammatika Intensiv</div>
-									<div class="cell"></div>
-									<div class="cell class">Sinov Test</div>
-									<div class="cell"></div>
-									<div class="cell class">Insho Tahlili</div>
-								</div>
-							</div>
-
-							<div class="right-stack">
-								<div class="panel">
-									<div class="panel-title">O'qituvchilar Natijasi</div>
-									<div class="perf-row">
-										<div class="row">O'qituvchi</div>
-										<div class="row">Reyting</div>
-										<div class="row">Muvaffaqiyat</div>
-									</div>
-									<div class="perf-row">
-										<div class="row">Akiko Tanaka</div>
-										<div class="row">4.9</div>
-										<div class="row"><span class="pill pill-green">92%</span></div>
-									</div>
-									<div class="perf-row">
-										<div class="row">Aziza Karimova</div>
-										<div class="row">4.8</div>
-										<div class="row"><span class="pill pill-blue">89%</span></div>
-									</div>
-								</div>
-
-								<div class="panel">
-									<div class="panel-title">So'nggi Talaba Faolligi</div>
-									<div class="activity-row">
-										<div class="row">Madina IELTS Reading Set 4 ni topshirdi</div>
-										<div class="row">10:12</div>
-									</div>
-									<div class="activity-row">
-										<div class="row">Rustam JLPT N4 viktorinadan o'tdi</div>
-										<div class="row">09:30</div>
-									</div>
-									<div class="activity-row">
-										<div class="row">B2 guruhi talaffuz vazifasini yakunladi</div>
-										<div class="row">08:44</div>
-									</div>
-								</div>
-							</div>
-						</section>
-					</main>
+					<div class="use-box">
+						<i class="fa-solid fa-rocket"></i>
+						Mahsulotni tezlashtirish
+					</div>
 				</div>
 			</div>
 		</div>

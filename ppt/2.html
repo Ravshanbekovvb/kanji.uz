@@ -1,251 +1,150 @@
 <!doctype html>
-<html lang="ru">
+<html lang="uz">
 	<head>
 		<meta charset="utf-8" />
-		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-		<title>KANJI.UZ - Проблема</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>KANJI.UZ - Why Now</title>
+
 		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@400;700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			rel="stylesheet"
 		/>
+
 		<style>
 			body {
 				margin: 0;
 				padding: 0;
-				min-height: 100vh;
-				background-color: #fff5f5;
+				height: 100vh;
+				background-color: #f0f4f8;
 				font-family: 'Montserrat', sans-serif;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				overflow-x: hidden;
+				overflow: hidden;
 			}
 
 			.slide-container {
 				width: 100%;
-				min-height: 100vh;
-				display: flex;
-				flex-direction: row; /* Kompyuterda yonma-yon */
-				flex-wrap: wrap; /* Mobil qurilmada ustma-ust */
+				height: 100vh;
 				position: relative;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
 				background-color: #ffffff;
 				overflow: hidden;
+				text-align: center;
+				padding: 40px;
+				box-sizing: border-box;
 			}
 
-			/* Decorative Background Elements */
+			/* Background blobs */
 			.blob {
 				position: absolute;
 				border-radius: 50%;
 				z-index: 1;
 			}
+
 			.blob-1 {
 				width: 500px;
 				height: 500px;
-				background-color: #ff4b4b;
+				background: #1cb0f6;
 				top: -150px;
 				left: -150px;
 				opacity: 0.08;
 			}
+
 			.blob-2 {
 				width: 400px;
 				height: 400px;
-				background-color: #ff9600;
+				background: #58cc02;
 				bottom: -100px;
 				right: -100px;
 				opacity: 0.08;
 			}
 
-			/* Layout Panels */
-			.left-panel {
-				flex: 1;
-				min-width: 320px;
-				padding: clamp(30px, 5vw, 60px);
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				align-items: flex-start;
+			.content {
 				z-index: 2;
+				max-width: 900px;
 			}
 
-			.right-panel {
-				flex: 1.2;
-				min-width: 320px;
-				padding: clamp(30px, 5vw, 60px);
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-				gap: 20px;
-				z-index: 2;
-				background-color: rgba(255, 255, 255, 0.5);
-			}
-
-			/* Components */
 			.badge {
-				background-color: #ff4b4b;
+				background-color: #1cb0f6;
 				color: white;
-				font-weight: 800;
 				padding: 10px 20px;
 				border-radius: 12px;
+				font-weight: 800;
 				font-size: 14px;
-				text-transform: uppercase;
-				letter-spacing: 1px;
 				margin-bottom: 20px;
-				box-shadow: 0 4px 0 #cc0000;
+				display: inline-block;
+				box-shadow: 0 4px 0 #0b8ec2;
 			}
 
 			h1 {
-				font-size: clamp(32px, 5vw, 64px);
+				font-size: clamp(32px, 6vw, 64px);
 				font-weight: 900;
-				color: #4b4b4b;
+				color: #3c3c3c;
 				margin: 0 0 20px 0;
-				line-height: 1.1;
 			}
 
-			.highlight-red {
-				color: #ff4b4b;
+			.highlight {
+				color: #58cc02;
 			}
 
 			.description {
-				font-size: clamp(18px, 2vw, 24px);
-				color: #777;
+				font-size: clamp(18px, 2.5vw, 26px);
+				color: #666;
 				line-height: 1.5;
-				font-weight: 500;
-				margin-bottom: 20px;
+				font-weight: 600;
+				margin-top: 20px;
 			}
 
-			/* Problem Cards */
-			.problem-card {
-				background-color: #fff;
-				border: 2px solid #f2f2f2;
-				border-radius: 20px;
-				padding: clamp(15px, 3vw, 25px);
-				display: flex;
-				align-items: center;
-				gap: 20px;
-				box-shadow: 0 6px 0 #f2f2f2;
-				transition: all 0.3s ease;
-			}
-
-			.problem-card:hover {
-				transform: translateX(10px);
-				border-color: #ff4b4b;
-				box-shadow: 0 6px 0 #ffcfcf;
-			}
-
-			.icon-box {
-				width: 60px;
-				height: 60px;
-				background-color: #fff5f5;
-				border-radius: 16px;
+			.icons {
+				margin-top: 40px;
 				display: flex;
 				justify-content: center;
-				align-items: center;
-				color: #ff4b4b;
-				font-size: 24px;
-				flex-shrink: 0;
+				gap: 40px;
+				font-size: 40px;
+				color: #bbb;
 			}
 
-			.card-content h3 {
-				margin: 0 0 5px 0;
-				font-size: clamp(16px, 2vw, 20px);
-				font-weight: 800;
-				color: #4b4b4b;
+			.icons i {
+				transition: 0.3s;
 			}
 
-			.card-content p {
-				margin: 0;
-				font-size: clamp(14px, 1.5vw, 16px);
-				color: #888;
-				line-height: 1.4;
-			}
-
-			.jp-char {
-				font-family: 'Noto Sans JP', sans-serif;
-				color: #ff4b4b;
-			}
-
-			/* Tablet va Mobil uchun moslashuv */
-			@media (max-width: 768px) {
-				.slide-container {
-					flex-direction: column;
-					height: auto;
-				}
-				.left-panel {
-					align-items: center;
-					text-align: center;
-				}
-				.left-panel h1 br {
-					display: none;
-				}
-				.problem-card:hover {
-					transform: translateY(-5px);
-				}
+			.icons i:hover {
+				color: #58cc02;
+				transform: scale(1.2);
 			}
 		</style>
 	</head>
+
 	<body>
 		<div class="slide-container">
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
-			<div class="left-panel">
-				<div class="badge">Muammo</div>
-				<h1>Qo‘lda kiritish<br /><span class="highlight-red">vaqtni o‘g‘irlaydi</span></h1>
-				<p class="description">
-					Kanji ro‘yxatlarini qo‘lda tuzish — bu sekin va zerikarli jarayon. Bu esa til o‘rganish
-					samaradorligini sezilarli darajada pasaytiradi.
-				</p>
-				<div
-					style="
-						font-size: 80px;
-						color: #ff4b4b;
-						opacity: 0.1;
-						align-self: center;
-						margin-top: 20px;
-					"
-				>
-					<i class="fa-solid fa-clock-rotate-left"></i>
-				</div>
-			</div>
+			<div class="content">
+				<div class="badge">Why Now?</div>
 
-			<div class="right-panel">
-				<div class="problem-card">
-					<div class="icon-box"><i class="fa-solid fa-pen-to-square"></i></div>
-					<div class="card-content">
-						<h3>So‘zlarni qo‘lda yozish</h3>
-						<p>O‘qituvchi har bir so‘zni ro‘yxatga bittalab kiritishga majbur.</p>
-					</div>
+				<h1>
+					Biz <span class="highlight">o‘sib borayotgan</span><br />
+					yapon tili bozoridamiz
+				</h1>
+
+				<div class="description">
+					O‘zbekistonda talab ortmoqda,<br />
+					Yaponiyada esa ishchi kuchiga ehtiyoj oshmoqda.
 				</div>
 
-				<div class="problem-card">
-					<div class="icon-box"><i class="fa-solid fa-layer-group"></i></div>
-					<div class="card-content">
-						<h3>Ma'lumotlarning ko‘pligi</h3>
-						<p>
-							Tarjima, <span class="jp-char">o'qilishi</span>, JLPT darajasi va misollarni alohida
-							qidirish kerak.
-						</p>
-					</div>
-				</div>
-
-				<div class="problem-card">
-					<div class="icon-box"><i class="fa-solid fa-hourglass-end"></i></div>
-					<div class="card-content">
-						<h3>Sekin va noqulay</h3>
-						<p>Bitta darsni tayyorlash soatlab qimmatli vaqtni sarf qiladi.</p>
-					</div>
-				</div>
-
-				<div class="problem-card">
-					<div class="icon-box"><i class="fa-solid fa-file-circle-xmark"></i></div>
-					<div class="card-content">
-						<h3>Eskirgan uslublar</h3>
-						<p>Qog‘ozdagi materiallar zamonaviy ta'lim uchun samarasizdir.</p>
-					</div>
+				<div class="icons">
+					<i class="fa-solid fa-chart-line"></i>
+					<i class="fa-solid fa-globe"></i>
+					<i class="fa-solid fa-briefcase"></i>
 				</div>
 			</div>
 		</div>

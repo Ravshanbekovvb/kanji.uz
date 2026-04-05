@@ -1,287 +1,154 @@
 <!doctype html>
-<html lang="ru">
+<html lang="uz">
 	<head>
 		<meta charset="utf-8" />
-		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-		<title>KANJI.UZ - История идеи</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>KANJI.UZ - Why You</title>
+
 		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			rel="stylesheet"
 		/>
-		<style>
-			* {
-				box-sizing: border-box;
-			}
 
+		<style>
 			body {
 				margin: 0;
 				padding: 0;
-				min-height: 100vh;
+				height: 100vh;
 				background-color: #f7f9fb;
 				font-family: 'Montserrat', sans-serif;
 				display: flex;
 				justify-content: center;
 				align-items: center;
-				overflow-x: hidden;
+				overflow: hidden;
 			}
 
 			.slide-container {
 				width: 100%;
-				min-height: 100vh;
+				height: 100vh;
+				position: relative;
 				display: flex;
 				flex-direction: column;
-				position: relative;
+				justify-content: center;
+				align-items: center;
 				background-color: #ffffff;
 				overflow: hidden;
+				padding: 40px;
+				text-align: center;
+				box-sizing: border-box;
 			}
 
-			/* Decorative Background */
+			/* Background */
 			.blob {
 				position: absolute;
 				border-radius: 50%;
 				z-index: 1;
 			}
+
 			.blob-1 {
-				width: 40vw;
-				height: 40vw;
-				background-color: #fff9c4;
-				top: -15vw;
-				right: -10vw;
-				opacity: 0.5;
-			}
-			.blob-2 {
-				width: 35vw;
-				height: 35vw;
-				background-color: #e1f5fe;
-				bottom: -15vw;
-				left: -10vw;
-				opacity: 0.5;
+				width: 500px;
+				height: 500px;
+				background: #58cc02;
+				top: -150px;
+				right: -150px;
+				opacity: 0.08;
 			}
 
-			.header {
+			.blob-2 {
+				width: 400px;
+				height: 400px;
+				background: #1cb0f6;
+				bottom: -100px;
+				left: -100px;
+				opacity: 0.08;
+			}
+
+			.content {
 				z-index: 2;
-				padding: clamp(40px, 8vh, 80px) 20px 20px 20px;
-				text-align: center;
+				max-width: 900px;
+			}
+
+			.badge {
+				background-color: #58cc02;
+				color: white;
+				padding: 10px 20px;
+				border-radius: 12px;
+				font-weight: 800;
+				font-size: 14px;
+				margin-bottom: 20px;
+				display: inline-block;
+				box-shadow: 0 4px 0 #46a302;
 			}
 
 			h1 {
-				font-size: clamp(32px, 5vh, 52px);
+				font-size: clamp(32px, 6vw, 60px);
 				font-weight: 900;
 				color: #3c3c3c;
-				margin: 0;
-				line-height: 1.2;
+				margin-bottom: 20px;
 			}
 
-			.subtitle {
-				font-size: clamp(18px, 2.5vh, 26px);
-				color: #888;
-				margin-top: 15px;
+			.description {
+				font-size: clamp(18px, 2.5vw, 24px);
+				color: #666;
+				line-height: 1.6;
 				font-weight: 600;
+				margin-bottom: 30px;
 			}
 
-			/* Timeline Section */
-			.timeline-wrapper {
-				flex: 1;
-				z-index: 2;
+			.current-box {
+				background: #f0fdf4;
+				border: 2px solid #d9f99d;
+				border-radius: 20px;
+				padding: 20px;
+				font-weight: 700;
+				color: #3c3c3c;
+				box-shadow: 0 6px 0 #d9f99d;
+			}
+
+			.icons {
+				margin-top: 30px;
+				font-size: 36px;
+				color: #bbb;
 				display: flex;
-				align-items: center;
-				padding: 0 5vw 10vh 5vw;
-				position: relative;
-			}
-
-			.timeline-line {
-				position: absolute;
-				top: 42%; /* Ikonkalar markaziga moslashgan */
-				left: 10vw;
-				right: 10vw;
-				height: 6px;
-				background-color: #eee;
-				z-index: 1;
-				border-radius: 3px;
-			}
-
-			.steps-container {
-				display: flex;
-				justify-content: space-between;
-				width: 100%;
-				position: relative;
-				z-index: 2;
+				justify-content: center;
 				gap: 30px;
 			}
 
-			.step {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				align-items: center;
-				position: relative;
-			}
-
-			.step-icon {
-				width: clamp(80px, 12vh, 120px);
-				height: clamp(80px, 12vh, 120px);
-				border-radius: 50%;
-				background-color: #fff;
-				border: 6px solid;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				font-size: clamp(35px, 5vh, 50px);
-				margin-bottom: 25px;
-				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-				transition: transform 0.3s;
-				z-index: 3;
-				flex-shrink: 0;
-			}
-
-			.step-content {
-				background-color: #fff;
-				border: 2px solid #f0f0f0;
-				border-radius: 24px;
-				padding: clamp(20px, 3vh, 35px) 20px;
-				text-align: center;
-				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-				width: 100%;
-				box-sizing: border-box;
-				min-height: 180px; /* Bir xil balandlik uchun */
-				display: flex;
-				flex-direction: column;
-				justify-content: center;
-			}
-
-			/* Step Colors */
-			.step-1 .step-icon {
-				border-color: #1cb0f6;
-				color: #1cb0f6;
-			}
-			.step-2 .step-icon {
-				border-color: #ff9600;
-				color: #ff9600;
-			}
-			.step-3 .step-icon {
-				border-color: #ffc800;
-				background-color: #ffc800;
-				color: #fff;
-				transform: scale(1.15);
-				box-shadow: 0 12px 25px rgba(255, 200, 0, 0.4);
-			}
-			.step-4 .step-icon {
-				border-color: #58cc02;
+			.icons i:hover {
 				color: #58cc02;
-			}
-
-			h3 {
-				margin: 0 0 12px 0;
-				font-size: clamp(18px, 2.2vh, 22px);
-				font-weight: 800;
-				color: #333;
-			}
-
-			p {
-				margin: 0;
-				font-size: clamp(14px, 1.8vh, 16px);
-				color: #666;
-				line-height: 1.5;
-				font-weight: 500;
-			}
-
-			/* Adaptability */
-			@media (max-width: 900px) {
-				.timeline-line {
-					display: none;
-				}
-				.steps-container {
-					flex-direction: column;
-					align-items: center;
-				}
-				.step {
-					flex-direction: row;
-					width: 100%;
-					gap: 20px;
-				}
-				.step-content {
-					text-align: left;
-					min-height: auto;
-					padding: 20px;
-				}
-				.step-icon {
-					width: 80px;
-					height: 80px;
-					margin-bottom: 0;
-					font-size: 30px;
-				}
-				.step-3 .step-icon {
-					transform: scale(1.05);
-				}
-				.slide-container {
-					overflow-y: auto;
-				}
-				.timeline-wrapper {
-					padding-bottom: 40px;
-				}
+				transform: scale(1.2);
 			}
 		</style>
 	</head>
+
 	<body>
 		<div class="slide-container">
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
-			<div class="header">
-				<h1><span style="color: #58cc02">KANJI.UZ</span> g'oyasi qanday tug'ilgan?</h1>
-				<div class="subtitle">Qo'l mehnatidan kuchli avtomatlashtirishga qadar bo'lgan yo'l</div>
-			</div>
+			<div class="content">
+				<div class="badge">Why You?</div>
 
-			<div class="timeline-wrapper">
-				<div class="timeline-line"></div>
-				<div class="steps-container">
-					<div class="step step-1">
-						<div class="step-icon"><i class="fa-solid fa-graduation-cap"></i></div>
-						<div class="step-content">
-							<h3>N4–N3 daraja o'quvchisi</h3>
-							<p>
-								Yapon tilini o'rganib, doimiy ravishda ustozimdan yangi kanji ro'yxatlarini so'rar
-								edim.
-							</p>
-						</div>
-					</div>
+				<h1>Nega aynan men?</h1>
 
-					<div class="step step-2">
-						<div class="step-icon"><i class="fa-solid fa-keyboard"></i></div>
-						<div class="step-content">
-							<h3>Kuzatuv</h3>
-							<p>
-								O'qituvchim har bir so'zni va uning tarjimasini jadvalga
-								<b>qo'lda</b> kiritayotganini ko'rdim.
-							</p>
-						</div>
-					</div>
+				<div class="description">
+					Men Kanji.uz loyihasini qurish uchun to‘g‘ri insonman — chunki men yapon tilini o‘rganish
+					jarayonidagi muammolarni shaxsan boshdan kechirganman.
+					<!-- Shu sababli, o‘quvchilar uchun
+					qulay va samarali yechim yaratishga kuchli motivatsiyaga egaman. Bundan tashqari,
+					dasturlash bo‘yicha tajribam bu g‘oyani real mahsulotga aylantirish imkonini berdi. -->
+				</div>
 
-					<div class="step step-3">
-						<div class="step-icon"><i class="fa-solid fa-lightbulb"></i></div>
-						<div class="step-content">
-							<h3>G'oya (Insayt)</h3>
-							<p>
-								«Nega bu jarayonni <b>avtomatlashtirib</b>, soatlab vaqtni tejash mumkin emas?» —
-								degan savol tug'ildi.
-							</p>
-						</div>
-					</div>
+				<div class="current-box">🚀 Hozirda MVP tayyor va asosiy funksiyalar ishlamoqda</div>
 
-					<div class="step step-4">
-						<div class="step-icon"><i class="fa-solid fa-rocket"></i></div>
-						<div class="step-content">
-							<h3>Yechim</h3>
-							<p>
-								Darsliklar va testlarni bir necha soniya ichida yaratib beruvchi zamonaviy
-								platforma.
-							</p>
-						</div>
-					</div>
+				<div class="icons">
+					<i class="fa-solid fa-user"></i>
+					<i class="fa-solid fa-code"></i>
+					<i class="fa-solid fa-rocket"></i>
 				</div>
 			</div>
 		</div>

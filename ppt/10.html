@@ -2,41 +2,46 @@
 <html lang="uz">
 	<head>
 		<meta charset="utf-8" />
-		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
-		<title>KANJI.UZ - Talaba O'qish Sahifasi</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>KANJI.UZ - Thank You</title>
+
 		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@700&display=swap"
 			rel="stylesheet"
 		/>
 		<link
 			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
 			rel="stylesheet"
 		/>
-		<style>
-			* {
-				box-sizing: border-box;
-			}
 
-			html,
+		<style>
 			body {
 				margin: 0;
 				padding: 0;
-				width: 100%;
-				height: 100%;
-				overflow: hidden;
+				height: 100vh;
+				background-color: #f0f4f8;
 				font-family: 'Montserrat', sans-serif;
-				background: #f7fafc;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				overflow: hidden;
 			}
 
 			.slide-container {
 				width: 100%;
 				height: 100vh;
-				padding: 24px;
 				position: relative;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				background-color: #ffffff;
 				overflow: hidden;
-				background: #ffffff;
+				text-align: center;
+				padding: 40px;
+				box-sizing: border-box;
 			}
 
+			/* Background */
 			.blob {
 				position: absolute;
 				border-radius: 50%;
@@ -44,365 +49,83 @@
 			}
 
 			.blob-1 {
-				width: 420px;
-				height: 420px;
-				background: #ede9fe;
-				top: -180px;
-				right: -120px;
-				opacity: 0.6;
+				width: 500px;
+				height: 500px;
+				background: #58cc02;
+				top: -150px;
+				left: -150px;
+				opacity: 0.08;
 			}
 
 			.blob-2 {
-				width: 320px;
-				height: 320px;
-				background: #dcfce7;
-				bottom: -130px;
-				left: -100px;
-				opacity: 0.7;
+				width: 400px;
+				height: 400px;
+				background: #1cb0f6;
+				bottom: -100px;
+				right: -100px;
+				opacity: 0.08;
 			}
 
-			.app {
-				position: relative;
+			.content {
 				z-index: 2;
-				height: 100%;
-				display: grid;
-				grid-template-rows: auto 1fr;
-				gap: 14px;
+				max-width: 800px;
 			}
 
-			.header {
-				background: #fff;
-				border: 2px solid #ebf1f8;
-				border-radius: 18px;
-				box-shadow: 0 8px 20px rgba(17, 24, 39, 0.06);
-				padding: 14px 18px;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
+			h1 {
+				font-size: clamp(36px, 7vw, 80px);
+				font-weight: 900;
+				color: #3c3c3c;
+				margin-bottom: 20px;
 			}
 
-			.student {
-				display: flex;
-				align-items: center;
-				gap: 12px;
+			.jp {
+				font-family: 'Noto Sans JP', sans-serif;
+				color: #58cc02;
+				font-size: clamp(28px, 5vw, 48px);
+				margin-bottom: 20px;
 			}
 
-			.avatar {
-				width: 44px;
-				height: 44px;
-				border-radius: 12px;
-				background: linear-gradient(135deg, #1cb0f6, #58cc02);
-				color: #fff;
+			.subtitle {
+				font-size: clamp(18px, 2.5vw, 26px);
+				color: #777;
+				font-weight: 600;
+				margin-bottom: 30px;
+			}
+
+			.contact {
+				font-size: 18px;
+				color: #555;
+				font-weight: 700;
+				margin-top: 20px;
+			}
+
+			.icons {
+				margin-top: 30px;
+				font-size: 28px;
+				color: #bbb;
 				display: flex;
 				justify-content: center;
-				align-items: center;
-				font-size: 18px;
+				gap: 25px;
 			}
 
-			.name {
-				font-size: 18px;
-				font-weight: 800;
-				color: #111827;
-			}
-
-			.level {
-				font-size: 12px;
-				font-weight: 700;
-				color: #6b7280;
-			}
-
-			.alert {
-				padding: 9px 12px;
-				border-radius: 12px;
-				background: #fff7ed;
-				border: 2px solid #fed7aa;
-				color: #9a3412;
-				font-size: 12px;
-				font-weight: 700;
-				display: flex;
-				align-items: center;
-				gap: 8px;
-			}
-
-			.grid {
-				display: grid;
-				grid-template-columns: 1.1fr 1fr;
-				gap: 12px;
-				min-height: 0;
-			}
-
-			.left,
-			.right {
-				display: grid;
-				gap: 12px;
-				min-height: 0;
-			}
-
-			.left {
-				grid-template-rows: auto auto 1fr;
-			}
-
-			.right {
-				grid-template-rows: auto auto 1fr;
-			}
-
-			.card {
-				background: #fff;
-				border-radius: 16px;
-				border: 2px solid #ebf1f8;
-				box-shadow: 0 8px 18px rgba(17, 24, 39, 0.06);
-				padding: 12px;
-			}
-
-			.card-title {
-				font-size: 13px;
-				font-weight: 800;
-				color: #1f2937;
-				margin-bottom: 10px;
-			}
-
-			.vocab-card {
-				background: #f8fbff;
-				border: 2px solid #dbeafe;
-				border-radius: 14px;
-				padding: 10px;
-				display: grid;
-				grid-template-columns: 1fr auto;
-				gap: 10px;
-				align-items: center;
-			}
-
-			.word {
-				font-size: 24px;
-				font-weight: 900;
-				color: #1e40af;
-			}
-
-			.meta {
-				font-size: 12px;
-				font-weight: 700;
-				color: #374151;
-				line-height: 1.6;
-			}
-
-			.learn-btn {
-				padding: 9px 12px;
-				border-radius: 10px;
-				border: 0;
-				background: #58cc02;
-				color: #fff;
-				font-weight: 800;
-				font-size: 11px;
-				box-shadow: 0 4px 0 #46a302;
-			}
-
-			.progress-wrap {
-				background: #f3f4f6;
-				border-radius: 999px;
-				height: 12px;
-				overflow: hidden;
-				margin-bottom: 8px;
-			}
-
-			.progress {
-				height: 100%;
-				width: 68%;
-				background: linear-gradient(90deg, #1cb0f6, #58cc02);
-			}
-
-			.weak-list {
-				display: flex;
-				gap: 8px;
-				flex-wrap: wrap;
-			}
-
-			.weak-pill {
-				padding: 4px 8px;
-				border-radius: 999px;
-				font-size: 10px;
-				font-weight: 800;
-			}
-
-			.weak-red {
-				background: #fee2e2;
-				color: #b91c1c;
-			}
-
-			.weak-orange {
-				background: #ffedd5;
-				color: #c2410c;
-			}
-
-			.tabs {
-				display: flex;
-				gap: 8px;
-			}
-
-			.tab {
-				padding: 8px 10px;
-				border-radius: 10px;
-				font-size: 11px;
-				font-weight: 800;
-				border: 2px solid #e7edf6;
-				background: #fff;
-				color: #475569;
-			}
-
-			.tab.active {
-				background: #ecfeff;
-				border-color: #bae6fd;
-				color: #0e7490;
-			}
-
-			.video-grid {
-				display: grid;
-				grid-template-columns: repeat(2, minmax(0, 1fr));
-				gap: 8px;
-			}
-
-			.video {
-				background: #f8fafc;
-				border: 2px solid #e2e8f0;
-				border-radius: 12px;
-				padding: 9px;
-				font-size: 11px;
-				font-weight: 700;
-				color: #334155;
-				display: flex;
-				align-items: center;
-				gap: 8px;
-			}
-
-			.task-row {
-				display: grid;
-				grid-template-columns: 1.5fr 0.8fr 0.8fr;
-				gap: 8px;
-				margin-top: 6px;
-			}
-
-			.cell {
-				padding: 8px;
-				border-radius: 10px;
-				background: #f8fbff;
-				border: 1px solid #e7edf6;
-				font-size: 11px;
-				font-weight: 700;
-				color: #374151;
-			}
-
-			.status-ok {
-				color: #15803d;
-				background: #dcfce7;
-			}
-
-			.status-pending {
-				color: #b45309;
-				background: #fef3c7;
+			.icons i:hover {
+				color: #58cc02;
+				transform: scale(1.2);
 			}
 		</style>
 	</head>
+
 	<body>
 		<div class="slide-container">
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
-			<div class="app">
-				<header class="header">
-					<div class="student">
-						<div class="avatar"><i class="fa-solid fa-user-graduate"></i></div>
-						<div>
-							<div class="name">Madina Akbarova</div>
-							<div class="level">IELTS 5.5 | JLPT N4</div>
-						</div>
-					</div>
-					<div class="alert">
-						<i class="fa-regular fa-bell"></i>
-						<span>Eslatma: Grammatika vazifasi ertaga topshiriladi</span>
-					</div>
-				</header>
+			<div class="content">
+				<div class="jp">ありがとうございます</div>
 
-				<section class="grid">
-					<div class="left">
-						<div class="card">
-							<div class="card-title">Lug'at O'rganish</div>
-							<div class="vocab-card">
-								<div>
-									<div class="word">挑戦</div>
-									<div class="meta">
-										Tarjima: challenge<br />
-										Misol: Men har hafta yangi chaqiriqni yoqtiraman.<br />
-										Qiyinlik: O'rta
-									</div>
-								</div>
-								<button class="learn-btn">O'zlashtirildi deb belgilash</button>
-							</div>
-						</div>
+				<h1>E’tiboringiz uchun rahmat!</h1>
 
-						<div class="card">
-							<div class="card-title">Aqlli O'rganish Progressi</div>
-							<div class="progress-wrap"><div class="progress"></div></div>
-							<div class="meta" style="margin-bottom: 8px">Haftalik maqsadning 68% bajarildi</div>
-							<div class="weak-list">
-								<span class="weak-pill weak-red">Sust joy: Listening 3-qism</span>
-								<span class="weak-pill weak-orange">Sust joy: JLPT grammatika qoliplari</span>
-							</div>
-						</div>
-
-						<div class="card">
-							<div class="card-title">Amaliyot Bo'limi</div>
-							<div class="tabs">
-								<div class="tab active">Lug'at Testi</div>
-								<div class="tab">O'qish Testi</div>
-								<div class="tab">Grammatika Testi</div>
-							</div>
-						</div>
-					</div>
-
-					<div class="right">
-						<div class="card">
-							<div class="card-title">Video Darslar</div>
-							<div class="video-grid">
-								<div class="video">
-									<i class="fa-solid fa-play"></i> IELTS Speaking Band 6 bo'yicha maslahatlar
-								</div>
-								<div class="video">
-									<i class="fa-solid fa-play"></i> JLPT N4 grammatikasi kontekstda
-								</div>
-								<div class="video"><i class="fa-solid fa-play"></i> O'qish tezligini oshirish</div>
-								<div class="video"><i class="fa-solid fa-play"></i> Lug'atni yodlash usullari</div>
-							</div>
-						</div>
-
-						<div class="card" style="padding-bottom: 10px">
-							<div class="card-title">Vazifalar va Topshiriqlar</div>
-							<div class="task-row">
-								<div class="cell">IELTS Reading Set 5</div>
-								<div class="cell">16-may</div>
-								<div class="cell status-ok">Bajarilgan</div>
-							</div>
-							<div class="task-row">
-								<div class="cell">JLPT N4 Kanji Quiz</div>
-								<div class="cell">18-may</div>
-								<div class="cell status-pending">Kutilmoqda</div>
-							</div>
-							<div class="task-row">
-								<div class="cell">Insho: Madaniy mavzu</div>
-								<div class="cell">20-may</div>
-								<div class="cell status-pending">Kutilmoqda</div>
-							</div>
-						</div>
-
-						<div class="card">
-							<div class="card-title">Bildirishnomalar</div>
-							<div class="meta">
-								<i class="fa-regular fa-clock" style="color: #f97316"></i>
-								Speaking bo'yicha sinov imtihoni 2 soatdan keyin boshlanadi.<br /><br />
-								<i class="fa-regular fa-calendar-check" style="color: #16a34a"></i>
-								Bu hafta 4 ta vazifani yakunladingiz.
-							</div>
-						</div>
-					</div>
-				</section>
+				<div class="subtitle">Savollaringiz bormi?</div>
 			</div>
 		</div>
 	</body>
