@@ -37,43 +37,25 @@
 				class="pointer-events-none absolute left-1/2 top-0 h-60 w-60 -translate-x-1/2 rounded-full bg-violet-200/45 blur-3xl"
 			></div>
 
-			<div class="relative z-10 mx-auto flex h-full max-w-[1220px] flex-col px-6 pb-5 pt-4">
-				<header class="mb-3 text-center">
-					<h1 class="text-4xl font-black tracking-tight text-slate-900">
-						Oddiy va Shaffof Narxlar
-					</h1>
-					<p class="mt-2 text-sm font-medium text-slate-600">
-						Ta'lim markazingiz uchun eng mos tarifni tanlang
-					</p>
-					<div
-						class="mt-3 inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 shadow-sm"
-					>
-						<span class="text-xs font-semibold text-slate-700">Oylik</span>
-						<button
-							class="relative h-6 w-11 rounded-full bg-slate-200"
-							type="button"
-							aria-label="To'lov rejimi tugmasi"
-						>
-							<span
-								class="absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition"
-							></span>
-						</button>
-						<span class="text-xs font-semibold text-slate-400">Yillik</span>
-					</div>
+			<div
+				class="relative z-10 mx-auto flex h-full max-w-[1220px] flex-col items-center justify-center px-6 pb-6 pt-5"
+			>
+				<header class="mb-6 text-center" style="margin-bottom: 50px">
+					<h1 class="text-4xl font-black tracking-tight text-slate-900 lg:text-5xl">Tariflar</h1>
 				</header>
 
-				<section class="grid grid-cols-1 gap-4 lg:grid-cols-4">
+				<section class="grid w-full max-w-5xl grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-8">
 					<article
-						class="group relative rounded-3xl border border-slate-200 bg-white p-4 shadow-saas transition-all duration-300 hover:-translate-y-1 hover:shadow-saasHover"
+						class="group relative flex h-full min-h-[430px] flex-col rounded-3xl border border-slate-200 bg-white p-6 shadow-saas transition-all duration-300 hover:-translate-y-1.5 hover:shadow-saasHover"
 					>
 						<div
 							class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-emerald-600 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-white shadow"
 						>
-							3 oy bepul
+							bepul
 						</div>
-						<div class="mb-3 flex items-center justify-between pt-2">
+						<div class="mb-4 flex items-center justify-between pt-2">
 							<div
-								class="h-10 w-10 rounded-xl bg-emerald-100 text-emerald-600 grid place-items-center"
+								class="grid h-11 w-11 place-items-center rounded-xl bg-emerald-100 text-emerald-600"
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -88,37 +70,37 @@
 							</div>
 							<span
 								class="rounded-full bg-emerald-50 px-2.5 py-1 text-[10px] font-bold text-emerald-700"
-								>Kichik markazlar uchun</span
+								>Sinab ko'rish uchun</span
 							>
 						</div>
-						<h3 class="text-xl font-extrabold">Boshlang'ich</h3>
-						<div class="mt-2 flex items-end gap-1">
-							<span class="text-3xl font-black">Bepul</span>
-							<span class="pb-1 text-xs font-semibold text-slate-500">3 oy</span>
+						<h3 class="text-2xl font-extrabold">Boshlang'ich</h3>
+						<div class="mt-3 flex items-end gap-1">
+							<span class="text-4xl font-black leading-none">Bepul</span>
 						</div>
-						<ul class="mt-3 space-y-2 text-xs font-medium text-slate-700">
+						<ul class="mt-5 space-y-2.5 text-sm font-medium text-slate-700">
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>50 ta talaba
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>20 ta dars
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>5 ta o'qituvchi
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>1 ta dars uchun 20 ta
+								so'z
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Asosiy CRM
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Groq integratsiyasi
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Kalendar
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>O'qish testlari
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Uy vazifa tizimi
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>6 ta tilga tarjima
+								qilish
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Telegram
-								bildirishnomalari
+								<span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>Memorize funktsiyasi
 							</li>
 						</ul>
 						<button
-							class="mt-4 w-full rounded-xl bg-emerald-600 px-3 py-2 text-xs font-extrabold text-white transition hover:bg-emerald-700"
+							class="mt-5 w-full rounded-xl bg-emerald-600 px-3 py-3 text-sm font-extrabold text-white transition hover:bg-emerald-700"
 							type="button"
 						>
 							Bepul boshlash
@@ -126,15 +108,15 @@
 					</article>
 
 					<article
-						class="group relative scale-100 rounded-3xl border-2 border-blue-400 bg-gradient-to-b from-blue-50 to-white p-4 shadow-saas transition-all duration-300 hover:-translate-y-1 hover:shadow-saasHover lg:scale-105"
+						class="group relative flex h-full min-h-[430px] flex-col rounded-3xl border-2 border-blue-400 bg-gradient-to-b from-blue-50 to-white p-6 shadow-saas transition-all duration-300 hover:-translate-y-1.5 hover:shadow-saasHover lg:scale-[1.02]"
 					>
 						<div
 							class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-blue-600 px-3 py-1 text-[10px] font-extrabold uppercase tracking-wide text-white shadow"
 						>
 							Eng Ommabop
 						</div>
-						<div class="mb-3 flex items-center justify-between pt-2">
-							<div class="h-10 w-10 rounded-xl bg-blue-100 text-blue-600 grid place-items-center">
+						<div class="mb-4 flex items-center justify-between pt-2">
+							<div class="grid h-11 w-11 place-items-center rounded-xl bg-blue-100 text-blue-600">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="h-5 w-5"
@@ -152,219 +134,45 @@
 								</svg>
 							</div>
 							<span class="rounded-full bg-blue-100 px-2.5 py-1 text-[10px] font-bold text-blue-700"
-								>Ko'p tanlanadigan</span
+								>Professional</span
 							>
 						</div>
-						<h3 class="text-xl font-extrabold">Pro</h3>
-						<div class="mt-2 flex items-end gap-1">
-							<span class="text-3xl font-black">$15</span>
-							<span class="pb-1 text-xs font-semibold text-slate-500">/ oy</span>
+						<h3 class="text-2xl font-extrabold">Pro</h3>
+						<div class="mt-3 flex items-end gap-1">
+							<span class="text-4xl font-black leading-none">$5</span>
+							<span class="pb-1 text-sm font-semibold text-slate-500">/ oy</span>
 						</div>
-						<ul class="mt-3 space-y-2 text-xs font-semibold text-slate-700">
+						<ul class="mt-5 space-y-2.5 text-sm font-semibold text-slate-700">
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>200 ta talaba
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Cheksiz darslar
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>20 ta o'qituvchi
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>1 ta dars uchun cheksiz
+								so'zlar
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>To'liq CRM
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>ChatGPT integratsiyasi
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Analitika paneli
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>O'qish testlari uchun
+								analitika paneli
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Lug'at tizimi
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>10 ta tilga tarjima qilish
 							</li>
 							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Testlar: o'qish,
-								grammatika
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Video darslar
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Asosiy AI funksiyalar
+								<span class="h-1.5 w-1.5 rounded-full bg-blue-600"></span>Darslarni publik qilish va
+								ulashish
 							</li>
 						</ul>
 						<button
-							class="mt-4 w-full rounded-xl bg-blue-600 px-3 py-2 text-xs font-extrabold text-white transition hover:bg-blue-700"
+							class="mt-5 w-full rounded-xl bg-blue-600 px-3 py-3 text-sm font-extrabold text-white transition hover:bg-blue-700"
 							type="button"
 						>
 							Bepul sinovni boshlash
 						</button>
 					</article>
-
-					<article
-						class="group rounded-3xl border border-slate-200 bg-white p-4 shadow-saas transition-all duration-300 hover:-translate-y-1 hover:shadow-saasHover"
-					>
-						<div class="mb-3 flex items-center justify-between">
-							<div
-								class="h-10 w-10 rounded-xl bg-violet-100 text-violet-600 grid place-items-center"
-							>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.8"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M15 10.5V6.75A3.75 3.75 0 0011.25 3h-3.5A3.75 3.75 0 004 6.75v10.5A3.75 3.75 0 007.75 21h8.5A3.75 3.75 0 0020 17.25V10.5A3.75 3.75 0 0016.25 6.75h-1.5"
-									/>
-								</svg>
-							</div>
-							<span
-								class="rounded-full bg-violet-50 px-2.5 py-1 text-[10px] font-bold text-violet-700"
-								>O'sib borayotgan markazlar uchun</span
-							>
-						</div>
-						<h3 class="text-xl font-extrabold">Business</h3>
-						<div class="mt-2 flex items-end gap-1">
-							<span class="text-3xl font-black">$30</span>
-							<span class="pb-1 text-xs font-semibold text-slate-500">/ oy</span>
-						</div>
-						<ul class="mt-3 space-y-2 text-xs font-medium text-slate-700">
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Cheksiz talabalar
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Cheksiz o'qituvchilar
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Speaking tahlilchisi
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Aqlli o'qish yo'li
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Chuqur analitika
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>API kirish
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-violet-500"></span>Ustuvor
-								qo'llab-quvvatlash
-							</li>
-						</ul>
-						<button
-							class="mt-4 w-full rounded-xl border border-violet-200 bg-violet-50 px-3 py-2 text-xs font-bold text-violet-700 transition hover:bg-violet-100"
-							type="button"
-						>
-							Hozir yangilash
-						</button>
-					</article>
-
-					<article
-						class="group rounded-3xl border border-slate-200 bg-white p-4 shadow-saas transition-all duration-300 hover:-translate-y-1 hover:shadow-saasHover"
-					>
-						<div class="mb-3 flex items-center justify-between">
-							<div class="h-10 w-10 rounded-xl bg-amber-100 text-amber-600 grid place-items-center">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="1.8"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M3 7.5h18M6.75 3h10.5A2.25 2.25 0 0119.5 5.25v13.5A2.25 2.25 0 0117.25 21h-10.5A2.25 2.25 0 014.5 18.75V5.25A2.25 2.25 0 016.75 3z"
-									/>
-								</svg>
-							</div>
-							<span
-								class="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-700"
-								>Maxsus yechimlar</span
-							>
-						</div>
-						<h3 class="text-xl font-extrabold">Enterprise</h3>
-						<div class="mt-2 flex items-end gap-1">
-							<span class="text-3xl font-black">$50+</span>
-							<span class="pb-1 text-xs font-semibold text-slate-500">/ oy</span>
-						</div>
-						<ul class="mt-3 space-y-2 text-xs font-medium text-slate-700">
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Ko'p filialni
-								qo'llab-quvvatlash
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Maxsus brending
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Alohida server
-							</li>
-							<li class="flex items-center gap-2">
-								<span class="h-1.5 w-1.5 rounded-full bg-amber-500"></span>Shaxsiy
-								qo'llab-quvvatlash
-							</li>
-						</ul>
-						<button
-							class="mt-4 w-full rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-xs font-bold text-amber-700 transition hover:bg-amber-100"
-							type="button"
-						>
-							Savdo bo'limi bilan aloqa
-						</button>
-					</article>
 				</section>
-
-				<section class="mt-3 rounded-2xl border border-slate-200 bg-white/90 p-3 shadow-sm">
-					<div class="flex flex-col items-start justify-between gap-2 md:flex-row md:items-center">
-						<p class="text-xs font-semibold text-slate-700">
-							Barcha funksiyalarni to'liq solishtirmoqchimisiz? Limitlar, AI modullar va ishga
-							tushirish yordami bo'yicha to'liq jadvalni ko'ring.
-						</p>
-						<button
-							class="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-bold text-slate-700 transition hover:bg-slate-100"
-							type="button"
-						>
-							Taqqoslashni ko'rish
-						</button>
-					</div>
-				</section>
-
-				<section class="mt-2 grid grid-cols-1 gap-2 md:grid-cols-3">
-					<div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-						<h4 class="text-xs font-extrabold text-slate-900">
-							Keyinroq tarifni o'zgartira olamanmi?
-						</h4>
-						<p class="mt-1 text-[11px] font-medium text-slate-600">
-							Ha, tarifni yangilash bir zumda amalga oshadi va ma'lumotlaringiz saqlanib qoladi.
-						</p>
-					</div>
-					<div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-						<h4 class="text-xs font-extrabold text-slate-900">Bepul sinov bormi?</h4>
-						<p class="mt-1 text-[11px] font-medium text-slate-600">
-							Pro tarifida karta talab qilinmaydigan 14 kunlik bepul sinov mavjud.
-						</p>
-					</div>
-					<div class="rounded-xl border border-slate-200 bg-white p-3 shadow-sm">
-						<h4 class="text-xs font-extrabold text-slate-900">Bir nechta tillarni qo'llaysizmi?</h4>
-						<p class="mt-1 text-[11px] font-medium text-slate-600">
-							Ha, interfeys va o'quv kontenti bir nechta til paketlarini qo'llab-quvvatlaydi.
-						</p>
-					</div>
-				</section>
-
-				<footer
-					class="mt-auto flex items-center justify-between pt-2 text-[11px] font-semibold text-slate-500"
-				>
-					<div class="flex items-center gap-2">
-						<div class="h-6 w-6 rounded-md bg-gradient-to-br from-cyan-500 to-emerald-500"></div>
-						<span>Til CRM</span>
-					</div>
-					<div class="flex items-center gap-5">
-						<a href="#" class="transition hover:text-slate-700">Biz haqimizda</a>
-						<a href="#" class="transition hover:text-slate-700">Aloqa</a>
-						<a href="#" class="transition hover:text-slate-700">Maxfiylik</a>
-					</div>
-				</footer>
 			</div>
 		</div>
 	</body>

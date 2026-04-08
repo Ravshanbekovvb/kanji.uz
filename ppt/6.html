@@ -19,13 +19,18 @@
 				background: #eef4ff;
 				display: flex;
 				justify-content: center;
-				align-items: flex-start;
-				min-height: 100vh;
-				padding: 3rem 2rem;
+				align-items: center;
+				height: 100vh;
+				overflow: hidden;
+				padding: 1.25rem 2rem;
 			}
 			.container {
 				width: 100%;
 				max-width: 800px;
+				height: 100%;
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
 			}
 			.title {
 				font-size: 15px;
@@ -34,7 +39,7 @@
 				text-transform: uppercase;
 				letter-spacing: 2px;
 				text-align: center;
-				margin-bottom: 3rem;
+				margin-bottom: clamp(1rem, 2.4vh, 2rem);
 			}
 
 			/* PODIUM */
@@ -43,7 +48,7 @@
 				align-items: flex-end;
 				justify-content: center;
 				gap: 12px;
-				margin-bottom: 3rem;
+				margin-bottom: clamp(0.9rem, 2vh, 1.6rem);
 			}
 			.podium-item {
 				flex: 1;
@@ -107,19 +112,19 @@
 				justify-content: center;
 			}
 			.bar-1 {
-				height: 240px;
+				height: min(240px, 25vh);
 				background: #ffd700;
 				border: 3px solid #c9960a;
 				border-bottom: none;
 			}
 			.bar-2 {
-				height: 160px;
+				height: min(160px, 17vh);
 				background: #ff8c42;
 				border: 3px solid #d9621a;
 				border-bottom: none;
 			}
 			.bar-3 {
-				height: 120px;
+				height: min(120px, 13vh);
 				background: #38bdf8;
 				border: 3px solid #0e86c8;
 				border-bottom: none;
@@ -251,6 +256,28 @@
 				background: #ffd70033;
 				color: #a07000;
 			}
+
+			@media (max-height: 860px) {
+				body {
+					padding: 0.9rem 1.4rem;
+				}
+				.title {
+					margin-bottom: 0.8rem;
+				}
+				.podium {
+					margin-bottom: 0.9rem;
+				}
+				.user-name {
+					font-size: 15px;
+				}
+				.user-stats {
+					font-size: 12px;
+					line-height: 1.5;
+				}
+				.list-row {
+					padding: 14px 20px;
+				}
+			}
 		</style>
 	</head>
 	<body>
@@ -271,7 +298,7 @@
 					<div class="trophy">🏆</div>
 					<div class="avatar avatar-gold">M</div>
 					<div class="user-name">Mirzayev Temurbek</div>
-					<div class="user-stats">944 so'z<br />14 dars</div>
+					<div class="user-stats">1059 so'z<br />15 dars</div>
 					<div class="bar bar-1"><span class="bar-num-1">1</span></div>
 				</div>
 
@@ -297,7 +324,7 @@
 						<div class="mini-avatar gold">M</div>
 						<span class="user-label">Mirzayev Temurbek</span>
 					</div>
-					<span class="score">944 · 14</span>
+					<span class="score">1059 · 15</span>
 				</div>
 
 				<div class="list-row">
