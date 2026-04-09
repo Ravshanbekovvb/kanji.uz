@@ -3,10 +3,10 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>KANJI.UZ - Thank You</title>
+		<title>KANJI.UZ - Why You</title>
 
 		<link
-			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Noto+Sans+JP:wght@700&display=swap"
+			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
 			rel="stylesheet"
 		/>
 		<link
@@ -19,7 +19,7 @@
 				margin: 0;
 				padding: 0;
 				height: 100vh;
-				background-color: #f0f4f8;
+				background-color: #f7f9fb;
 				font-family: 'Montserrat', sans-serif;
 				display: flex;
 				justify-content: center;
@@ -32,12 +32,13 @@
 				height: 100vh;
 				position: relative;
 				display: flex;
+				flex-direction: column;
 				justify-content: center;
 				align-items: center;
 				background-color: #ffffff;
 				overflow: hidden;
-				text-align: center;
 				padding: 40px;
+				text-align: center;
 				box-sizing: border-box;
 			}
 
@@ -53,7 +54,7 @@
 				height: 500px;
 				background: #58cc02;
 				top: -150px;
-				left: -150px;
+				right: -150px;
 				opacity: 0.08;
 			}
 
@@ -62,71 +63,59 @@
 				height: 400px;
 				background: #1cb0f6;
 				bottom: -100px;
-				right: -100px;
+				left: -100px;
 				opacity: 0.08;
 			}
 
 			.content {
 				z-index: 2;
-				max-width: 800px;
+				max-width: 900px;
 			}
 
-			.brand-logo {
-				position: absolute;
-				top: 26px;
-				left: 32px;
-				z-index: 3;
-				display: flex;
-				align-items: center;
-				gap: 10px;
-				padding: 8px 12px;
-				border-radius: 14px;
-				background: rgba(255, 255, 255, 0.92);
-				box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-			}
-
-			.brand-logo img {
-				height: 34px;
-				width: auto;
-				display: block;
+			.badge {
+				background-color: #58cc02;
+				color: white;
+				padding: 10px 20px;
+				border-radius: 12px;
+				font-weight: 800;
+				font-size: 14px;
+				margin-bottom: 20px;
+				display: inline-block;
+				box-shadow: 0 4px 0 #46a302;
 			}
 
 			h1 {
-				white-space: nowrap;
-				font-size: clamp(36px, 7vw, 80px);
+				font-size: clamp(32px, 6vw, 60px);
 				font-weight: 900;
 				color: #3c3c3c;
 				margin-bottom: 20px;
 			}
 
-			.jp {
-				font-family: 'Noto Sans JP', sans-serif;
-				color: #58cc02;
-				font-size: clamp(28px, 5vw, 48px);
-				margin-bottom: 20px;
-			}
-
-			.subtitle {
-				font-size: clamp(18px, 2.5vw, 26px);
-				color: #777;
+			.description {
+				font-size: clamp(18px, 2.5vw, 24px);
+				color: #666;
+				line-height: 1.6;
 				font-weight: 600;
 				margin-bottom: 30px;
 			}
 
-			.contact {
-				font-size: 18px;
-				color: #555;
+			.current-box {
+				background: #f0fdf4;
+				border: 2px solid #d9f99d;
+				border-radius: 20px;
+				padding: 20px;
 				font-weight: 700;
-				margin-top: 20px;
+				color: #3c3c3c;
+				box-shadow: 0 6px 0 #d9f99d;
 			}
 
 			.icons {
 				margin-top: 30px;
-				font-size: 28px;
+				font-size: 36px;
 				color: #bbb;
 				display: flex;
 				justify-content: center;
-				gap: 25px;
+				gap: 30px;
 			}
 
 			.icons i:hover {
@@ -138,20 +127,29 @@
 
 	<body>
 		<div class="slide-container">
-			<div class="brand-logo">
-				<img src="./logo.png" alt="KANJI.UZ logo" />
-			</div>
-
 			<div class="blob blob-1"></div>
 			<div class="blob blob-2"></div>
 
 			<div class="content">
-				<div class="jp">ありがとうございます!</div>
-				<div style="display: flex; align-items: center; justify-content: center">
-					<h1>ご関心ありがとうございました！</h1>
+				<div class="badge">Why You?</div>
+
+				<h1>Nega aynan men?</h1>
+
+				<div class="description">
+					Men Kanji.uz loyihasini qurish uchun to‘g‘ri insonman — chunki men yapon tilini o‘rganish
+					jarayonidagi muammolarni shaxsan boshdan kechirganman.
+					<!-- Shu sababli, o‘quvchilar uchun
+					qulay va samarali yechim yaratishga kuchli motivatsiyaga egaman. Bundan tashqari,
+					dasturlash bo‘yicha tajribam bu g‘oyani real mahsulotga aylantirish imkonini berdi. -->
 				</div>
 
-				<div class="subtitle">質問がありますか？</div>
+				<div class="current-box">🚀 Hozirda MVP tayyor va asosiy funksiyalar ishlamoqda</div>
+
+				<div class="icons">
+					<i class="fa-solid fa-user"></i>
+					<i class="fa-solid fa-code"></i>
+					<i class="fa-solid fa-rocket"></i>
+				</div>
 			</div>
 		</div>
 	</body>

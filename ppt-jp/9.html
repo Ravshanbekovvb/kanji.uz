@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>KANJI.UZ - Future Vision</title>
+		<title>KANJI.UZ - The Ask</title>
 
 		<link
 			href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap"
@@ -19,7 +19,7 @@
 				margin: 0;
 				padding: 0;
 				height: 100vh;
-				background-color: #f7f9fb;
+				background-color: #f4f6fb;
 				font-family: 'Montserrat', sans-serif;
 				display: flex;
 				justify-content: center;
@@ -41,7 +41,6 @@
 				box-sizing: border-box;
 			}
 
-			/* Background */
 			.blob {
 				position: absolute;
 				border-radius: 50%;
@@ -51,28 +50,28 @@
 			.blob-1 {
 				width: 500px;
 				height: 500px;
-				background: #58cc02;
+				background: #ff4b4b;
 				top: -150px;
-				left: -150px;
+				right: -150px;
 				opacity: 0.08;
 			}
 
 			.blob-2 {
 				width: 400px;
 				height: 400px;
-				background: #1cb0f6;
+				background: #ff9600;
 				bottom: -100px;
-				right: -100px;
+				left: -100px;
 				opacity: 0.08;
 			}
 
 			.content {
 				z-index: 2;
-				max-width: 950px;
+				max-width: 940px;
 			}
 
 			.badge {
-				background-color: #1cb0f6;
+				background-color: #ff4b4b;
 				color: white;
 				padding: 10px 20px;
 				border-radius: 12px;
@@ -80,11 +79,10 @@
 				font-size: 14px;
 				margin-bottom: 20px;
 				display: inline-block;
-				box-shadow: 0 4px 0 #0b8ec2;
+				box-shadow: 0 4px 0 #cc0000;
 			}
 
 			h1 {
-				white-space: nowrap;
 				font-size: clamp(32px, 6vw, 60px);
 				font-weight: 900;
 				color: #3c3c3c;
@@ -99,15 +97,15 @@
 				margin-block: 50px;
 			}
 
-			.features {
+			.use-boxes {
 				display: flex;
 				flex-wrap: wrap;
 				justify-content: center;
 				gap: 20px;
-				margin-top: 30px;
+				margin-top: 20px;
 			}
 
-			.feature-box {
+			.use-box {
 				background: #fff;
 				border: 2px solid #f0f0f0;
 				border-radius: 20px;
@@ -118,11 +116,11 @@
 				color: #444;
 			}
 
-			.feature-box i {
+			.use-box i {
 				display: block;
 				font-size: 30px;
 				margin-bottom: 10px;
-				color: #1cb0f6;
+				color: #ff4b4b;
 			}
 		</style>
 	</head>
@@ -133,32 +131,31 @@
 			<div class="blob blob-2"></div>
 
 			<div class="content">
-				<div class="badge">Future Vision</div>
+				<div class="badge">The Ask</div>
 
-				<h1>私たちの将来の計画🚀</h1>
+				<h1>Bizga investitsiya kerak</h1>
 
 				<div class="description">
-					<!-- Kanji.uz’ni boshqa murakkab tillarga kengaytirib, AI orqali individual o‘qitish tizimini
-					rivojlantiramiz. Shuningdek, o‘qituvchilar uchun platforma yaratib, ta’lim jarayonini
-					to‘liq raqamlashtiramiz. -->
-					ゲーミフィケーションを通じて顧客エンゲージメントを強化し、単語用のテストモードを開発する予定です。サブスクリプション料金も引き上げる予定ですが、
-					これはユーザーにより多くの価値と機会を提供します。
+					Bizga kuchli server infratuzilmasi va AI integratsiyalarni kengaytirish uchun hamda
+					mahsulotni reklama qilish uchun investitsiya kerak.
+					<!-- Bu orqali foydalanuvchi tajribasini
+					sezilarli darajada yaxshilaymiz va platformani kengaytiramiz. -->
 				</div>
 
-				<div class="features">
-					<div class="feature-box">
-						<i class="fa-solid fa-gamepad"></i>
-						ゲーミフィケーション
+				<div class="use-boxes">
+					<div class="use-box">
+						<i class="fa-solid fa-server"></i>
+						Kuchli server infratuzilmasi
 					</div>
 
-					<div class="feature-box">
-						<i class="fa-solid fa-mobile-screen-button"></i>
-						サブスクリプション料金の増加
+					<div class="use-box">
+						<i class="fa-solid fa-brain"></i>
+						AI integratsiyalarni kengaytirish
 					</div>
 
-					<div class="feature-box">
-						<i class="fa-solid fa-clipboard-check"></i>
-						テストモード
+					<div class="use-box">
+						<i class="fa-solid fa-rocket"></i>
+						Reklama va Marketing qilish
 					</div>
 				</div>
 			</div>
