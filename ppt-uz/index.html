@@ -109,13 +109,25 @@
 
 		<div class="controls">
 			<button class="btn" id="prevBtn" type="button">Prev</button>
-			<div class="counter" id="counter">1 / 10</div>
+			<div class="counter" id="counter">1 / 11</div>
 			<button class="btn" id="nextBtn" type="button">Next</button>
 			<button class="btn" id="fsBtn" type="button">Fullscreen</button>
 		</div>
 
 		<script>
-			const slides = Array.from({ length: 10 }, (_, i) => `${i + 1}.html`)
+			const slides = [
+				'1.html',
+				'2.html',
+				'3.html',
+				'3-5.html',
+				'4.html',
+				'5.html',
+				'6.html',
+				'7.html',
+				'8.html',
+				'9.html',
+				'10.html',
+			]
 
 			const slideFrame = document.getElementById('slideFrame')
 			const counter = document.getElementById('counter')
