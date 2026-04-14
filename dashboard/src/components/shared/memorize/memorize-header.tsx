@@ -1,9 +1,25 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { useStore } from '@/store/store'
 import { PopoverClose } from '@radix-ui/react-popover'
 import clsx from 'clsx'
-import { Check, Eye, HelpCircle, LayoutGrid, List, RefreshCcw, X } from 'lucide-react'
-import { Dispatch, SetStateAction } from 'react'
+import {
+	Check,
+	Eye,
+	EyeClosed,
+	HelpCircle,
+	LayoutGrid,
+	List,
+	Maximize,
+	Minimize,
+	RefreshCcw,
+	Shuffle,
+	X,
+} from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from 'react'
 import { PageTitle } from '../title'
 interface Props {
 	needHelp: boolean
@@ -12,6 +28,11 @@ interface Props {
 	setWords: Dispatch<SetStateAction<any[]>>
 	isGridView: boolean
 	setIsGridView: Dispatch<SetStateAction<boolean>>
+	isKeyboardVisible: boolean
+	setIsKeyboardVisible: Dispatch<SetStateAction<boolean>>
+	carouselScale: number
+	setCarouselScale: Dispatch<SetStateAction<number>>
+	onShuffleWords: () => void
 }
 export const MemorizeHeader: React.FC<Props> = ({
 	needHelp,
@@ -20,11 +41,60 @@ export const MemorizeHeader: React.FC<Props> = ({
 	setWords,
 	isGridView,
 	setIsGridView,
+	isKeyboardVisible,
+	setIsKeyboardVisible,
+	carouselScale,
+	setCarouselScale,
+	onShuffleWords,
 }) => {
+	const t = useTranslations('navbar')
+	const { isOpen: isSidebarOpen, setIsOpen } = useStore()
+	const previousSidebarStateRef = useRef<boolean | null>(null)
+	const [isFullscreen, setIsFullscreen] = useState(false)
+
+	const restoreSidebarState = () => {
+		if (previousSidebarStateRef.current !== null) {
+			setIsOpen(previousSidebarStateRef.current)
+			previousSidebarStateRef.current = null
+		}
+	}
+
+	const handleEnterFullscreen = async () => {
+		if (!document.fullscreenElement) {
+			previousSidebarStateRef.current = isSidebarOpen
+			setIsOpen(false)
+			await document.documentElement.requestFullscreen()
+		}
+	}
+
+	const handleExitFullscreen = async () => {
+		if (document.fullscreenElement) {
+			await document.exitFullscreen()
+		}
+		restoreSidebarState()
+	}
+
+	useEffect(() => {
+		const handleFullscreenChange = () => {
+			const inFullscreen = Boolean(document.fullscreenElement)
+			setIsFullscreen(inFullscreen)
+
+			if (!inFullscreen) {
+				restoreSidebarState()
+			}
+		}
+
+		document.addEventListener('fullscreenchange', handleFullscreenChange)
+
+		return () => {
+			document.removeEventListener('fullscreenchange', handleFullscreenChange)
+		}
+	}, [])
+
 	return (
 		<div className='flex items-center gap-5 justify-between'>
 			<div className='flex items-center justify-between w-full'>
-				<PageTitle title='Memorize' />
+				<PageTitle title={t('memorize')} />
 				<Button
 					variant='outline'
 					onClick={() => {
@@ -35,8 +105,38 @@ export const MemorizeHeader: React.FC<Props> = ({
 					{isGridView ? <List /> : <LayoutGrid />}
 				</Button>
 			</div>
-
 			<div className={clsx('flex items-center justify-end gap-3  ', wordsLength ? '' : 'hidden')}>
+				<div className='flex items-center gap-2 px-2 py-1 border rounded-md'>
+					<span className='text-xs select-none'>A</span>
+					<input
+						type='range'
+						min={70}
+						max={130}
+						step={5}
+						value={carouselScale}
+						onChange={e => setCarouselScale(Number(e.target.value))}
+						className='w-20 cursor-pointer'
+					/>
+					<span className='text-sm select-none'>A</span>
+				</div>
+				<Button variant='outline' onClick={() => setIsKeyboardVisible(prev => !prev)}>
+					{isKeyboardVisible ? <Eye /> : <EyeClosed />}
+				</Button>
+				<Button
+					variant='outline'
+					onClick={isFullscreen ? handleExitFullscreen : handleEnterFullscreen}
+					aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+				>
+					{isFullscreen ? <Minimize /> : <Maximize />}
+				</Button>
+				<Button
+					variant='outline'
+					className='cursor-pointer'
+					onClick={onShuffleWords}
+					aria-label='Shuffle words'
+				>
+					<Shuffle size={15} />
+				</Button>
 				<Button
 					variant={'outline'}
 					className='cursor-pointer'

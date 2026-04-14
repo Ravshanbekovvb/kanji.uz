@@ -5,6 +5,7 @@ import { CarouselApi } from '@/components/ui/carousel'
 import { Section } from '@/components/ui/section'
 import { useAuth } from '@/contexts/auth-context'
 import { useFindLessonsByUserId } from '@/hooks/useLessons'
+import { cn } from '@/lib/func/utils'
 import { DarsData } from '@/types/types'
 import clsx from 'clsx'
 import { LoaderIcon } from 'lucide-react'
@@ -13,13 +14,14 @@ import { Congratulations } from '../congratulations/congratulations'
 import { CarouselMemorize } from './carousel-memorize'
 import { KeyboardButtons } from './keyboard-buttons'
 import { MemorizeHeader } from './memorize-header'
-import { cn } from '@/lib/func/utils'
 export const Memorize: React.FC = () => {
 	const [isGridView, setIsGridView] = useState<boolean>(true)
 	const [needHelp, setNeedHelp] = useState<boolean>(false)
 	const [words, setWords] = useState<any[]>([])
 	const [currentIndex, setCurrentIndex] = useState(0)
 	const [showWordDetails, setShowWordDetails] = useState<boolean>(false)
+	const [isKeyboardVisible, setIsKeyboardVisible] = useState<boolean>(true)
+	const [carouselScale, setCarouselScale] = useState<number>(100)
 	const [currentLessonTitle, setCurrentLessonTitle] = useState<string>('')
 	const [showCongratulations, setShowCongratulations] = useState<boolean>(false)
 	const [carouselApi, setCarouselApi] = useState<CarouselApi>()
@@ -66,6 +68,29 @@ export const Memorize: React.FC = () => {
 		}
 	}
 
+	const handleShuffleWords = () => {
+		if (words.length <= 1) return
+
+		const shuffledWords = [...words]
+		for (let i = shuffledWords.length - 1; i > 0; i--) {
+			const j = Math.floor(Math.random() * (i + 1))
+			;[shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]]
+		}
+
+		setWords(shuffledWords)
+		setCurrentIndex(0)
+
+		if (carouselApi) {
+			carouselApi.scrollTo(0)
+		}
+
+		const parsed = JSON.parse(localStorage.getItem('words-for-memorize') || '{}')
+		localStorage.setItem(
+			'words-for-memorize',
+			JSON.stringify({ ...parsed, title: currentLessonTitle, words: shuffledWords }),
+		)
+	}
+
 	const handleCloseCongratulations = () => {
 		setShowCongratulations(false)
 		setCurrentLessonTitle('')
@@ -74,7 +99,7 @@ export const Memorize: React.FC = () => {
 
 	useEffect(() => {
 		const parsed: DarsData = JSON.parse(
-			localStorage.getItem('words-for-memorize') || '{"words": []}'
+			localStorage.getItem('words-for-memorize') || '{"words": []}',
 		)
 		setWords(parsed.words || [])
 		setCurrentLessonTitle(parsed.title || '')
@@ -92,42 +117,30 @@ export const Memorize: React.FC = () => {
 
 	useEffect(() => {
 		const handleKeyDown = (e: KeyboardEvent) => {
+			if (words.length === 0) return
+
 			if (e.key === ' ') {
 				e.preventDefault()
-				const spaceBtn = document.getElementById('space') as HTMLButtonElement | null
-				if (spaceBtn) {
-					spaceBtn.classList.add('active')
-					spaceBtn.click()
-					setTimeout(() => {
-						spaceBtn.classList.remove('active')
-					}, 100)
-				}
+				handleNotMemorized()
 			} else if (e.key === 'Enter') {
 				e.preventDefault()
-				const enterBtn = document.getElementById('enter') as HTMLButtonElement | null
-				if (enterBtn) {
-					enterBtn.classList.add('active')
-					enterBtn.click()
-					setTimeout(() => {
-						enterBtn.classList.remove('active')
-					}, 100)
-				}
+				handleMemorized()
 			} else if (e.key === 'Control') {
 				e.preventDefault()
-				const ctrlBtn = document.getElementById('ctrl') as HTMLButtonElement | null
-				if (ctrlBtn) {
-					ctrlBtn.classList.add('active')
-					ctrlBtn.click()
-					setTimeout(() => {
-						ctrlBtn.classList.remove('active')
-					}, 100)
-				}
+				handleShowWordDetails()
 			}
 		}
 
 		window.addEventListener('keydown', handleKeyDown)
 		return () => window.removeEventListener('keydown', handleKeyDown)
-	}, [words.length, currentIndex, carouselApi])
+	}, [
+		words.length,
+		currentIndex,
+		carouselApi,
+		handleMemorized,
+		handleNotMemorized,
+		handleShowWordDetails,
+	])
 
 	if (error) {
 		return 'Error getting Lessons..'
@@ -149,28 +162,40 @@ export const Memorize: React.FC = () => {
 				setWords={setWords}
 				isGridView={isGridView}
 				setIsGridView={setIsGridView}
+				isKeyboardVisible={isKeyboardVisible}
+				setIsKeyboardVisible={setIsKeyboardVisible}
+				carouselScale={carouselScale}
+				setCarouselScale={setCarouselScale}
+				onShuffleWords={handleShuffleWords}
 			/>
 			{/* MAIN CONTENT */}
 			<div className='relative'>
 				{words.length > 0 ? (
 					<div
 						className={clsx(
-							'flex flex-col items-center transition-all duration-700 ease-in-out w-full'
+							'flex flex-col items-center justify-center min-h-[calc(100vh-220px)] transition-all duration-700 ease-in-out w-full',
 						)}
 					>
 						<div className='font-bold'>{currentLessonTitle}</div>
-						<CarouselMemorize
-							words={{ id: '', title: '', user: { userName: '' }, words, createdAt: '' }}
-							currentIndex={currentIndex}
-							setCarouselApi={setCarouselApi}
-						/>
-						<KeyboardButtons
-							onMemorized={handleMemorized}
-							onNotMemorized={handleNotMemorized}
-							onShowWordDetails={handleShowWordDetails}
-							showWordDetails={showWordDetails}
-							currentWord={words[currentIndex]}
-						/>
+						<div
+							className='transition-transform duration-200'
+							style={{ transform: `scale(${carouselScale / 100})`, transformOrigin: 'top center' }}
+						>
+							<CarouselMemorize
+								words={{ id: '', title: '', user: { userName: '' }, words, createdAt: '' }}
+								currentIndex={currentIndex}
+								setCarouselApi={setCarouselApi}
+							/>
+							{isKeyboardVisible && (
+								<KeyboardButtons
+									onMemorized={handleMemorized}
+									onNotMemorized={handleNotMemorized}
+									onShowWordDetails={handleShowWordDetails}
+									showWordDetails={showWordDetails}
+									currentWord={words[currentIndex]}
+								/>
+							)}
+						</div>
 					</div>
 				) : (
 					<div
@@ -178,7 +203,7 @@ export const Memorize: React.FC = () => {
 							'mt-5',
 							isGridView
 								? 'grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
-								: 'flex flex-col gap-4'
+								: 'flex flex-col gap-4',
 						)}
 					>
 						{data.lessons.length > 0
