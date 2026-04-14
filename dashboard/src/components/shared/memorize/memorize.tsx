@@ -71,12 +71,30 @@ export const Memorize: React.FC = () => {
 	const handleShuffleWords = () => {
 		if (words.length <= 1) return
 
-		const shuffledWords = [...words]
+		// 1. Massivni nusxalash va ichki elementlarni ham o'zgartirish
+		let shuffledWords = words.map(item => {
+			// Har bir element ichidagi 2 ta qiymatni tasodifiy almashtirish
+			// (Masalan: oq - white -> white - oq)
+			const shouldSwapInside = Math.random() > 0.5
+
+			if (shouldSwapInside && item.word && item.translation) {
+				return {
+					...item,
+					word: item.translation,
+					translation: item.word,
+					isSwapped: !item.isSwapped, // Holatni kuzatish uchun (ixtiyoriy)
+				}
+			}
+			return item
+		})
+
+		// 2. Endi butun ro'yxat tartibini aralashtiramiz (Fisher-Yates)
 		for (let i = shuffledWords.length - 1; i > 0; i--) {
 			const j = Math.floor(Math.random() * (i + 1))
 			;[shuffledWords[i], shuffledWords[j]] = [shuffledWords[j], shuffledWords[i]]
 		}
 
+		// 3. State va LocalStorage ni yangilash
 		setWords(shuffledWords)
 		setCurrentIndex(0)
 
