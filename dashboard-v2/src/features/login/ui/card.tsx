@@ -20,11 +20,11 @@ export const Card: React.FC<{ className?: string }> = ({ className, ...props }) 
 		<div className={cn('', className)} {...props}>
 			<CardRoot>
 				<CardHeader>
-					<div className='flex items-center gap-5'>
+					<div className='mb-5 flex items-center gap-5'>
 						<Image alt='Main logo' src={'/logo.png'} height={20} width={60} priority />
 						<span className='text-foreground text-2xl font-semibold'>
 							Dashboard kanji.uz
-						</span>{' '}
+						</span>
 					</div>
 					<CardTitle className='text-xl'>Kodni kiriting</CardTitle>
 					<CardDescription className='text-muted-foreground text-base'>
@@ -34,7 +34,7 @@ export const Card: React.FC<{ className?: string }> = ({ className, ...props }) 
 						Telegram botiga kiring va 1 daqiqa ichida tasdiqlash kodini oling.
 					</CardDescription>
 				</CardHeader>
-				<CardContent>
+				<CardContent className='my-5'>
 					<Form model={model} />
 				</CardContent>
 			</CardRoot>

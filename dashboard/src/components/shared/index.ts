@@ -1,7 +1,0 @@
-export * from './charts'
-export * from './delete-dialog'
-export * from './header'
-export * from './loader'
-export { default as MobileNav } from './mobile-nav'
-export * from './sidebar'
-export * from './word'
